@@ -23,7 +23,7 @@ namespace SandbarWorkbench
             {
                 m_fiDatabasePath = value;
                 if (value is System.IO.FileInfo && value.Exists)
-                    SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = value;
+                    SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = value.FullName;
                 UpdateMenuItemStatus();
             }
         }
@@ -196,10 +196,7 @@ namespace SandbarWorkbench
 
 
                 }
-
-
-
             }
         }
     }
-
+}

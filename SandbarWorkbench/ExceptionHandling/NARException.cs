@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace CHaMPWorkbench.Classes.ExceptionHandling
 {
@@ -45,7 +46,7 @@ namespace CHaMPWorkbench.Classes.ExceptionHandling
                 sExceptionJSON = ex.Message;
             }
 
-            if (CHaMPWorkbench.Properties.Settings.Default.AWSLoggingEnabled)
+            if (SandbarWorkbench.Properties.Settings.Default.AWSLoggingEnabled)
             {
                 // Truncate the main exception message to the max allowed length and log the exception to AWS.
                 // Note that the AWS Singleton must already be instantiated. 
