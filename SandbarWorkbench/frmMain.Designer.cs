@@ -30,6 +30,7 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -38,16 +39,15 @@
             this.sandbarSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteCamerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileVerticaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
@@ -80,6 +80,14 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // openDatabaseToolStripMenuItem
+            // 
+            this.openDatabaseToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.database;
+            this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
+            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.openDatabaseToolStripMenuItem.Text = "Open Database";
+            this.openDatabaseToolStripMenuItem.Click += new System.EventHandler(this.openDatabaseToolStripMenuItem_Click);
+            // 
             // closeDatabaseToolStripMenuItem
             // 
             this.closeDatabaseToolStripMenuItem.Name = "closeDatabaseToolStripMenuItem";
@@ -91,6 +99,7 @@
             this.databaseInformationToolStripMenuItem.Name = "databaseInformationToolStripMenuItem";
             this.databaseInformationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.databaseInformationToolStripMenuItem.Text = "Database Information";
+            this.databaseInformationToolStripMenuItem.Click += new System.EventHandler(this.databaseInformationToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -102,6 +111,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // viewsToolStripMenuItem
             // 
@@ -124,6 +134,7 @@
             this.remoteCamerasToolStripMenuItem.Name = "remoteCamerasToolStripMenuItem";
             this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
+            this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.remoteCamerasToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -132,6 +143,13 @@
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
             // 
             // windowToolStripMenuItem
             // 
@@ -143,6 +161,30 @@
             this.windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.windowToolStripMenuItem.Text = "Window";
             // 
+            // tileVerticaToolStripMenuItem
+            // 
+            this.tileVerticaToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.tile;
+            this.tileVerticaToolStripMenuItem.Name = "tileVerticaToolStripMenuItem";
+            this.tileVerticaToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileVerticaToolStripMenuItem.Text = "Tile Vertical";
+            this.tileVerticaToolStripMenuItem.Click += new System.EventHandler(this.tileVerticaToolStripMenuItem_Click);
+            // 
+            // tileHorizontalToolStripMenuItem
+            // 
+            this.tileHorizontalToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.tile_horizontal;
+            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
+            this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.tileHorizontalToolStripMenuItem_Click);
+            // 
+            // cascadeToolStripMenuItem
+            // 
+            this.cascadeToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.cascade;
+            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.cascadeToolStripMenuItem.Text = "Cascade";
+            this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -153,53 +195,13 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // aboutTheWorkbenchToolStripMenuItem
-            // 
-            this.aboutTheWorkbenchToolStripMenuItem.Name = "aboutTheWorkbenchToolStripMenuItem";
-            this.aboutTheWorkbenchToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.aboutTheWorkbenchToolStripMenuItem.Text = "About the Workbench";
-            // 
-            // openDatabaseToolStripMenuItem
-            // 
-            this.openDatabaseToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.database;
-            this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
-            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.openDatabaseToolStripMenuItem.Text = "Open Database";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // tileVerticaToolStripMenuItem
-            // 
-            this.tileVerticaToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.tile;
-            this.tileVerticaToolStripMenuItem.Name = "tileVerticaToolStripMenuItem";
-            this.tileVerticaToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.tileVerticaToolStripMenuItem.Text = "Tile Vertical";
-            // 
-            // tileHorizontalToolStripMenuItem
-            // 
-            this.tileHorizontalToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.tile_horizontal;
-            this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.tileHorizontalToolStripMenuItem.Text = "Tile Horizontal";
-            // 
-            // cascadeToolStripMenuItem
-            // 
-            this.cascadeToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.cascade;
-            this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.cascadeToolStripMenuItem.Text = "Cascade";
-            // 
             // sandbarWorkbenchOnlineHelpToolStripMenuItem
             // 
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Help;
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem.Name = "sandbarWorkbenchOnlineHelpToolStripMenuItem";
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem.Text = "Workbench Online Help";
+            this.sandbarWorkbenchOnlineHelpToolStripMenuItem.Click += new System.EventHandler(this.sandbarWorkbenchOnlineHelpToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
@@ -207,6 +209,13 @@
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
             this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+            // 
+            // aboutTheWorkbenchToolStripMenuItem
+            // 
+            this.aboutTheWorkbenchToolStripMenuItem.Name = "aboutTheWorkbenchToolStripMenuItem";
+            this.aboutTheWorkbenchToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.aboutTheWorkbenchToolStripMenuItem.Text = "About the Workbench";
+            this.aboutTheWorkbenchToolStripMenuItem.Click += new System.EventHandler(this.aboutTheWorkbenchToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -224,7 +233,7 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(93, 17);
             this.toolStripStatusLabel1.Text = "tssDatabasePath";
             // 
-            // Form1
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -233,8 +242,9 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

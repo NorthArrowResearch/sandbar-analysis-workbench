@@ -61,6 +61,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GCMRC Workbench.
+        /// </summary>
+        internal static string ApplicationNameLong {
+            get {
+                return ResourceManager.GetString("ApplicationNameLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cascade {
@@ -127,6 +136,15 @@ namespace SandbarWorkbench.Properties {
             get {
                 object obj = ResourceManager.GetObject("update", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://gcmrc.northarrowresearch.com.
+        /// </summary>
+        internal static string WebsiteURL {
+            get {
+                return ResourceManager.GetString("WebsiteURL", resourceCulture);
             }
         }
     }
