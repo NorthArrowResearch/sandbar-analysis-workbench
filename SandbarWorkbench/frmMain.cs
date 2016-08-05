@@ -165,6 +165,7 @@ namespace SandbarWorkbench
                 {
                     DBCon.ConnectionString = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = fiDatabase.FullName;
+                    SandbarWorkbench.Properties.Settings.Default.Save();
                     UpdateMenuItemStatus();
                 }
                 catch (Exception ex)
