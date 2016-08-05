@@ -76,6 +76,18 @@ namespace SandbarWorkbench
             System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Resources.WebsiteURL);
         }
 
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOptions frm = new frmOptions();
+            frm.ShowDialog();
+        }
+        
+        private void databaseInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDatabaseInfo frm = new frmDatabaseInfo();
+            frm.ShowDialog();
+        }
+
         #endregion
 
         private void sandbarSitesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,12 +144,6 @@ namespace SandbarWorkbench
 
             frm.Show();
             UpdateMenuItemStatus();
-        }
-
-        private void databaseInformationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDatabaseInfo frm = new frmDatabaseInfo();
-            frm.ShowDialog();
         }
 
         private void openDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
