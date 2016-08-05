@@ -7,20 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace SandbarWorkbench
 {
     public partial class frmMain : Form
     {
-        private string m_databasePath;
+        private System.IO.FileInfo m_fiDatabasePath;
 
-        public string DatabasePath
+        public System.IO.FileInfo DatabasePath
         {
-            get { return m_databasePath; }
+            get { return m_fiDatabasePath; }
 
             internal set
             {
-                m_databasePath = value;
+                m_fiDatabasePath = value;
+                if (value is System.IO.FileInfo && value.Exists)
+                    SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = value;
                 UpdateMenuItemStatus();
             }
         }
@@ -35,15 +38,14 @@ namespace SandbarWorkbench
             this.Text = SandbarWorkbench.Properties.Resources.ApplicationNameLong;
 
             if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
-                DatabasePath = SandbarWorkbench.Properties.Settings.Default.LastDatabasePath;
+                DatabasePath = new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
 
             UpdateMenuItemStatus();
         }
 
         private void UpdateMenuItemStatus()
         {
-            bool bActiveDatabase = !string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath)
-                && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
+            bool bActiveDatabase = DatabasePath is System.IO.FileInfo && DatabasePath.Exists;
 
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
@@ -156,11 +158,11 @@ namespace SandbarWorkbench
             frm.Title = string.Format("Open {0} Database", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
             frm.Filter = "SQLite Databases (*.sqlite, *.db)|*.sqlite;*.db";
 
-            if (!string.IsNullOrEmpty(DatabasePath) && System.IO.File.Exists(DatabasePath))
+            if (DatabasePath is System.IO.FileInfo && DatabasePath.Exists)
             {
                 // Initialize with the current database
-                frm.InitialDirectory = System.IO.Path.GetDirectoryName(DatabasePath);
-                frm.FileName = System.IO.Path.GetFileNameWithoutExtension(DatabasePath);
+                frm.InitialDirectory = DatabasePath.DirectoryName;
+                frm.FileName = System.IO.Path.GetFileNameWithoutExtension(DatabasePath.FullName);
             }
             else
             {
@@ -180,9 +182,24 @@ namespace SandbarWorkbench
 
         private void OpenDatabase(System.IO.FileInfo fiDatabase)
         {
+            if (fiDatabase.Exists)
+            {
+                try
+                {
+                    SQLiteConnection dbCon = new SQLiteConnection(fiDatabase.FullName);
+                    dbCon.Open();
+                    DatabasePath = fiDatabase;
+                    dbCon.Close();
+                }
+                catch (Exception ex)
+                {
 
 
+                }
+
+
+
+            }
         }
     }
-}
 
