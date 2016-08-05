@@ -97,6 +97,7 @@
             // 
             // databaseInformationToolStripMenuItem
             // 
+            this.databaseInformationToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Help;
             this.databaseInformationToolStripMenuItem.Name = "databaseInformationToolStripMenuItem";
             this.databaseInformationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.databaseInformationToolStripMenuItem.Text = "Database Information";

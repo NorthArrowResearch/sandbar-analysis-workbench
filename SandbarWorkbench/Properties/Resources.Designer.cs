@@ -110,6 +110,24 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to yyyy-MM-dd.
+        /// </summary>
+        internal static string SQLLiteDateFormat {
+            get {
+                return ResourceManager.GetString("SQLLiteDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy-MM-dd HH:mm:ss.
+        /// </summary>
+        internal static string SQLLiteDateTimeFormat {
+            get {
+                return ResourceManager.GetString("SQLLiteDateTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap tile {

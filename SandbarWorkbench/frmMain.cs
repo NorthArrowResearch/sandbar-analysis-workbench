@@ -136,7 +136,8 @@ namespace SandbarWorkbench
 
         private void databaseInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmDatabaseInfo frm = new frmDatabaseInfo();
+            frm.ShowDialog();
         }
 
         private void openDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
