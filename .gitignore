@@ -1,1 +1,4 @@
 *.sqlite
+bin/
+obj/
+.suo
