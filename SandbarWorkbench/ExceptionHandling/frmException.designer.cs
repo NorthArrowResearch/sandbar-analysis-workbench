@@ -1,4 +1,4 @@
-﻿namespace CHaMPWorkbench.Classes.ExceptionHandling
+﻿namespace SandbarWorkbench.ExceptionHandling
 {
     partial class frmException
     {

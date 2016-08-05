@@ -9,7 +9,7 @@ using Amazon.Runtime;
 using Amazon.CloudWatchLogs.Model;
 using System.Threading;
 
-namespace CHaMPWorkbench.Classes.AWSCloudWatch
+namespace SandbarWorkbench.AWSCloudWatch
 {
 
     /// <summary>
@@ -134,7 +134,6 @@ namespace CHaMPWorkbench.Classes.AWSCloudWatch
         }
 
         #endregion
-
 
         private void Connect()
         {

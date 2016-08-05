@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CHaMPWorkbench.Classes.AWSCloudWatch
+namespace SandbarWorkbench.AWSCloudWatch
 {
     /// <summary>
     /// This class is designed to be instantiated once within the parent application (i.e. the name "singleton").

@@ -6,7 +6,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace CHaMPWorkbench.Classes.ExceptionHandling
+namespace SandbarWorkbench.ExceptionHandling
 {
     /// <summary>
     /// This class serves to purposes:
@@ -38,7 +38,7 @@ namespace CHaMPWorkbench.Classes.ExceptionHandling
             string sExceptionJSON;
             try
             {
-                sExceptionJSON = Classes.ExceptionHandling.NARException.ToJSON(theException, AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID);
+                sExceptionJSON = ExceptionHandling.NARException.ToJSON(theException, AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID);
             }
             catch (Exception ex)
             {
@@ -63,8 +63,8 @@ namespace CHaMPWorkbench.Classes.ExceptionHandling
 
                 // Show the standard user interface form to the user.
                 // TODO: format the exception to plain English instead of JSON.
-                String prettyString = Classes.ExceptionHandling.NARException.ToString(theException, AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID);
-                CHaMPWorkbench.Classes.ExceptionHandling.frmException frm = new CHaMPWorkbench.Classes.ExceptionHandling.frmException(theException.Message, prettyString);
+                String prettyString = ExceptionHandling.NARException.ToString(theException, AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID);
+                ExceptionHandling.frmException frm = new ExceptionHandling.frmException(theException.Message, prettyString);
                 frm.ShowDialog();
             }
         }

@@ -13,21 +13,6 @@ namespace SandbarWorkbench
 {
     public partial class frmMain : Form
     {
-        private System.IO.FileInfo m_fiDatabasePath;
-
-        public System.IO.FileInfo DatabasePath
-        {
-            get { return m_fiDatabasePath; }
-
-            internal set
-            {
-                m_fiDatabasePath = value;
-                if (value is System.IO.FileInfo && value.Exists)
-                    SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = value.FullName;
-                UpdateMenuItemStatus();
-            }
-        }
-
         public frmMain()
         {
             InitializeComponent();
@@ -38,14 +23,14 @@ namespace SandbarWorkbench
             this.Text = SandbarWorkbench.Properties.Resources.ApplicationNameLong;
 
             if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
-                DatabasePath = new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
+                OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
 
             UpdateMenuItemStatus();
         }
 
         private void UpdateMenuItemStatus()
         {
-            bool bActiveDatabase = DatabasePath is System.IO.FileInfo && DatabasePath.Exists;
+            bool bActiveDatabase = !string.IsNullOrEmpty(DBCon.ConnectionString) && System.IO.File.Exists(DBCon.DatabasePath);
 
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
@@ -55,6 +40,8 @@ namespace SandbarWorkbench
             cascadeToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
             tileHorizontalToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
             tileVerticaToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
+
+            tssDatabasePath.Text = DBCon.DatabasePath;
         }
 
         #region "Generic Main Form Events"
@@ -158,20 +145,10 @@ namespace SandbarWorkbench
             frm.Title = string.Format("Open {0} Database", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
             frm.Filter = "SQLite Databases (*.sqlite, *.db)|*.sqlite;*.db";
 
-            if (DatabasePath is System.IO.FileInfo && DatabasePath.Exists)
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
             {
-                // Initialize with the current database
-                frm.InitialDirectory = DatabasePath.DirectoryName;
-                frm.FileName = System.IO.Path.GetFileNameWithoutExtension(DatabasePath.FullName);
-            }
-            else
-            {
-                // Initialize with the last used database
-                if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
-                {
-                    frm.InitialDirectory = System.IO.Path.GetDirectoryName(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
-                    frm.FileName = System.IO.Path.GetFileNameWithoutExtension(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
-                }
+                frm.InitialDirectory = System.IO.Path.GetDirectoryName(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
+                frm.FileName = System.IO.Path.GetFileNameWithoutExtension(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath);
             }
 
             if (frm.ShowDialog() == DialogResult.OK)
@@ -186,17 +163,27 @@ namespace SandbarWorkbench
             {
                 try
                 {
-                    SQLiteConnection dbCon = new SQLiteConnection(fiDatabase.FullName);
-                    dbCon.Open();
-                    DatabasePath = fiDatabase;
-                    dbCon.Close();
+                    DBCon.ConnectionString = fiDatabase.FullName;
+                    SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = fiDatabase.FullName;
+                    UpdateMenuItemStatus();
                 }
                 catch (Exception ex)
                 {
-
-
+                    ExceptionHandling.NARException.HandleException(ex);
                 }
             }
+        }
+
+        private void closeDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DBCon.CloseDatabase();
+            UpdateMenuItemStatus();
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(DBCon.DatabasePath) && System.IO.File.Exists(DBCon.DatabasePath))
+                System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(DBCon.DatabasePath));
         }
     }
 }

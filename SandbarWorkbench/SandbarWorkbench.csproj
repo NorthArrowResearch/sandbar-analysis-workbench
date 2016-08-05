@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBCon.cs" />
     <Compile Include="ExceptionHandling\AWSCloudWatchSingleton.cs" />
     <Compile Include="ExceptionHandling\CloudWatchLogsTraceListener.cs" />
     <Compile Include="ExceptionHandling\frmException.cs">
