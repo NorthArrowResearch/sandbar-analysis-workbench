@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBCon.cs" />
+    <Compile Include="DBHelpers\SQLiteHelpers.cs" />
     <Compile Include="ExceptionHandling\AWSCloudWatchSingleton.cs" />
     <Compile Include="ExceptionHandling\CloudWatchLogsTraceListener.cs" />
     <Compile Include="ExceptionHandling\frmException.cs">
@@ -107,6 +108,7 @@
     <Compile Include="frmOptions.Designer.cs">
       <DependentUpon>frmOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteCameras\frmRemoteCameras.cs">
@@ -121,6 +123,7 @@
     <Compile Include="Sandbars\frmSandbars.Designer.cs">
       <DependentUpon>frmSandbars.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sandbars\SandbarSite.cs" />
     <EmbeddedResource Include="ExceptionHandling\frmException.resx" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
@@ -144,6 +147,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RemoteCameras\frmRemoteCameras.resx">
+      <DependentUpon>frmRemoteCameras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\frmSandbars.resx">
+      <DependentUpon>frmSandbars.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
