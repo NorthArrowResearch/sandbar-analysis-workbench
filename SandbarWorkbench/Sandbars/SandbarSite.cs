@@ -18,11 +18,11 @@ namespace SandbarWorkbench.Sandbars
         public double RiverMile { get; internal set; }
         public ListItem RiverSide { get; internal set; }
         public string Title { get; internal set; }
-        public long EddySize { get; internal set; }
-        public double ExpansionRatio8k { get; internal set; }
-        public double ExpansionRatio8k45k { get; internal set; }
-        public double StageChange8k45k { get; internal set; }
-        public long PrimaryGDAWS { get; internal set; }
+        public Nullable<long> EddySize { get; internal set; }
+        public Nullable<double> ExpansionRatio8k { get; internal set; }
+        public Nullable<double> ExpansionRatio8k45k { get; internal set; }
+        public Nullable<double> StageChange8k45k { get; internal set; }
+        public Nullable<long> PrimaryGDAWS { get; internal set; }
 
         public string PrimaryGDAWSLink
         {
@@ -39,11 +39,11 @@ namespace SandbarWorkbench.Sandbars
             , long nRiverSideID
             , string sRiverSide
             , string sTitle
-            , long nEddySize
-            , double fExpansionRatio8k
-            , double fExpansionRatio8k45k
-            , double fStageChange8k45k
-            , long nPrimaryGDAWS)
+            , Nullable<long> nEddySize
+            , Nullable<double> fExpansionRatio8k
+            , Nullable<double> fExpansionRatio8k45k
+            , Nullable<double> fStageChange8k45k
+            , Nullable<long> nPrimaryGDAWS)
         {
             SiteID = nSiteID;
             SiteCode = sSiteCode;
@@ -78,11 +78,11 @@ namespace SandbarWorkbench.Sandbars
                         , (long)dbRead["RiverSideID"]
                         , (string)dbRead["RiverSide"]
                         , (string)dbRead["Title"]
-                        , DBHelpers.SQLiteHelpers.GetSafeValueInt(ref dbRead, "EddySize")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "ExpansionRatio8k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "ExpansionRatio45k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "StageChange8k45k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueInt(ref dbRead, "PrimaryGDAWS")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "EddySize")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
                         ));
                 }
 

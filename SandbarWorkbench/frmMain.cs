@@ -22,8 +22,25 @@ namespace SandbarWorkbench
         {
             this.Text = SandbarWorkbench.Properties.Resources.ApplicationNameLong;
 
-            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
-                OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
+            if (SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase)
+            {
+                if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
+                    OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
+            }
+
+            if (!string.IsNullOrEmpty(DBCon.ConnectionString) && System.IO.File.Exists(DBCon.DatabasePath))
+            {
+                switch (SandbarWorkbench.Properties.Settings.Default.StartupView)
+                {
+                    case 1:
+                        sandbarSitesToolStripMenuItem_Click(null, null);
+                        break;
+
+                    case 2:
+                        remoteCamerasToolStripMenuItem_Click(null, null);
+                        break;
+                }
+            }
 
             UpdateMenuItemStatus();
         }
@@ -81,7 +98,7 @@ namespace SandbarWorkbench
             frmOptions frm = new frmOptions();
             frm.ShowDialog();
         }
-        
+
         private void databaseInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmDatabaseInfo frm = new frmDatabaseInfo();

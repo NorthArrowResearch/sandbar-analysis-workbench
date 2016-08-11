@@ -23,5 +23,11 @@
     <Setting Name="AWSSecret" Type="System.String" Scope="User">
       <Value Profile="(Default)">hSd6jwqQUs8Bk2AxC+hXV/CNhY3J2KP2gmIesC5/</Value>
     </Setting>
+    <Setting Name="LoadLastDatabase" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="StartupView" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

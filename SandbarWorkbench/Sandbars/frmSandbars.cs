@@ -26,7 +26,7 @@ namespace SandbarWorkbench.Sandbars
             AddDataGridViewTextColumn(ref grdData, "River Mile", "RiverMile", true);
             AddDataGridViewTextColumn(ref grdData, "Bank", "RiverSide", true);
             AddDataGridViewTextColumn(ref grdData, "Title", "Title", true);
-            AddDataGridViewTextColumn(ref grdData, "Eddy Size", "EddySize", true);
+            AddDataGridViewTextColumn(ref grdData, "Eddy Size", "EddySize", true, "#,##0");
             AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 8k", "ExpansionRatio8k", true);
             AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 45k", "ExpansionRatio8k45k", true);
             AddDataGridViewTextColumn(ref grdData, "Stage Change", "StageChange8k45k", true);
@@ -40,12 +40,16 @@ namespace SandbarWorkbench.Sandbars
 
         }
 
-        private void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible)
+        private void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, string sFormat = "")
         {
             var aCol = new DataGridViewTextBoxColumn();
             aCol.Visible = bVisible;
             aCol.HeaderText = sHeaderText;
             aCol.DataPropertyName = sDataPropertyMember;
+
+            if (!string.IsNullOrEmpty(sFormat))
+                aCol.DefaultCellStyle.Format = sFormat;
+
             dg.Columns.Add(aCol);
         }
 
@@ -57,6 +61,12 @@ namespace SandbarWorkbench.Sandbars
             aCol.DataPropertyName = sDataPropertyMember;
             aCol.UseColumnTextForLinkValue = false;
             dg.Columns.Add(aCol);
+        }
+
+        private void FilterItems(object sender, EventArgs e)
+        {
+
+
         }
     }
 }

@@ -48,6 +48,23 @@ namespace SandbarWorkbench
         }
     }
 
+    public class ListItemInt
+    {
+        public string Text { get; internal set; }
+        public int Value { get; internal set; }
+
+        public ListItemInt(string sText, int nValue)
+        {
+            Text = sText;
+            Value = nValue;
+        }
+
+        public override string ToString()
+        {
+            return Text;
+        }
+    }
+
     public class CheckedListItem : ListItem
     {
         private Boolean m_bChecked;
@@ -74,7 +91,7 @@ namespace SandbarWorkbench
                 {
                     int nID = 0;
                     if (dbRead.GetFieldType(0) == Type.GetType("System.Int16"))
-                        nID = (int) dbRead.GetInt16(0);
+                        nID = (int)dbRead.GetInt16(0);
                     else if (dbRead.GetFieldType(0) == Type.GetType("System.Int32"))
                         nID = dbRead.GetInt32(0);
                     else if (dbRead.GetFieldType(0) == Type.GetType("System.Int64"))

@@ -97,5 +97,29 @@ namespace SandbarWorkbench.Properties {
                 this["AWSSecret"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadLastDatabase {
+            get {
+                return ((bool)(this["LoadLastDatabase"]));
+            }
+            set {
+                this["LoadLastDatabase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int StartupView {
+            get {
+                return ((int)(this["StartupView"]));
+            }
+            set {
+                this["StartupView"] = value;
+            }
+        }
     }
 }
