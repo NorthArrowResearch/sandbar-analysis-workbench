@@ -36,11 +36,11 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpSiteName = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.grpRiverMile = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.valDownstream = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grdData = new System.Windows.Forms.DataGridView();
@@ -52,8 +52,8 @@
             this.grpTimeSeries.SuspendLayout();
             this.grpSiteName.SuspendLayout();
             this.grpRiverMile.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,6 +101,7 @@
             this.checkBox3.TabIndex = 1;
             this.checkBox3.Text = "Channel mapping trips";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // checkBox4
             // 
@@ -113,6 +114,7 @@
             this.checkBox4.TabIndex = 0;
             this.checkBox4.Text = "Sandbar trips";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // grpTimeSeries
             // 
@@ -136,6 +138,7 @@
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "Long time series";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // checkBox1
             // 
@@ -148,10 +151,11 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "Short time series";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // grpSiteName
             // 
-            this.grpSiteName.Controls.Add(this.textBox1);
+            this.grpSiteName.Controls.Add(this.txtTitle);
             this.grpSiteName.Location = new System.Drawing.Point(12, 119);
             this.grpSiteName.Name = "grpSiteName";
             this.grpSiteName.Size = new System.Drawing.Size(227, 53);
@@ -159,18 +163,19 @@
             this.grpSiteName.TabStop = false;
             this.grpSiteName.Text = "Site Name";
             // 
-            // textBox1
+            // txtTitle
             // 
-            this.textBox1.Location = new System.Drawing.Point(11, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(205, 20);
-            this.textBox1.TabIndex = 0;
+            this.txtTitle.Location = new System.Drawing.Point(11, 21);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(205, 20);
+            this.txtTitle.TabIndex = 0;
+            this.txtTitle.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // grpRiverMile
             // 
-            this.grpRiverMile.Controls.Add(this.numericUpDown2);
+            this.grpRiverMile.Controls.Add(this.valDownstream);
             this.grpRiverMile.Controls.Add(this.label2);
-            this.grpRiverMile.Controls.Add(this.numericUpDown1);
+            this.grpRiverMile.Controls.Add(this.valUpstream);
             this.grpRiverMile.Controls.Add(this.label1);
             this.grpRiverMile.Controls.Add(this.chkRiverMile);
             this.grpRiverMile.Location = new System.Drawing.Point(12, 12);
@@ -180,12 +185,15 @@
             this.grpRiverMile.TabStop = false;
             this.grpRiverMile.Text = "                    ";
             // 
-            // numericUpDown2
+            // valDownstream
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(141, 50);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(75, 20);
-            this.numericUpDown2.TabIndex = 4;
+            this.valDownstream.Location = new System.Drawing.Point(141, 50);
+            this.valDownstream.Name = "valDownstream";
+            this.valDownstream.Size = new System.Drawing.Size(75, 20);
+            this.valDownstream.TabIndex = 4;
+            this.valDownstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileDownstream);
+            this.valDownstream.Click += new System.EventHandler(this.EnterNumericUpDown);
+            this.valDownstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
             // 
             // label2
             // 
@@ -196,12 +204,15 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Downstream";
             // 
-            // numericUpDown1
+            // valUpstream
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(141, 24);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(75, 20);
-            this.numericUpDown1.TabIndex = 2;
+            this.valUpstream.Location = new System.Drawing.Point(141, 24);
+            this.valUpstream.Name = "valUpstream";
+            this.valUpstream.Size = new System.Drawing.Size(75, 20);
+            this.valUpstream.TabIndex = 2;
+            this.valUpstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileUpstream);
+            this.valUpstream.Click += new System.EventHandler(this.EnterNumericUpDown);
+            this.valUpstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
             // 
             // label1
             // 
@@ -221,6 +232,7 @@
             this.chkRiverMile.TabIndex = 0;
             this.chkRiverMile.Text = "River Mile";
             this.chkRiverMile.UseVisualStyleBackColor = true;
+            this.chkRiverMile.CheckedChanged += new System.EventHandler(this.FilterItems);
             // 
             // grdData
             // 
@@ -257,8 +269,8 @@
             this.grpSiteName.PerformLayout();
             this.grpRiverMile.ResumeLayout(false);
             this.grpRiverMile.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.ResumeLayout(false);
 
@@ -269,11 +281,11 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView grdData;
         private System.Windows.Forms.GroupBox grpSiteName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.GroupBox grpRiverMile;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown valDownstream;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown valUpstream;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkRiverMile;
         private System.Windows.Forms.GroupBox groupBox1;
