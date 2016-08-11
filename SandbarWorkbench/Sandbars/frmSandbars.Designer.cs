@@ -187,6 +187,7 @@
             // 
             // valDownstream
             // 
+            this.valDownstream.DecimalPlaces = 1;
             this.valDownstream.Location = new System.Drawing.Point(141, 50);
             this.valDownstream.Name = "valDownstream";
             this.valDownstream.Size = new System.Drawing.Size(75, 20);
@@ -206,6 +207,7 @@
             // 
             // valUpstream
             // 
+            this.valUpstream.DecimalPlaces = 1;
             this.valUpstream.Location = new System.Drawing.Point(141, 24);
             this.valUpstream.Name = "valUpstream";
             this.valUpstream.Size = new System.Drawing.Size(75, 20);
@@ -247,6 +249,7 @@
             this.grdData.RowHeadersVisible = false;
             this.grdData.Size = new System.Drawing.Size(494, 532);
             this.grdData.TabIndex = 0;
+            this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
             // 
             // frmSandbars
             // 

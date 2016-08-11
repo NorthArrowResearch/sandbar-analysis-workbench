@@ -107,5 +107,12 @@ namespace SandbarWorkbench.Sandbars
             NumericUpDown theControl = (NumericUpDown)sender;
             theControl.Select(0, theControl.Text.Length);
         }
+
+        private void grdData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+            frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
+            frm.ShowDialog();
+        }
     }
 }

@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace SandbarWorkbench.Sandbars
 {
-    class SandbarSite
+    public class SandbarSite
     {
         private const string GDAWSLink = "http://waterdata.usgs.gov/ks/nwis/inventory/?site_no={0}";
 
@@ -23,6 +23,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> ExpansionRatio8k45k { get; internal set; }
         public Nullable<double> StageChange8k45k { get; internal set; }
         public Nullable<long> PrimaryGDAWS { get; internal set; }
+        public StageDischargeCurve SDCurve { get; internal set; }
 
         public string PrimaryGDAWSLink
         {
@@ -43,7 +44,10 @@ namespace SandbarWorkbench.Sandbars
             , Nullable<double> fExpansionRatio8k
             , Nullable<double> fExpansionRatio8k45k
             , Nullable<double> fStageChange8k45k
-            , Nullable<long> nPrimaryGDAWS)
+            , Nullable<long> nPrimaryGDAWS
+            , Nullable<double> fStageDischargeA
+            , Nullable<double> fStageDischargeB
+            , Nullable<double> fStageDischargeC)
         {
             SiteID = nSiteID;
             SiteCode = sSiteCode;
@@ -56,6 +60,7 @@ namespace SandbarWorkbench.Sandbars
             ExpansionRatio8k45k = fExpansionRatio8k45k;
             StageChange8k45k = fStageChange8k45k;
             PrimaryGDAWS = nPrimaryGDAWS;
+            SDCurve = new StageDischargeCurve(fStageDischargeA, fStageDischargeB, fStageDischargeC);
         }
 
 
@@ -66,12 +71,14 @@ namespace SandbarWorkbench.Sandbars
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {
                 dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT SiteID, SiteCode, SiteCode5, RiverMile, RiverSideID, RiverSide, Title, EddySize, ExpansionRatio8k, ExpansionRatio45k, StageChange8k45k, PrimaryGDAWS FROM vwSandbarSites ORDER BY RiverMile", dbCon);
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT SiteID, SiteCode, SiteCode5, RiverMile, RiverSideID, RiverSide, Title, " +
+                    "EddySize, ExpansionRatio8k, ExpansionRatio45k, StageChange8k45k, PrimaryGDAWS, StageDischargeA, StageDischargeB, StageDischargeC FROM vwSandbarSites ORDER BY RiverMile", dbCon);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
+
                     lSandbarSites.Add(new SandbarSite(
-                        (long) dbRead["SiteID"]
+                        (long)dbRead["SiteID"]
                         , (string)dbRead["SiteCode"]
                         , (string)dbRead["SiteCode5"]
                         , (double)dbRead["RiverMile"]
@@ -83,6 +90,9 @@ namespace SandbarWorkbench.Sandbars
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
                         ));
                 }
 
