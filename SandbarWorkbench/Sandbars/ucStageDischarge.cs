@@ -22,15 +22,14 @@ namespace SandbarWorkbench.Sandbars
 
         private void ucStageDischarge_Load(object sender, EventArgs e)
         {
-
-
             LoadStageDischargeCurve();
-
-
         }
 
         private void LoadStageDischargeCurve()
         {
+            if (!(SDCurve is StageDischargeCurve))
+                return;
+
             chtData.Series.Clear();
             Series theSeries = chtData.Series.Add("Stage Discharge");
             theSeries.ChartType = SeriesChartType.Line;

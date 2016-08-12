@@ -16,6 +16,7 @@ namespace SandbarWorkbench.Sandbars
         {
             get { return CoeffA.HasValue && CoeffB.HasValue && CoeffC.HasValue; }
         }
+
         public Nullable<double> Stage(double fDischarge)
         {
             Nullable<double> fResult = new Nullable<double>();

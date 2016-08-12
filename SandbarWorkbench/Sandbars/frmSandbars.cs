@@ -114,5 +114,18 @@ namespace SandbarWorkbench.Sandbars
             frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
             frm.ShowDialog();
         }
+
+        private void grdData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdData.Columns[e.ColumnIndex].HeaderText.ToLower().Contains("gdaws"))
+            {
+                if (grdData.Rows[e.RowIndex].DataBoundItem is SandbarSite)
+                {
+                    SandbarSite theSite = (SandbarSite)grdData.Rows[e.RowIndex].DataBoundItem;
+                    if (theSite.PrimaryGDAWS.HasValue)
+                        System.Diagnostics.Process.Start(theSite.PrimaryGDAWSLink);
+                }
+            }
+        }
     }
 }
