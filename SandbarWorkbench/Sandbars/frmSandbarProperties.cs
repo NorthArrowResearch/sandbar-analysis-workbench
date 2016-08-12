@@ -22,6 +22,7 @@ namespace SandbarWorkbench.Sandbars
             if (m_Site is SandbarSite)
             {
                 ucStageDischarge1.SDCurve = m_Site.SDCurve;
+                ucAreaVolumeAnalyses1.SandbarSite = m_Site;
                 ConfigureSurveysGrid();
             }
         }
@@ -50,8 +51,8 @@ namespace SandbarWorkbench.Sandbars
             var auditTrailProvider = new SandbarSurvey.MyTypeDescriptionProvider<AuditTrail>();
             System.ComponentModel.TypeDescriptor.AddProvider((new SandbarSurvey.MyTypeDescriptionProvider<AuditTrail>()), typeof(Sandbars.SandbarSurvey));
 
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Survey Date", "SurveyDate", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Trip Date", "TripDate", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Survey Date", "SurveyDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Trip Date", "TripDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewAuditColumns(ref grdSurveys);
         }
     }

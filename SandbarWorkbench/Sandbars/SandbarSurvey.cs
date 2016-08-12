@@ -8,17 +8,15 @@ using System.Data.SQLite;
 
 namespace SandbarWorkbench.Sandbars
 {
-    public class SandbarSurvey
+    public class SandbarSurvey : SandbarSurveyBase
     {
-        public long SurveyID { get; internal set; }
         public long TripID { get; internal set; }
         public DateTime TripDate { get; internal set; }
-        public DateTime SurveyDate { get; internal set; }
         public AuditTrail Audit { get; internal set ;}
 
         public SandbarSurvey(long nSurveyID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
+            : base(nSurveyID, dSurveyDate)
         {
-            SurveyID = nSurveyID;
             TripID = nTripID;
             TripDate = dTripDate;
             Audit = new AuditTrail(dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
@@ -32,7 +30,7 @@ namespace SandbarWorkbench.Sandbars
             {
                 dbCon.Open();
 
-                string sSQL = "SELECT S.SurveyID, T.TripID, T.TripDate, S.SurveyDate, S.AddedOn, S.AddedBy, S.UpdatedOn, S.UpdatedBy FROM SandbarSurveys S INNER JOIN Trips T";
+                string sSQL = "SELECT S.SurveyID, T.TripID, T.TripDate, S.SurveyDate, S.AddedOn, S.AddedBy, S.UpdatedOn, S.UpdatedBy FROM SandbarSurveys S INNER JOIN Trips T ON (S.TripID = T.TripID)";
                 if (nSiteID > 0)
                     sSQL += string.Format(" WHERE S.SiteID = {0}", nSiteID);
                 sSQL += " ORDER BY S.SurveyDate DESC";

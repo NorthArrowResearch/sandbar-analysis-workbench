@@ -120,6 +120,7 @@
     <Compile Include="RemoteCameras\frmRemoteCameras.Designer.cs">
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sandbars\AnalysisResults.cs" />
     <Compile Include="Sandbars\frmSandbarProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,9 +133,18 @@
     <Compile Include="Sandbars\frmSandbars.Designer.cs">
       <DependentUpon>frmSandbars.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sandbars\IncrementalResults.cs" />
+    <Compile Include="Sandbars\ModelRun.cs" />
     <Compile Include="Sandbars\SandbarSite.cs" />
     <Compile Include="Sandbars\SandbarSurvey.cs" />
+    <Compile Include="Sandbars\SandbarSurveyBase.cs" />
     <Compile Include="Sandbars\StageDischargeCurve.cs" />
+    <Compile Include="Sandbars\ucAreaVolumeAnalyses.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sandbars\ucAreaVolumeAnalyses.Designer.cs">
+      <DependentUpon>ucAreaVolumeAnalyses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\ucStageDischarge.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\frmSandbars.resx">
       <DependentUpon>frmSandbars.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\ucAreaVolumeAnalyses.resx">
+      <DependentUpon>ucAreaVolumeAnalyses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucStageDischarge.resx">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
