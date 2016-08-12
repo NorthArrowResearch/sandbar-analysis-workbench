@@ -24,6 +24,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> StageChange8k45k { get; internal set; }
         public Nullable<long> PrimaryGDAWS { get; internal set; }
         public StageDischargeCurve SDCurve { get; internal set; }
+        public BindingList<SandbarSurvey> Surveys { get; set; }
 
         public string PrimaryGDAWSLink
         {
@@ -77,7 +78,7 @@ namespace SandbarWorkbench.Sandbars
                 while (dbRead.Read())
                 {
 
-                    lSandbarSites.Add(new SandbarSite(
+                    SandbarSite theSite = new SandbarSite(
                         (long)dbRead["SiteID"]
                         , (string)dbRead["SiteCode"]
                         , (string)dbRead["SiteCode5"]
@@ -93,9 +94,11 @@ namespace SandbarWorkbench.Sandbars
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
-                        ));
-                }
+                        );
 
+                    theSite.Surveys = SandbarSurvey.LoadSandbarSurveys(sDB, theSite.SiteID);
+                    lSandbarSites.Add(theSite);
+                }
             }
 
             return lSandbarSites;

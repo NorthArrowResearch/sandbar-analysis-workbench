@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditTrail.cs" />
     <Compile Include="DBCon.cs" />
     <Compile Include="DBHelpers\SQLiteHelpers.cs" />
     <Compile Include="ExceptionHandling\AWSCloudWatchSingleton.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="frmOptions.Designer.cs">
       <DependentUpon>frmOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataGridViewHelpers.cs" />
     <Compile Include="ListItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +133,7 @@
       <DependentUpon>frmSandbars.cs</DependentUpon>
     </Compile>
     <Compile Include="Sandbars\SandbarSite.cs" />
+    <Compile Include="Sandbars\SandbarSurvey.cs" />
     <Compile Include="Sandbars\StageDischargeCurve.cs" />
     <Compile Include="Sandbars\ucStageDischarge.cs">
       <SubType>UserControl</SubType>

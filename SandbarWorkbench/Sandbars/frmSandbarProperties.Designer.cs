@@ -38,9 +38,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
+            this.tabSurveys = new System.Windows.Forms.TabPage();
+            this.grdSurveys = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabSurveys.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -109,6 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabSurveys);
             this.tabControl1.Location = new System.Drawing.Point(12, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -141,8 +146,29 @@
             this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
             this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.SDCurve = null;
             this.ucStageDischarge1.Size = new System.Drawing.Size(630, 446);
             this.ucStageDischarge1.TabIndex = 0;
+            // 
+            // tabSurveys
+            // 
+            this.tabSurveys.Controls.Add(this.grdSurveys);
+            this.tabSurveys.Location = new System.Drawing.Point(4, 22);
+            this.tabSurveys.Name = "tabSurveys";
+            this.tabSurveys.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSurveys.Size = new System.Drawing.Size(636, 452);
+            this.tabSurveys.TabIndex = 2;
+            this.tabSurveys.Text = "Surveys";
+            this.tabSurveys.UseVisualStyleBackColor = true;
+            // 
+            // grdSurveys
+            // 
+            this.grdSurveys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdSurveys.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdSurveys.Location = new System.Drawing.Point(3, 3);
+            this.grdSurveys.Name = "grdSurveys";
+            this.grdSurveys.Size = new System.Drawing.Size(630, 446);
+            this.grdSurveys.TabIndex = 0;
             // 
             // frmSandbarProperties
             // 
@@ -162,6 +188,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabSurveys.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,5 +207,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private ucStageDischarge ucStageDischarge1;
+        private System.Windows.Forms.TabPage tabSurveys;
+        private System.Windows.Forms.DataGridView grdSurveys;
     }
 }
