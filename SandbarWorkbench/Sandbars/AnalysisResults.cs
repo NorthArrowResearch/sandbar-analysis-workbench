@@ -52,9 +52,10 @@ namespace SandbarWorkbench.Sandbars
         public string Title { get; internal set; }
         public Dictionary<long, SectionTypeResults> SectionTypes { get; internal set; }
 
-        public ModelResults(string sDBCon, long SiteID, long nModelID)
+        public ModelResults(string sDBCon, long SiteID, long nModelID, string sTitle)
         {
             ModelID = nModelID;
+            Title = sTitle;
             SectionTypes = new Dictionary<long, SectionTypeResults>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))

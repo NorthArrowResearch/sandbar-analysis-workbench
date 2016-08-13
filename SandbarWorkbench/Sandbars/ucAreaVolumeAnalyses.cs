@@ -71,33 +71,7 @@ namespace SandbarWorkbench.Sandbars
 
         private void grdAnalyses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            bool bDataAdded = false;
-            foreach (DataGridViewRow aRow in grdAnalyses.Rows)
-            {
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell) aRow.Cells[0];
 
-                long nModelID = ((ModelRun)aRow.DataBoundItem).RunID;
-                if (aRow.Cells[0].Value == chk.TrueValue)
-                {
-                    if (ModelResultData == null)
-                        ModelResultData = new Dictionary<long, ModelResults>();
-
-                    if (!ModelResultData.ContainsKey(nModelID))
-                    {
-                        ModelResultData[nModelID] = new ModelResults(DBCon.ConnectionString, SandbarSite.SiteID, nModelID);
-                        bDataAdded = true;
-                    }
-                }
-                else
-                {
-                    if (ModelResultData != null)
-                        if (ModelResultData.ContainsKey(nModelID))
-                            ModelResultData.Remove(nModelID);
-                }
-            }
-
-            if (bDataAdded)
-                UpdateChart(null, null);
         }
 
         private void UpdateChart(object sender, EventArgs e)
@@ -107,6 +81,9 @@ namespace SandbarWorkbench.Sandbars
             Nullable<double> fLowerElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
             Nullable<double> fUpperElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
 
+            if (ModelResultData == null)
+                return;
+
             if (fLowerElev.HasValue)
             {
                 foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
@@ -114,9 +91,11 @@ namespace SandbarWorkbench.Sandbars
                     foreach (long nModelID in ModelResultData.Keys)
                     {
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                        { 
+                        {
                             Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
                             theSeries.ChartType = SeriesChartType.Line;
+                            theSeries.BorderDashStyle = ChartDashStyle.Dash;
+                            theSeries.MarkerStyle = MarkerStyle.Circle;
 
                             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
                             {
@@ -140,6 +119,37 @@ namespace SandbarWorkbench.Sandbars
         private void chkVolSectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             UpdateChart(null, null);
+        }
+
+        private void grdAnalyses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            bool bDataAdded = false;
+            foreach (DataGridViewRow aRow in grdAnalyses.Rows)
+            {
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)aRow.Cells[0];
+
+                ModelRun theModel = (ModelRun)aRow.DataBoundItem;
+                if (aRow.Cells[0].Value == chk.TrueValue)
+                {
+                    if (ModelResultData == null)
+                        ModelResultData = new Dictionary<long, ModelResults>();
+
+                    if (!ModelResultData.ContainsKey(theModel.RunID))
+                    {
+                        ModelResultData[theModel.RunID] = new ModelResults(DBCon.ConnectionString, SandbarSite.SiteID, theModel.RunID, theModel.Title);
+                        bDataAdded = true;
+                    }
+                }
+                else
+                {
+                    if (ModelResultData != null)
+                        if (ModelResultData.ContainsKey(theModel.RunID))
+                            ModelResultData.Remove(theModel.RunID);
+                }
+            }
+
+            if (bDataAdded)
+                UpdateChart(null, null);
         }
     }
 }
