@@ -29,8 +29,9 @@ namespace SandbarWorkbench.Helpers
             var aCol = new DataGridViewCheckBoxColumn();
             aCol.HeaderText = sHeaderText;
             aCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            aCol.FalseValue = false;
+            aCol.TrueValue = true;
             dg.Columns.Add(aCol);
-
         }
 
         public static void AddDataGridViewLinkColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible)

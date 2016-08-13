@@ -74,8 +74,10 @@ namespace SandbarWorkbench.Sandbars
             bool bDataAdded = false;
             foreach (DataGridViewRow aRow in grdAnalyses.Rows)
             {
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell) aRow.Cells[0];
+
                 long nModelID = ((ModelRun)aRow.DataBoundItem).RunID;
-                if ((bool)aRow.Cells[0].Value)
+                if (aRow.Cells[0].Value == chk.TrueValue)
                 {
                     if (ModelResultData == null)
                         ModelResultData = new Dictionary<long, ModelResults>();
@@ -88,8 +90,9 @@ namespace SandbarWorkbench.Sandbars
                 }
                 else
                 {
-                    if (ModelResultData.ContainsKey(nModelID))
-                        ModelResultData.Remove(nModelID);
+                    if (ModelResultData != null)
+                        if (ModelResultData.ContainsKey(nModelID))
+                            ModelResultData.Remove(nModelID);
                 }
             }
 
@@ -106,35 +109,37 @@ namespace SandbarWorkbench.Sandbars
 
             if (fLowerElev.HasValue)
             {
-                foreach (CheckedListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
+                foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                 {
                     foreach (long nModelID in ModelResultData.Keys)
                     {
-                        foreach (long nSurveyID in ModelResultData[nModelID].Surveys.Keys)
-                        {
+                        if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
+                        { 
+                            Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
+                            theSeries.ChartType = SeriesChartType.Line;
 
-
-                            // See if this model result contains the section type
-                            if (ModelResultData[nModelID].ContainsKey(sectionTypeItem.Value))
+                            foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
                             {
-                                Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", nModelID, sectionTypeItem.Value));
-                                foreach (double fElevation in AnalystResultData[nModelID].dResults.Keys)
+                                // See if this model result contains the section type
+                                foreach (double fElevation in aSurvey.Elevations.Keys)
                                 {
-                                    if (fElevation > fLowerElev)
+                                    if (fElevation >= fLowerElev)
                                     {
-                                        theSeries.Points.AddXY(, AnalystResultData[nModelID].dResults[sectionTypeItem.Value][])
+                                        theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Area);
+                                        break;
                                     }
                                 }
-
                             }
                         }
                     }
                 }
 
             }
+        }
 
-
-
+        private void chkVolSectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            UpdateChart(null, null);
         }
     }
 }

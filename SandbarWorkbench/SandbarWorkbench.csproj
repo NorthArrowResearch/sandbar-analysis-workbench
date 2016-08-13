@@ -133,7 +133,6 @@
     <Compile Include="Sandbars\frmSandbars.Designer.cs">
       <DependentUpon>frmSandbars.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sandbars\IncrementalResults.cs" />
     <Compile Include="Sandbars\ModelRun.cs" />
     <Compile Include="Sandbars\SandbarSite.cs" />
     <Compile Include="Sandbars\SandbarSurvey.cs" />

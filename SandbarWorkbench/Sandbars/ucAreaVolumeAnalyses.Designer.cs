@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
-            this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.grdAnalyses = new System.Windows.Forms.DataGridView();
+            this.grpVolume = new System.Windows.Forms.GroupBox();
+            this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
+            this.chkVolume = new System.Windows.Forms.CheckBox();
+            this.grpArea = new System.Windows.Forms.GroupBox();
+            this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
+            this.chkArea = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.valDisLower = new System.Windows.Forms.NumericUpDown();
             this.valDisUpper = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.grpArea = new System.Windows.Forms.GroupBox();
-            this.chkArea = new System.Windows.Forms.CheckBox();
-            this.grpVolume = new System.Windows.Forms.GroupBox();
-            this.chkVolume = new System.Windows.Forms.CheckBox();
+            this.valDisLower = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
-            this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
             this.splitContainer_Vert.SuspendLayout();
+            this.grpVolume.SuspendLayout();
+            this.grpArea.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAnalyses)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).BeginInit();
-            this.grpArea.SuspendLayout();
-            this.grpVolume.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Horiz)).BeginInit();
             this.splitContainer_Horiz.Panel1.SuspendLayout();
             this.splitContainer_Horiz.Panel2.SuspendLayout();
@@ -79,36 +79,71 @@
             // splitContainer_Vert.Panel2
             // 
             this.splitContainer_Vert.Panel2.Controls.Add(this.chtData);
-            this.splitContainer_Vert.Size = new System.Drawing.Size(885, 500);
+            this.splitContainer_Vert.Size = new System.Drawing.Size(885, 499);
             this.splitContainer_Vert.SplitterDistance = 210;
             this.splitContainer_Vert.TabIndex = 0;
             // 
-            // chtData
+            // grpVolume
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea2);
-            this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chtData.Legends.Add(legend2);
-            this.chtData.Location = new System.Drawing.Point(0, 0);
-            this.chtData.Name = "chtData";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chtData.Series.Add(series2);
-            this.chtData.Size = new System.Drawing.Size(671, 500);
-            this.chtData.TabIndex = 0;
-            this.chtData.Text = "chart1";
+            this.grpVolume.Controls.Add(this.chkVolSectionTypes);
+            this.grpVolume.Controls.Add(this.chkVolume);
+            this.grpVolume.Location = new System.Drawing.Point(5, 189);
+            this.grpVolume.Name = "grpVolume";
+            this.grpVolume.Size = new System.Drawing.Size(200, 85);
+            this.grpVolume.TabIndex = 2;
+            this.grpVolume.TabStop = false;
+            this.grpVolume.Text = "                      ";
             // 
-            // grdAnalyses
+            // chkVolSectionTypes
             // 
-            this.grdAnalyses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdAnalyses.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdAnalyses.Location = new System.Drawing.Point(0, 0);
-            this.grdAnalyses.Name = "grdAnalyses";
-            this.grdAnalyses.Size = new System.Drawing.Size(885, 175);
-            this.grdAnalyses.TabIndex = 0;
-            this.grdAnalyses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdAnalyses_CellContentClick);
+            this.chkVolSectionTypes.CheckOnClick = true;
+            this.chkVolSectionTypes.FormattingEnabled = true;
+            this.chkVolSectionTypes.Location = new System.Drawing.Point(25, 22);
+            this.chkVolSectionTypes.Name = "chkVolSectionTypes";
+            this.chkVolSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkVolSectionTypes.TabIndex = 2;
+            this.chkVolSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkVolSectionTypes_ItemCheck);
+            // 
+            // chkVolume
+            // 
+            this.chkVolume.AutoSize = true;
+            this.chkVolume.Location = new System.Drawing.Point(11, -1);
+            this.chkVolume.Name = "chkVolume";
+            this.chkVolume.Size = new System.Drawing.Size(61, 17);
+            this.chkVolume.TabIndex = 0;
+            this.chkVolume.Text = "Volume";
+            this.chkVolume.UseVisualStyleBackColor = true;
+            // 
+            // grpArea
+            // 
+            this.grpArea.Controls.Add(this.chkAreaSectionTypes);
+            this.grpArea.Controls.Add(this.chkArea);
+            this.grpArea.Location = new System.Drawing.Point(5, 97);
+            this.grpArea.Name = "grpArea";
+            this.grpArea.Size = new System.Drawing.Size(200, 85);
+            this.grpArea.TabIndex = 1;
+            this.grpArea.TabStop = false;
+            this.grpArea.Text = "               ";
+            // 
+            // chkAreaSectionTypes
+            // 
+            this.chkAreaSectionTypes.CheckOnClick = true;
+            this.chkAreaSectionTypes.FormattingEnabled = true;
+            this.chkAreaSectionTypes.Location = new System.Drawing.Point(25, 22);
+            this.chkAreaSectionTypes.Name = "chkAreaSectionTypes";
+            this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkAreaSectionTypes.TabIndex = 1;
+            this.chkAreaSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkVolSectionTypes_ItemCheck);
+            // 
+            // chkArea
+            // 
+            this.chkArea.AutoSize = true;
+            this.chkArea.Location = new System.Drawing.Point(11, -1);
+            this.chkArea.Name = "chkArea";
+            this.chkArea.Size = new System.Drawing.Size(48, 17);
+            this.chkArea.TabIndex = 0;
+            this.chkArea.Text = "Area";
+            this.chkArea.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -122,32 +157,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Discharge";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Lower";
-            // 
-            // valDisLower
-            // 
-            this.valDisLower.Location = new System.Drawing.Point(74, 19);
-            this.valDisLower.Maximum = new decimal(new int[] {
-            50000,
-            0,
-            0,
-            0});
-            this.valDisLower.Name = "valDisLower";
-            this.valDisLower.Size = new System.Drawing.Size(120, 20);
-            this.valDisLower.TabIndex = 1;
-            this.valDisLower.Value = new decimal(new int[] {
-            8000,
-            0,
-            0,
-            0});
             // 
             // valDisUpper
             // 
@@ -175,47 +184,58 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Upper";
             // 
-            // grpArea
+            // valDisLower
             // 
-            this.grpArea.Controls.Add(this.chkAreaSectionTypes);
-            this.grpArea.Controls.Add(this.chkArea);
-            this.grpArea.Location = new System.Drawing.Point(5, 97);
-            this.grpArea.Name = "grpArea";
-            this.grpArea.Size = new System.Drawing.Size(200, 85);
-            this.grpArea.TabIndex = 1;
-            this.grpArea.TabStop = false;
-            this.grpArea.Text = "               ";
+            this.valDisLower.Location = new System.Drawing.Point(74, 19);
+            this.valDisLower.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.valDisLower.Name = "valDisLower";
+            this.valDisLower.Size = new System.Drawing.Size(120, 20);
+            this.valDisLower.TabIndex = 1;
+            this.valDisLower.Value = new decimal(new int[] {
+            8000,
+            0,
+            0,
+            0});
             // 
-            // chkArea
+            // label1
             // 
-            this.chkArea.AutoSize = true;
-            this.chkArea.Location = new System.Drawing.Point(11, -1);
-            this.chkArea.Name = "chkArea";
-            this.chkArea.Size = new System.Drawing.Size(48, 17);
-            this.chkArea.TabIndex = 0;
-            this.chkArea.Text = "Area";
-            this.chkArea.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Lower";
             // 
-            // grpVolume
+            // chtData
             // 
-            this.grpVolume.Controls.Add(this.chkVolSectionTypes);
-            this.grpVolume.Controls.Add(this.chkVolume);
-            this.grpVolume.Location = new System.Drawing.Point(5, 189);
-            this.grpVolume.Name = "grpVolume";
-            this.grpVolume.Size = new System.Drawing.Size(200, 85);
-            this.grpVolume.TabIndex = 2;
-            this.grpVolume.TabStop = false;
-            this.grpVolume.Text = "                      ";
+            chartArea1.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea1);
+            this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chtData.Legends.Add(legend1);
+            this.chtData.Location = new System.Drawing.Point(0, 0);
+            this.chtData.Name = "chtData";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chtData.Series.Add(series1);
+            this.chtData.Size = new System.Drawing.Size(671, 499);
+            this.chtData.TabIndex = 0;
+            this.chtData.Text = "chart1";
             // 
-            // chkVolume
+            // grdAnalyses
             // 
-            this.chkVolume.AutoSize = true;
-            this.chkVolume.Location = new System.Drawing.Point(11, -1);
-            this.chkVolume.Name = "chkVolume";
-            this.chkVolume.Size = new System.Drawing.Size(61, 17);
-            this.chkVolume.TabIndex = 0;
-            this.chkVolume.Text = "Volume";
-            this.chkVolume.UseVisualStyleBackColor = true;
+            this.grdAnalyses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdAnalyses.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAnalyses.Location = new System.Drawing.Point(0, 0);
+            this.grdAnalyses.Name = "grdAnalyses";
+            this.grdAnalyses.Size = new System.Drawing.Size(885, 176);
+            this.grdAnalyses.TabIndex = 0;
+            this.grdAnalyses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdAnalyses_CellContentClick);
             // 
             // splitContainer_Horiz
             // 
@@ -232,26 +252,8 @@
             // 
             this.splitContainer_Horiz.Panel2.Controls.Add(this.grdAnalyses);
             this.splitContainer_Horiz.Size = new System.Drawing.Size(885, 679);
-            this.splitContainer_Horiz.SplitterDistance = 500;
+            this.splitContainer_Horiz.SplitterDistance = 499;
             this.splitContainer_Horiz.TabIndex = 1;
-            // 
-            // chkAreaSectionTypes
-            // 
-            this.chkAreaSectionTypes.CheckOnClick = true;
-            this.chkAreaSectionTypes.FormattingEnabled = true;
-            this.chkAreaSectionTypes.Location = new System.Drawing.Point(25, 22);
-            this.chkAreaSectionTypes.Name = "chkAreaSectionTypes";
-            this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 49);
-            this.chkAreaSectionTypes.TabIndex = 1;
-            // 
-            // chkVolSectionTypes
-            // 
-            this.chkVolSectionTypes.CheckOnClick = true;
-            this.chkVolSectionTypes.FormattingEnabled = true;
-            this.chkVolSectionTypes.Location = new System.Drawing.Point(25, 22);
-            this.chkVolSectionTypes.Name = "chkVolSectionTypes";
-            this.chkVolSectionTypes.Size = new System.Drawing.Size(169, 49);
-            this.chkVolSectionTypes.TabIndex = 2;
             // 
             // ucAreaVolumeAnalyses
             // 
@@ -265,16 +267,16 @@
             this.splitContainer_Vert.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).EndInit();
             this.splitContainer_Vert.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdAnalyses)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
-            this.grpArea.ResumeLayout(false);
-            this.grpArea.PerformLayout();
             this.grpVolume.ResumeLayout(false);
             this.grpVolume.PerformLayout();
+            this.grpArea.ResumeLayout(false);
+            this.grpArea.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdAnalyses)).EndInit();
             this.splitContainer_Horiz.Panel1.ResumeLayout(false);
             this.splitContainer_Horiz.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Horiz)).EndInit();

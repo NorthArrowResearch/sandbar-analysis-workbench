@@ -10,12 +10,12 @@ namespace SandbarWorkbench.Sandbars
     public class SectionTypeResults
     {
         public long SectionTypeID { get; internal set; }
-        public Dictionary<double, Values> Elevations { get; set; }
+        public Dictionary<long, SurveyResults> Surveys { get; set; }
 
         public SectionTypeResults(long nSectionTypeID)
         {
             SectionTypeID = nSectionTypeID;
-            Elevations = new Dictionary<double, Values>();
+            Surveys = new Dictionary<long, SurveyResults>();
         }
     }
 
@@ -34,11 +34,15 @@ namespace SandbarWorkbench.Sandbars
     public class SurveyResults
     {
         public long SurveyID { get; internal set; }
-        public Dictionary<long, SectionTypeResults> Sections { get; internal set; }
+        public DateTime SurveyDate { get; internal set; }
+        public Dictionary<double, Values> Elevations { get; internal set; }
 
-        public SurveyResults(long nSurveyID)
+        public SurveyResults(long nSurveyID, DateTime dtSurveyDate)
         {
-            Sections = new Dictionary<long, SectionTypeResults>();
+            SurveyID = nSurveyID;
+            SurveyDate = dtSurveyDate;
+            Elevations = new Dictionary<double, Values>();
+
         }
     }
 
@@ -46,12 +50,14 @@ namespace SandbarWorkbench.Sandbars
     {
         public long ModelID { get; internal set; }
         public string Title { get; internal set; }
-        public Dictionary<long, SurveyResults> Surveys { get; internal set; }
+        public Dictionary<long, SectionTypeResults> SectionTypes { get; internal set; }
 
         public ModelResults(string sDBCon, long SiteID, long nModelID)
         {
             ModelID = nModelID;
-             using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
+            SectionTypes = new Dictionary<long, SectionTypeResults>();
+
+            using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
             {
                 dbCon.Open();
                 SQLiteCommand dbCom = new SQLiteCommand("Select * FROM vwIncrementalResults WHERE (SiteID = @SiteID) AND (RunID = @ModelID)", dbCon);
@@ -61,17 +67,17 @@ namespace SandbarWorkbench.Sandbars
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
-                    long nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
-                    if (!Surveys.ContainsKey(nSurveyID))
-                        Surveys[nSurveyID] = new SurveyResults(nSurveyID);
-
                     long nSectionTypeID = dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID"));
-                    if (!Surveys[nSurveyID].Sections.ContainsKey(nSectionTypeID))
-                        Surveys[nSurveyID].Sections[nSectionTypeID] = new SectionTypeResults(nSectionTypeID);
+                    if (!SectionTypes.ContainsKey(nSectionTypeID))
+                        SectionTypes[nSectionTypeID] = new SectionTypeResults(nSectionTypeID);
+
+                    long nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
+                    if (!SectionTypes[nSectionTypeID].Surveys.ContainsKey(nSurveyID))
+                        SectionTypes[nSectionTypeID].Surveys[nSurveyID] = new SurveyResults(nSurveyID, dbRead.GetDateTime(dbRead.GetOrdinal("SurveyDate")));
 
                     double fElevation = dbRead.GetDouble(dbRead.GetOrdinal("Elevation"));
                     //System.Diagnostics.Debug.Assert(!dResults[nSurveyID][nSectionTypeID].Elevations.ContainsKey(fElevation), "There should only be one value per elevation");
-                    Surveys[nSurveyID].Sections[nSectionTypeID].Elevations[fElevation] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
+                    SectionTypes[nSectionTypeID].Surveys[nSurveyID].Elevations[fElevation] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
                 }
             }
         }
