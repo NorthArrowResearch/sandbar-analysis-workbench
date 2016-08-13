@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
@@ -43,13 +43,9 @@
             this.chkArea = new System.Windows.Forms.CheckBox();
             this.grpVolume = new System.Windows.Forms.GroupBox();
             this.chkVolume = new System.Windows.Forms.CheckBox();
-            this.chkAreaEddy = new System.Windows.Forms.CheckBox();
-            this.chkAreaChannel = new System.Windows.Forms.CheckBox();
-            this.chkAreaTotal = new System.Windows.Forms.CheckBox();
-            this.chkVolTotal = new System.Windows.Forms.CheckBox();
-            this.chkVolChannel = new System.Windows.Forms.CheckBox();
-            this.chkVolEddy = new System.Windows.Forms.CheckBox();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
+            this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
+            this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
@@ -89,17 +85,17 @@
             // 
             // chtData
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea2);
             this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chtData.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chtData.Legends.Add(legend2);
             this.chtData.Location = new System.Drawing.Point(0, 0);
             this.chtData.Name = "chtData";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chtData.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chtData.Series.Add(series2);
             this.chtData.Size = new System.Drawing.Size(671, 500);
             this.chtData.TabIndex = 0;
             this.chtData.Text = "chart1";
@@ -112,6 +108,7 @@
             this.grdAnalyses.Name = "grdAnalyses";
             this.grdAnalyses.Size = new System.Drawing.Size(885, 175);
             this.grdAnalyses.TabIndex = 0;
+            this.grdAnalyses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdAnalyses_CellContentClick);
             // 
             // groupBox1
             // 
@@ -180,9 +177,7 @@
             // 
             // grpArea
             // 
-            this.grpArea.Controls.Add(this.chkAreaTotal);
-            this.grpArea.Controls.Add(this.chkAreaChannel);
-            this.grpArea.Controls.Add(this.chkAreaEddy);
+            this.grpArea.Controls.Add(this.chkAreaSectionTypes);
             this.grpArea.Controls.Add(this.chkArea);
             this.grpArea.Location = new System.Drawing.Point(5, 97);
             this.grpArea.Name = "grpArea";
@@ -203,10 +198,8 @@
             // 
             // grpVolume
             // 
-            this.grpVolume.Controls.Add(this.chkVolTotal);
+            this.grpVolume.Controls.Add(this.chkVolSectionTypes);
             this.grpVolume.Controls.Add(this.chkVolume);
-            this.grpVolume.Controls.Add(this.chkVolChannel);
-            this.grpVolume.Controls.Add(this.chkVolEddy);
             this.grpVolume.Location = new System.Drawing.Point(5, 189);
             this.grpVolume.Name = "grpVolume";
             this.grpVolume.Size = new System.Drawing.Size(200, 85);
@@ -223,66 +216,6 @@
             this.chkVolume.TabIndex = 0;
             this.chkVolume.Text = "Volume";
             this.chkVolume.UseVisualStyleBackColor = true;
-            // 
-            // chkAreaEddy
-            // 
-            this.chkAreaEddy.AutoSize = true;
-            this.chkAreaEddy.Location = new System.Drawing.Point(22, 23);
-            this.chkAreaEddy.Name = "chkAreaEddy";
-            this.chkAreaEddy.Size = new System.Drawing.Size(50, 17);
-            this.chkAreaEddy.TabIndex = 1;
-            this.chkAreaEddy.Text = "Eddy";
-            this.chkAreaEddy.UseVisualStyleBackColor = true;
-            // 
-            // chkAreaChannel
-            // 
-            this.chkAreaChannel.AutoSize = true;
-            this.chkAreaChannel.Location = new System.Drawing.Point(22, 43);
-            this.chkAreaChannel.Name = "chkAreaChannel";
-            this.chkAreaChannel.Size = new System.Drawing.Size(65, 17);
-            this.chkAreaChannel.TabIndex = 2;
-            this.chkAreaChannel.Text = "Channel";
-            this.chkAreaChannel.UseVisualStyleBackColor = true;
-            // 
-            // chkAreaTotal
-            // 
-            this.chkAreaTotal.AutoSize = true;
-            this.chkAreaTotal.Location = new System.Drawing.Point(22, 63);
-            this.chkAreaTotal.Name = "chkAreaTotal";
-            this.chkAreaTotal.Size = new System.Drawing.Size(69, 17);
-            this.chkAreaTotal.TabIndex = 3;
-            this.chkAreaTotal.Text = "Total site";
-            this.chkAreaTotal.UseVisualStyleBackColor = true;
-            // 
-            // chkVolTotal
-            // 
-            this.chkVolTotal.AutoSize = true;
-            this.chkVolTotal.Location = new System.Drawing.Point(22, 63);
-            this.chkVolTotal.Name = "chkVolTotal";
-            this.chkVolTotal.Size = new System.Drawing.Size(69, 17);
-            this.chkVolTotal.TabIndex = 6;
-            this.chkVolTotal.Text = "Total site";
-            this.chkVolTotal.UseVisualStyleBackColor = true;
-            // 
-            // chkVolChannel
-            // 
-            this.chkVolChannel.AutoSize = true;
-            this.chkVolChannel.Location = new System.Drawing.Point(22, 43);
-            this.chkVolChannel.Name = "chkVolChannel";
-            this.chkVolChannel.Size = new System.Drawing.Size(65, 17);
-            this.chkVolChannel.TabIndex = 5;
-            this.chkVolChannel.Text = "Channel";
-            this.chkVolChannel.UseVisualStyleBackColor = true;
-            // 
-            // chkVolEddy
-            // 
-            this.chkVolEddy.AutoSize = true;
-            this.chkVolEddy.Location = new System.Drawing.Point(22, 23);
-            this.chkVolEddy.Name = "chkVolEddy";
-            this.chkVolEddy.Size = new System.Drawing.Size(50, 17);
-            this.chkVolEddy.TabIndex = 4;
-            this.chkVolEddy.Text = "Eddy";
-            this.chkVolEddy.UseVisualStyleBackColor = true;
             // 
             // splitContainer_Horiz
             // 
@@ -301,6 +234,24 @@
             this.splitContainer_Horiz.Size = new System.Drawing.Size(885, 679);
             this.splitContainer_Horiz.SplitterDistance = 500;
             this.splitContainer_Horiz.TabIndex = 1;
+            // 
+            // chkAreaSectionTypes
+            // 
+            this.chkAreaSectionTypes.CheckOnClick = true;
+            this.chkAreaSectionTypes.FormattingEnabled = true;
+            this.chkAreaSectionTypes.Location = new System.Drawing.Point(25, 22);
+            this.chkAreaSectionTypes.Name = "chkAreaSectionTypes";
+            this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkAreaSectionTypes.TabIndex = 1;
+            // 
+            // chkVolSectionTypes
+            // 
+            this.chkVolSectionTypes.CheckOnClick = true;
+            this.chkVolSectionTypes.FormattingEnabled = true;
+            this.chkVolSectionTypes.Location = new System.Drawing.Point(25, 22);
+            this.chkVolSectionTypes.Name = "chkVolSectionTypes";
+            this.chkVolSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkVolSectionTypes.TabIndex = 2;
             // 
             // ucAreaVolumeAnalyses
             // 
@@ -336,14 +287,8 @@
 
         private System.Windows.Forms.SplitContainer splitContainer_Vert;
         private System.Windows.Forms.GroupBox grpVolume;
-        private System.Windows.Forms.CheckBox chkVolTotal;
         private System.Windows.Forms.CheckBox chkVolume;
-        private System.Windows.Forms.CheckBox chkVolChannel;
-        private System.Windows.Forms.CheckBox chkVolEddy;
         private System.Windows.Forms.GroupBox grpArea;
-        private System.Windows.Forms.CheckBox chkAreaTotal;
-        private System.Windows.Forms.CheckBox chkAreaChannel;
-        private System.Windows.Forms.CheckBox chkAreaEddy;
         private System.Windows.Forms.CheckBox chkArea;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown valDisUpper;
@@ -353,5 +298,7 @@
         private System.Windows.Forms.DataGridView grdAnalyses;
         private System.Windows.Forms.DataVisualization.Charting.Chart chtData;
         private System.Windows.Forms.SplitContainer splitContainer_Horiz;
+        private System.Windows.Forms.CheckedListBox chkVolSectionTypes;
+        private System.Windows.Forms.CheckedListBox chkAreaSectionTypes;
     }
 }

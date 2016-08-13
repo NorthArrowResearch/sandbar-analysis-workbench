@@ -29,12 +29,12 @@ namespace SandbarWorkbench
         {
             cbo.Items.Clear();
 
-            using (System.Data.OleDb.OleDbConnection dbCon = new System.Data.OleDb.OleDbConnection(sDBCon))
+            using (System.Data.SQLite.SQLiteConnection dbCon = new System.Data.SQLite.SQLiteConnection(sDBCon))
             {
                 dbCon.Open();
 
-                System.Data.OleDb.OleDbCommand dbCom = new System.Data.OleDb.OleDbCommand(sSQL, dbCon);
-                System.Data.OleDb.OleDbDataReader dbRead = dbCom.ExecuteReader();
+                System.Data.SQLite.SQLiteCommand dbCom = new System.Data.SQLite.SQLiteCommand(sSQL, dbCon);
+                System.Data.SQLite.SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
                     long nID = (long)dbRead.GetValue(0);
@@ -81,12 +81,12 @@ namespace SandbarWorkbench
         {
             lst.Items.Clear();
 
-            using (System.Data.OleDb.OleDbConnection dbCon = new System.Data.OleDb.OleDbConnection(sDBCon))
+            using (System.Data.SQLite.SQLiteConnection dbCon = new System.Data.SQLite.SQLiteConnection(sDBCon))
             {
                 dbCon.Open();
 
-                System.Data.OleDb.OleDbCommand dbCom = new System.Data.OleDb.OleDbCommand(sSQL, dbCon);
-                System.Data.OleDb.OleDbDataReader dbRead = dbCom.ExecuteReader();
+                System.Data.SQLite.SQLiteCommand dbCom = new System.Data.SQLite.SQLiteCommand(sSQL, dbCon);
+                System.Data.SQLite.SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
                     int nID = 0;

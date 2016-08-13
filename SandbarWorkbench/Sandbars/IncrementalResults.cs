@@ -9,21 +9,15 @@ namespace SandbarWorkbench.Sandbars
 {
     public class IncrementalResults
     {
-        public long SiteID { get; set; }
-        public long ModelID { get; set; }
         public double LowerElevation { get; set; }
         public double UpperElevation { get; set; }
 
         // survey -> SectionID -> 
-        public Dictionary<long, Dictionary<long, SectionValues>> dResults;
+        public ModelResults
 
-        public IncrementalResults()
+        public IncrementalResults(string sDBCon, long SiteID, long ModelID)
         {
-        }
-
-        public void LoadData(string sDBCon)
-        {
-            dResults = new Dictionary<long, Dictionary<long, SectionValues>>();
+            Results = new Dictionary<long, ModelResults>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
             {

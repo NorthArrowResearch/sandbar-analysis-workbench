@@ -121,5 +121,14 @@ namespace SandbarWorkbench.Properties {
                 this["StartupView"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int ListID_SectionTypes {
+            get {
+                return ((int)(this["ListID_SectionTypes"]));
+            }
+        }
     }
 }
