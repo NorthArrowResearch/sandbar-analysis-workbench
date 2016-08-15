@@ -52,6 +52,28 @@ namespace SandbarWorkbench.Sandbars
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionString, sSQL, false);
             CheckedListItem.LoadComboWithListItems(ref chkVolSectionTypes, DBCon.ConnectionString, sSQL, false);
+
+            chtData.ChartAreas[0].AxisX.Title = "Date";
+            chtData.ChartAreas[0].AxisY.Title = "Sandbar Area (m²)";
+
+            chtData.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy";
+            chtData.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Years;
+            chtData.ChartAreas[0].AxisX.Interval = 1;
+
+            chtData.ChartAreas[0].AxisX.MajorGrid.IntervalType = DateTimeIntervalType.Years;
+            chtData.ChartAreas[0].AxisX.MajorGrid.Interval = 1;
+            chtData.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+            chtData.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
+            chtData.ChartAreas[0].AxisX.MinorGrid.IntervalType = DateTimeIntervalType.Months;
+            chtData.ChartAreas[0].AxisX.MinorGrid.Interval = 6;
+            chtData.ChartAreas[0].AxisX.MinorGrid.LineColor = Color.GhostWhite;
+            chtData.ChartAreas[0].AxisX.MinorTickMark.Enabled = true;
+            chtData.ChartAreas[0].AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Months;
+            chtData.ChartAreas[0].AxisX.MinorTickMark.Interval = 6;
+            chtData.ChartAreas[0].AxisX.MinorTickMark.LineColor = Color.LightGray;
+
+
         }
 
         private void ConfigureAnalysesDataGridView()
@@ -77,6 +99,7 @@ namespace SandbarWorkbench.Sandbars
         private void UpdateChart(object sender, EventArgs e)
         {
             chtData.Series.Clear();
+            chtData.Titles.Clear();
 
             Nullable<double> fLowerElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
             Nullable<double> fUpperElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
@@ -86,6 +109,9 @@ namespace SandbarWorkbench.Sandbars
 
             if (fLowerElev.HasValue)
             {
+                Title theTitle = new Title(string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value));
+                theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
+                chtData.Titles.Add(theTitle);
                 foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                 {
                     foreach (long nModelID in ModelResultData.Keys)
@@ -97,6 +123,9 @@ namespace SandbarWorkbench.Sandbars
                             theSeries.BorderDashStyle = ChartDashStyle.Dash;
                             theSeries.MarkerStyle = MarkerStyle.Circle;
 
+                            double fMinY = -1;
+                            double fMaxY = -1;
+
                             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
                             {
                                 // See if this model result contains the section type
@@ -105,15 +134,45 @@ namespace SandbarWorkbench.Sandbars
                                     if (fElevation >= fLowerElev)
                                     {
                                         theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Area);
+
+                                        if (fMinY == -1 || fMinY > aSurvey.Elevations[fElevation].Area)
+                                            fMinY = aSurvey.Elevations[fElevation].Area;
+
+                                        fMaxY = Math.Max(fMaxY, aSurvey.Elevations[fElevation].Area);
+
                                         break;
                                     }
                                 }
                             }
+
+                            double fInterval, fAxisMin, fAxisMax = 0;
+                            formatAxis(fMinY, fMaxY, out fInterval, out fAxisMin, out fAxisMax);
+                            chtData.ChartAreas[0].AxisY.Interval = fInterval;
+                            chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
+                            chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
+
                         }
                     }
                 }
 
             }
+        }
+
+        private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
+        {
+            double fRange = fMax - fMin;
+            long nInterval = 1;
+            for (nInterval = 1; nInterval < 6; nInterval++)
+            {
+                double j = Math.Round(Math.Pow(1, nInterval), 0);
+                if (fRange / j > 0)
+                    break;
+            }
+
+            fInterval = (fMax - fMin) / 10.0;
+            fAxisMin = Math.Floor(fMin / fInterval) * fInterval;
+            fAxisMax = Math.Ceiling(fMax / fInterval) * fInterval;
+
         }
 
         private void chkVolSectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
