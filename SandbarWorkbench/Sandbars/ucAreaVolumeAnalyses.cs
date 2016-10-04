@@ -120,6 +120,8 @@ namespace SandbarWorkbench.Sandbars
                         {
                             Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
                             theSeries.ChartType = SeriesChartType.Line;
+                            theSeries.BorderWidth = 2;
+                            theSeries.MarkerSize = 10;
                             theSeries.BorderDashStyle = ChartDashStyle.Dash;
                             theSeries.MarkerStyle = MarkerStyle.Circle;
 
@@ -150,7 +152,14 @@ namespace SandbarWorkbench.Sandbars
                             chtData.ChartAreas[0].AxisY.Interval = fInterval;
                             chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
                             chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
+                            chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
+                            chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
 
+                            chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+                            chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
+                            chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
+                            chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
+                            chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
                         }
                     }
                 }
@@ -161,18 +170,12 @@ namespace SandbarWorkbench.Sandbars
         private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
         {
             double fRange = fMax - fMin;
-            long nInterval = 1;
-            for (nInterval = 1; nInterval < 6; nInterval++)
-            {
-                double j = Math.Round(Math.Pow(1, nInterval), 0);
-                if (fRange / j > 0)
-                    break;
-            }
-
-            fInterval = (fMax - fMin) / 10.0;
+            double fExponent = (int) Math.Log10(fRange);
+            double fMagnitude = Math.Pow(10, fExponent);
+            fInterval = fMagnitude / 10;
             fAxisMin = Math.Floor(fMin / fInterval) * fInterval;
             fAxisMax = Math.Ceiling(fMax / fInterval) * fInterval;
-
+            fInterval = fInterval *2;
         }
 
         private void chkVolSectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
