@@ -13,10 +13,15 @@ namespace SandbarWorkbench.DBHelpers
         public string MasterDBCon { get; internal set; }
         public string LocalDBCon { get; internal set; }
 
+        private List<LookupTableDef> LookupTables;
+
         public SyncHelpers(string sMasterDBCon, string sLocalDBCon)
         {
             MasterDBCon = sMasterDBCon;
             LocalDBCon = sLocalDBCon;
+
+            LookupTables = new List<LookupTableDef>();
+            LookupTables.Add(new LookupTableDef("Sites", "MSiteID"));
         }
 
         public void SyncLookupData()
@@ -29,47 +34,75 @@ namespace SandbarWorkbench.DBHelpers
                 {
                     conLocal.Open();
 
-                    DateTime dtLastLocalUpdate;
+                    Nullable<DateTime> dtMasterChanged;
+                    Nullable<DateTime> dtLocalChanged;
 
-                    LookupDataVersion masterVersion = DBHelpers.MySQLHelpers.GetMasterLookupDataVersion();
-                    LookupDataVersion localVersion = DBHelpers.SQLiteHelpers.GetLocalLookupDataVersion(DBCon.ConnectionString.Replace("workbench.sqlite", "SandbarTest.sqlite"));
-
-                    if (masterVersion.MHashID > localVersion.MHashID)
+                    MySqlCommand cMasterChange = new MySqlCommand("SELECT UpdatedOn FROM TableChangeLog WHERE TableName = @TableName", conMaster);
+                    cMasterChange.Parameters.AddWithValue("TableName", "Sites");
+                    object objMasterchanged = cMasterChange.ExecuteScalar();
+                    if (objMasterchanged != null && objMasterchanged is DateTime)
                     {
-                        SQLiteTransaction dbTrans = conLocal.BeginTransaction();
+                        dtMasterChanged = new Nullable<DateTime>((DateTime)objMasterchanged);
+                    }
+                    else
+                        throw new Exception("TODO: No records in master table.");
 
-                        try
+                    SQLiteCommand cLocalChanged = new SQLiteCommand("SELECT CASE WHEN UpdatedOn IS NULL THEN '1970-01-01 00:00:00' ELSE UpdatedOn END FROM TableChangeLog WHERE TableName = @TableName", conLocal);
+                    cLocalChanged.Parameters.AddWithValue("TableName", "Sites");
+                    object objLocalChanged = cLocalChanged.ExecuteScalar();
+                    DateTime dtTemp;
+                    if (objLocalChanged != null && DateTime.TryParse(objLocalChanged.ToString(), out dtTemp))
+                    {
+                        dtLocalChanged = new Nullable<DateTime>(dtTemp);
+                    }
+                    else
+                        throw new Exception("TODO: local is empty");
+
+                    // A sync is needed if the local has never been synced or the latest change date on master is newer than local
+                    if (!dtLocalChanged.HasValue || dtMasterChanged > dtLocalChanged)
+                    {
+                        DateTime dtLastLocalUpdate;
+
+                        LookupDataVersion masterVersion = DBHelpers.MySQLHelpers.GetMasterLookupDataVersion();
+                        LookupDataVersion localVersion = DBHelpers.SQLiteHelpers.GetLocalLookupDataVersion(DBCon.ConnectionString.Replace("workbench.sqlite", "SandbarTest.sqlite"));
+
+                        if (masterVersion.MHashID > localVersion.MHashID)
                         {
-                            Step01_DeleteOldData(conMaster, ref dbTrans, localVersion.AddedOn);
+                            SQLiteTransaction dbTrans = conLocal.BeginTransaction();
 
-                            // Update the local lookup data versions to reflect the update
-
-                            // Prepared Query to insert rows into local
-                            SQLiteCommand comLocalVersions = new SQLiteCommand("INSERT INTO LookupDataVersions (MHashID, AddedOn, AddedBy, InstallationHash) VALUES (@MHashID, @AddedOn, @AddedBy, @InstallationHash)", conLocal, dbTrans);
-                            SQLiteParameter pMHasHID = comLocalVersions.Parameters.Add("@MHashID", System.Data.DbType.Int64);
-                            SQLiteParameter pAddedOn = comLocalVersions.Parameters.Add("@AddedOn", System.Data.DbType.DateTime);
-                            SQLiteParameter pAddedBy = comLocalVersions.Parameters.Add("@AddedBy", System.Data.DbType.String);
-                            SQLiteParameter pInstallationHash = comLocalVersions.Parameters.Add("@InstallationHash", System.Data.DbType.String);
-
-                            // Loop over all the newer update versions in master 
-                            MySqlCommand comMasterVersions = new MySqlCommand("SELECT MHashID, AddedOn, AddedBy, InstallationHash FROM LookupDataVersions WHERE AddedOn > @UpdatedOn ORDER BY AddedOn", conMaster);
-                            comMasterVersions.Parameters.AddWithValue("UpdatedOn", localVersion.AddedOn);
-                            MySqlDataReader readMaster = comMasterVersions.ExecuteReader();
-                            while (readMaster.Read())
+                            try
                             {
-                                pMHasHID.Value = readMaster.GetInt64("MHashID");
-                                pAddedOn.Value = readMaster.GetDateTime("AddedOn");
-                                pAddedBy.Value = readMaster.GetString("AddedBy");
-                                pInstallationHash.Value = readMaster.GetString("InstallationHash");
-                                comLocalVersions.ExecuteNonQuery();
-                            }
+                                Step01_DeleteOldData(conMaster, ref dbTrans, localVersion.AddedOn);
 
-                            dbTrans.Commit();
-                        }
-                        catch (Exception ex)
-                        {
-                            dbTrans.Rollback();
-                            throw;
+                                // Update the local lookup data versions to reflect the update
+
+                                // Prepared Query to insert rows into local
+                                SQLiteCommand comLocalVersions = new SQLiteCommand("INSERT INTO LookupDataVersions (MHashID, AddedOn, AddedBy, InstallationHash) VALUES (@MHashID, @AddedOn, @AddedBy, @InstallationHash)", conLocal, dbTrans);
+                                SQLiteParameter pMHasHID = comLocalVersions.Parameters.Add("@MHashID", System.Data.DbType.Int64);
+                                SQLiteParameter pAddedOn = comLocalVersions.Parameters.Add("@AddedOn", System.Data.DbType.DateTime);
+                                SQLiteParameter pAddedBy = comLocalVersions.Parameters.Add("@AddedBy", System.Data.DbType.String);
+                                SQLiteParameter pInstallationHash = comLocalVersions.Parameters.Add("@InstallationHash", System.Data.DbType.String);
+
+                                // Loop over all the newer update versions in master 
+                                MySqlCommand comMasterVersions = new MySqlCommand("SELECT MHashID, AddedOn, AddedBy, InstallationHash FROM LookupDataVersions WHERE AddedOn > @UpdatedOn ORDER BY AddedOn", conMaster);
+                                comMasterVersions.Parameters.AddWithValue("UpdatedOn", localVersion.AddedOn);
+                                MySqlDataReader readMaster = comMasterVersions.ExecuteReader();
+                                while (readMaster.Read())
+                                {
+                                    pMHasHID.Value = readMaster.GetInt64("MHashID");
+                                    pAddedOn.Value = readMaster.GetDateTime("AddedOn");
+                                    pAddedBy.Value = readMaster.GetString("AddedBy");
+                                    pInstallationHash.Value = readMaster.GetString("InstallationHash");
+                                    comLocalVersions.ExecuteNonQuery();
+                                }
+
+                                dbTrans.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                dbTrans.Rollback();
+                                throw;
+                            }
                         }
                     }
                 }
@@ -126,15 +159,15 @@ namespace SandbarWorkbench.DBHelpers
                     else
                     {
                         // This row exists on local but not on master. Delete the local copy.
-                        pDelete_MSiteID.Value =readLocal.GetInt64( readLocal.GetOrdinal("MSiteID"));
-                       changeCounter.Deleted += comDeleteLocal.ExecuteNonQuery();
+                        pDelete_MSiteID.Value = readLocal.GetInt64(readLocal.GetOrdinal("MSiteID"));
+                        changeCounter.Deleted += comDeleteLocal.ExecuteNonQuery();
                     }
                     dbReadMaster.Close();
                 }
-                
+
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // PHASE 2 - loop over rows on master. Insert them into local if their added on date is newer than the date that local was last updated.
-                
+
                 // Query to lookup a single row in local
                 SQLiteCommand comSelectLocal = new SQLiteCommand("SELECT MSiteID FROM SITES WHERE MSiteID = @MSiteID", conReadLocal);
                 SQLiteParameter pMSiteID = comSelectLocal.Parameters.Add("@MSiteID", System.Data.DbType.Int64);
@@ -165,7 +198,7 @@ namespace SandbarWorkbench.DBHelpers
                         pInsert_AddedBy.Value = dbReadMasterNew.GetString("AddedBy");
                         pInsert_UpdatedOn.Value = dbReadMasterNew.GetDateTime("UpdatedOn");
                         pInsert_UpdatedBy.Value = dbReadMasterNew.GetString("UpdatedBy");
-                       changeCounter.Inserted += comInsertLocal.ExecuteNonQuery();
+                        changeCounter.Inserted += comInsertLocal.ExecuteNonQuery();
                     }
                 }
                 dbReadMasterNew.Close();
@@ -191,7 +224,24 @@ namespace SandbarWorkbench.DBHelpers
 
             public override string ToString()
             {
-                return string.Format("{0} Inserted, {1} Updated, {2} Deleted",Inserted,Updated, Deleted);
+                return string.Format("{0} Inserted, {1} Updated, {2} Deleted", Inserted, Updated, Deleted);
+            }
+        }
+
+        public class LookupTableDef
+        {
+            public string TableName { get; internal set; }
+            public string MasterPrimaryKey { get; internal set; }
+
+            public LookupTableDef(string sTableName, string sMasterPrimaryKey)
+            {
+                TableName = sTableName;
+                MasterPrimaryKey = sMasterPrimaryKey;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
             }
         }
 
