@@ -130,5 +130,17 @@ namespace SandbarWorkbench.Properties {
                 return ((int)(this["ListID_SectionTypes"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid InstallationHash {
+            get {
+                return ((global::System.Guid)(this["InstallationHash"]));
+            }
+            set {
+                this["InstallationHash"] = value;
+            }
+        }
     }
 }

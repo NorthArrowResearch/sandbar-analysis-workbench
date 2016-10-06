@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using MySql.Data.MySqlClient;
+
 
 namespace SandbarWorkbench
 {
@@ -16,6 +18,15 @@ namespace SandbarWorkbench
         public frmMain()
         {
             InitializeComponent();
+
+            // Issue a new installation hash if the current version is the default empty GUID.
+            System.Guid installationHash = new Guid("00000000-0000-0000-0000-000000000000");
+            if (SandbarWorkbench.Properties.Settings.Default.InstallationHash.Equals(installationHash))
+            {
+                SandbarWorkbench.Properties.Settings.Default.InstallationHash = System.Guid.NewGuid();
+                SandbarWorkbench.Properties.Settings.Default.Save();
+            }
+
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -209,6 +220,20 @@ namespace SandbarWorkbench
         {
             if (!string.IsNullOrEmpty(DBCon.DatabasePath) && System.IO.File.Exists(DBCon.DatabasePath))
                 System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(DBCon.DatabasePath));
+        }
+
+        private void syncToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string sLocalDBCon = DBCon.ConnectionString.Replace("workbench.sqlite", "SandbarTest.sqlite");
+            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;", sLocalDBCon);
+            try
+            {
+                syncTool.SyncLookupData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
