@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="AuditTrail.cs" />
     <Compile Include="DBCon.cs" />
+    <Compile Include="DBHelpers\LookupTableDef.cs" />
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\SQLiteHelpers.cs" />
     <Compile Include="DBHelpers\SyncHelpers.cs" />
