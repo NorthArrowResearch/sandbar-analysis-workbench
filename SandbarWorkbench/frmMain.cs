@@ -224,7 +224,7 @@ namespace SandbarWorkbench
 
         private void syncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;", DBCon.ConnectionString);
+            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarData;", DBCon.ConnectionString);
             try
             {
                 syncTool.SyncLookupData();
