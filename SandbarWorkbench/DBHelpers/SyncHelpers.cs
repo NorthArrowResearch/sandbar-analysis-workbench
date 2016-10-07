@@ -21,7 +21,7 @@ namespace SandbarWorkbench.DBHelpers
             LocalDBCon = sLocalDBCon;
 
             LookupTables = new List<LookupTableDef>();
-            LookupTables.Add(new LookupTableDef("Sites", "SiteID"));
+            LookupTables.Add(new LookupTableDef("Sites", "SiteID", new FieldDef[] { new FieldDef("Title", System.Data.DbType.String) }));
         }
 
         public void SyncLookupData()
@@ -102,7 +102,7 @@ namespace SandbarWorkbench.DBHelpers
             SQLiteParameter pUpdate_PrimaryKey = comUpdateLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
 
             // Query for deleting local rows
-            SQLiteCommand comDeleteLocal = new SQLiteCommand(string.Format("DELETE FROM {0} WHERE {1} = @{1}",aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
+            SQLiteCommand comDeleteLocal = new SQLiteCommand(string.Format("DELETE FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
             SQLiteParameter pDelete_PrimaryKey = comDeleteLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.Int64);
 
             // Connection to read local rows (needs to be separate to the connection used to insert/update/delete rows)
@@ -146,11 +146,11 @@ namespace SandbarWorkbench.DBHelpers
                 // PHASE 2 - loop over rows on master. Insert them into local if their added on date is newer than the date that local was last updated.
 
                 // Query to lookup a single row in local
-                SQLiteCommand comSelectLocal = new SQLiteCommand(string.Format("SELECT {0} FROM {1} WHERE {0} = @{0}",aTable.MasterPrimaryKey,aTable.TableName), conReadLocal);
+                SQLiteCommand comSelectLocal = new SQLiteCommand(string.Format("SELECT {0} FROM {1} WHERE {0} = @{0}", aTable.MasterPrimaryKey, aTable.TableName), conReadLocal);
                 SQLiteParameter pPrimaryKey = comSelectLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.Int64);
 
                 // Prepared command to insert local records
-                SQLiteCommand comInsertLocal = new SQLiteCommand(string.Format("INSERT INTO {0} ({1}, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@{1}, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)",aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
+                SQLiteCommand comInsertLocal = new SQLiteCommand(string.Format("INSERT INTO {0} ({1}, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@{1}, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
                 SQLiteParameter pInsert_PrimaryKey = comInsertLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
                 SQLiteParameter pInsert_Title = comInsertLocal.Parameters.Add("Title", System.Data.DbType.String);
                 SQLiteParameter pInsert_AddedOn = comInsertLocal.Parameters.Add("AddedOn", System.Data.DbType.DateTime);
@@ -213,6 +213,8 @@ namespace SandbarWorkbench.DBHelpers
             public Nullable<DateTime> LocalLastChanged { get; set; }
             public Nullable<DateTime> MasterLastChanged { get; set; }
 
+            public List<FieldDef> Fields { get; internal set; }
+
             public bool RequiresSync
             {
                 get
@@ -220,17 +222,41 @@ namespace SandbarWorkbench.DBHelpers
                     return !LocalLastChanged.HasValue || MasterLastChanged > LocalLastChanged;
                 }
             }
-            public LookupTableDef(string sTableName, string sMasterPrimaryKey)
+            public LookupTableDef(string sTableName, string sMasterPrimaryKey, FieldDef[] lFields)
             {
                 TableName = sTableName;
                 MasterPrimaryKey = sMasterPrimaryKey;
                 LocalLastChanged = new Nullable<DateTime>();
                 MasterLastChanged = new Nullable<DateTime>();
+                Fields = new List<FieldDef>(lFields);
+
+                // Add the standard audit trail fields
+                Fields.Add(new FieldDef("AddedOn", System.Data.DbType.DateTime));
+                Fields.Add(new FieldDef("AddedBy", System.Data.DbType.String));
+                Fields.Add(new FieldDef("UpdatedOn", System.Data.DbType.DateTime));
+                Fields.Add(new FieldDef("UpdatedBy", System.Data.DbType.String));
             }
 
             public override string ToString()
             {
                 return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
+            }
+        }
+
+        public class FieldDef
+        {
+            public string FieldName { get; internal set; }
+            public System.Data.DbType DataType { get; internal set; }
+
+            public FieldDef(string sFieldName, System.Data.DbType aDataType)
+            {
+                FieldName = sFieldName;
+                DataType = aDataType;
+            }
+
+            public override string ToString()
+            {
+                return FieldName;
             }
         }
 
