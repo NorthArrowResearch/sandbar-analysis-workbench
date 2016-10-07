@@ -33,47 +33,45 @@ namespace SandbarWorkbench.DBHelpers
                 using (SQLiteConnection conLocal = new SQLiteConnection(LocalDBCon))
                 {
                     conLocal.Open();
+                    SQLiteTransaction dbTrans = conLocal.BeginTransaction();
 
-                    foreach (LookupTableDef aTable in LookupTables)
+                    try
                     {
-                        // Load the last changed and field schema from both master and local. Then verify that the schemas match (will throw exception if fails)
-                        aTable.RetrievePropertiesFromMaster(conMaster);
-                        aTable.RetrievePropertiesFromLocal(conLocal);
-                        aTable.VerifySchemasMatch();
-
-                        // A sync is needed if the local has never been synced or the latest change date on master is newer than local
-                        if (aTable.RequiresSync)
+                        foreach (LookupTableDef aTable in LookupTables)
                         {
-                            SQLiteTransaction dbTrans = conLocal.BeginTransaction();
+                            // Load the last changed and field schema from both master and local. Then verify that the schemas match (will throw exception if fails)
+                            aTable.RetrievePropertiesFromMaster(conMaster);
+                            aTable.RetrievePropertiesFromLocal(conLocal);
+                            aTable.VerifySchemasMatch();
 
-                            try
+                            // A sync is needed if the local has never been synced or the latest change date on master is newer than local
+                            if (aTable.RequiresSync)
                             {
-                                Step01_DeleteOldData(conMaster, ref dbTrans, aTable);
-
-                                // Update the local TableChangeLog to reflect the update
-                                SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
-                                cLocal.Parameters.AddWithValue("UpdatedOn", aTable.MasterLastChanged.Value);
-                                cLocal.Parameters.AddWithValue("TableName", aTable.TableName);
-                                if (cLocal.ExecuteNonQuery() != 1)
-                                    throw new Exception("Error updating the TableChangeLog on local");
-
-                                dbTrans.Commit();
-                            }
-                            catch (Exception ex)
-                            {
-                                dbTrans.Rollback();
-                                throw;
+                                if (SynchronizeLookupTable(conMaster, ref dbTrans, aTable))
+                                {
+                                    // Update the local TableChangeLog to reflect the update
+                                    SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
+                                    cLocal.Parameters.AddWithValue("UpdatedOn", aTable.MasterLastChanged.Value);
+                                    cLocal.Parameters.AddWithValue("TableName", aTable.TableName);
+                                    if (cLocal.ExecuteNonQuery() != 1)
+                                        throw new Exception("Error updating the TableChangeLog on local");
+                                }
                             }
                         }
+
+                        dbTrans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTrans.Rollback();
+                        throw;
                     }
                 }
             }
         }
 
-        private DatabaseChanges Step01_DeleteOldData(MySqlConnection conMaster, ref SQLiteTransaction dbTrans, LookupTableDef aTable)
+        private bool SynchronizeLookupTable(MySqlConnection conMaster, ref SQLiteTransaction dbTrans, LookupTableDef aTable)
         {
-            DatabaseChanges changeCounter = new DatabaseChanges();
-
             // Query for checking if row exists on master
             MySqlCommand cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), conMaster);
             MySqlParameter pMaster_PrimaryKey = cReadMaster.Parameters.Add(aTable.MasterPrimaryKey, MySqlDbType.Int64);
@@ -114,14 +112,14 @@ namespace SandbarWorkbench.DBHelpers
                             pUpdate_UpdatedBy.Value = dbReadMaster.GetString("UpdatedBy");
                             pUpdate_Title.Value = dbReadMaster.GetString("Title");
                             pUpdate_PrimaryKey.Value = dbReadMaster.GetInt64(aTable.MasterPrimaryKey);
-                            changeCounter.Updated += comUpdateLocal.ExecuteNonQuery();
+                            aTable.LocalUpdates += comUpdateLocal.ExecuteNonQuery();
                         }
                     }
                     else
                     {
                         // This row exists on local but not on master. Delete the local copy.
                         pDelete_PrimaryKey.Value = readLocal.GetInt64(readLocal.GetOrdinal(aTable.MasterPrimaryKey));
-                        changeCounter.Deleted += comDeleteLocal.ExecuteNonQuery();
+                        aTable.LocalDeletes += comDeleteLocal.ExecuteNonQuery();
                     }
                     dbReadMaster.Close();
                 }
@@ -159,34 +157,15 @@ namespace SandbarWorkbench.DBHelpers
                         pInsert_AddedBy.Value = dbReadMasterNew.GetString("AddedBy");
                         pInsert_UpdatedOn.Value = dbReadMasterNew.GetDateTime("UpdatedOn");
                         pInsert_UpdatedBy.Value = dbReadMasterNew.GetString("UpdatedBy");
-                        changeCounter.Inserted += comInsertLocal.ExecuteNonQuery();
+                        aTable.LocalInserts += comInsertLocal.ExecuteNonQuery();
                     }
                 }
                 dbReadMasterNew.Close();
 
             }
 
-            System.Diagnostics.Debug.Print(changeCounter.ToString());
-            return changeCounter;
-        }
-
-        public class DatabaseChanges
-        {
-            public int Inserted { get; set; }
-            public int Updated { get; set; }
-            public int Deleted { get; set; }
-
-            public DatabaseChanges()
-            {
-                Inserted = 0;
-                Updated = 0;
-                Deleted = 0;
-            }
-
-            public override string ToString()
-            {
-                return string.Format("{0} Inserted, {1} Updated, {2} Deleted", Inserted, Updated, Deleted);
-            }
+            System.Diagnostics.Debug.Print("{0} inserts = {1}, updates = {2}, deletes = {3}", aTable.TableName, aTable.LocalInserts, aTable.LocalUpdates, aTable.LocalDeletes);
+            return aTable.LocalChanges;
         }
 
         public class LookupTableDef
@@ -202,6 +181,10 @@ namespace SandbarWorkbench.DBHelpers
             // The local fields are used internally only. External code should just use the master fields
             private Dictionary<string, FieldDef> LocalFields { get; set; }
 
+            public int LocalInserts { get; set; }
+            public int LocalUpdates { get; set; }
+            public int LocalDeletes { get; set; }
+
             public bool RequiresSync
             {
                 get
@@ -209,6 +192,15 @@ namespace SandbarWorkbench.DBHelpers
                     return !LocalLastChanged.HasValue || MasterLastChanged > LocalLastChanged;
                 }
             }
+
+            public bool LocalChanges
+            {
+                get
+                {
+                    return (LocalInserts > 0) || (LocalUpdates > 0) || (LocalDeletes > 0);
+                }
+            }
+
             public LookupTableDef(string sTableName)
             {
                 TableName = sTableName;
