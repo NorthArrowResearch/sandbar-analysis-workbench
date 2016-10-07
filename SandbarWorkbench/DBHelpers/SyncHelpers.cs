@@ -61,48 +61,25 @@ namespace SandbarWorkbench.DBHelpers
                     // A sync is needed if the local has never been synced or the latest change date on master is newer than local
                     if (!dtLocalChanged.HasValue || dtMasterChanged > dtLocalChanged)
                     {
-                        DateTime dtLastLocalUpdate;
+                        SQLiteTransaction dbTrans = conLocal.BeginTransaction();
 
-                        LookupDataVersion masterVersion = DBHelpers.MySQLHelpers.GetMasterLookupDataVersion();
-                        LookupDataVersion localVersion = DBHelpers.SQLiteHelpers.GetLocalLookupDataVersion(DBCon.ConnectionString.Replace("workbench.sqlite", "SandbarTest.sqlite"));
-
-                        if (masterVersion.MHashID > localVersion.MHashID)
+                        try
                         {
-                            SQLiteTransaction dbTrans = conLocal.BeginTransaction();
+                            Step01_DeleteOldData(conMaster, ref dbTrans, dtLocalChanged.Value);
 
-                            try
-                            {
-                                Step01_DeleteOldData(conMaster, ref dbTrans, localVersion.AddedOn);
+                            // Update the local TableChangeLog to reflect the update
+                            SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
+                            cLocal.Parameters.AddWithValue("UpdatedOn", dtMasterChanged);
+                            cLocal.Parameters.AddWithValue("TableName", "Sites");
+                            if (cLocal.ExecuteNonQuery() != 1)
+                                throw new Exception("Error updating the TableChangeLog on local");
 
-                                // Update the local lookup data versions to reflect the update
-
-                                // Prepared Query to insert rows into local
-                                SQLiteCommand comLocalVersions = new SQLiteCommand("INSERT INTO LookupDataVersions (MHashID, AddedOn, AddedBy, InstallationHash) VALUES (@MHashID, @AddedOn, @AddedBy, @InstallationHash)", conLocal, dbTrans);
-                                SQLiteParameter pMHasHID = comLocalVersions.Parameters.Add("@MHashID", System.Data.DbType.Int64);
-                                SQLiteParameter pAddedOn = comLocalVersions.Parameters.Add("@AddedOn", System.Data.DbType.DateTime);
-                                SQLiteParameter pAddedBy = comLocalVersions.Parameters.Add("@AddedBy", System.Data.DbType.String);
-                                SQLiteParameter pInstallationHash = comLocalVersions.Parameters.Add("@InstallationHash", System.Data.DbType.String);
-
-                                // Loop over all the newer update versions in master 
-                                MySqlCommand comMasterVersions = new MySqlCommand("SELECT MHashID, AddedOn, AddedBy, InstallationHash FROM LookupDataVersions WHERE AddedOn > @UpdatedOn ORDER BY AddedOn", conMaster);
-                                comMasterVersions.Parameters.AddWithValue("UpdatedOn", localVersion.AddedOn);
-                                MySqlDataReader readMaster = comMasterVersions.ExecuteReader();
-                                while (readMaster.Read())
-                                {
-                                    pMHasHID.Value = readMaster.GetInt64("MHashID");
-                                    pAddedOn.Value = readMaster.GetDateTime("AddedOn");
-                                    pAddedBy.Value = readMaster.GetString("AddedBy");
-                                    pInstallationHash.Value = readMaster.GetString("InstallationHash");
-                                    comLocalVersions.ExecuteNonQuery();
-                                }
-
-                                dbTrans.Commit();
-                            }
-                            catch (Exception ex)
-                            {
-                                dbTrans.Rollback();
-                                throw;
-                            }
+                            dbTrans.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            dbTrans.Rollback();
+                            throw;
                         }
                     }
                 }
@@ -114,19 +91,19 @@ namespace SandbarWorkbench.DBHelpers
             DatabaseChanges changeCounter = new DatabaseChanges();
 
             // Query for checking if row exists on master
-            MySqlCommand cReadMaster = new MySqlCommand("SELECT * FROM Sites WHERE MSiteID = @MSiteID", conMaster);
-            MySqlParameter pMaster_MSiteID = cReadMaster.Parameters.Add("@MSiteID", MySqlDbType.Int64);
+            MySqlCommand cReadMaster = new MySqlCommand("SELECT * FROM Sites WHERE SiteID = @SiteID", conMaster);
+            MySqlParameter pMaster_MSiteID = cReadMaster.Parameters.Add("SiteID", MySqlDbType.Int64);
 
             // Query for updating local rows
-            SQLiteCommand comUpdateLocal = new SQLiteCommand("UPDATE Sites SET UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, Title = @Title WHERE MSiteID = @MSiteID", dbTrans.Connection, dbTrans);
-            SQLiteParameter pUpdate_UpdatedOn = comUpdateLocal.Parameters.Add("@UpdatedOn", System.Data.DbType.DateTime);
-            SQLiteParameter pUpdate_UpdatedBy = comUpdateLocal.Parameters.Add("@UpdatedBy", System.Data.DbType.String);
-            SQLiteParameter pUpdate_Title = comUpdateLocal.Parameters.Add("@Title", System.Data.DbType.String);
-            SQLiteParameter pUpdate_MSiteID = comUpdateLocal.Parameters.Add("@MSiteID", System.Data.DbType.UInt64);
+            SQLiteCommand comUpdateLocal = new SQLiteCommand("UPDATE Sites SET UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, Title = @Title WHERE SiteID = @SiteID", dbTrans.Connection, dbTrans);
+            SQLiteParameter pUpdate_UpdatedOn = comUpdateLocal.Parameters.Add("UpdatedOn", System.Data.DbType.DateTime);
+            SQLiteParameter pUpdate_UpdatedBy = comUpdateLocal.Parameters.Add("UpdatedBy", System.Data.DbType.String);
+            SQLiteParameter pUpdate_Title = comUpdateLocal.Parameters.Add("Title", System.Data.DbType.String);
+            SQLiteParameter pUpdate_MSiteID = comUpdateLocal.Parameters.Add("SiteID", System.Data.DbType.UInt64);
 
             // Query for deleting local rows
-            SQLiteCommand comDeleteLocal = new SQLiteCommand("DELETE FROM Sites WHERE MSiteID = @MSiteID", dbTrans.Connection, dbTrans);
-            SQLiteParameter pDelete_MSiteID = comDeleteLocal.Parameters.Add("@MSiteID", System.Data.DbType.Int64);
+            SQLiteCommand comDeleteLocal = new SQLiteCommand("DELETE FROM Sites WHERE SiteID = @SiteID", dbTrans.Connection, dbTrans);
+            SQLiteParameter pDelete_MSiteID = comDeleteLocal.Parameters.Add("SiteID", System.Data.DbType.Int64);
 
             // Connection to read local rows (needs to be separate to the connection used to insert/update/delete rows)
             using (SQLiteConnection conReadLocal = new SQLiteConnection(LocalDBCon))
@@ -137,11 +114,11 @@ namespace SandbarWorkbench.DBHelpers
                 // PHASE 1 - loop over rows on local. Update them if they are newer on master and delete them if they don't exist on master
 
                 // Loop over all rows in local table
-                SQLiteCommand comReadLocal = new SQLiteCommand("SELECT MSiteID, UpdatedOn FROM Sites", conReadLocal);
+                SQLiteCommand comReadLocal = new SQLiteCommand("SELECT SiteID, UpdatedOn FROM Sites", conReadLocal);
                 SQLiteDataReader readLocal = comReadLocal.ExecuteReader();
                 while (readLocal.Read())
                 {
-                    pMaster_MSiteID.Value = readLocal.GetInt64(readLocal.GetOrdinal("MSiteID"));
+                    pMaster_MSiteID.Value = readLocal.GetInt64(readLocal.GetOrdinal("SiteID"));
                     MySqlDataReader dbReadMaster = cReadMaster.ExecuteReader();
                     if (dbReadMaster.Read())
                     {
@@ -152,14 +129,14 @@ namespace SandbarWorkbench.DBHelpers
                             pUpdate_UpdatedOn.Value = dbReadMaster.GetDateTime("UpdatedOn");
                             pUpdate_UpdatedBy.Value = dbReadMaster.GetString("UpdatedBy");
                             pUpdate_Title.Value = dbReadMaster.GetString("Title");
-                            pUpdate_MSiteID.Value = dbReadMaster.GetInt64("MSiteID");
+                            pUpdate_MSiteID.Value = dbReadMaster.GetInt64("SiteID");
                             changeCounter.Updated += comUpdateLocal.ExecuteNonQuery();
                         }
                     }
                     else
                     {
                         // This row exists on local but not on master. Delete the local copy.
-                        pDelete_MSiteID.Value = readLocal.GetInt64(readLocal.GetOrdinal("MSiteID"));
+                        pDelete_MSiteID.Value = readLocal.GetInt64(readLocal.GetOrdinal("SiteID"));
                         changeCounter.Deleted += comDeleteLocal.ExecuteNonQuery();
                     }
                     dbReadMaster.Close();
@@ -169,17 +146,17 @@ namespace SandbarWorkbench.DBHelpers
                 // PHASE 2 - loop over rows on master. Insert them into local if their added on date is newer than the date that local was last updated.
 
                 // Query to lookup a single row in local
-                SQLiteCommand comSelectLocal = new SQLiteCommand("SELECT MSiteID FROM SITES WHERE MSiteID = @MSiteID", conReadLocal);
-                SQLiteParameter pMSiteID = comSelectLocal.Parameters.Add("@MSiteID", System.Data.DbType.Int64);
+                SQLiteCommand comSelectLocal = new SQLiteCommand("SELECT SiteID FROM SITES WHERE SiteID = @SiteID", conReadLocal);
+                SQLiteParameter pMSiteID = comSelectLocal.Parameters.Add("SiteID", System.Data.DbType.Int64);
 
                 // Prepared command to insert local records
-                SQLiteCommand comInsertLocal = new SQLiteCommand("INSERT INTO Sites (MSiteID, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@MSiteID, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", dbTrans.Connection, dbTrans);
-                SQLiteParameter pInsert_MSiteID = comInsertLocal.Parameters.Add("@MSiteID", System.Data.DbType.UInt64);
-                SQLiteParameter pInsert_Title = comInsertLocal.Parameters.Add("@Title", System.Data.DbType.String);
-                SQLiteParameter pInsert_AddedOn = comInsertLocal.Parameters.Add("@AddedOn", System.Data.DbType.DateTime);
-                SQLiteParameter pInsert_AddedBy = comInsertLocal.Parameters.Add("@AddedBy", System.Data.DbType.String);
-                SQLiteParameter pInsert_UpdatedOn = comInsertLocal.Parameters.Add("@UpdatedOn", System.Data.DbType.DateTime);
-                SQLiteParameter pInsert_UpdatedBy = comInsertLocal.Parameters.Add("@UpdatedBy", System.Data.DbType.String);
+                SQLiteCommand comInsertLocal = new SQLiteCommand("INSERT INTO Sites (SiteID, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@SiteID, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", dbTrans.Connection, dbTrans);
+                SQLiteParameter pInsert_MSiteID = comInsertLocal.Parameters.Add("SiteID", System.Data.DbType.UInt64);
+                SQLiteParameter pInsert_Title = comInsertLocal.Parameters.Add("Title", System.Data.DbType.String);
+                SQLiteParameter pInsert_AddedOn = comInsertLocal.Parameters.Add("AddedOn", System.Data.DbType.DateTime);
+                SQLiteParameter pInsert_AddedBy = comInsertLocal.Parameters.Add("AddedBy", System.Data.DbType.String);
+                SQLiteParameter pInsert_UpdatedOn = comInsertLocal.Parameters.Add("UpdatedOn", System.Data.DbType.DateTime);
+                SQLiteParameter pInsert_UpdatedBy = comInsertLocal.Parameters.Add("UpdatedBy", System.Data.DbType.String);
 
                 // Loop over rows in master and find those that 
                 cReadMaster = new MySqlCommand("SELECT * FROM Sites WHERE AddedOn > @UpdatedOn", conMaster);
@@ -187,12 +164,12 @@ namespace SandbarWorkbench.DBHelpers
                 MySqlDataReader dbReadMasterNew = cReadMaster.ExecuteReader();
                 while (dbReadMasterNew.Read())
                 {
-                    pMSiteID.Value = dbReadMasterNew.GetInt64("MSiteID");
+                    pMSiteID.Value = dbReadMasterNew.GetInt64("SiteID");
                     object objSiteID = comSelectLocal.ExecuteScalar();
                     if (objSiteID == null)
                     {
                         // Insert missing row into local
-                        pInsert_MSiteID.Value = dbReadMasterNew.GetInt64("MSiteID");
+                        pInsert_MSiteID.Value = dbReadMasterNew.GetInt64("SiteID");
                         pInsert_Title.Value = dbReadMasterNew.GetString("Title");
                         pInsert_AddedOn.Value = dbReadMasterNew.GetDateTime("AddedOn");
                         pInsert_AddedBy.Value = dbReadMasterNew.GetString("AddedBy");
