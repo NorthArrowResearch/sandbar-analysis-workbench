@@ -10,11 +10,13 @@ namespace SandbarWorkbench.DBHelpers
 {
     class SyncHelpers
     {
+        public string SchemaName { get; internal set; }
         public string MasterDBCon { get; internal set; }
         public string LocalDBCon { get; internal set; }
 
-        public SyncHelpers(string sMasterDBCon, string sLocalDBCon)
+        public SyncHelpers(string sSchemaName, string sMasterDBCon, string sLocalDBCon)
         {
+            SchemaName = sSchemaName;
             MasterDBCon = sMasterDBCon;
             LocalDBCon = sLocalDBCon;
         }
@@ -43,7 +45,7 @@ namespace SandbarWorkbench.DBHelpers
                         foreach (LookupTableDef aTable in LookupTables)
                         {
                             // Load the last changed and field schema from both master and local. Then verify that the schemas match (will throw exception if fails)
-                            aTable.RetrievePropertiesFromMaster(conMaster);
+                            aTable.RetrievePropertiesFromMaster(SchemaName, conMaster);
                             aTable.RetrievePropertiesFromLocal(conLocal);
                             aTable.VerifySchemasMatch();
 

@@ -55,7 +55,7 @@ namespace SandbarWorkbench.DBHelpers
             LocalFields = new Dictionary<string, FieldDef>();
         }
 
-        public void RetrievePropertiesFromMaster(MySqlConnection dbCon)
+        public void RetrievePropertiesFromMaster(string sSchemaName, MySqlConnection dbCon)
         {
             MySqlCommand dbCom = new MySqlCommand("SELECT UpdatedOn FROM TableChangeLog WHERE TableName = @TableName", dbCon);
             dbCom.Parameters.AddWithValue("TableName", TableName);
@@ -74,7 +74,7 @@ namespace SandbarWorkbench.DBHelpers
             }
 
             // Attempt to determine the look up table schema
-            dbCom = new MySqlCommand(string.Format("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_SCHEMA = 'SandbarTest') AND (TABLE_NAME = 'Sites')", TableName), dbCon);
+            dbCom = new MySqlCommand(string.Format("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_SCHEMA = '{0}') AND (TABLE_NAME = '{1}')", sSchemaName, TableName), dbCon);
             MySqlDataReader dbRead = dbCom.ExecuteReader();
             while (dbRead.Read())
             {
@@ -205,7 +205,7 @@ namespace SandbarWorkbench.DBHelpers
             // Add each of the lookup table fields as parameters to the query
             foreach (FieldDef aField in LocalFields.Values)
                 dbCom.Parameters.Add(aField.FieldName, aField.DataType);
-    
+
             // Add the primary key parameter used in the WHERE clause
             dbCom.Parameters.Add(MasterPrimaryKey, System.Data.DbType.UInt64);
 
@@ -214,7 +214,7 @@ namespace SandbarWorkbench.DBHelpers
 
             // Build the SQL UPDATE query that uses the list of fields.
             dbCom.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", TableName, sFieldUpdateList, MasterPrimaryKey);
-      
+
             return dbCom;
         }
 
@@ -227,7 +227,7 @@ namespace SandbarWorkbench.DBHelpers
             // Add each of the lookup table fields as parameters to the query
             foreach (FieldDef aField in LocalFields.Values)
                 dbCom.Parameters.Add(aField.FieldName, aField.DataType);
-    
+
             // Add the primary key parameter
             dbCom.Parameters.Add(MasterPrimaryKey, System.Data.DbType.UInt64);
 
@@ -238,7 +238,7 @@ namespace SandbarWorkbench.DBHelpers
             // Build the SQL UPDATE query that uses the list of fields.
             // Note how the field list is used twice, 1st for the fields, then again as the parameters           
             dbCom.CommandText = string.Format("INSERT INTO {0} ({1}) VALUES (@{2})", TableName, sFieldList, sFieldList.Replace(", ", ", @"));
-               
+
             return dbCom;
         }
     }
