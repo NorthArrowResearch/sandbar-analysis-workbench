@@ -36,8 +36,10 @@ namespace SandbarWorkbench.DBHelpers
 
                     foreach (LookupTableDef aTable in LookupTables)
                     {
+                        // Load the last changed and field schema from both master and local. Then verify that the schemas match (will throw exception if fails)
                         aTable.RetrievePropertiesFromMaster(conMaster);
                         aTable.RetrievePropertiesFromLocal(conLocal);
+                        aTable.VerifySchemasMatch();
 
                         // A sync is needed if the local has never been synced or the latest change date on master is newer than local
                         if (aTable.RequiresSync)
@@ -73,19 +75,19 @@ namespace SandbarWorkbench.DBHelpers
             DatabaseChanges changeCounter = new DatabaseChanges();
 
             // Query for checking if row exists on master
-            MySqlCommand cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.PrimaryKey), conMaster);
-            MySqlParameter pMaster_PrimaryKey = cReadMaster.Parameters.Add(aTable.PrimaryKey, MySqlDbType.Int64);
+            MySqlCommand cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), conMaster);
+            MySqlParameter pMaster_PrimaryKey = cReadMaster.Parameters.Add(aTable.MasterPrimaryKey, MySqlDbType.Int64);
 
             // Query for updating local rows
-            SQLiteCommand comUpdateLocal = new SQLiteCommand(string.Format("UPDATE {0} SET UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, Title = @Title WHERE {1} = @{1}", aTable.TableName, aTable.PrimaryKey), dbTrans.Connection, dbTrans);
+            SQLiteCommand comUpdateLocal = new SQLiteCommand(string.Format("UPDATE {0} SET UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, Title = @Title WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
             SQLiteParameter pUpdate_UpdatedOn = comUpdateLocal.Parameters.Add("UpdatedOn", System.Data.DbType.DateTime);
             SQLiteParameter pUpdate_UpdatedBy = comUpdateLocal.Parameters.Add("UpdatedBy", System.Data.DbType.String);
             SQLiteParameter pUpdate_Title = comUpdateLocal.Parameters.Add("Title", System.Data.DbType.String);
-            SQLiteParameter pUpdate_PrimaryKey = comUpdateLocal.Parameters.Add(aTable.PrimaryKey, System.Data.DbType.UInt64);
+            SQLiteParameter pUpdate_PrimaryKey = comUpdateLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
 
             // Query for deleting local rows
-            SQLiteCommand comDeleteLocal = new SQLiteCommand(string.Format("DELETE FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.PrimaryKey), dbTrans.Connection, dbTrans);
-            SQLiteParameter pDelete_PrimaryKey = comDeleteLocal.Parameters.Add(aTable.PrimaryKey, System.Data.DbType.Int64);
+            SQLiteCommand comDeleteLocal = new SQLiteCommand(string.Format("DELETE FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
+            SQLiteParameter pDelete_PrimaryKey = comDeleteLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.Int64);
 
             // Connection to read local rows (needs to be separate to the connection used to insert/update/delete rows)
             using (SQLiteConnection conReadLocal = new SQLiteConnection(LocalDBCon))
@@ -96,11 +98,11 @@ namespace SandbarWorkbench.DBHelpers
                 // PHASE 1 - loop over rows on local. Update them if they are newer on master and delete them if they don't exist on master
 
                 // Loop over all rows in local table
-                SQLiteCommand comReadLocal = new SQLiteCommand(string.Format("SELECT {0}, UpdatedOn FROM {1}", aTable.PrimaryKey, aTable.TableName), conReadLocal);
+                SQLiteCommand comReadLocal = new SQLiteCommand(string.Format("SELECT {0}, UpdatedOn FROM {1}", aTable.MasterPrimaryKey, aTable.TableName), conReadLocal);
                 SQLiteDataReader readLocal = comReadLocal.ExecuteReader();
                 while (readLocal.Read())
                 {
-                    pMaster_PrimaryKey.Value = readLocal.GetInt64(readLocal.GetOrdinal(aTable.PrimaryKey));
+                    pMaster_PrimaryKey.Value = readLocal.GetInt64(readLocal.GetOrdinal(aTable.MasterPrimaryKey));
                     MySqlDataReader dbReadMaster = cReadMaster.ExecuteReader();
                     if (dbReadMaster.Read())
                     {
@@ -111,14 +113,14 @@ namespace SandbarWorkbench.DBHelpers
                             pUpdate_UpdatedOn.Value = dbReadMaster.GetDateTime("UpdatedOn");
                             pUpdate_UpdatedBy.Value = dbReadMaster.GetString("UpdatedBy");
                             pUpdate_Title.Value = dbReadMaster.GetString("Title");
-                            pUpdate_PrimaryKey.Value = dbReadMaster.GetInt64(aTable.PrimaryKey);
+                            pUpdate_PrimaryKey.Value = dbReadMaster.GetInt64(aTable.MasterPrimaryKey);
                             changeCounter.Updated += comUpdateLocal.ExecuteNonQuery();
                         }
                     }
                     else
                     {
                         // This row exists on local but not on master. Delete the local copy.
-                        pDelete_PrimaryKey.Value = readLocal.GetInt64(readLocal.GetOrdinal(aTable.PrimaryKey));
+                        pDelete_PrimaryKey.Value = readLocal.GetInt64(readLocal.GetOrdinal(aTable.MasterPrimaryKey));
                         changeCounter.Deleted += comDeleteLocal.ExecuteNonQuery();
                     }
                     dbReadMaster.Close();
@@ -128,12 +130,12 @@ namespace SandbarWorkbench.DBHelpers
                 // PHASE 2 - loop over rows on master. Insert them into local if their added on date is newer than the date that local was last updated.
 
                 // Query to lookup a single row in local
-                SQLiteCommand comSelectLocal = new SQLiteCommand(string.Format("SELECT {0} FROM {1} WHERE {0} = @{0}", aTable.PrimaryKey, aTable.TableName), conReadLocal);
-                SQLiteParameter pPrimaryKey = comSelectLocal.Parameters.Add(aTable.PrimaryKey, System.Data.DbType.Int64);
+                SQLiteCommand comSelectLocal = new SQLiteCommand(string.Format("SELECT {0} FROM {1} WHERE {0} = @{0}", aTable.MasterPrimaryKey, aTable.TableName), conReadLocal);
+                SQLiteParameter pPrimaryKey = comSelectLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.Int64);
 
                 // Prepared command to insert local records
-                SQLiteCommand comInsertLocal = new SQLiteCommand(string.Format("INSERT INTO {0} ({1}, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@{1}, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", aTable.TableName, aTable.PrimaryKey), dbTrans.Connection, dbTrans);
-                SQLiteParameter pInsert_PrimaryKey = comInsertLocal.Parameters.Add(aTable.PrimaryKey, System.Data.DbType.UInt64);
+                SQLiteCommand comInsertLocal = new SQLiteCommand(string.Format("INSERT INTO {0} ({1}, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@{1}, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
+                SQLiteParameter pInsert_PrimaryKey = comInsertLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
                 SQLiteParameter pInsert_Title = comInsertLocal.Parameters.Add("Title", System.Data.DbType.String);
                 SQLiteParameter pInsert_AddedOn = comInsertLocal.Parameters.Add("AddedOn", System.Data.DbType.DateTime);
                 SQLiteParameter pInsert_AddedBy = comInsertLocal.Parameters.Add("AddedBy", System.Data.DbType.String);
@@ -146,12 +148,12 @@ namespace SandbarWorkbench.DBHelpers
                 MySqlDataReader dbReadMasterNew = cReadMaster.ExecuteReader();
                 while (dbReadMasterNew.Read())
                 {
-                    pPrimaryKey.Value = dbReadMasterNew.GetInt64(aTable.PrimaryKey);
+                    pPrimaryKey.Value = dbReadMasterNew.GetInt64(aTable.MasterPrimaryKey);
                     object objPrimaryKey = comSelectLocal.ExecuteScalar();
                     if (objPrimaryKey == null)
                     {
                         // Insert missing row into local
-                        pInsert_PrimaryKey.Value = dbReadMasterNew.GetInt64(aTable.PrimaryKey);
+                        pInsert_PrimaryKey.Value = dbReadMasterNew.GetInt64(aTable.MasterPrimaryKey);
                         pInsert_Title.Value = dbReadMasterNew.GetString("Title");
                         pInsert_AddedOn.Value = dbReadMasterNew.GetDateTime("AddedOn");
                         pInsert_AddedBy.Value = dbReadMasterNew.GetString("AddedBy");
@@ -190,12 +192,15 @@ namespace SandbarWorkbench.DBHelpers
         public class LookupTableDef
         {
             public string TableName { get; internal set; }
-            public string PrimaryKey { get; internal set; }
+            public string MasterPrimaryKey { get; internal set; }
+            private string LocalPrimaryKey { get; set; }
 
             public Nullable<DateTime> LocalLastChanged { get; set; }
             public Nullable<DateTime> MasterLastChanged { get; set; }
 
-            public Dictionary<string, FieldDef> Fields { get; internal set; }
+            public Dictionary<string, FieldDef> MasterFields { get; internal set; }
+            // The local fields are used internally only. External code should just use the master fields
+            private Dictionary<string, FieldDef> LocalFields { get; set; }
 
             public bool RequiresSync
             {
@@ -209,7 +214,8 @@ namespace SandbarWorkbench.DBHelpers
                 TableName = sTableName;
                 LocalLastChanged = new Nullable<DateTime>();
                 MasterLastChanged = new Nullable<DateTime>();
-                Fields = new Dictionary<string, FieldDef>();
+                MasterFields = new Dictionary<string, FieldDef>();
+                LocalFields = new Dictionary<string, FieldDef>();
             }
 
             public void RetrievePropertiesFromMaster(MySqlConnection dbCon)
@@ -237,7 +243,7 @@ namespace SandbarWorkbench.DBHelpers
                 {
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("COLUMN_KEY")) && string.Compare(dbRead.GetString("COLUMN_Key"), "PRI", true) == 0)
                     {
-                        PrimaryKey = dbRead.GetString("COLUMN_NAME");
+                        MasterPrimaryKey = dbRead.GetString("COLUMN_NAME");
                     }
                     else
                     {
@@ -261,19 +267,19 @@ namespace SandbarWorkbench.DBHelpers
 
                         }
 
-                        Fields[dbRead.GetString("COLUMN_NAME")] = new FieldDef(dbRead.GetString("COLUMN_NAME"), theDataType);
+                        MasterFields[dbRead.GetString("COLUMN_NAME")] = new FieldDef(dbRead.GetString("COLUMN_NAME"), theDataType);
                     }
                 }
 
                 // Verify that the table has a primary key defined.
-                if (string.IsNullOrEmpty(PrimaryKey))
+                if (string.IsNullOrEmpty(MasterPrimaryKey))
                     throw new Exception(string.Format("The table {0} does not have a primary key defined on the Master database.", TableName));
 
                 // Verify that all the mandatory audit trail fields exist.
                 string[] MandatoryFields = { "UpdatedOn", "UpdatedBy", "AddedOn", "AddedBy" };
                 foreach (string aFieldName in MandatoryFields)
                 {
-                    if (!Fields.ContainsKey("UpdatedOn"))
+                    if (!MasterFields.ContainsKey("UpdatedOn"))
                         throw new Exception(string.Format("The table {0} is missing the mandatory field {1}", TableName, aFieldName));
                 }
             }
@@ -296,11 +302,64 @@ namespace SandbarWorkbench.DBHelpers
                     ex.Data["Connection"] = dbCon.ConnectionString;
                     throw ex;
                 }
+
+                dbCom = new SQLiteCommand(string.Format("PRAGMA table_info('{0}')", TableName), dbCon);
+                SQLiteDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    if (dbRead.GetInt16(dbRead.GetOrdinal("pk")) == 1)
+                    {
+                        LocalPrimaryKey = dbRead.GetString(dbRead.GetOrdinal("name"));
+                    }
+                    else
+                    {
+                        System.Data.DbType theDataType;
+                        string sDataType = dbRead.GetString(dbRead.GetOrdinal("type")).ToLower();
+                        if (string.Compare(sDataType, "integer", true) == 0)
+                            theDataType = System.Data.DbType.Int64;
+                        else if (sDataType.StartsWith("varchar"))
+                            theDataType = System.Data.DbType.String;
+                        else if (string.Compare(sDataType, "datetime", true) == 0)
+                            theDataType = System.Data.DbType.DateTime;
+                        else
+                            throw new Exception(string.Format("Unhandled database field type '{0}' in LOCAL table {1}", sDataType, TableName));
+
+                        LocalFields[dbRead.GetString(dbRead.GetOrdinal("name"))] = new FieldDef(dbRead.GetString(dbRead.GetOrdinal("name")), theDataType);
+                    }
+                }
+            }
+
+            public void VerifySchemasMatch()
+            {
+                if (string.Compare(MasterPrimaryKey, LocalPrimaryKey, true) != 0)
+                    throw new Exception(string.Format("The primary keys for lookup table {0} don't match. Master = {1}, local = {2}", TableName, MasterPrimaryKey, LocalPrimaryKey));
+
+                // Loop over both databases and check that the fields in each, exist in the other.
+                Dictionary<string, Dictionary<string, FieldDef>> dDatabaseDefs = new Dictionary<string, Dictionary<string, FieldDef>>();
+                dDatabaseDefs["master"] = MasterFields;
+                dDatabaseDefs["local"] = LocalFields;
+
+                foreach (string sDatabase in dDatabaseDefs.Keys)
+                {
+                    Dictionary<string, FieldDef> theDatabaseDef = dDatabaseDefs[sDatabase];
+                    foreach (FieldDef aField in theDatabaseDef.Values)
+                    {
+                        if (!LocalFields.ContainsKey(aField.FieldName))
+                            throw new Exception(string.Format("The {0} database lookup table {1} contains a field called {2} but it is missing from the local database.", sDatabase, TableName, aField.FieldName));
+                    }
+                }
+
+                // Verify that the data types match
+                foreach (FieldDef masterField in MasterFields.Values)
+                {
+                    if (masterField.DataType != LocalFields[masterField.FieldName].DataType)
+                        throw new Exception(string.Format("The {0} field in the {1} lookup table has a different data type on master than local. Master = {2}, local = {3}", masterField.FieldName, TableName, masterField.DataType.ToString(), LocalFields[masterField.FieldName].DataType.ToString()));
+                }
             }
 
             public override string ToString()
             {
-                return string.Format("{0}, PK = {1}", TableName, PrimaryKey);
+                return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
             }
         }
 
