@@ -64,7 +64,7 @@ namespace SandbarWorkbench.DBHelpers
 
                             try
                             {
-                                Step01_DeleteOldData(conMaster, ref dbTrans, aTable.LocalLastChanged.Value);
+                                Step01_DeleteOldData(conMaster, ref dbTrans, aTable);
 
                                 // Update the local TableChangeLog to reflect the update
                                 SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
@@ -217,7 +217,7 @@ namespace SandbarWorkbench.DBHelpers
             {
                 get
                 {
-                    return LocalLastChanged.HasValue || MasterLastChanged > LocalLastChanged;
+                    return !LocalLastChanged.HasValue || MasterLastChanged > LocalLastChanged;
                 }
             }
             public LookupTableDef(string sTableName, string sMasterPrimaryKey)
