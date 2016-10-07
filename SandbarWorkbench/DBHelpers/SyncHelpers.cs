@@ -76,12 +76,7 @@ namespace SandbarWorkbench.DBHelpers
             MySqlCommand cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), conMaster);
             MySqlParameter pMaster_PrimaryKey = cReadMaster.Parameters.Add(aTable.MasterPrimaryKey, MySqlDbType.Int64);
 
-            // Query for updating local rows
-            SQLiteCommand comUpdateLocal = new SQLiteCommand(string.Format("UPDATE {0} SET UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, Title = @Title WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
-            SQLiteParameter pUpdate_UpdatedOn = comUpdateLocal.Parameters.Add("UpdatedOn", System.Data.DbType.DateTime);
-            SQLiteParameter pUpdate_UpdatedBy = comUpdateLocal.Parameters.Add("UpdatedBy", System.Data.DbType.String);
-            SQLiteParameter pUpdate_Title = comUpdateLocal.Parameters.Add("Title", System.Data.DbType.String);
-            SQLiteParameter pUpdate_PrimaryKey = comUpdateLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
+            SQLiteCommand comUpdateLocal = aTable.BuildUpdateCommand(ref dbTrans);
 
             // Query for deleting local rows
             SQLiteCommand comDeleteLocal = new SQLiteCommand(string.Format("DELETE FROM {0} WHERE {1} = @{1}", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
@@ -108,10 +103,9 @@ namespace SandbarWorkbench.DBHelpers
                         if (dbReadMaster.GetDateTime("UpdatedOn") > readLocal.GetDateTime(readLocal.GetOrdinal("UpdatedOn")))
                         {
                             // The row on Master has been updated more recently than the row on local. Update local.
-                            pUpdate_UpdatedOn.Value = dbReadMaster.GetDateTime("UpdatedOn");
-                            pUpdate_UpdatedBy.Value = dbReadMaster.GetString("UpdatedBy");
-                            pUpdate_Title.Value = dbReadMaster.GetString("Title");
-                            pUpdate_PrimaryKey.Value = dbReadMaster.GetInt64(aTable.MasterPrimaryKey);
+                            foreach (SQLiteParameter aParam in comUpdateLocal.Parameters)
+                                aParam.Value = dbReadMaster[aParam.ParameterName];
+
                             aTable.LocalUpdates += comUpdateLocal.ExecuteNonQuery();
                         }
                     }
@@ -132,13 +126,7 @@ namespace SandbarWorkbench.DBHelpers
                 SQLiteParameter pPrimaryKey = comSelectLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.Int64);
 
                 // Prepared command to insert local records
-                SQLiteCommand comInsertLocal = new SQLiteCommand(string.Format("INSERT INTO {0} ({1}, Title, AddedOn, AddedBy, UpdatedOn, UpdatedBy) VALUES (@{1}, @Title, @AddedOn, @AddedBy, @UpdatedOn, @UpdatedBy)", aTable.TableName, aTable.MasterPrimaryKey), dbTrans.Connection, dbTrans);
-                SQLiteParameter pInsert_PrimaryKey = comInsertLocal.Parameters.Add(aTable.MasterPrimaryKey, System.Data.DbType.UInt64);
-                SQLiteParameter pInsert_Title = comInsertLocal.Parameters.Add("Title", System.Data.DbType.String);
-                SQLiteParameter pInsert_AddedOn = comInsertLocal.Parameters.Add("AddedOn", System.Data.DbType.DateTime);
-                SQLiteParameter pInsert_AddedBy = comInsertLocal.Parameters.Add("AddedBy", System.Data.DbType.String);
-                SQLiteParameter pInsert_UpdatedOn = comInsertLocal.Parameters.Add("UpdatedOn", System.Data.DbType.DateTime);
-                SQLiteParameter pInsert_UpdatedBy = comInsertLocal.Parameters.Add("UpdatedBy", System.Data.DbType.String);
+                SQLiteCommand comInsertLocal = aTable.BuildInsertCommand(ref dbTrans);
 
                 // Loop over rows in master and find those that 
                 cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE AddedOn > @UpdatedOn", aTable.TableName), conMaster);
@@ -151,12 +139,9 @@ namespace SandbarWorkbench.DBHelpers
                     if (objPrimaryKey == null)
                     {
                         // Insert missing row into local
-                        pInsert_PrimaryKey.Value = dbReadMasterNew.GetInt64(aTable.MasterPrimaryKey);
-                        pInsert_Title.Value = dbReadMasterNew.GetString("Title");
-                        pInsert_AddedOn.Value = dbReadMasterNew.GetDateTime("AddedOn");
-                        pInsert_AddedBy.Value = dbReadMasterNew.GetString("AddedBy");
-                        pInsert_UpdatedOn.Value = dbReadMasterNew.GetDateTime("UpdatedOn");
-                        pInsert_UpdatedBy.Value = dbReadMasterNew.GetString("UpdatedBy");
+                        foreach (SQLiteParameter aParam in comInsertLocal.Parameters)
+                            aParam.Value = dbReadMasterNew[aParam.ParameterName];
+
                         aTable.LocalInserts += comInsertLocal.ExecuteNonQuery();
                     }
                 }
@@ -167,6 +152,5 @@ namespace SandbarWorkbench.DBHelpers
             System.Diagnostics.Debug.Print("{0} inserts = {1}, updates = {2}, deletes = {3}", aTable.TableName, aTable.LocalInserts, aTable.LocalUpdates, aTable.LocalDeletes);
             return aTable.LocalChanges;
         }
-
     }
 }

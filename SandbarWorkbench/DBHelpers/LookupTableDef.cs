@@ -41,6 +41,11 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
+        }
+
         public LookupTableDef(string sTableName)
         {
             TableName = sTableName;
@@ -102,6 +107,7 @@ namespace SandbarWorkbench.DBHelpers
                     MasterFields[dbRead.GetString("COLUMN_NAME")] = new FieldDef(dbRead.GetString("COLUMN_NAME"), theDataType);
                 }
             }
+            dbRead.Close();
 
             // Verify that the table has a primary key defined.
             if (string.IsNullOrEmpty(MasterPrimaryKey))
@@ -159,6 +165,7 @@ namespace SandbarWorkbench.DBHelpers
                     LocalFields[dbRead.GetString(dbRead.GetOrdinal("name"))] = new FieldDef(dbRead.GetString(dbRead.GetOrdinal("name")), theDataType);
                 }
             }
+            dbRead.Close();
         }
 
         public void VerifySchemasMatch()
@@ -189,9 +196,50 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
-        public override string ToString()
+        public SQLiteCommand BuildUpdateCommand(ref SQLiteTransaction dbTrans)
         {
-            return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
+            // Query for updating local rows
+            SQLiteCommand dbCom = new SQLiteCommand(dbTrans.Connection);
+            dbCom.Transaction = dbTrans;
+
+            // Add each of the lookup table fields as parameters to the query
+            foreach (FieldDef aField in LocalFields.Values)
+                dbCom.Parameters.Add(aField.FieldName, aField.DataType);
+    
+            // Add the primary key parameter used in the WHERE clause
+            dbCom.Parameters.Add(MasterPrimaryKey, System.Data.DbType.UInt64);
+
+            // Use LinQ to concatenate the field names into the field list of the SQL query
+            string sFieldUpdateList = string.Join(", ", LocalFields.Select(x => string.Format("{0} = @{0}", x.Value.FieldName)).ToArray<string>());
+
+            // Build the SQL UPDATE query that uses the list of fields.
+            dbCom.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", TableName, sFieldUpdateList, MasterPrimaryKey);
+      
+            return dbCom;
+        }
+
+        public SQLiteCommand BuildInsertCommand(ref SQLiteTransaction dbTrans)
+        {
+            // Query for updating local rows
+            SQLiteCommand dbCom = new SQLiteCommand(dbTrans.Connection);
+            dbCom.Transaction = dbTrans;
+
+            // Add each of the lookup table fields as parameters to the query
+            foreach (FieldDef aField in LocalFields.Values)
+                dbCom.Parameters.Add(aField.FieldName, aField.DataType);
+    
+            // Add the primary key parameter
+            dbCom.Parameters.Add(MasterPrimaryKey, System.Data.DbType.UInt64);
+
+            // Use LinQ to concatenate the field names into the field list of the SQL query. Then prepend Primary Key
+            string sFieldList = string.Join(", ", LocalFields.Select(x => x.Value.FieldName).ToArray<string>());
+            sFieldList = string.Format("{0}, {1}", MasterPrimaryKey, sFieldList);
+
+            // Build the SQL UPDATE query that uses the list of fields.
+            // Note how the field list is used twice, 1st for the fields, then again as the parameters           
+            dbCom.CommandText = string.Format("INSERT INTO {0} ({1}) VALUES (@{2})", TableName, sFieldList, sFieldList.Replace(", ", ", @"));
+               
+            return dbCom;
         }
     }
 
