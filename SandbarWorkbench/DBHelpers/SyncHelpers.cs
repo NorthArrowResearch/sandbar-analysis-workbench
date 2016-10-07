@@ -13,15 +13,10 @@ namespace SandbarWorkbench.DBHelpers
         public string MasterDBCon { get; internal set; }
         public string LocalDBCon { get; internal set; }
 
-        private List<LookupTableDef> LookupTables;
-
         public SyncHelpers(string sMasterDBCon, string sLocalDBCon)
         {
             MasterDBCon = sMasterDBCon;
             LocalDBCon = sLocalDBCon;
-
-            LookupTables = new List<LookupTableDef>();
-            LookupTables.Add(new LookupTableDef("Sites"));
         }
 
         public void SyncLookupData()
@@ -29,6 +24,14 @@ namespace SandbarWorkbench.DBHelpers
             using (MySqlConnection conMaster = new MySqlConnection(MasterDBCon))
             {
                 conMaster.Open();
+
+                // Retrieve the list of lookup tables that should be synced
+                List<LookupTableDef> LookupTables = new List<LookupTableDef>();
+                MySqlCommand dbCom = new MySqlCommand("SELECT TableName FROM TableChangeLog", conMaster);
+                MySqlDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                    LookupTables.Add(new LookupTableDef(dbRead.GetString("TableName")));
+                dbRead.Close();
 
                 using (SQLiteConnection conLocal = new SQLiteConnection(LocalDBCon))
                 {
