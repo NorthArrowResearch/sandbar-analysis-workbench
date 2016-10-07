@@ -224,8 +224,7 @@ namespace SandbarWorkbench
 
         private void syncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string sLocalDBCon = DBCon.ConnectionString.Replace("workbench.sqlite", "SandbarTest.sqlite");
-            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;", sLocalDBCon);
+            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;", DBCon.ConnectionString);
             try
             {
                 syncTool.SyncLookupData();
