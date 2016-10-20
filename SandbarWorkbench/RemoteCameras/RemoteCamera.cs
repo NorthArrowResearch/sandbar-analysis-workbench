@@ -11,14 +11,14 @@ namespace SandbarWorkbench.RemoteCameras
     class RemoteCamera
     {
         public long CameraID { get; internal set; }
-        public float RiverMile { get; internal set; }
+        public double RiverMile { get; internal set; }
         public long CameraRiverBankID { get; internal set; }
         public string CameraRiverBank { get; internal set; }
         public long TargetRiverBankID { get; internal set; }
         public string TargetRiverBank { get; internal set; }
         public string SiteName { get; internal set; }
         public string SiteCode { get; internal set; }
-        public long SiteID { get; internal set; }
+        public Nullable<long> SiteID { get; internal set; }
         public string SiteCode5 { get; internal set; }
         public string NAUName { get; internal set; }
         public bool CurrentNPSPermit { get; internal set; }
@@ -40,14 +40,14 @@ namespace SandbarWorkbench.RemoteCameras
         public string UpdatedBy { get; internal set; }
 
         public RemoteCamera(long nCameraID
-            , float fRiverMile
+            , double fRiverMile
             , long nCameraRiverBankID
             , string sCameraRiverBank
             , long nTargetRiverBankID
-            , string sTargetRiverBankID
+            , string sTargetRiverBank
             , string sSiteName
             , string sSiteCode
-            , long nSiteID
+            , Nullable<long> nSiteID
             , string sSiteCode5
             , string sNAUName
             , bool bCurrentNPSPermit
@@ -66,11 +66,34 @@ namespace SandbarWorkbench.RemoteCameras
             , DateTime dtUpdatedOn
             , string sUpdatedBy)
         {
-
-
+            CameraID = nCameraID;
+            RiverMile = fRiverMile;
+            CameraRiverBankID = nCameraRiverBankID;
+            CameraRiverBank = sCameraRiverBank;
+            TargetRiverBankID = nTargetRiverBankID;
+            TargetRiverBank = sTargetRiverBank;
+            SiteName = sSiteName;
+            SiteCode = sSiteCode;
+            SiteID = nSiteID;
+            SiteCode5 = sSiteCode5;
+            NAUName = sNAUName;
+            CurrentNPSPermit = bCurrentNPSPermit;
+            HavePhotos = bHavePhotos;
+            Subject = sSubject;
+            View = sView;
+            BestPhotoTime = sBestPhotoTime;
+            BeginFilmRecord = sBeginFilmRecord;
+            EndFilmRecord = sEndFilmRecord;
+            BeginDigitalRecord = sBeginDigitalRecord;
+            EndDigitalRecord = sEndDigitalRecord;
+            CardTypeID = nCardTypeID;
+            CardType = sCardType;
+            AddedOn = dtAddedOn;
+            AddedBy = sAddedBy;
+            UpdatedOn = dtUpdatedOn;
+            UpdatedBy = sUpdatedBy;
         }
-
-
+        
         public static BindingList<RemoteCamera> LoadRemoteCameras(string sDB)
         {
             BindingList<RemoteCamera> lItems = new BindingList<RemoteCamera>();
@@ -82,26 +105,36 @@ namespace SandbarWorkbench.RemoteCameras
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
-                    //RemoteCamera theSite = new RemoteCamera(
-                    //    (long)dbRead["SiteID"]
-                    //    , (string)dbRead["SiteCode"]
-                    //    , (string)dbRead["SiteCode5"]
-                    //    , (double)dbRead["RiverMile"]
-                    //    , (long)dbRead["RiverSideID"]
-                    //    , (string)dbRead["RiverSide"]
-                    //    , (string)dbRead["Title"]
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "EddySize")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
-                    //    , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
-                    //    );
+                    RemoteCamera theSite = new RemoteCamera(
+                        (long)dbRead["CameraID"]
+                        , (double)dbRead["RiverMile"]
+                         , (long)dbRead["CameraRiverBankID"]
+                       , (string)dbRead["CameraRiverBank"]
+                        , (long)dbRead["TargetRiverBankID"]
+                        , (string)dbRead["TargetRiverBank"]
+                        , (string)dbRead["SiteName"]
+                        , (string)dbRead["SiteCode"]
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SiteID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteCode5")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "NAUName")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueBool(ref dbRead, "CurrentNPSPermit")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueBool(ref dbRead, "HavePhotos")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Subject")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "View")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BeginFilmRecord")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "EndFilmRecord")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BeginDigitalRecord")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "EndDigitalRecord")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueInt(ref dbRead, "CardTypeID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CardType")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "AddedOn")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AddedBy")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "UpdatedOn")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "UpdatedBy")
+                        );
 
-                    //theSite.Surveys = SandbarSurvey.loadre(sDB, theSite.SiteID);
-                    //lItems.Add(theSite);
+                    lItems.Add(theSite);
                 }
             }
 

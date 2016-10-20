@@ -41,6 +41,22 @@ namespace SandbarWorkbench.DBHelpers
             return nResult;
         }
 
+        public static bool GetSafeValueBool(ref SQLiteDataReader dbRead, string sColumnName)
+        {
+            if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
+               return false;
+            else
+                return dbRead.GetBoolean(dbRead.GetOrdinal(sColumnName));
+        }
+
+        public static DateTime GetSafeValueDT(ref SQLiteDataReader dbRead, string sColumnName)
+        {
+            if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
+                 return DateTime.Now;
+            else
+                return (DateTime) dbRead[sColumnName];
+        }
+
         public static string GetSafeValueStr(ref SQLiteDataReader dbRead, string sColumnName)
         {
             if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
