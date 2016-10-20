@@ -48,6 +48,9 @@
             this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -257,31 +260,54 @@
             this.grdData.TabIndex = 0;
             this.grdData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellContentClick);
             this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
-            //this.grdData.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdData_CellMouseDown);
             this.grdData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grdData_MouseClick);
             // 
             // cmsSite
             // 
             this.cmsSite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewPropertiesToolStripMenuItem,
-            this.editPropertiesToolStripMenuItem});
+            this.editPropertiesToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addNewSandbarToolStripMenuItem,
+            this.deleteSelectedSandbarToolStripMenuItem});
             this.cmsSite.Name = "cmsSite";
-            this.cmsSite.Size = new System.Drawing.Size(156, 48);
+            this.cmsSite.Size = new System.Drawing.Size(210, 98);
             // 
             // viewPropertiesToolStripMenuItem
             // 
             this.viewPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
             this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
-            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.viewPropertiesToolStripMenuItem.Text = "View Properties";
             // 
             // editPropertiesToolStripMenuItem
             // 
             this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
-            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
             this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
+            // 
+            // addNewSandbarToolStripMenuItem
+            // 
+            this.addNewSandbarToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.addNewSandbarToolStripMenuItem.Name = "addNewSandbarToolStripMenuItem";
+            this.addNewSandbarToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.addNewSandbarToolStripMenuItem.Text = "Add New Sandbar...";
+            this.addNewSandbarToolStripMenuItem.Click += new System.EventHandler(this.addNewSandbarToolStripMenuItem_Click);
+            // 
+            // deleteSelectedSandbarToolStripMenuItem
+            // 
+            this.deleteSelectedSandbarToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteSelectedSandbarToolStripMenuItem.Name = "deleteSelectedSandbarToolStripMenuItem";
+            this.deleteSelectedSandbarToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
+            this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
             // frmSandbars
             // 
@@ -333,5 +359,8 @@
         private System.Windows.Forms.ContextMenuStrip cmsSite;
         private System.Windows.Forms.ToolStripMenuItem viewPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem addNewSandbarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedSandbarToolStripMenuItem;
     }
 }

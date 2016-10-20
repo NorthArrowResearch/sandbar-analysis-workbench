@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -35,11 +36,27 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSandbars_Load(object sender, EventArgs e)
         {
-            SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionStringLocal);
+            LoadData();
+        }
 
+        public void LoadData(long nSelectID = 0)
+        {
+            SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionStringLocal);
             DataView custDV = new DataView();
             grdData.DataSource = SandbarSites;
 
+            if (nSelectID > 0)
+            {
+                grdData.ClearSelection();
+                for (int i = 0; i < grdData.Rows.Count; i++)
+                {
+                    if (((SandbarSite)grdData.Rows[i].DataBoundItem).SiteID == nSelectID)
+                    {
+                        grdData.Rows[i].Selected = true;
+                        break;
+                    }
+                }
+            }
         }
 
         private void FilterItemsRiverMileUpstream(object sender, EventArgs e)
@@ -114,7 +131,7 @@ namespace SandbarWorkbench.Sandbars
                 Sandbars.frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringMaster, selSite.SiteID);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    // TODO re-load form
+                    MasterDatabaseChanged(selSite.SiteID);
                 }
             }
             catch (Exception ex)
@@ -123,20 +140,74 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
-        //private void grdData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-        //    //if (e.Button == MouseButtons.Right)
-        //    //{
-        //    //    grdData.Rows[e.RowIndex].Selected = true;
-        //    //}
-        //}
-
         private void grdData_MouseClick(object sender, MouseEventArgs e)
         {
             var hti = grdData.HitTest(e.X, e.Y);
             grdData.ClearSelection();
             if (hti.RowY > 1 && hti.ColumnX > 0)
                 grdData.Rows[hti.RowIndex].Selected = true;
+        }
+
+        private void addNewSandbarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringMaster);
+                if (frm.ShowDialog() == DialogResult.OK)
+                    MasterDatabaseChanged(frm.ID);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        private void deleteSelectedSandbarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows[0].DataBoundItem is SandbarSite)
+            {
+                SandbarSite theSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+                if (MessageBox.Show(string.Format("Are you sure that you want to delete the sandbar site called '{0}'? This process is permanent and cannot be undone.", theSite.SiteCode5), "Confirm Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    {
+                        dbCon.Open();
+
+                        try
+                        {
+                            Cursor.Current = Cursors.WaitCursor;
+                            MySqlCommand dbCom = new MySqlCommand("DELETE FROM SandbarSites WHERE SiteID = @SiteID", dbCon);
+                            dbCom.Parameters.AddWithValue("SiteID", theSite.SiteID);
+                            dbCom.ExecuteNonQuery();
+                            MasterDatabaseChanged();
+                        }
+                        catch (Exception ex)
+                        {
+                            ExceptionHandling.NARException.HandleException(ex);
+                        }
+                        finally
+                        {
+                            Cursor.Current = Cursors.Default;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void MasterDatabaseChanged(long nSelectID = 0)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                sync.SyncLookupData();
+                LoadData(nSelectID);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }

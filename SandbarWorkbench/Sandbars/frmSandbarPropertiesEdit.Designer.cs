@@ -167,6 +167,11 @@
             0,
             0,
             0});
+            this.valRiverMile.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.valRiverMile.Name = "valRiverMile";
             this.valRiverMile.Size = new System.Drawing.Size(120, 20);
             this.valRiverMile.TabIndex = 3;

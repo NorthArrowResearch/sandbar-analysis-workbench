@@ -46,6 +46,7 @@ namespace SandbarWorkbench.DBHelpers
                 switch (dbRead.GetDataTypeName(dbRead.GetOrdinal(sColumnName)).ToLower())
                 {
                     case "Int64":
+                    case "int":
                         val.Value = (decimal)dbRead.GetInt64(sColumnName);
                         break;
 
@@ -54,8 +55,39 @@ namespace SandbarWorkbench.DBHelpers
                         break;
 
                     default:
-                        throw new Exception("Unhandled data type filling numeric up down");
+                        throw new Exception(string.Format("Unhandled data type filling numeric up down for type {0}", dbRead.GetDataTypeName(dbRead.GetOrdinal(sColumnName)).ToLower()));
                 }
+            }
+        }
+
+        public static void AddParameter(ref MySqlCommand dbCom, ref TextBox ctrl, string sParameterName)
+        {
+            if (string.IsNullOrEmpty(ctrl.Text))
+            {
+                MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.String);
+                p.Value = DBNull.Value;
+            }
+            else
+            {
+                dbCom.Parameters.AddWithValue(sParameterName, ctrl.Text);
+            }
+        }
+
+        public static void AddParameter(ref MySqlCommand dbCom, ref NumericUpDown ctrl, string sParameterName)
+        {
+            dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value);
+        }
+
+        public static void AddParameter(ref MySqlCommand dbCom, ref ComboBox ctrl, string sParameterName)
+        {
+            if (ctrl.SelectedIndex < 0)
+            {
+                MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.Int64);
+                p.Value = DBNull.Value;
+            }
+            else
+            {
+                dbCom.Parameters.AddWithValue(sParameterName, ((ListItem)ctrl.SelectedItem).Value);
             }
         }
     }

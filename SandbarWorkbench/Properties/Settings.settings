@@ -15,7 +15,7 @@
       <Value Profile="(Default)">us-west-2</Value>
     </Setting>
     <Setting Name="AWSGroupName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">NARApps-GCMRCWorkbench</Value>
+      <Value Profile="(Default)">NARApps-SandbarWorkbench</Value>
     </Setting>
     <Setting Name="AWSKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">AKIAIM7D6NQSGCW37YDQ</Value>

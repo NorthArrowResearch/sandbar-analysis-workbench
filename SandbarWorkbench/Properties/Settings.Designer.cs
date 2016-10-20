@@ -70,7 +70,7 @@ namespace SandbarWorkbench.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NARApps-GCMRCWorkbench")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NARApps-SandbarWorkbench")]
         public string AWSGroupName {
             get {
                 return ((string)(this["AWSGroupName"]));

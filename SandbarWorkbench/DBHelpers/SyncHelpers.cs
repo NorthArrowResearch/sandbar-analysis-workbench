@@ -16,6 +16,16 @@ namespace SandbarWorkbench.DBHelpers
 
         public SyncHelpers(string sSchemaName, string sMasterDBCon, string sLocalDBCon)
         {
+            Init(sSchemaName, sMasterDBCon, sLocalDBCon);
+        }
+
+        public SyncHelpers()
+        {
+            Init("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);                
+        }
+
+        private void Init(string sSchemaName, string sMasterDBCon, string sLocalDBCon)
+        {
             SchemaName = sSchemaName;
             MasterDBCon = sMasterDBCon;
             LocalDBCon = sLocalDBCon;
@@ -133,8 +143,9 @@ namespace SandbarWorkbench.DBHelpers
                 // Prepared command to insert local records
                 SQLiteCommand comInsertLocal = aTable.BuildInsertCommand(ref dbTrans);
 
-                // Loop over rows in master and find those that 
-                cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE AddedOn > @UpdatedOn", aTable.TableName), conMaster);
+                // Loop over rows in master and find those that are not in local.
+                // Note that the UpdatedOn > @UpdatedOn is not strickly necessary, but it does help when old records on master are missing from local due to developer manual manipulation
+                cReadMaster = new MySqlCommand(string.Format("SELECT * FROM {0} WHERE (AddedOn > @UpdatedOn) OR (UpdatedOn > @UpdatedOn)", aTable.TableName), conMaster);
                 cReadMaster.Parameters.AddWithValue("@UpdatedOn", aTable.LocalLastChanged);
                 MySqlDataReader dbReadMasterNew = cReadMaster.ExecuteReader();
                 while (dbReadMasterNew.Read())

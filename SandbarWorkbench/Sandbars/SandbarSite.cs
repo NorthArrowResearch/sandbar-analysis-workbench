@@ -80,7 +80,7 @@ namespace SandbarWorkbench.Sandbars
 
                     SandbarSite theSite = new SandbarSite(
                         (long)dbRead["SiteID"]
-                        , (string)dbRead["SiteCode"]
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteCode")
                         , (string)dbRead["SiteCode5"]
                         , (double)dbRead["RiverMile"]
                         , (long)dbRead["RiverSideID"]
