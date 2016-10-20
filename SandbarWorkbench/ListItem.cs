@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench
 {
@@ -38,6 +39,28 @@ namespace SandbarWorkbench
                 while (dbRead.Read())
                 {
                     long nID = (long)dbRead.GetValue(0);
+                    int nIn = cbo.Items.Add(new ListItem(dbRead.GetString(1), nID));
+                    if (nID == nSelectID)
+                        cbo.SelectedIndex = nIn;
+                }
+            }
+
+            return cbo.Items.Count;
+        }
+
+        public static int LoadComboWithListItemsMySQL(ref System.Windows.Forms.ComboBox cbo, string sDBCon, string sSQL, long nSelectID = 0)
+        {
+            cbo.Items.Clear();
+
+            using (MySqlConnection dbCon = new MySqlConnection(sDBCon))
+            {
+                dbCon.Open();
+
+                MySqlCommand dbCom = new MySqlCommand(sSQL, dbCon);
+                MySqlDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    long nID = dbRead.GetInt64(0);
                     int nIn = cbo.Items.Add(new ListItem(dbRead.GetString(1), nID));
                     if (nID == nSelectID)
                         cbo.SelectedIndex = nIn;

@@ -46,12 +46,12 @@ namespace SandbarWorkbench.Sandbars
                 return;
 
             ConfigureAnalysesDataGridView();
-            ModelRuns = ModelRun.Load(DBCon.ConnectionString);
+            ModelRuns = ModelRun.Load(DBCon.ConnectionStringLocal);
             grdAnalyses.DataSource = ModelRuns;
 
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
-            CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionString, sSQL, false);
-            CheckedListItem.LoadComboWithListItems(ref chkVolSectionTypes, DBCon.ConnectionString, sSQL, false);
+            CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
+            CheckedListItem.LoadComboWithListItems(ref chkVolSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
 
             chtData.ChartAreas[0].AxisX.Title = "Date";
             chtData.ChartAreas[0].AxisY.Title = "Sandbar Area (m²)";
@@ -198,7 +198,7 @@ namespace SandbarWorkbench.Sandbars
 
                     if (!ModelResultData.ContainsKey(theModel.RunID))
                     {
-                        ModelResultData[theModel.RunID] = new ModelResults(DBCon.ConnectionString, SandbarSite.SiteID, theModel.RunID, theModel.Title);
+                        ModelResultData[theModel.RunID] = new ModelResults(DBCon.ConnectionStringLocal, SandbarSite.SiteID, theModel.RunID, theModel.Title);
                         bDataAdded = true;
                     }
                 }

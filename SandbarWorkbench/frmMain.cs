@@ -39,7 +39,7 @@ namespace SandbarWorkbench
                     OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
             }
 
-            if (!string.IsNullOrEmpty(DBCon.ConnectionString) && System.IO.File.Exists(DBCon.DatabasePath))
+            if (!string.IsNullOrEmpty(DBCon.ConnectionStringLocal) && System.IO.File.Exists(DBCon.DatabasePath))
             {
                 switch (SandbarWorkbench.Properties.Settings.Default.StartupView)
                 {
@@ -58,7 +58,7 @@ namespace SandbarWorkbench
 
         private void UpdateMenuItemStatus()
         {
-            bool bActiveDatabase = !string.IsNullOrEmpty(DBCon.ConnectionString) && System.IO.File.Exists(DBCon.DatabasePath);
+            bool bActiveDatabase = !string.IsNullOrEmpty(DBCon.ConnectionStringLocal) && System.IO.File.Exists(DBCon.DatabasePath);
 
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
@@ -198,7 +198,7 @@ namespace SandbarWorkbench
             {
                 try
                 {
-                    DBCon.ConnectionString = fiDatabase.FullName;
+                    DBCon.ConnectionStringLocal = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.Save();
                     UpdateMenuItemStatus();
@@ -224,7 +224,7 @@ namespace SandbarWorkbench
 
         private void syncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarData;", DBCon.ConnectionString);
+            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
             try
             {
                 syncTool.SyncLookupData();

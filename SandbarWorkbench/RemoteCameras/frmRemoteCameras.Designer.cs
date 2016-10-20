@@ -30,29 +30,34 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.grdData = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdoTRight = new System.Windows.Forms.RadioButton();
+            this.rdoTLeft = new System.Windows.Forms.RadioButton();
+            this.rdoTBoth = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoCRight = new System.Windows.Forms.RadioButton();
+            this.rdoCLeft = new System.Windows.Forms.RadioButton();
+            this.rdoCBoth = new System.Windows.Forms.RadioButton();
+            this.grpSiteName = new System.Windows.Forms.GroupBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.grpRiverMile = new System.Windows.Forms.GroupBox();
             this.valDownstream = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
-            this.txtTitle = new System.Windows.Forms.TextBox();
-            this.grpSiteName = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdoBoth = new System.Windows.Forms.RadioButton();
-            this.Left = new System.Windows.Forms.RadioButton();
-            this.rdoRight = new System.Windows.Forms.RadioButton();
+            this.grdData = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.grpSiteName.SuspendLayout();
             this.grpRiverMile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
-            this.grpSiteName.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -67,11 +72,13 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.grpSiteName);
             this.splitContainer1.Panel1.Controls.Add(this.grpRiverMile);
@@ -80,17 +87,120 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grdData);
             this.splitContainer1.Size = new System.Drawing.Size(745, 555);
-            this.splitContainer1.SplitterDistance = 248;
+            this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
             // 
-            // grdData
+            // groupBox2
             // 
-            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdData.Location = new System.Drawing.Point(0, 0);
-            this.grdData.Name = "grdData";
-            this.grdData.Size = new System.Drawing.Size(493, 555);
-            this.grdData.TabIndex = 0;
+            this.groupBox2.Controls.Add(this.rdoTRight);
+            this.groupBox2.Controls.Add(this.rdoTLeft);
+            this.groupBox2.Controls.Add(this.rdoTBoth);
+            this.groupBox2.Location = new System.Drawing.Point(124, 170);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(111, 91);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Target Bank";
+            // 
+            // rdoTRight
+            // 
+            this.rdoTRight.AutoSize = true;
+            this.rdoTRight.Location = new System.Drawing.Point(11, 66);
+            this.rdoTRight.Name = "rdoTRight";
+            this.rdoTRight.Size = new System.Drawing.Size(50, 17);
+            this.rdoTRight.TabIndex = 2;
+            this.rdoTRight.Text = "Right";
+            this.rdoTRight.UseVisualStyleBackColor = true;
+            this.rdoTRight.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // rdoTLeft
+            // 
+            this.rdoTLeft.AutoSize = true;
+            this.rdoTLeft.Location = new System.Drawing.Point(11, 43);
+            this.rdoTLeft.Name = "rdoTLeft";
+            this.rdoTLeft.Size = new System.Drawing.Size(43, 17);
+            this.rdoTLeft.TabIndex = 1;
+            this.rdoTLeft.Text = "Left";
+            this.rdoTLeft.UseVisualStyleBackColor = true;
+            this.rdoTLeft.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // rdoTBoth
+            // 
+            this.rdoTBoth.AutoSize = true;
+            this.rdoTBoth.Checked = true;
+            this.rdoTBoth.Location = new System.Drawing.Point(11, 20);
+            this.rdoTBoth.Name = "rdoTBoth";
+            this.rdoTBoth.Size = new System.Drawing.Size(47, 17);
+            this.rdoTBoth.TabIndex = 0;
+            this.rdoTBoth.TabStop = true;
+            this.rdoTBoth.Text = "Both";
+            this.rdoTBoth.UseVisualStyleBackColor = true;
+            this.rdoTBoth.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdoCRight);
+            this.groupBox1.Controls.Add(this.rdoCLeft);
+            this.groupBox1.Controls.Add(this.rdoCBoth);
+            this.groupBox1.Location = new System.Drawing.Point(8, 170);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(104, 91);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Camera Bank";
+            // 
+            // rdoCRight
+            // 
+            this.rdoCRight.AutoSize = true;
+            this.rdoCRight.Location = new System.Drawing.Point(11, 66);
+            this.rdoCRight.Name = "rdoCRight";
+            this.rdoCRight.Size = new System.Drawing.Size(50, 17);
+            this.rdoCRight.TabIndex = 2;
+            this.rdoCRight.Text = "Right";
+            this.rdoCRight.UseVisualStyleBackColor = true;
+            this.rdoCRight.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // rdoCLeft
+            // 
+            this.rdoCLeft.AutoSize = true;
+            this.rdoCLeft.Location = new System.Drawing.Point(11, 43);
+            this.rdoCLeft.Name = "rdoCLeft";
+            this.rdoCLeft.Size = new System.Drawing.Size(43, 17);
+            this.rdoCLeft.TabIndex = 1;
+            this.rdoCLeft.Text = "Left";
+            this.rdoCLeft.UseVisualStyleBackColor = true;
+            this.rdoCLeft.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // rdoCBoth
+            // 
+            this.rdoCBoth.AutoSize = true;
+            this.rdoCBoth.Checked = true;
+            this.rdoCBoth.Location = new System.Drawing.Point(11, 20);
+            this.rdoCBoth.Name = "rdoCBoth";
+            this.rdoCBoth.Size = new System.Drawing.Size(47, 17);
+            this.rdoCBoth.TabIndex = 0;
+            this.rdoCBoth.TabStop = true;
+            this.rdoCBoth.Text = "Both";
+            this.rdoCBoth.UseVisualStyleBackColor = true;
+            this.rdoCBoth.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
+            // 
+            // grpSiteName
+            // 
+            this.grpSiteName.Controls.Add(this.txtTitle);
+            this.grpSiteName.Location = new System.Drawing.Point(8, 111);
+            this.grpSiteName.Name = "grpSiteName";
+            this.grpSiteName.Size = new System.Drawing.Size(227, 53);
+            this.grpSiteName.TabIndex = 2;
+            this.grpSiteName.TabStop = false;
+            this.grpSiteName.Text = "Site Name";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(11, 21);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(205, 20);
+            this.txtTitle.TabIndex = 0;
+            this.txtTitle.TextChanged += new System.EventHandler(this.FilterItems);
             // 
             // grpRiverMile
             // 
@@ -113,6 +223,8 @@
             this.valDownstream.Name = "valDownstream";
             this.valDownstream.Size = new System.Drawing.Size(75, 20);
             this.valDownstream.TabIndex = 4;
+            this.valDownstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileDownstream);
+            this.valDownstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
             // 
             // label2
             // 
@@ -130,6 +242,8 @@
             this.valUpstream.Name = "valUpstream";
             this.valUpstream.Size = new System.Drawing.Size(75, 20);
             this.valUpstream.TabIndex = 2;
+            this.valUpstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileUpstream);
+            this.valUpstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
             // 
             // label1
             // 
@@ -150,66 +264,14 @@
             this.chkRiverMile.Text = "River Mile";
             this.chkRiverMile.UseVisualStyleBackColor = true;
             // 
-            // txtTitle
+            // grdData
             // 
-            this.txtTitle.Location = new System.Drawing.Point(11, 21);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(205, 20);
-            this.txtTitle.TabIndex = 0;
-            // 
-            // grpSiteName
-            // 
-            this.grpSiteName.Controls.Add(this.txtTitle);
-            this.grpSiteName.Location = new System.Drawing.Point(8, 111);
-            this.grpSiteName.Name = "grpSiteName";
-            this.grpSiteName.Size = new System.Drawing.Size(227, 53);
-            this.grpSiteName.TabIndex = 2;
-            this.grpSiteName.TabStop = false;
-            this.grpSiteName.Text = "Site Name";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rdoRight);
-            this.groupBox1.Controls.Add(this.Left);
-            this.groupBox1.Controls.Add(this.rdoBoth);
-            this.groupBox1.Location = new System.Drawing.Point(8, 170);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(227, 91);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "River Bank";
-            // 
-            // rdoBoth
-            // 
-            this.rdoBoth.AutoSize = true;
-            this.rdoBoth.Checked = true;
-            this.rdoBoth.Location = new System.Drawing.Point(11, 20);
-            this.rdoBoth.Name = "rdoBoth";
-            this.rdoBoth.Size = new System.Drawing.Size(47, 17);
-            this.rdoBoth.TabIndex = 0;
-            this.rdoBoth.TabStop = true;
-            this.rdoBoth.Text = "Both";
-            this.rdoBoth.UseVisualStyleBackColor = true;
-            // 
-            // Left
-            // 
-            this.Left.AutoSize = true;
-            this.Left.Location = new System.Drawing.Point(11, 43);
-            this.Left.Name = "Left";
-            this.Left.Size = new System.Drawing.Size(43, 17);
-            this.Left.TabIndex = 1;
-            this.Left.Text = "Left";
-            this.Left.UseVisualStyleBackColor = true;
-            // 
-            // rdoRight
-            // 
-            this.rdoRight.AutoSize = true;
-            this.rdoRight.Location = new System.Drawing.Point(11, 66);
-            this.rdoRight.Name = "rdoRight";
-            this.rdoRight.Size = new System.Drawing.Size(50, 17);
-            this.rdoRight.TabIndex = 2;
-            this.rdoRight.Text = "Right";
-            this.rdoRight.UseVisualStyleBackColor = true;
+            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdData.Location = new System.Drawing.Point(0, 0);
+            this.grdData.Name = "grdData";
+            this.grdData.Size = new System.Drawing.Size(492, 555);
+            this.grdData.TabIndex = 0;
             // 
             // frmRemoteCameras
             // 
@@ -226,15 +288,17 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.grpSiteName.ResumeLayout(false);
+            this.grpSiteName.PerformLayout();
             this.grpRiverMile.ResumeLayout(false);
             this.grpRiverMile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
-            this.grpSiteName.ResumeLayout(false);
-            this.grpSiteName.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,10 +316,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkRiverMile;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rdoRight;
-        private System.Windows.Forms.RadioButton Left;
-        private System.Windows.Forms.RadioButton rdoBoth;
+        private System.Windows.Forms.RadioButton rdoCRight;
+        private System.Windows.Forms.RadioButton rdoCLeft;
+        private System.Windows.Forms.RadioButton rdoCBoth;
         private System.Windows.Forms.GroupBox grpSiteName;
         private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rdoTRight;
+        private System.Windows.Forms.RadioButton rdoTLeft;
+        private System.Windows.Forms.RadioButton rdoTBoth;
     }
 }

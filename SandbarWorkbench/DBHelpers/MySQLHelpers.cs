@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
 namespace SandbarWorkbench.DBHelpers
 {
@@ -28,6 +29,34 @@ namespace SandbarWorkbench.DBHelpers
                     throw new Exception("The master database does not contain any lookup data version information.");
             }
             return masterVersion;
+        }
+
+        public static void FillTextBox(ref MySqlDataReader dbRead, string sColumnName, ref TextBox txt)
+        {
+            if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
+                txt.Text = string.Empty;
+            else
+                txt.Text = dbRead.GetString(sColumnName);
+        }
+
+        public static void FillNumericUpDown(ref MySqlDataReader dbRead, string sColumnName, ref NumericUpDown val)
+        {
+            if (!dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
+            {
+                switch (dbRead.GetDataTypeName(dbRead.GetOrdinal(sColumnName)).ToLower())
+                {
+                    case "Int64":
+                        val.Value = (decimal)dbRead.GetInt64(sColumnName);
+                        break;
+
+                    case "double":
+                        val.Value = (decimal)dbRead.GetDouble(sColumnName);
+                        break;
+
+                    default:
+                        throw new Exception("Unhandled data type filling numeric up down");
+                }
+            }
         }
     }
 }

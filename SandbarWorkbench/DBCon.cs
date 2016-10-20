@@ -34,7 +34,15 @@ namespace SandbarWorkbench
 
         #endregion
 
-        public static string ConnectionString
+        public static string ConnectionStringMaster
+        {
+            get
+            {
+                return "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarData;";
+            }
+        }
+
+        public static string ConnectionStringLocal
         {
             get
             {
@@ -55,7 +63,7 @@ namespace SandbarWorkbench
 
         public static void CloseDatabase()
         {
-            ConnectionString = string.Empty;
+            ConnectionStringLocal = string.Empty;
         }
 
         public static string DatabasePath

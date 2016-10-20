@@ -27,7 +27,7 @@ namespace SandbarWorkbench
 
         private void LoadBasicInformation()
         {
-            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionString))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
                 SQLiteCommand dbCom = new SQLiteCommand("SELECT Key, ValueInfo FROM VersionInfo", dbCon);
@@ -43,7 +43,7 @@ namespace SandbarWorkbench
 
         private void LoadVersionHistory()
         {
-            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionString))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
                 SQLiteCommand dbCom = new SQLiteCommand("SELECT DateOfChange, Version, Description FROM VersionChangeLog", dbCon);

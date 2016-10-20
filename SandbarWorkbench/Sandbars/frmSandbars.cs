@@ -35,13 +35,12 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSandbars_Load(object sender, EventArgs e)
         {
-            SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionString);
+            SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionStringLocal);
 
             DataView custDV = new DataView();
             grdData.DataSource = SandbarSites;
 
         }
-              
 
         private void FilterItemsRiverMileUpstream(object sender, EventArgs e)
         {
@@ -69,7 +68,7 @@ namespace SandbarWorkbench.Sandbars
 
             if (chkRiverMile.Checked)
             {
-                lFilteredItems = new BindingList<SandbarSite>(lFilteredItems.Where(ss => (ss.RiverMile >= (double)valUpstream.Value && ss.RiverMile <= (double)valDownstream.Value)).ToList<SandbarSite>());
+                lFilteredItems = new BindingList<SandbarSite>(lFilteredItems.Where(ss => (ss.RiverMile <= (double)valUpstream.Value && ss.RiverMile >= (double)valDownstream.Value)).ToList<SandbarSite>());
             }
 
             if (!string.IsNullOrEmpty(txtTitle.Text))
@@ -104,6 +103,40 @@ namespace SandbarWorkbench.Sandbars
                         System.Diagnostics.Process.Start(theSite.PrimaryGDAWSLink);
                 }
             }
+        }
+
+        private void editPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+
+                Sandbars.frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringMaster, selSite.SiteID);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    // TODO re-load form
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        //private void grdData_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    //if (e.Button == MouseButtons.Right)
+        //    //{
+        //    //    grdData.Rows[e.RowIndex].Selected = true;
+        //    //}
+        //}
+
+        private void grdData_MouseClick(object sender, MouseEventArgs e)
+        {
+            var hti = grdData.HitTest(e.X, e.Y);
+            grdData.ClearSelection();
+            if (hti.RowY > 1 && hti.ColumnX > 0)
+                grdData.Rows[hti.RowIndex].Selected = true;
         }
     }
 }

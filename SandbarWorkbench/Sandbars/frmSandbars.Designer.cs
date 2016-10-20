@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -44,6 +45,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grdData = new System.Windows.Forms.DataGridView();
+            this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -55,6 +59,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+            this.cmsSite.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -242,6 +247,7 @@
             this.grdData.AllowUserToDeleteRows = false;
             this.grdData.AllowUserToResizeRows = false;
             this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.ContextMenuStrip = this.cmsSite;
             this.grdData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdData.Location = new System.Drawing.Point(0, 0);
             this.grdData.Name = "grdData";
@@ -251,6 +257,31 @@
             this.grdData.TabIndex = 0;
             this.grdData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellContentClick);
             this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
+            //this.grdData.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.grdData_CellMouseDown);
+            this.grdData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grdData_MouseClick);
+            // 
+            // cmsSite
+            // 
+            this.cmsSite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewPropertiesToolStripMenuItem,
+            this.editPropertiesToolStripMenuItem});
+            this.cmsSite.Name = "cmsSite";
+            this.cmsSite.Size = new System.Drawing.Size(156, 48);
+            // 
+            // viewPropertiesToolStripMenuItem
+            // 
+            this.viewPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
+            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.viewPropertiesToolStripMenuItem.Text = "View Properties";
+            // 
+            // editPropertiesToolStripMenuItem
+            // 
+            this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
+            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
+            this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
             // 
             // frmSandbars
             // 
@@ -276,6 +307,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.cmsSite.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,5 +330,8 @@
         private System.Windows.Forms.GroupBox grpTimeSeries;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ContextMenuStrip cmsSite;
+        private System.Windows.Forms.ToolStripMenuItem viewPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
     }
 }
