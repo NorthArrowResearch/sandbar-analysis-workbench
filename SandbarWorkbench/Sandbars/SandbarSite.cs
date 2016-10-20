@@ -67,7 +67,7 @@ namespace SandbarWorkbench.Sandbars
 
         public static BindingList<SandbarSite> LoadSandbarSites(string sDB)
         {
-            BindingList<SandbarSite> lSandbarSites = new BindingList<SandbarSite>();
+            BindingList<SandbarSite> lItems = new BindingList<SandbarSite>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {
@@ -97,11 +97,11 @@ namespace SandbarWorkbench.Sandbars
                         );
 
                     theSite.Surveys = SandbarSurvey.LoadSandbarSurveys(sDB, theSite.SiteID);
-                    lSandbarSites.Add(theSite);
+                    lItems.Add(theSite);
                 }
             }
 
-            return lSandbarSites;
+            return lItems;
         }
     }
 }

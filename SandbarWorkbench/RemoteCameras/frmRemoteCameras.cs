@@ -15,6 +15,19 @@ namespace SandbarWorkbench.RemoteCameras
         public frmRemoteCameras()
         {
             InitializeComponent();
+
+            grdData.AllowUserToAddRows = false;
+            grdData.AllowUserToDeleteRows = false;
+            grdData.ReadOnly = true;
+            grdData.AllowUserToResizeRows = false;
+            grdData.RowHeadersVisible = false;
+            grdData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grdData.MultiSelect = false;
+        }
+
+        private void frmRemoteCameras_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

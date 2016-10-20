@@ -8,10 +8,8 @@ using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DBHelpers
 {
-    public class LookupTableDef
+    public class LookupTableDef : BaseTableDef
     {
-        public string TableName { get; internal set; }
-        public string MasterPrimaryKey { get; internal set; }
         private string LocalPrimaryKey { get; set; }
 
         public Nullable<DateTime> LocalLastChanged { get; set; }
@@ -46,9 +44,8 @@ namespace SandbarWorkbench.DBHelpers
             return string.Format("{0}, PK = {1}", TableName, MasterPrimaryKey);
         }
 
-        public LookupTableDef(string sTableName)
+        public LookupTableDef(string sTableName) : base(sTableName)
         {
-            TableName = sTableName;
             LocalLastChanged = new Nullable<DateTime>();
             MasterLastChanged = new Nullable<DateTime>();
             MasterFields = new Dictionary<string, FieldDef>();
@@ -88,19 +85,29 @@ namespace SandbarWorkbench.DBHelpers
                     switch (dbRead.GetString("DATA_TYPE").ToLower())
                     {
                         case "int":
-                            theDataType = System.Data.DbType.UInt64;
+                            theDataType = System.Data.DbType.Int64;
+                            break;
+
+                        case "double":
+                            theDataType = System.Data.DbType.Double;
+                            break;
+
+                        case "float":
+                            theDataType = System.Data.DbType.Single;
                             break;
 
                         case "varchar":
+                        case "tinytext":
                             theDataType = System.Data.DbType.String;
                             break;
 
                         case "datetime":
+                        case "date":
                             theDataType = System.Data.DbType.DateTime;
                             break;
 
                         default:
-                            throw new Exception(string.Format("Unhandled database field type '{0}'", dbRead.GetString("DATA_TYPE")));
+                            throw new Exception(string.Format("Unhandled master database field type '{0}'", dbRead.GetString("DATA_TYPE")));
 
                     }
 
@@ -155,12 +162,14 @@ namespace SandbarWorkbench.DBHelpers
                     string sDataType = dbRead.GetString(dbRead.GetOrdinal("type")).ToLower();
                     if (string.Compare(sDataType, "integer", true) == 0)
                         theDataType = System.Data.DbType.Int64;
-                    else if (sDataType.StartsWith("varchar"))
+                    else if (sDataType.StartsWith("varchar") || sDataType.StartsWith("text"))
                         theDataType = System.Data.DbType.String;
-                    else if (string.Compare(sDataType, "datetime", true) == 0)
+                    else if (string.Compare(sDataType, "real", true) == 0)
+                        theDataType = System.Data.DbType.Double;
+                    else if (string.Compare(sDataType, "datetime", true) == 0 || string.Compare(sDataType, "date", true) == 0)
                         theDataType = System.Data.DbType.DateTime;
                     else
-                        throw new Exception(string.Format("Unhandled database field type '{0}' in LOCAL table {1}", sDataType, TableName));
+                        throw new Exception(string.Format("Unhandled local database field type '{0}' in LOCAL table {1}", sDataType, TableName));
 
                     LocalFields[dbRead.GetString(dbRead.GetOrdinal("name"))] = new FieldDef(dbRead.GetString(dbRead.GetOrdinal("name")), theDataType);
                 }
