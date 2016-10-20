@@ -98,7 +98,7 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
-            string[] sFields = {"SiteCode5", "RiverMile", "Title", "AlternateTitle" , "History", "ExpansionRatio8k" , "ExpansionRatio45k" , "StageChange8k45k", "SecondaryGDAWS",
+            string[] sFields = {"RiverMile","SiteCode5", "Title", "AlternateTitle" , "History", "ExpansionRatio8k" , "ExpansionRatio45k" , "StageChange8k45k", "SecondaryGDAWS",
                     "ReachID", "SegmentID", "CampsiteSurveyRecord" , "RemoteCameraID" , "StageDischargeA", "StageDischargeB", "StageDischargeC" , "Northing", "Easting", "Latitude" ,"Longitude",
                     "RiverSideID" , "SiteTypeID", "EddySize", "PrimaryGDAWS" }; //"InitialSurvey",
 
@@ -121,11 +121,11 @@ namespace SandbarWorkbench.Sandbars
                     }
                     else
                     {
-                        dbCom.CommandText = string.Format("INSERT INTO SandbarSites ({0}, AddedBy, UpdatedBy) VALUES ({1}, @UserName, @UserName)", string.Join(", ", sFields), string.Join(", @", sFields));
+                        dbCom.CommandText = string.Format("INSERT INTO SandbarSites ({0}, AddedBy, UpdatedBy) VALUES (@{1}, @UserName, @UserName)", string.Join(", ", sFields), string.Join(", @", sFields));
                     }
 
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSiteCode5, "SiteCode5");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valRiverMile, "RiverMile");
+                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSiteCode5, "SiteCode5");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtTitle, "Title");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtAlternateTitle, "AlternateTitle");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtHistory, "History");
