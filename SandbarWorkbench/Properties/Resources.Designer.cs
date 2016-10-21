@@ -82,6 +82,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap camera_lens {
+            get {
+                object obj = ResourceManager.GetObject("camera_lens", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cascade {
             get {
                 object obj = ResourceManager.GetObject("cascade", resourceCulture);
@@ -134,6 +144,16 @@ namespace SandbarWorkbench.Properties {
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sandbar {
+            get {
+                object obj = ResourceManager.GetObject("sandbar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

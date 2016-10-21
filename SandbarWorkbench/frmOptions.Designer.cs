@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOptions));
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -35,14 +36,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkLoadLastDatabase = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtMasterServer = new System.Windows.Forms.TextBox();
-            this.txtMasterUserName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtMasterPassword = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtMasterDatabase = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.txtMasterPassword = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtMasterUserName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtMasterServer = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -132,37 +133,21 @@
             this.tabPage2.Text = "Master Database";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // txtMasterDatabase
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Server";
+            this.txtMasterDatabase.Location = new System.Drawing.Point(98, 50);
+            this.txtMasterDatabase.Name = "txtMasterDatabase";
+            this.txtMasterDatabase.Size = new System.Drawing.Size(433, 20);
+            this.txtMasterDatabase.TabIndex = 3;
             // 
-            // txtMasterServer
+            // label5
             // 
-            this.txtMasterServer.Location = new System.Drawing.Point(98, 18);
-            this.txtMasterServer.Name = "txtMasterServer";
-            this.txtMasterServer.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterServer.TabIndex = 1;
-            // 
-            // txtMasterUserName
-            // 
-            this.txtMasterUserName.Location = new System.Drawing.Point(98, 82);
-            this.txtMasterUserName.Name = "txtMasterUserName";
-            this.txtMasterUserName.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterUserName.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "User name";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(37, 54);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Database";
             // 
             // txtMasterPassword
             // 
@@ -181,21 +166,37 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Password";
             // 
-            // txtMasterDatabase
+            // txtMasterUserName
             // 
-            this.txtMasterDatabase.Location = new System.Drawing.Point(98, 50);
-            this.txtMasterDatabase.Name = "txtMasterDatabase";
-            this.txtMasterDatabase.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterDatabase.TabIndex = 3;
+            this.txtMasterUserName.Location = new System.Drawing.Point(98, 82);
+            this.txtMasterUserName.Name = "txtMasterUserName";
+            this.txtMasterUserName.Size = new System.Drawing.Size(433, 20);
+            this.txtMasterUserName.TabIndex = 5;
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Database";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(32, 86);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "User name";
+            // 
+            // txtMasterServer
+            // 
+            this.txtMasterServer.Location = new System.Drawing.Point(98, 18);
+            this.txtMasterServer.Name = "txtMasterServer";
+            this.txtMasterServer.Size = new System.Drawing.Size(433, 20);
+            this.txtMasterServer.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(52, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Server";
             // 
             // frmOptions
             // 
@@ -205,6 +206,7 @@
             this.ClientSize = new System.Drawing.Size(578, 408);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdOK);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmOptions";
             this.Text = "frmOptions";
             this.Load += new System.EventHandler(this.frmOptions_Load);

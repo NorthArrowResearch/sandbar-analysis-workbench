@@ -46,6 +46,9 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void frmRemoteCameras_Load(object sender, EventArgs e)
         {
+            // Fix bug where the form icon uses the Visual Studio default when launched maximized
+            // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
+            this.Icon = (Icon)Icon.Clone();
 
             RemoteCameras = RemoteCamera.LoadRemoteCameras(DBCon.ConnectionStringLocal);
 

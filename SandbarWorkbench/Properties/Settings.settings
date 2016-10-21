@@ -47,5 +47,8 @@
     <Setting Name="MasterDatabase" Type="System.String" Scope="User">
       <Value Profile="(Default)">SandbarData</Value>
     </Setting>
+    <Setting Name="LookupListID_TableTypes" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

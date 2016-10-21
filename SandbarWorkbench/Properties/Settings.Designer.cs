@@ -190,5 +190,14 @@ namespace SandbarWorkbench.Properties {
                 this["MasterDatabase"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int LookupListID_TableTypes {
+            get {
+                return ((int)(this["LookupListID_TableTypes"]));
+            }
+        }
     }
 }

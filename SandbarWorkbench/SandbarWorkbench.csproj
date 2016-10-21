@@ -83,6 +83,7 @@
     <Compile Include="AuditTrail.cs" />
     <Compile Include="DBCon.cs" />
     <Compile Include="DBHelpers\BaseTableDef.cs" />
+    <Compile Include="DBHelpers\DatabaseObject.cs" />
     <Compile Include="DBHelpers\LookupTableDef.cs" />
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
@@ -124,6 +125,13 @@
     <Compile Include="LookupDataVersion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reaches\frmReaches.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reaches\frmReaches.Designer.cs">
+      <DependentUpon>frmReaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reaches\Reach.cs" />
     <Compile Include="RemoteCameras\frmRemoteCameras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +198,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reaches\frmReaches.resx">
+      <DependentUpon>frmReaches.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RemoteCameras\frmRemoteCameras.resx">
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,6 +262,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\camera_lens.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sandbar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" />
