@@ -5,3 +5,6 @@ obj/
 
 # NuGet Packages Directory
 packages/
+
+# Master database credentials file for developers
+master_database_credentials.xml
