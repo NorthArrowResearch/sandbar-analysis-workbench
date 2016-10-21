@@ -35,5 +35,17 @@
     <Setting Name="InstallationHash" Type="System.Guid" Scope="User">
       <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
     </Setting>
+    <Setting Name="MasterServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">mysql.northarrowresearch.com</Value>
+    </Setting>
+    <Setting Name="MasterUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nar</Value>
+    </Setting>
+    <Setting Name="MasterPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MasterDatabase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SandbarData</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -142,5 +142,53 @@ namespace SandbarWorkbench.Properties {
                 this["InstallationHash"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("mysql.northarrowresearch.com")]
+        public string MasterServer {
+            get {
+                return ((string)(this["MasterServer"]));
+            }
+            set {
+                this["MasterServer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("nar")]
+        public string MasterUser {
+            get {
+                return ((string)(this["MasterUser"]));
+            }
+            set {
+                this["MasterUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MasterPassword {
+            get {
+                return ((string)(this["MasterPassword"]));
+            }
+            set {
+                this["MasterPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SandbarData")]
+        public string MasterDatabase {
+            get {
+                return ((string)(this["MasterDatabase"]));
+            }
+            set {
+                this["MasterDatabase"] = value;
+            }
+        }
     }
 }

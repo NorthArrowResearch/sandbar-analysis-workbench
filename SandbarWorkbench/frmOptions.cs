@@ -31,12 +31,24 @@ namespace SandbarWorkbench
 
             cboStartupView.SelectedValue = SandbarWorkbench.Properties.Settings.Default.StartupView;
             chkLoadLastDatabase.Checked = SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase;
+
+            txtMasterServer.Text = SandbarWorkbench.Properties.Settings.Default.MasterServer;
+            txtMasterDatabase.Text = SandbarWorkbench.Properties.Settings.Default.MasterDatabase;
+            txtMasterUserName.Text = SandbarWorkbench.Properties.Settings.Default.MasterUser;
+            txtMasterPassword.Text = SandbarWorkbench.Properties.Settings.Default.MasterPassword;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
             SandbarWorkbench.Properties.Settings.Default.StartupView = (int)cboStartupView.SelectedValue;
             SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase = chkLoadLastDatabase.Checked;
+
+            // Master database connection properties
+            SandbarWorkbench.Properties.Settings.Default.MasterServer = txtMasterServer.Text;
+            SandbarWorkbench.Properties.Settings.Default.MasterDatabase = txtMasterDatabase.Text;
+            SandbarWorkbench.Properties.Settings.Default.MasterUser = txtMasterUserName.Text;
+            SandbarWorkbench.Properties.Settings.Default.MasterPassword = txtMasterPassword.Text;
+
             SandbarWorkbench.Properties.Settings.Default.Save();
         }
     }

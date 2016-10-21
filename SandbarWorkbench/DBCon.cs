@@ -38,7 +38,11 @@ namespace SandbarWorkbench
         {
             get
             {
-                return "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarData;";
+                return string.Format("server={0};uid={1};pwd={2};database={3};",
+                    SandbarWorkbench.Properties.Settings.Default.MasterServer, 
+                    SandbarWorkbench.Properties.Settings.Default.MasterUser,
+                    SandbarWorkbench.Properties.Settings.Default.MasterPassword,
+                    SandbarWorkbench.Properties.Settings.Default.MasterDatabase);
             }
         }
 
