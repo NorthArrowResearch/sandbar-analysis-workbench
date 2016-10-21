@@ -36,6 +36,10 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSandbars_Load(object sender, EventArgs e)
         {
+            // Fix bug where the form icon uses the Visual Studio default when launched maximized
+            // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
+            //this.Icon = Icon.Clone();
+
             LoadData();
         }
 
