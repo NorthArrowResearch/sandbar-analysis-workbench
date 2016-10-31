@@ -174,6 +174,7 @@
             0,
             0,
             0});
+            this.valDisUpper.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
             // 
             // label2
             // 
@@ -200,6 +201,7 @@
             0,
             0,
             0});
+            this.valDisLower.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
             // 
             // label1
             // 

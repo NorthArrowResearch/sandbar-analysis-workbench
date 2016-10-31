@@ -232,5 +232,10 @@ namespace SandbarWorkbench.Sandbars
                 grdAnalyses.EndEdit();
             }
         }
+
+        private void Discharge_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateChart(null, null);
+        }
     }
 }
