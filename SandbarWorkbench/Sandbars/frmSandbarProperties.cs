@@ -32,7 +32,7 @@ namespace SandbarWorkbench.Sandbars
             if (m_Site is SandbarSite)
             {
                 txtName.Text = m_Site.Title;
-                valRiverMile.Value = (decimal)m_Site.RiverMile;
+                txtRiverMile.Text = m_Site.RiverMile.ToString();
 
                 grdSurveys.DataSource = m_Site.Surveys;
             }
