@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace SandbarWorkbench.Sandbars
 {
-    public class SandbarSite
+    public class SandbarSite : AuditTrail
     {
         private const string GDAWSLink = "http://waterdata.usgs.gov/ks/nwis/inventory/?site_no={0:00000000}";
 
@@ -18,11 +18,27 @@ namespace SandbarWorkbench.Sandbars
         public double RiverMile { get; internal set; }
         public ListItem RiverSide { get; internal set; }
         public string Title { get; internal set; }
+        public string AlternateTitle { get; internal set; }
+        public ListItem SiteType { get; internal set; }
+        public string History { get; internal set; }
+        public Nullable<long> PrimaryGDAWS { get; internal set; }
+        public Nullable<long> SecondaryGDAWS { get; internal set; }
+        public ListItem Reach { get; internal set; }
+        public ListItem Segment { get; internal set; }
+        public string CampSiteSurveyRecord { get; internal set; }
+        public Nullable<long> RemoteCameraID { get; internal set; }
+        public Nullable<double> StageDischargeA { get; internal set; }
+        public Nullable<double> StageDischargeB { get; internal set; }
+        public Nullable<double> StageDischargeC { get; internal set; }
+        public Nullable<double> Northing { get; internal set; }
+        public Nullable<double> Easting { get; internal set; }
+        public Nullable<double> Latitude { get; internal set; }
+        public Nullable<double> Longitude { get; internal set; }
+        public string InitialSurvey { get; internal set; }
         public Nullable<long> EddySize { get; internal set; }
         public Nullable<double> ExpansionRatio8k { get; internal set; }
-        public Nullable<double> ExpansionRatio8k45k { get; internal set; }
+        public Nullable<double> ExpansionRatio45k { get; internal set; }
         public Nullable<double> StageChange8k45k { get; internal set; }
-        public Nullable<long> PrimaryGDAWS { get; internal set; }
         public StageDischargeCurve SDCurve { get; internal set; }
         public BindingList<SandbarSurvey> Surveys { get; set; }
 
@@ -41,14 +57,33 @@ namespace SandbarWorkbench.Sandbars
             , long nRiverSideID
             , string sRiverSide
             , string sTitle
-            , Nullable<long> nEddySize
-            , Nullable<double> fExpansionRatio8k
-            , Nullable<double> fExpansionRatio8k45k
-            , Nullable<double> fStageChange8k45k
+            , string sAlternateTitle
+            , long nSiteType
+            , string sSiteType
+            , string sHistory
             , Nullable<long> nPrimaryGDAWS
+            , Nullable<long> nSecondaryGDAWS
+            , Nullable<long> nReachID
+            , string sReach
+            , Nullable<long> nSegmentID
+            , string sSegment
+            , string sCampSiteSurveyRecord
+            , Nullable<long> nRemoteCameraID
             , Nullable<double> fStageDischargeA
             , Nullable<double> fStageDischargeB
-            , Nullable<double> fStageDischargeC)
+            , Nullable<double> fStageDischargeC, Nullable<double> fNorthing
+            , Nullable<double> fEasting
+            , Nullable<double> fLatitude
+            , Nullable<double> fLongitude
+            , string sInitialSurvey
+            , Nullable<long> nEddySize
+            , Nullable<double> fExpansionRatio8k
+            , Nullable<double> fExpansionRatio45k
+            , Nullable<double> fStageChange8k45k
+            , DateTime dtAddedOn
+            , string sAddedBy
+            , DateTime dtUpdatedOn
+            , string sUpdatedBy) : base(dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy)
         {
             SiteID = nSiteID;
             SiteCode = sSiteCode;
@@ -56,14 +91,31 @@ namespace SandbarWorkbench.Sandbars
             RiverMile = fRiverMile;
             RiverSide = new ListItem(sRiverSide, nRiverSideID);
             Title = sTitle;
+            AlternateTitle = sAlternateTitle;
+            SiteType = new ListItem(sSiteType, nSiteType);
+            History = sHistory;
+            PrimaryGDAWS = nPrimaryGDAWS;
+            SecondaryGDAWS = nSecondaryGDAWS;
+
+            if (nReachID.HasValue)
+                Reach = new ListItem(sReach, nReachID.Value);
+
+            if (nSegmentID.HasValue)
+                Segment = new ListItem(sSegment, nSegmentID.Value);
+
+            CampSiteSurveyRecord = sCampSiteSurveyRecord;
+            RemoteCameraID = nRemoteCameraID;
+            SDCurve = new StageDischargeCurve(fStageDischargeA, fStageDischargeB, fStageDischargeC);
+            Northing = fNorthing;
+            Easting = fEasting;
+            Latitude = fLatitude;
+            Longitude = fLongitude;
+            InitialSurvey = sInitialSurvey;
             EddySize = nEddySize;
             ExpansionRatio8k = fExpansionRatio8k;
-            ExpansionRatio8k45k = fExpansionRatio8k45k;
+            ExpansionRatio45k = fExpansionRatio45k;
             StageChange8k45k = fStageChange8k45k;
-            PrimaryGDAWS = nPrimaryGDAWS;
-            SDCurve = new StageDischargeCurve(fStageDischargeA, fStageDischargeB, fStageDischargeC);
         }
-
 
         public static SortableBindingList<SandbarSite> LoadSandbarSites(string sDB)
         {
@@ -72,8 +124,7 @@ namespace SandbarWorkbench.Sandbars
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {
                 dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT SiteID, SiteCode, SiteCode5, RiverMile, RiverSideID, RiverSide, Title, " +
-                    "EddySize, ExpansionRatio8k, ExpansionRatio45k, StageChange8k45k, PrimaryGDAWS, StageDischargeA, StageDischargeB, StageDischargeC FROM vwSandbarSites ORDER BY RiverMile", dbCon);
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM vwSandbarSites ORDER BY RiverMile", dbCon);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
@@ -86,14 +137,34 @@ namespace SandbarWorkbench.Sandbars
                         , (long)dbRead["RiverSideID"]
                         , (string)dbRead["RiverSide"]
                         , (string)dbRead["Title"]
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead ,"AlternateTitle")
+                        , (long)dbRead["SiteTypeID"]
+                        , (string)dbRead["SiteType"]
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "History")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SecondaryGDAWS")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "ReachID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Reach")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SegmentID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Segment")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CampSiteSurveyRecord")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "RemoteCameraID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Northing")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Easting")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Latitude")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Longitude")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "InitialSurvey")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "EddySize")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
+                        , (DateTime)dbRead["AddedOn"]
+                        , (string)dbRead["AddedBy"]
+                        , (DateTime)dbRead["UpdatedOn"]
+                        , (string)dbRead["UpdatedBy"]
                         );
 
                     theSite.Surveys = SandbarSurvey.LoadSandbarSurveys(sDB, theSite.SiteID);
