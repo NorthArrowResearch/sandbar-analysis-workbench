@@ -32,19 +32,21 @@ namespace SandbarWorkbench.Sandbars
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 45k", "ExpansionRatio8k45k", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Stage Change", "StageChange8k45k", true);
             Helpers.DataGridViewHelpers.AddDataGridViewLinkColumn(ref grdData, "GDAWS", "PrimaryGDAWS", true);
+
         }
 
         private void frmSandbars_Load(object sender, EventArgs e)
         {
             // Fix bug where the form icon uses the Visual Studio default when launched maximized
             // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
-            this.Icon = (Icon) Icon.Clone();
+            this.Icon = (Icon)Icon.Clone();
 
             LoadData();
         }
 
         public void LoadData(long nSelectID = 0)
         {
+
             SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionStringLocal);
             DataView custDV = new DataView();
             grdData.DataSource = SandbarSites;
