@@ -10,13 +10,14 @@ namespace SandbarWorkbench.Helpers
 {
     public class DataGridViewHelpers
     {
-        public static void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, string sFormat = "", DataGridViewAutoSizeColumnMode eAutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells)
+        public static void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, string sFormat = "", DataGridViewAutoSizeColumnMode eAutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DataGridViewContentAlignment eAlignment = DataGridViewContentAlignment.MiddleLeft)
         {
             var aCol = new DataGridViewTextBoxColumn();
             aCol.Visible = bVisible;
             aCol.HeaderText = sHeaderText;
             aCol.DataPropertyName = sDataPropertyMember;
             aCol.AutoSizeMode = eAutoSizeMode;
+            aCol.DefaultCellStyle.Alignment = eAlignment;
 
             if (!string.IsNullOrEmpty(sFormat))
                 aCol.DefaultCellStyle.Format = sFormat;
@@ -35,13 +36,14 @@ namespace SandbarWorkbench.Helpers
             dg.Columns.Add(aCol);
         }
 
-        public static void AddDataGridViewLinkColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible)
+        public static void AddDataGridViewLinkColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, DataGridViewContentAlignment eAlignment = DataGridViewContentAlignment.MiddleLeft)
         {
             var aCol = new DataGridViewLinkColumn();
             aCol.Visible = bVisible;
             aCol.HeaderText = sHeaderText;
             aCol.DataPropertyName = sDataPropertyMember;
             aCol.UseColumnTextForLinkValue = false;
+            aCol.DefaultCellStyle.Alignment = eAlignment;
             dg.Columns.Add(aCol);
         }
 
