@@ -72,8 +72,6 @@ namespace SandbarWorkbench.Sandbars
             chtData.ChartAreas[0].AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Months;
             chtData.ChartAreas[0].AxisX.MinorTickMark.Interval = 6;
             chtData.ChartAreas[0].AxisX.MinorTickMark.LineColor = Color.LightGray;
-
-
         }
 
         private void ConfigureAnalysesDataGridView()
@@ -91,13 +89,10 @@ namespace SandbarWorkbench.Sandbars
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdAnalyses, "Run By", "AddedBy", true);
         }
 
-        private void grdAnalyses_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void UpdateChart(object sender, EventArgs e)
         {
+            Console.WriteLine(chkAreaSectionTypes.CheckedItems.Count);
+
             chtData.Series.Clear();
             chtData.Titles.Clear();
 
@@ -170,22 +165,32 @@ namespace SandbarWorkbench.Sandbars
         private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
         {
             double fRange = fMax - fMin;
-            double fExponent = (int) Math.Log10(fRange);
+            double fExponent = (int)Math.Log10(fRange);
             double fMagnitude = Math.Pow(10, fExponent);
             fInterval = fMagnitude / 10;
             fAxisMin = Math.Floor(fMin / fInterval) * fInterval;
             fAxisMax = Math.Ceiling(fMax / fInterval) * fInterval;
-            fInterval = fInterval *2;
+            fInterval = fInterval * 2;
         }
 
-        private void chkVolSectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
+        /// <summary>
+        /// Capture when a channel section is checked or unchecked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>The ItemCheck event occurs BEFORE the state of the item is checked.
+        /// You can use the e.NewValue to determine the state of the newly checked item, or
+        /// you can just queue up the desired event to fire after the state has changed.
+        /// This code uses the latter approach.
+        /// http://stackoverflow.com/questions/3666682/which-checkedlistbox-event-triggers-after-a-item-is-checked
+        /// </remarks>
+        private void SectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            UpdateChart(null, null);
+            this.BeginInvoke((MethodInvoker)(() => UpdateChart(null, null)));
         }
 
         private void grdAnalyses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            bool bDataAdded = false;
             foreach (DataGridViewRow aRow in grdAnalyses.Rows)
             {
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)aRow.Cells[0];
@@ -193,13 +198,14 @@ namespace SandbarWorkbench.Sandbars
                 ModelRun theModel = (ModelRun)aRow.DataBoundItem;
                 if (aRow.Cells[0].Value == chk.TrueValue)
                 {
+                    System.Diagnostics.Debug.Print("Visible Row Index {0}, {1}", aRow.Index, aRow.Cells[1].Value);
+
                     if (ModelResultData == null)
                         ModelResultData = new Dictionary<long, ModelResults>();
 
                     if (!ModelResultData.ContainsKey(theModel.RunID))
                     {
                         ModelResultData[theModel.RunID] = new ModelResults(DBCon.ConnectionStringLocal, SandbarSite.SiteID, theModel.RunID, theModel.Title);
-                        bDataAdded = true;
                     }
                 }
                 else
@@ -210,8 +216,21 @@ namespace SandbarWorkbench.Sandbars
                 }
             }
 
-            if (bDataAdded)
-                UpdateChart(null, null);
+            UpdateChart(null, null);
+        }
+
+        /// <summary>
+        /// This is needed to force the saving of the state of the checkbox to the underlying object
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void grdAnalyses_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // End of edition on each click on column of checkbox
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
+            {
+                grdAnalyses.EndEdit();
+            }
         }
     }
 }

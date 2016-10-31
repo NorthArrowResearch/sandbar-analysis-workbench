@@ -28,6 +28,7 @@ namespace SandbarWorkbench.Helpers
         {
             var aCol = new DataGridViewCheckBoxColumn();
             aCol.HeaderText = sHeaderText;
+            aCol.DataPropertyName = "Visible";
             aCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             aCol.FalseValue = false;
             aCol.TrueValue = true;

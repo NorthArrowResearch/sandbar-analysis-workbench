@@ -132,6 +132,12 @@
       <DependentUpon>frmReaches.cs</DependentUpon>
     </Compile>
     <Compile Include="Reaches\Reach.cs" />
+    <Compile Include="RemoteCameras\frmRemoteCameraPropertiesEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoteCameras\frmRemoteCameraPropertiesEdit.Designer.cs">
+      <DependentUpon>frmRemoteCameraPropertiesEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="RemoteCameras\frmRemoteCameras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </Compile>
     <EmbeddedResource Include="Reaches\frmReaches.resx">
       <DependentUpon>frmReaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoteCameras\frmRemoteCameraPropertiesEdit.resx">
+      <DependentUpon>frmRemoteCameraPropertiesEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemoteCameras\frmRemoteCameras.resx">
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
