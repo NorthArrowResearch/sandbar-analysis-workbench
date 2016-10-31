@@ -94,9 +94,9 @@ namespace SandbarWorkbench.RemoteCameras
             UpdatedBy = sUpdatedBy;
         }
         
-        public static BindingList<RemoteCamera> LoadRemoteCameras(string sDB)
+        public static SortableBindingList<RemoteCamera> LoadRemoteCameras(string sDB)
         {
-            BindingList<RemoteCamera> lItems = new BindingList<RemoteCamera>();
+            SortableBindingList<RemoteCamera> lItems = new SortableBindingList<RemoteCamera>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {

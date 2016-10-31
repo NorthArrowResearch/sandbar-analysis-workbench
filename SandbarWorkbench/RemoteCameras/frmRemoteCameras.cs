@@ -12,7 +12,7 @@ namespace SandbarWorkbench.RemoteCameras
 {
     public partial class frmRemoteCameras : Form
     {
-        BindingList<RemoteCamera> RemoteCameras;
+        SortableBindingList<RemoteCamera> RemoteCameras;
 
         public frmRemoteCameras()
         {
