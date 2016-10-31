@@ -8,6 +8,7 @@ using System.ComponentModel;
 namespace SandbarWorkbench
 {
     /// <summary>
+    /// Downloaded from: http://www.martinwilley.com/net/code/forms/sortablebindinglist.html
     /// Provides a generic collection that supports data binding and additionally supports sorting.
     /// See http://msdn.microsoft.com/en-us/library/ms993236.aspx
     /// If the elements are IComparable it uses that; otherwise compares the ToString()
