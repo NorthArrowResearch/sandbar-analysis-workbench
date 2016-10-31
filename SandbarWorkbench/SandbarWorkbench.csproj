@@ -145,6 +145,7 @@
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
     </Compile>
     <Compile Include="RemoteCameras\RemoteCamera.cs" />
+    <Compile Include="Sandbars\AnalysisBin.cs" />
     <Compile Include="Sandbars\AnalysisResults.cs" />
     <Compile Include="Sandbars\frmSandbarProperties.cs">
       <SubType>Form</SubType>
