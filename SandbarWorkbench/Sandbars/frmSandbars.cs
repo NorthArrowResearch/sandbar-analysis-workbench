@@ -13,7 +13,7 @@ namespace SandbarWorkbench.Sandbars
 {
     public partial class frmSandbars : Form
     {
-        BindingList<SandbarSite> SandbarSites;
+        SortableBindingList<SandbarSite> SandbarSites;
 
         public frmSandbars()
         {
@@ -110,21 +110,11 @@ namespace SandbarWorkbench.Sandbars
 
         private void grdData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
-            frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
-            frm.ShowDialog();
-        }
-
-        private void grdData_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (grdData.Columns[e.ColumnIndex].HeaderText.ToLower().Contains("gdaws"))
+            if (e.RowIndex >= 0)
             {
-                if (grdData.Rows[e.RowIndex].DataBoundItem is SandbarSite)
-                {
-                    SandbarSite theSite = (SandbarSite)grdData.Rows[e.RowIndex].DataBoundItem;
-                    if (theSite.PrimaryGDAWS.HasValue)
-                        System.Diagnostics.Process.Start(theSite.PrimaryGDAWSLink);
-                }
+                SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+                frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
+                frm.ShowDialog();
             }
         }
 
@@ -215,5 +205,21 @@ namespace SandbarWorkbench.Sandbars
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        //public void grdData_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        //{
+        //    switch (e.Column.DataPropertyName.ToLower())
+        //    {
+        //        case "title":
+        //            e.SortResult = string.Compare((string)e.CellValue1, (string)e.CellValue2, false);
+        //            e.Handled = true;
+        //            break;
+        //    }
+        //}
+
+        //private void grdData_Sorted(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

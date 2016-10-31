@@ -65,9 +65,9 @@ namespace SandbarWorkbench.Sandbars
         }
 
 
-        public static BindingList<SandbarSite> LoadSandbarSites(string sDB)
+        public static SortableBindingList<SandbarSite> LoadSandbarSites(string sDB)
         {
-            BindingList<SandbarSite> lItems = new BindingList<SandbarSite>();
+            SortableBindingList<SandbarSite> lItems = new SortableBindingList<SandbarSite>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {

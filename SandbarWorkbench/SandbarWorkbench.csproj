@@ -181,6 +181,7 @@
     <Compile Include="Sandbars\ucStageDischarge.Designer.cs">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
     </Compile>
+    <Compile Include="SortableBindingList.cs" />
     <EmbeddedResource Include="ExceptionHandling\frmException.resx" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
