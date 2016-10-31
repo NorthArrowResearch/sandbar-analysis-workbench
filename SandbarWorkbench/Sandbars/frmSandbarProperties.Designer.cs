@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbarProperties));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,9 +41,9 @@
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.txtRiverMile = new System.Windows.Forms.TextBox();
+            this.grdData = new System.Windows.Forms.DataGridView();
             this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
-            this.grdData = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -175,6 +176,14 @@
             this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
             this.txtRiverMile.TabIndex = 7;
             // 
+            // grdData
+            // 
+            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.Location = new System.Drawing.Point(218, 133);
+            this.grdData.Name = "grdData";
+            this.grdData.Size = new System.Drawing.Size(240, 150);
+            this.grdData.TabIndex = 0;
+            // 
             // ucStageDischarge1
             // 
             this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -192,14 +201,6 @@
             this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(630, 472);
             this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
-            // grdData
-            // 
-            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdData.Location = new System.Drawing.Point(218, 133);
-            this.grdData.Name = "grdData";
-            this.grdData.Size = new System.Drawing.Size(240, 150);
-            this.grdData.TabIndex = 0;
-            // 
             // frmSandbarProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +213,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSandbarProperties";
             this.Text = "Sandbar Properties";
             this.Load += new System.EventHandler(this.frmSandbarProperties_Load);

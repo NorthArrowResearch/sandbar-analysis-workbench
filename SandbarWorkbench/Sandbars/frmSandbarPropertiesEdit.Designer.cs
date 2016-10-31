@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbarPropertiesEdit));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -754,6 +755,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSandbarPropertiesEdit";
             this.Text = "Edit Sandbar Properties";
             this.Load += new System.EventHandler(this.frmSandbarPropertiesEdit_Load);
