@@ -91,8 +91,6 @@ namespace SandbarWorkbench.Sandbars
 
         private void UpdateChart(object sender, EventArgs e)
         {
-            Console.WriteLine(chkAreaSectionTypes.CheckedItems.Count);
-
             chtData.Series.Clear();
             chtData.Titles.Clear();
 
@@ -111,6 +109,8 @@ namespace SandbarWorkbench.Sandbars
                 {
                     foreach (long nModelID in ModelResultData.Keys)
                     {
+                        System.Diagnostics.Debug.Print("Loading {0} for section {1}", ModelResultData[nModelID].Title, sectionTypeItem);
+
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
                         {
                             Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
@@ -198,7 +198,7 @@ namespace SandbarWorkbench.Sandbars
                 ModelRun theModel = (ModelRun)aRow.DataBoundItem;
                 if (aRow.Cells[0].Value == chk.TrueValue)
                 {
-                    System.Diagnostics.Debug.Print("Visible Row Index {0}, {1}", aRow.Index, aRow.Cells[1].Value);
+                    //System.Diagnostics.Debug.Print("Visible Row Index {0}, {1}", aRow.Index, aRow.Cells[1].Value);
 
                     if (ModelResultData == null)
                         ModelResultData = new Dictionary<long, ModelResults>();
