@@ -50,5 +50,8 @@
     <Setting Name="LookupListID_TableTypes" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">15</Value>
     </Setting>
+    <Setting Name="Folder_SandbarTopoData" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\Topo_Data\corgrids</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -199,5 +199,17 @@ namespace SandbarWorkbench.Properties {
                 return ((int)(this["LookupListID_TableTypes"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data\\corgrids")]
+        public string Folder_SandbarTopoData {
+            get {
+                return ((string)(this["Folder_SandbarTopoData"]));
+            }
+            set {
+                this["Folder_SandbarTopoData"] = value;
+            }
+        }
     }
 }

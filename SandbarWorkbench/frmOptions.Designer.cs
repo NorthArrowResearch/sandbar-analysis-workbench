@@ -44,9 +44,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtMasterServer = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -68,6 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -198,6 +203,26 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Server";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.grdFolderPaths);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(546, 329);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Folders";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // grdFolderPaths
+            // 
+            this.grdFolderPaths.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdFolderPaths.Location = new System.Drawing.Point(125, 112);
+            this.grdFolderPaths.Name = "grdFolderPaths";
+            this.grdFolderPaths.Size = new System.Drawing.Size(240, 150);
+            this.grdFolderPaths.TabIndex = 0;
+            this.grdFolderPaths.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFolderPaths_CellClick);
+            // 
             // frmOptions
             // 
             this.AcceptButton = this.cmdOK;
@@ -215,6 +240,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -236,5 +263,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtMasterServer;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView grdFolderPaths;
     }
 }
