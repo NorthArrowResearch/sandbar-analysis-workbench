@@ -46,11 +46,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdo4Digits = new System.Windows.Forms.RadioButton();
+            this.rdo5Digits = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -81,6 +85,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.cboStartupView);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.chkLoadLastDatabase);
@@ -223,6 +228,39 @@
             this.grdFolderPaths.TabIndex = 0;
             this.grdFolderPaths.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFolderPaths_CellClick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdo5Digits);
+            this.groupBox1.Controls.Add(this.rdo4Digits);
+            this.groupBox1.Location = new System.Drawing.Point(29, 80);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(385, 79);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sandbar Folder Identification";
+            // 
+            // rdo4Digits
+            // 
+            this.rdo4Digits.AutoSize = true;
+            this.rdo4Digits.Checked = true;
+            this.rdo4Digits.Location = new System.Drawing.Point(27, 25);
+            this.rdo4Digits.Name = "rdo4Digits";
+            this.rdo4Digits.Size = new System.Drawing.Size(139, 17);
+            this.rdo4Digits.TabIndex = 0;
+            this.rdo4Digits.TabStop = true;
+            this.rdo4Digits.Text = "4 digit codes (e.g. 003L)";
+            this.rdo4Digits.UseVisualStyleBackColor = true;
+            // 
+            // rdo5Digits
+            // 
+            this.rdo5Digits.AutoSize = true;
+            this.rdo5Digits.Location = new System.Drawing.Point(27, 49);
+            this.rdo5Digits.Name = "rdo5Digits";
+            this.rdo5Digits.Size = new System.Drawing.Size(145, 17);
+            this.rdo5Digits.TabIndex = 1;
+            this.rdo5Digits.Text = "5 digit codes (e.g. 0003L)";
+            this.rdo5Digits.UseVisualStyleBackColor = true;
+            // 
             // frmOptions
             // 
             this.AcceptButton = this.cmdOK;
@@ -242,6 +280,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -265,5 +305,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView grdFolderPaths;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rdo5Digits;
+        private System.Windows.Forms.RadioButton rdo4Digits;
     }
 }

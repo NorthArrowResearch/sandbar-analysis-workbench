@@ -48,9 +48,10 @@
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.browseTopoFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -267,12 +268,13 @@
             // 
             this.cmsSite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewPropertiesToolStripMenuItem,
-            this.editPropertiesToolStripMenuItem,
-            this.toolStripSeparator1,
+            this.browseTopoFolderToolStripMenuItem,
+            this.toolStripSeparator2,
             this.addNewSandbarToolStripMenuItem,
+            this.editPropertiesToolStripMenuItem,
             this.deleteSelectedSandbarToolStripMenuItem});
             this.cmsSite.Name = "cmsSite";
-            this.cmsSite.Size = new System.Drawing.Size(210, 98);
+            this.cmsSite.Size = new System.Drawing.Size(210, 120);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -281,18 +283,18 @@
             this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.viewPropertiesToolStripMenuItem.Text = "View Properties";
             // 
-            // editPropertiesToolStripMenuItem
+            // browseTopoFolderToolStripMenuItem
             // 
-            this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
-            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
-            this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            this.browseTopoFolderToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.browseTopoFolderToolStripMenuItem.Name = "browseTopoFolderToolStripMenuItem";
+            this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.browseTopoFolderToolStripMenuItem.Text = "Browse Topo Folder...";
+            this.browseTopoFolderToolStripMenuItem.Click += new System.EventHandler(this.browseTopoFolderToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
             // addNewSandbarToolStripMenuItem
             // 
@@ -301,6 +303,14 @@
             this.addNewSandbarToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.addNewSandbarToolStripMenuItem.Text = "Add New Sandbar...";
             this.addNewSandbarToolStripMenuItem.Click += new System.EventHandler(this.addNewSandbarToolStripMenuItem_Click);
+            // 
+            // editPropertiesToolStripMenuItem
+            // 
+            this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
+            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
+            this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
             // 
             // deleteSelectedSandbarToolStripMenuItem
             // 
@@ -361,8 +371,9 @@
         private System.Windows.Forms.ContextMenuStrip cmsSite;
         private System.Windows.Forms.ToolStripMenuItem viewPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem addNewSandbarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedSandbarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem browseTopoFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

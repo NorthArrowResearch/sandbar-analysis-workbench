@@ -211,5 +211,17 @@ namespace SandbarWorkbench.Properties {
                 this["Folder_SandbarTopoData"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SiteCode5")]
+        public string SandbarIdentification {
+            get {
+                return ((string)(this["SandbarIdentification"]));
+            }
+            set {
+                this["SandbarIdentification"] = value;
+            }
+        }
     }
 }

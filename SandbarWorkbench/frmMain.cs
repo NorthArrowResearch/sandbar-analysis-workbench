@@ -224,23 +224,20 @@ namespace SandbarWorkbench
 
         private void syncToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                syncTool.SyncLookupData();
-
-                foreach (Form frm in this.MdiChildren)
+                frmSynchronize frmSync = new frmSynchronize();
+                if (frmSync.ShowDialog() == DialogResult.OK)
                 {
-                    if (frm is Sandbars.frmSandbars)
+                    foreach (Form frm in this.MdiChildren)
                     {
-                        ((Sandbars.frmSandbars)frm).LoadData();
+                        if (frm is Sandbars.frmSandbars)
+                        {
+                            ((Sandbars.frmSandbars)frm).LoadData();
+                        }
                     }
+
                 }
-
-
-                Cursor.Current = Cursors.Default;
-                MessageBox.Show("Local database synchronization with the master database was successful.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

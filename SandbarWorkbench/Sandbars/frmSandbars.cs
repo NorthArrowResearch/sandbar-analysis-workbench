@@ -206,20 +206,36 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
-        //public void grdData_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
-        //{
-        //    switch (e.Column.DataPropertyName.ToLower())
-        //    {
-        //        case "title":
-        //            e.SortResult = string.Compare((string)e.CellValue1, (string)e.CellValue2, false);
-        //            e.Handled = true;
-        //            break;
-        //    }
-        //}
+        private void browseTopoFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData)
+                && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData))
+            {
+                if (grdData.SelectedRows[0].DataBoundItem is SandbarSite)
+                {
+                    SandbarSite aSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
 
-        //private void grdData_Sorted(object sender, EventArgs e)
-        //{
+                    // Use the software settings to determine if sandbar folders are 4 digit codes "003L" or the newer more consistent 5 digits "0003L"
+                    string sFolder = aSite.SiteCode5;
+                    if (string.Compare("sitecode5", SandbarWorkbench.Properties.Settings.Default.SandbarIdentification, true) != 0)
+                        sFolder = aSite.SiteCode;
 
-        //}
+                    sFolder = System.IO.Path.Combine(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, string.Format("{0}corgrids", sFolder));
+                    if (!System.IO.Directory.Exists(sFolder))
+                    {
+                        if (MessageBox.Show(string.Format("The sandbar topo folder {0} does not exist. Do you want to create it now?", sFolder), "Missing Sandbar Site Topo Folder", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                            == DialogResult.Yes)
+                        {
+                            System.IO.Directory.CreateDirectory(sFolder);
+                        }
+                    }
+
+                    if (System.IO.Directory.Exists(sFolder))
+                    {
+                        System.Diagnostics.Process.Start(sFolder);
+                    }
+                }
+            }
+        }
     }
 }

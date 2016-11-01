@@ -37,8 +37,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sandbarSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reachesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteCamerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sandbarSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -54,7 +55,6 @@
             this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssDatabasePath = new System.Windows.Forms.ToolStripStatusLabel();
-            this.reachesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -130,13 +130,12 @@
             this.viewsToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.viewsToolStripMenuItem.Text = "Views";
             // 
-            // sandbarSitesToolStripMenuItem
+            // reachesToolStripMenuItem
             // 
-            this.sandbarSitesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.sandbar;
-            this.sandbarSitesToolStripMenuItem.Name = "sandbarSitesToolStripMenuItem";
-            this.sandbarSitesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.sandbarSitesToolStripMenuItem.Text = "Sandbar Sites";
-            this.sandbarSitesToolStripMenuItem.Click += new System.EventHandler(this.sandbarSitesToolStripMenuItem_Click);
+            this.reachesToolStripMenuItem.Name = "reachesToolStripMenuItem";
+            this.reachesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.reachesToolStripMenuItem.Text = "Reaches";
+            this.reachesToolStripMenuItem.Click += new System.EventHandler(this.reachesToolStripMenuItem_Click);
             // 
             // remoteCamerasToolStripMenuItem
             // 
@@ -145,6 +144,14 @@
             this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
             this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.remoteCamerasToolStripMenuItem_Click);
+            // 
+            // sandbarSitesToolStripMenuItem
+            // 
+            this.sandbarSitesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.sandbar;
+            this.sandbarSitesToolStripMenuItem.Name = "sandbarSitesToolStripMenuItem";
+            this.sandbarSitesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.sandbarSitesToolStripMenuItem.Text = "Sandbar Sites";
+            this.sandbarSitesToolStripMenuItem.Click += new System.EventHandler(this.sandbarSitesToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -178,6 +185,7 @@
             // 
             // syncToolStripMenuItem
             // 
+            this.syncToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.update;
             this.syncToolStripMenuItem.Name = "syncToolStripMenuItem";
             this.syncToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.syncToolStripMenuItem.Text = "Synchronize Data...";
@@ -265,13 +273,6 @@
             this.tssDatabasePath.Size = new System.Drawing.Size(93, 17);
             this.tssDatabasePath.Text = "tssDatabasePath";
             this.tssDatabasePath.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
-            // 
-            // reachesToolStripMenuItem
-            // 
-            this.reachesToolStripMenuItem.Name = "reachesToolStripMenuItem";
-            this.reachesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.reachesToolStripMenuItem.Text = "Reaches";
-            this.reachesToolStripMenuItem.Click += new System.EventHandler(this.reachesToolStripMenuItem_Click);
             // 
             // frmMain
             // 

@@ -53,5 +53,8 @@
     <Setting Name="Folder_SandbarTopoData" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\Topo_Data\corgrids</Value>
     </Setting>
+    <Setting Name="SandbarIdentification" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SiteCode5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

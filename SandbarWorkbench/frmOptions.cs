@@ -32,6 +32,9 @@ namespace SandbarWorkbench
             cboStartupView.SelectedValue = SandbarWorkbench.Properties.Settings.Default.StartupView;
             chkLoadLastDatabase.Checked = SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase;
 
+            // Retrieve whether sandbar site folders are identified by either 4 or 5 digit codes
+            rdo5Digits.Checked = string.Compare(SandbarWorkbench.Properties.Settings.Default.SandbarIdentification, "sitecode5", true) == 0;
+
             txtMasterServer.Text = SandbarWorkbench.Properties.Settings.Default.MasterServer;
             txtMasterDatabase.Text = SandbarWorkbench.Properties.Settings.Default.MasterDatabase;
             txtMasterUserName.Text = SandbarWorkbench.Properties.Settings.Default.MasterUser;
@@ -55,16 +58,15 @@ namespace SandbarWorkbench
 
             int nRow = grdFolderPaths.Rows.Add("Sandbar Topo Data", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData);
             grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarTopoData";
-
-
-
-
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
             SandbarWorkbench.Properties.Settings.Default.StartupView = (int)cboStartupView.SelectedValue;
             SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase = chkLoadLastDatabase.Checked;
+
+            // Store whether sandbar site folders are identified by either 4 or 5 digit codes
+            SandbarWorkbench.Properties.Settings.Default.SandbarIdentification = rdo5Digits.Checked ? "SiteCode5" : "SiteCode";
 
             // Master database connection properties
             SandbarWorkbench.Properties.Settings.Default.MasterServer = txtMasterServer.Text;
