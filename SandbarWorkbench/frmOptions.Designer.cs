@@ -32,6 +32,9 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdo5Digits = new System.Windows.Forms.RadioButton();
+            this.rdo4Digits = new System.Windows.Forms.RadioButton();
             this.cboStartupView = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkLoadLastDatabase = new System.Windows.Forms.CheckBox();
@@ -46,15 +49,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdo4Digits = new System.Windows.Forms.RadioButton();
-            this.rdo5Digits = new System.Windows.Forms.RadioButton();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.valDefaultInputCellSize = new System.Windows.Forms.NumericUpDown();
+            this.valDefaultOutputCellSize = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cboInterpolation = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -77,6 +87,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -96,6 +107,39 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Start Up";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdo5Digits);
+            this.groupBox1.Controls.Add(this.rdo4Digits);
+            this.groupBox1.Location = new System.Drawing.Point(29, 80);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(385, 79);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sandbar Folder Identification";
+            // 
+            // rdo5Digits
+            // 
+            this.rdo5Digits.AutoSize = true;
+            this.rdo5Digits.Location = new System.Drawing.Point(27, 49);
+            this.rdo5Digits.Name = "rdo5Digits";
+            this.rdo5Digits.Size = new System.Drawing.Size(145, 17);
+            this.rdo5Digits.TabIndex = 1;
+            this.rdo5Digits.Text = "5 digit codes (e.g. 0003L)";
+            this.rdo5Digits.UseVisualStyleBackColor = true;
+            // 
+            // rdo4Digits
+            // 
+            this.rdo4Digits.AutoSize = true;
+            this.rdo4Digits.Checked = true;
+            this.rdo4Digits.Location = new System.Drawing.Point(27, 25);
+            this.rdo4Digits.Name = "rdo4Digits";
+            this.rdo4Digits.Size = new System.Drawing.Size(139, 17);
+            this.rdo4Digits.TabIndex = 0;
+            this.rdo4Digits.TabStop = true;
+            this.rdo4Digits.Text = "4 digit codes (e.g. 003L)";
+            this.rdo4Digits.UseVisualStyleBackColor = true;
             // 
             // cboStartupView
             // 
@@ -228,38 +272,73 @@
             this.grdFolderPaths.TabIndex = 0;
             this.grdFolderPaths.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdFolderPaths_CellClick);
             // 
-            // groupBox1
+            // tabPage4
             // 
-            this.groupBox1.Controls.Add(this.rdo5Digits);
-            this.groupBox1.Controls.Add(this.rdo4Digits);
-            this.groupBox1.Location = new System.Drawing.Point(29, 80);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(385, 79);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sandbar Folder Identification";
+            this.tabPage4.Controls.Add(this.cboInterpolation);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.valDefaultOutputCellSize);
+            this.tabPage4.Controls.Add(this.valDefaultInputCellSize);
+            this.tabPage4.Controls.Add(this.label7);
+            this.tabPage4.Controls.Add(this.label6);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(546, 329);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Sandbar Analysis";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // rdo4Digits
+            // label6
             // 
-            this.rdo4Digits.AutoSize = true;
-            this.rdo4Digits.Checked = true;
-            this.rdo4Digits.Location = new System.Drawing.Point(27, 25);
-            this.rdo4Digits.Name = "rdo4Digits";
-            this.rdo4Digits.Size = new System.Drawing.Size(139, 17);
-            this.rdo4Digits.TabIndex = 0;
-            this.rdo4Digits.TabStop = true;
-            this.rdo4Digits.Text = "4 digit codes (e.g. 003L)";
-            this.rdo4Digits.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(160, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Default input text file cell size (m)";
             // 
-            // rdo5Digits
+            // label7
             // 
-            this.rdo5Digits.AutoSize = true;
-            this.rdo5Digits.Location = new System.Drawing.Point(27, 49);
-            this.rdo5Digits.Name = "rdo5Digits";
-            this.rdo5Digits.Size = new System.Drawing.Size(145, 17);
-            this.rdo5Digits.TabIndex = 1;
-            this.rdo5Digits.Text = "5 digit codes (e.g. 0003L)";
-            this.rdo5Digits.UseVisualStyleBackColor = true;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 47);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(160, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Default raster output cell size (m)";
+            // 
+            // valDefaultInputCellSize
+            // 
+            this.valDefaultInputCellSize.DecimalPlaces = 2;
+            this.valDefaultInputCellSize.Location = new System.Drawing.Point(209, 18);
+            this.valDefaultInputCellSize.Name = "valDefaultInputCellSize";
+            this.valDefaultInputCellSize.Size = new System.Drawing.Size(120, 20);
+            this.valDefaultInputCellSize.TabIndex = 2;
+            // 
+            // valDefaultOutputCellSize
+            // 
+            this.valDefaultOutputCellSize.DecimalPlaces = 2;
+            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(209, 47);
+            this.valDefaultOutputCellSize.Name = "valDefaultOutputCellSize";
+            this.valDefaultOutputCellSize.Size = new System.Drawing.Size(120, 20);
+            this.valDefaultOutputCellSize.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(33, 82);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(139, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Default interpolation method";
+            // 
+            // cboInterpolation
+            // 
+            this.cboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInterpolation.FormattingEnabled = true;
+            this.cboInterpolation.Location = new System.Drawing.Point(209, 82);
+            this.cboInterpolation.Name = "cboInterpolation";
+            this.cboInterpolation.Size = new System.Drawing.Size(121, 21);
+            this.cboInterpolation.TabIndex = 5;
             // 
             // frmOptions
             // 
@@ -276,12 +355,16 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -308,5 +391,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rdo5Digits;
         private System.Windows.Forms.RadioButton rdo4Digits;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.NumericUpDown valDefaultOutputCellSize;
+        private System.Windows.Forms.NumericUpDown valDefaultInputCellSize;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboInterpolation;
+        private System.Windows.Forms.Label label8;
     }
 }

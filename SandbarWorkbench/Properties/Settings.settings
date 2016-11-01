@@ -56,5 +56,14 @@
     <Setting Name="SandbarIdentification" Type="System.String" Scope="User">
       <Value Profile="(Default)">SiteCode5</Value>
     </Setting>
+    <Setting Name="Default_InputCellSize" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Default_OutputCellSize" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.25</Value>
+    </Setting>
+    <Setting Name="Default_Interpolation" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">21</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -37,7 +37,19 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void frmAnalysisConfig_Load(object sender, EventArgs e)
         {
+            lstSites.DataSource = SitesToProcess.Select(x => x.SiteCode5).ToList<string>();
 
+            long nDefaultInterpolation = SandbarWorkbench.Properties.Settings.Default.Default_Interpolation;
+            ListItem.LoadComboWithListItems(ref cboInterpolationMethod, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", nDefaultInterpolation);
+
+            valInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
+            valOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
+        }
+
+        public void CellSizeChanged(object sender, EventArgs e)
+        {
+            lblInterpolationMethod.Enabled = valInputCellSize.Value != valOutputCellSize.Value;
+            cboInterpolationMethod.Enabled = lblInterpolationMethod.Enabled;
         }
     }
 }

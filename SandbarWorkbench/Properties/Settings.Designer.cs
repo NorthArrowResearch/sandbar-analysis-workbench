@@ -223,5 +223,41 @@ namespace SandbarWorkbench.Properties {
                 this["SandbarIdentification"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public decimal Default_InputCellSize {
+            get {
+                return ((decimal)(this["Default_InputCellSize"]));
+            }
+            set {
+                this["Default_InputCellSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
+        public decimal Default_OutputCellSize {
+            get {
+                return ((decimal)(this["Default_OutputCellSize"]));
+            }
+            set {
+                this["Default_OutputCellSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("21")]
+        public long Default_Interpolation {
+            get {
+                return ((long)(this["Default_Interpolation"]));
+            }
+            set {
+                this["Default_Interpolation"] = value;
+            }
+        }
     }
 }

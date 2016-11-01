@@ -58,6 +58,11 @@ namespace SandbarWorkbench
 
             int nRow = grdFolderPaths.Rows.Add("Sandbar Topo Data", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData);
             grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarTopoData";
+
+            // Sandbar Analysis Tab
+            valDefaultInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
+            valDefaultOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
+            ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -73,6 +78,11 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.MasterDatabase = txtMasterDatabase.Text;
             SandbarWorkbench.Properties.Settings.Default.MasterUser = txtMasterUserName.Text;
             SandbarWorkbench.Properties.Settings.Default.MasterPassword = txtMasterPassword.Text;
+
+            // Sandbar Analysis Tab
+            SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize = valDefaultInputCellSize.Value;
+            SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize = valDefaultOutputCellSize.Value;
+            SandbarWorkbench.Properties.Settings.Default.Default_Interpolation = ((ListItem)cboInterpolation.SelectedItem).Value;
 
             SandbarWorkbench.Properties.Settings.Default.Save();
         }
