@@ -21,6 +21,7 @@ namespace SandbarWorkbench.Sandbars
 
             grdData.AutoGenerateColumns = false;
             grdData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "SiteID", "SiteID", false);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Site Code", "SiteCode", false);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Site Code", "SiteCode5", true);
@@ -139,7 +140,7 @@ namespace SandbarWorkbench.Sandbars
         private void grdData_MouseClick(object sender, MouseEventArgs e)
         {
             var hti = grdData.HitTest(e.X, e.Y);
-            grdData.ClearSelection();
+            //grdData.ClearSelection();
             if (hti.RowY > 1 && hti.ColumnX > 0)
                 grdData.Rows[hti.RowIndex].Selected = true;
         }
@@ -236,6 +237,20 @@ namespace SandbarWorkbench.Sandbars
                     }
                 }
             }
+        }
+
+        private void sandbarAnalysisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Analysis.frmAnalysisConfig frm = new Analysis.frmAnalysisConfig(grdData.SelectedRows.Cast<DataGridViewRow>().Select(x => x.DataBoundItem as SandbarSite).ToList<SandbarSite>());
+                frm.ShowDialog();
+            }
+           catch(Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }           
+
         }
     }
 }

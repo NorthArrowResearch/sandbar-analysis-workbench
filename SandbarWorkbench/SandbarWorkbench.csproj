@@ -153,6 +153,18 @@
     <Compile Include="RemoteCameras\RemoteCamera.cs" />
     <Compile Include="Sandbars\AnalysisBin.cs" />
     <Compile Include="Sandbars\AnalysisResults.cs" />
+    <Compile Include="Sandbars\Analysis\frmAnalysisConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sandbars\Analysis\frmAnalysisConfig.Designer.cs">
+      <DependentUpon>frmAnalysisConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sandbars\Analysis\ucSurveyDatePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sandbars\Analysis\ucSurveyDatePicker.Designer.cs">
+      <DependentUpon>ucSurveyDatePicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\frmSandbarProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +235,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RemoteCameras\frmRemoteCameras.resx">
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\Analysis\frmAnalysisConfig.resx">
+      <DependentUpon>frmAnalysisConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\Analysis\ucSurveyDatePicker.resx">
+      <DependentUpon>ucSurveyDatePicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\frmSandbarProperties.resx">
       <DependentUpon>frmSandbarProperties.cs</DependentUpon>
