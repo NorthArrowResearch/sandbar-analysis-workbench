@@ -54,6 +54,7 @@ namespace SandbarWorkbench.RemoteCameras
 
             DataView custDV = new DataView();
             grdData.DataSource = RemoteCameras;
+            FilterItems(null,null);
         }
 
 
@@ -100,6 +101,11 @@ namespace SandbarWorkbench.RemoteCameras
                 lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 2).ToList<RemoteCamera>());
             else if (rdoTRight.Checked)
                 lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 1).ToList<RemoteCamera>());
+
+            if (chkActive.Checked)
+            {
+                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => !string.IsNullOrEmpty(ss.BeginDigitalRecord) && ss.EndDigitalRecord.ToLower().Contains("active")).ToList<RemoteCamera>());
+            }
 
             grdData.DataSource = lFilteredItems;
         }

@@ -48,6 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grdData = new System.Windows.Forms.DataGridView();
+            this.chkActive = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -79,6 +80,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chkActive);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.grpSiteName);
@@ -274,6 +276,19 @@
             this.grdData.Size = new System.Drawing.Size(492, 555);
             this.grdData.TabIndex = 0;
             // 
+            // chkActive
+            // 
+            this.chkActive.AutoSize = true;
+            this.chkActive.Checked = true;
+            this.chkActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActive.Location = new System.Drawing.Point(13, 268);
+            this.chkActive.Name = "chkActive";
+            this.chkActive.Size = new System.Drawing.Size(150, 17);
+            this.chkActive.TabIndex = 5;
+            this.chkActive.Text = "Active camera setups only";
+            this.chkActive.UseVisualStyleBackColor = true;
+            this.chkActive.CheckedChanged += new System.EventHandler(this.FilterItems);
+            // 
             // frmRemoteCameras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +302,7 @@
             this.Text = "Remote Camera Locations";
             this.Load += new System.EventHandler(this.frmRemoteCameras_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -327,5 +343,6 @@
         private System.Windows.Forms.RadioButton rdoTRight;
         private System.Windows.Forms.RadioButton rdoTLeft;
         private System.Windows.Forms.RadioButton rdoTBoth;
+        private System.Windows.Forms.CheckBox chkActive;
     }
 }
