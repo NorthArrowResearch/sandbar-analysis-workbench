@@ -14,9 +14,7 @@ namespace SandbarWorkbench.DataGridViews
 {
     public partial class frmDataGridView : Form
     {
-        private string Noun { get; set; }
-        private string SelectSQL { get; set; }
-        private string DeleteSQL { get; set; }
+        public DataGridViewTypeBase TypeInfo { get; internal set; }
         private DataTable GridItems { get; set; }
 
         private long SelectedID
@@ -27,14 +25,11 @@ namespace SandbarWorkbench.DataGridViews
             }
         }
 
-        public frmDataGridView(string sFormName, string sNoun, string sSelectSQL, string sDeleteSQL)
+        public frmDataGridView(DataGridViewTypeBase theTypeInfo)
         {
             InitializeComponent();
-
-            Noun = sNoun;
-            SelectSQL = sSelectSQL;
-            DeleteSQL = sDeleteSQL;
-            this.Text = sFormName;
+            TypeInfo = theTypeInfo;
+            this.Text = TypeInfo.MenuItemText;
         }
 
         private void frmDataGridView_Load(object sender, EventArgs e)
@@ -45,16 +40,18 @@ namespace SandbarWorkbench.DataGridViews
 
         private void LoadDataGridView(long nSelectID = 0)
         {
+            GridItems = new DataTable();
+
             try
             {
                 using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                 {
                     dbCon.Open();
-                    SQLiteCommand dbCom = new SQLiteCommand(SelectSQL, dbCon);
-                    SQLiteDataAdapter da = new SQLiteDataAdapter(SelectSQL, dbCon);
-                    da.Fill(GridItems);
+                      SQLiteCommand dbCom = new SQLiteCommand(TypeInfo.SelectSQL, dbCon);
+                    DataTable dt = new DataTable();
+                    dt.Load(dbCom.ExecuteReader());
+                    grdData.DataSource = dt;
 
-                    // Hide the first, ID column
                     grdData.Columns[0].Visible = false;
                 }
             }
@@ -76,12 +73,12 @@ namespace SandbarWorkbench.DataGridViews
 
                 Form frm = null;
 
-                if (SelectSQL.ToLower().Contains("reaches"))
+                if (TypeInfo.SelectSQL.ToLower().Contains("reaches"))
                     frm = new Reaches.frmReachPropertiesEdit(ID);
-                else if (SelectSQL.ToLower().Contains("segments"))
+                else if (TypeInfo.SelectSQL.ToLower().Contains("segments"))
                     frm = new Segments.frmSegmentPropertiesEdit(ID);
                 else
-                    throw new Exception(string.Format("Unhandled add/edit operation for data gridview type {0}", Noun));
+                    throw new Exception(string.Format("Unhandled add/edit operation for data gridview type {0}", TypeInfo.Noun));
 
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -100,13 +97,13 @@ namespace SandbarWorkbench.DataGridViews
             try
             {
 
-                if (MessageBox.Show(string.Format("Are you sure that you want to delete the selected {0}? This action is permanent and cannot be undone.", Noun.ToLower()), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                if (MessageBox.Show(string.Format("Are you sure that you want to delete the selected {0}? This action is permanent and cannot be undone.", TypeInfo.Noun.ToLower()), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
                     using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
                     {
                         dbCon.Open();
-                        MySqlCommand dbCom = new MySqlCommand(DeleteSQL, dbCon);
+                        MySqlCommand dbCom = new MySqlCommand(TypeInfo.DeleteSQL, dbCon);
                         dbCom.Parameters.AddWithValue("ReachID", SelectedID);
                         dbCom.ExecuteNonQuery();
                         MasterDatabaseChanged();

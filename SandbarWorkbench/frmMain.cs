@@ -202,11 +202,47 @@ namespace SandbarWorkbench
                     SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.Save();
                     UpdateMenuItemStatus();
+                    LoadLookupTableGridViewMenuItems();
                 }
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
                 }
+            }
+        }
+
+        private void LoadLookupTableGridViewMenuItems()
+        {
+            // Remove all items after the separator in the Views menu (then re-add them below)
+            int i = viewsToolStripMenuItem.DropDownItems.Count - 1;
+            while (!(viewsToolStripMenuItem.DropDownItems[i] is ToolStripSeparator) && i >= 0)
+                viewsToolStripMenuItem.DropDownItems.RemoveAt(i);
+
+            // Create a list to store the definitions of all the custom views that will be added to the View menu.
+            List<DataGridViews.DataGridViewTypeBase> lMenuItems = new List<DataGridViews.DataGridViewTypeBase>();
+
+            // Add the lookup tables that have unique table structures
+            lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Reaches", "Reaches", "SELECT ReachID AS ID, ReachCode AS [Reach Code], Title AS [Name] , AddedOn AS [Added On], AddedBy AS [Added By], UpdatedOn AS [Updated On], UpdatedBy AS [Updated By] FROM Reaches ORDER BY Title", "DELETE FROM Reaches WHERE ReachID = @ID"));
+            lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Segments", "Segments", "SELECT SegmentID AS ID, SegmentCode AS [Segment Code], Title, UpstreamRiverMile AS [Upstream RM], DownstreamRiverMile AS [Downstream RM], AddedOn AS [Added On], AddedBy AS [Added By], UpdatedOn AS [Updated On], UpdatedBy AS [Updated By] FROM Segments ORDER BY Title", "DELETE FROM Segments WHERE SegmentID = @ID"));
+
+            // Now add the generic lookup lists (that can be edited by the user)
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+            {
+                dbCon.Open();
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT ListID, Title FROM LookupLists WHERE EditableByUser <> 0 ORDER BY Title", dbCon);
+                SQLiteDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    lMenuItems.Add(new DataGridViews.DataGridViewTypeLookupList(dbRead.GetInt64(dbRead.GetOrdinal("ListID")), dbRead.GetString(dbRead.GetOrdinal("Title")), dbRead.GetString(dbRead.GetOrdinal("Title"))));
+                }
+            }
+
+            // Now loop over all these menu items and add them to the Views menu.
+            foreach (DataGridViews.DataGridViewTypeBase aView in lMenuItems)
+            {
+                ToolStripMenuItem mnu = new ToolStripMenuItem(aView.MenuItemText, SandbarWorkbench.Properties.Resources.camera_lens, DataGridViewMenuItem_Click);
+                mnu.Tag = aView;
+                viewsToolStripMenuItem.DropDownItems.Add(mnu);
             }
         }
 
@@ -248,53 +284,30 @@ namespace SandbarWorkbench
                 Cursor.Current = Cursors.Default;
             }
         }
-
-        private void reachesToolStripMenuItem_Click(object sender, EventArgs e)
+                
+        private void DataGridViewMenuItem_Click(object sender, EventArgs e)
         {
-            Reaches.frmReaches frm = null;
+            ToolStripMenuItem mnu = (ToolStripMenuItem)sender;
+            System.Diagnostics.Debug.Assert(mnu.Tag is DataGridViews.DataGridViewTypeBase);
+
+            DataGridViews.frmDataGridView frm = null;
             foreach (Form frmChild in this.MdiChildren)
             {
-                if (frmChild is Reaches.frmReaches)
+                if (frmChild is DataGridViews.frmDataGridView)
                 {
-                    frm = (Reaches.frmReaches)frmChild;
-                    frm.Activate();
-                    frm.BringToFront();
-                    break;
+                    DataGridViews.DataGridViewTypeBase mnuTag = (DataGridViews.DataGridViewTypeBase) mnu.Tag;
+                    if (mnuTag.MenuItemText == mnu.Text)
+                    {
+                        frmChild.Activate();
+                        frmChild.BringToFront();
+                        break;
+                    }
                 }
             }
 
             if (frm == null)
             {
-                frm = new Reaches.frmReaches();
-                frm.MdiParent = this;
-
-                // Only maximize the form if there are no other MDI forms and this is a new version
-                if (this.MdiChildren.Count<Form>() < 2)
-                    frm.WindowState = FormWindowState.Maximized;
-            }
-
-            frm.Show();
-            UpdateMenuItemStatus();
-        }
-
-        private void segmentsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            Segments.frmSegments frm = null;
-            foreach (Form frmChild in this.MdiChildren)
-            {
-                if (frmChild is Segments.frmSegments)
-                {
-                    frm = (Segments.frmSegments)frmChild;
-                    frm.Activate();
-                    frm.BringToFront();
-                    break;
-                }
-            }
-
-            if (frm == null)
-            {
-                frm = new Segments.frmSegments();
+                frm = new DataGridViews.frmDataGridView((DataGridViews.DataGridViewTypeBase) mnu.Tag);
                 frm.MdiParent = this;
 
                 // Only maximize the form if there are no other MDI forms and this is a new version

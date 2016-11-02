@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuditTrail.cs" />
+    <Compile Include="DataGridViews\DataGridViewTypeBase.cs" />
+    <Compile Include="DataGridViews\DataGridViewTypeLookupList.cs" />
     <Compile Include="DataGridViews\frmDataGridView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,12 +139,6 @@
     <Compile Include="LookupDataVersion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reaches\frmReaches.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reaches\frmReaches.Designer.cs">
-      <DependentUpon>frmReaches.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reaches\frmReachPropertiesEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,12 +214,6 @@
     <Compile Include="Segments\frmSegmentPropertiesEdit.Designer.cs">
       <DependentUpon>frmSegmentPropertiesEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Segments\frmSegments.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Segments\frmSegments.Designer.cs">
-      <DependentUpon>frmSegments.cs</DependentUpon>
-    </Compile>
     <Compile Include="Segments\Segment.cs" />
     <Compile Include="SortableBindingList.cs" />
     <EmbeddedResource Include="DataGridViews\frmDataGridView.resx">
@@ -255,9 +245,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reaches\frmReaches.resx">
-      <DependentUpon>frmReaches.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reaches\frmReachPropertiesEdit.resx">
       <DependentUpon>frmReachPropertiesEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,9 +274,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucStageDischarge.resx">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Segments\frmSegments.resx">
-      <DependentUpon>frmSegments.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

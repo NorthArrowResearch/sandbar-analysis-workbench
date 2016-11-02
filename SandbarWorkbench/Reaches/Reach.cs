@@ -11,10 +11,9 @@ namespace SandbarWorkbench.Reaches
     class Reach : DBHelpers.DatabaseObject
     {
         public string ReachCode { get; internal set; }
-        public string Title { get; internal set; }
-
+        
         public Reach(long nID, string sReachCode, string sTitle, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
-            : base(nID, dtAddedOn,sAddedBy,dtUpdatedOn,sUpdatedBy )
+            : base(nID, sTitle, dtAddedOn,sAddedBy,dtUpdatedOn,sUpdatedBy )
         {
             ReachCode = sReachCode;
             Title = sTitle;
