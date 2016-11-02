@@ -10,7 +10,6 @@ namespace SandbarWorkbench.Reaches
 {
     class Reach : DBHelpers.DatabaseObject
     {
-        public long ID { get; internal set; }
         public string ReachCode { get; internal set; }
         public string Title { get; internal set; }
 
@@ -21,9 +20,9 @@ namespace SandbarWorkbench.Reaches
             Title = sTitle;
         }
 
-        public static BindingList<Reach> LoadReaches()
+        public static SortableBindingList<Reach> LoadReaches()
         {
-            BindingList<Reach> lItems = new BindingList<Reach>();
+            SortableBindingList<Reach> lItems = new SortableBindingList<Reach>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {

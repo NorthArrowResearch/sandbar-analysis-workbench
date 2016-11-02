@@ -27,6 +27,7 @@ namespace SandbarWorkbench.Reaches
             {
                 try
                 {
+                    Cursor.Current = Cursors.WaitCursor;
                     using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
                     {
                         dbCon.Open();
@@ -42,6 +43,10 @@ namespace SandbarWorkbench.Reaches
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }
@@ -72,6 +77,8 @@ namespace SandbarWorkbench.Reaches
 
                 try
                 {
+                    Cursor.Current = Cursors.WaitCursor;
+
                     MySqlCommand dbCom = null;
                     if (ID < 1)
                         dbCom = new MySqlCommand("INSERT INTO Reaches (ReachCode, Title, AddedBy, UpdatedBy) VALUES (@ReachCode, @Title, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
@@ -93,10 +100,37 @@ namespace SandbarWorkbench.Reaches
 
                     dbTrans.Commit();
                 }
+                catch (MySqlException exMaster)
+                {
+                    if (exMaster.Message.ToLower().Contains("duplicate"))
+                    {
+                        string sNoun = string.Empty;
+                        if (exMaster.Message.ToLower().Contains("reachcode"))
+                        {
+                            txtReachCode.Select();
+                            sNoun = "reach code";
+                        }
+                        else if (exMaster.Message.ToLower().Contains("title"))
+                        {
+                            txtReachName.Select();
+                            sNoun = "name";
+                        }
+
+                        MessageBox.Show(string.Format("Another reach already exists in the master database with this {0}. Each reach must possess a unique {0}.", sNoun), "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.None;
+                    }
+                    else
+                        throw;
+
+                }
                 catch (Exception ex)
                 {
                     dbTrans.Rollback();
                     ExceptionHandling.NARException.HandleException(ex);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }
