@@ -107,7 +107,7 @@ namespace SandbarWorkbench.DBHelpers
                             break;
 
                         default:
-                            throw new Exception(string.Format("Unhandled master database field type '{0}'", dbRead.GetString("DATA_TYPE")));
+                            throw new Exception(string.Format("Unhandled master database field type '{0}' for column {1} in table {2}", dbRead.GetString("DATA_TYPE"), dbRead.GetString("COLUMN_NAME"), TableName));
 
                     }
 
