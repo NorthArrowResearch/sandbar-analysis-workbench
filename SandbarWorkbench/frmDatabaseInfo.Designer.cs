@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDatabaseInfo));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdBasic = new System.Windows.Forms.DataGridView();
@@ -163,6 +164,7 @@
             this.ClientSize = new System.Drawing.Size(387, 375);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDatabaseInfo";
             this.Text = "Database Information";
             this.Load += new System.EventHandler(this.frmDatabaseInfo_Load);
