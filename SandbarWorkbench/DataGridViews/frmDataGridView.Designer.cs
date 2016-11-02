@@ -47,6 +47,7 @@
             // grdData
             // 
             this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.ContextMenuStrip = this.cmsDataGrid;
             this.grdData.Location = new System.Drawing.Point(106, 142);
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(240, 150);
@@ -79,7 +80,7 @@
             // 
             this.addReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
             this.addReachToolStripMenuItem.Name = "addReachToolStripMenuItem";
-            this.addReachToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.addReachToolStripMenuItem.Text = "Add...";
             this.addReachToolStripMenuItem.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -87,7 +88,7 @@
             // 
             this.editReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editReachToolStripMenuItem.Name = "editReachToolStripMenuItem";
-            this.editReachToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.editReachToolStripMenuItem.Text = "Edit...";
             this.editReachToolStripMenuItem.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -95,7 +96,7 @@
             // 
             this.deleteReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
             this.deleteReachToolStripMenuItem.Name = "deleteReachToolStripMenuItem";
-            this.deleteReachToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.deleteReachToolStripMenuItem.Text = "Delete...";
             this.deleteReachToolStripMenuItem.Click += new System.EventHandler(this.Delete_Click);
             // 
@@ -106,13 +107,13 @@
             this.editReachToolStripMenuItem1,
             this.deleteReachToolStripMenuItem1});
             this.cmsDataGrid.Name = "cmsDataGrid";
-            this.cmsDataGrid.Size = new System.Drawing.Size(153, 92);
+            this.cmsDataGrid.Size = new System.Drawing.Size(117, 70);
             // 
             // addReachToolStripMenuItem1
             // 
             this.addReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Add;
             this.addReachToolStripMenuItem1.Name = "addReachToolStripMenuItem1";
-            this.addReachToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.addReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.addReachToolStripMenuItem1.Text = "Add...";
             this.addReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -120,7 +121,7 @@
             // 
             this.editReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editReachToolStripMenuItem1.Name = "editReachToolStripMenuItem1";
-            this.editReachToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.editReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.editReachToolStripMenuItem1.Text = "Edit...";
             this.editReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -128,7 +129,7 @@
             // 
             this.deleteReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Delete;
             this.deleteReachToolStripMenuItem1.Name = "deleteReachToolStripMenuItem1";
-            this.deleteReachToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.deleteReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.deleteReachToolStripMenuItem1.Text = "Delete...";
             this.deleteReachToolStripMenuItem1.Click += new System.EventHandler(this.Delete_Click);
             // 

@@ -240,7 +240,7 @@ namespace SandbarWorkbench
             // Now loop over all these menu items and add them to the Views menu.
             foreach (DataGridViews.DataGridViewTypeBase aView in lMenuItems)
             {
-                ToolStripMenuItem mnu = new ToolStripMenuItem(aView.MenuItemText, SandbarWorkbench.Properties.Resources.camera_lens, DataGridViewMenuItem_Click);
+                ToolStripMenuItem mnu = new ToolStripMenuItem(aView.MenuItemText, SandbarWorkbench.Properties.Resources.table, DataGridViewMenuItem_Click);
                 mnu.Tag = aView;
                 viewsToolStripMenuItem.DropDownItems.Add(mnu);
             }
