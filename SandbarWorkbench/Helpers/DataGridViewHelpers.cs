@@ -10,6 +10,18 @@ namespace SandbarWorkbench.Helpers
 {
     public class DataGridViewHelpers
     {
+        public static void ConfigureDataGridView(ref DataGridView dg, DockStyle eDock, bool bMultiSelect, bool bAutoGenerateCols)
+        {
+            dg.AllowUserToAddRows = false;
+            dg.AllowUserToDeleteRows = false;
+            dg.ReadOnly = true;
+            dg.AllowUserToResizeRows = false;
+            dg.RowHeadersVisible = false;
+            dg.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dg.MultiSelect = bMultiSelect;
+            dg.Dock = eDock;
+            dg.AutoGenerateColumns = bAutoGenerateCols;
+        }
         public static void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, string sFormat = "", DataGridViewAutoSizeColumnMode eAutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DataGridViewContentAlignment eAlignment = DataGridViewContentAlignment.MiddleLeft)
         {
             var aCol = new DataGridViewTextBoxColumn();

@@ -276,5 +276,34 @@ namespace SandbarWorkbench
             frm.Show();
             UpdateMenuItemStatus();
         }
+
+        private void segmentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Segments.frmSegments frm = null;
+            foreach (Form frmChild in this.MdiChildren)
+            {
+                if (frmChild is Segments.frmSegments)
+                {
+                    frm = (Segments.frmSegments)frmChild;
+                    frm.Activate();
+                    frm.BringToFront();
+                    break;
+                }
+            }
+
+            if (frm == null)
+            {
+                frm = new Segments.frmSegments();
+                frm.MdiParent = this;
+
+                // Only maximize the form if there are no other MDI forms and this is a new version
+                if (this.MdiChildren.Count<Form>() < 2)
+                    frm.WindowState = FormWindowState.Maximized;
+            }
+
+            frm.Show();
+            UpdateMenuItemStatus();
+        }
     }
 }

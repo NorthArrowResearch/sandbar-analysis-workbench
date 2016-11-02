@@ -81,6 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuditTrail.cs" />
+    <Compile Include="DataGridViews\frmDataGridView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataGridViews\frmDataGridView.Designer.cs">
+      <DependentUpon>frmDataGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBCon.cs" />
     <Compile Include="DBHelpers\BaseTableDef.cs" />
     <Compile Include="DBHelpers\DatabaseObject.cs" />
@@ -206,7 +212,23 @@
     <Compile Include="Sandbars\ucStageDischarge.Designer.cs">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Segments\frmSegmentPropertiesEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Segments\frmSegmentPropertiesEdit.Designer.cs">
+      <DependentUpon>frmSegmentPropertiesEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Segments\frmSegments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Segments\frmSegments.Designer.cs">
+      <DependentUpon>frmSegments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Segments\Segment.cs" />
     <Compile Include="SortableBindingList.cs" />
+    <EmbeddedResource Include="DataGridViews\frmDataGridView.resx">
+      <DependentUpon>frmDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExceptionHandling\frmException.resx" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
@@ -265,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucStageDischarge.resx">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Segments\frmSegments.resx">
+      <DependentUpon>frmSegments.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

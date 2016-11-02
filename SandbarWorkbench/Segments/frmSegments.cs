@@ -9,28 +9,30 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace SandbarWorkbench.Reaches
+namespace SandbarWorkbench.Segments
 {
-    public partial class frmReaches : Form
+    public partial class frmSegments : Form
     {
-        SortableBindingList<Reach> GridItems;
+        SortableBindingList<Segment> GridItems;
 
-        public frmReaches()
+        public frmSegments()
         {
             InitializeComponent();
 
             grdData.AutoGenerateColumns = false;
 
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "ReachID", "reachID", false);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Reach Code", "ReachCode", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "SegmentID", "SegmentID", false);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Segment Code", "SegmentCode", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Name", "Title", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Upstream RM", "UpstreamRiverMile", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Downstream RM", "DownstreamRiverMile", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Added On", "AddedOn", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Added By", "AddedBy", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Updated On", "UpdatedOn", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Updated By", "UpdatedBy", true);
         }
 
-        private void frmReaches_Load(object sender, EventArgs e)
+        private void frmSegments_Load(object sender, EventArgs e)
         {
             Helpers.DataGridViewHelpers.ConfigureDataGridView(ref grdData, DockStyle.Fill, false);
             LoadData();
@@ -40,7 +42,7 @@ namespace SandbarWorkbench.Reaches
         {
             try
             {
-                GridItems = Reach.LoadReaches();
+                GridItems = Segment.LoadSegments();
                 DataView custDV = new DataView();
                 grdData.DataSource = GridItems;
 
@@ -49,7 +51,7 @@ namespace SandbarWorkbench.Reaches
                     grdData.ClearSelection();
                     for (int i = 0; i < grdData.Rows.Count; i++)
                     {
-                        if (((Reach)grdData.Rows[i].DataBoundItem).ID == nSelectID)
+                        if (((Segment)grdData.Rows[i].DataBoundItem).ID == nSelectID)
                         {
                             grdData.Rows[i].Selected = true;
                             break;
@@ -73,7 +75,7 @@ namespace SandbarWorkbench.Reaches
                     ID = ((DBHelpers.DatabaseObject)grdData.SelectedRows[0].DataBoundItem).ID;
                 }
 
-                frmReachPropertiesEdit frm = new frmReachPropertiesEdit(ID);
+                frmSegmentPropertiesEdit frm = new frmSegmentPropertiesEdit(ID);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     MasterDatabaseChanged(ID);
@@ -89,15 +91,15 @@ namespace SandbarWorkbench.Reaches
         {
             try
             {
-                Reach delReach = (Reach)grdData.SelectedRows[0].DataBoundItem;
-                if (MessageBox.Show(string.Format("Are you sure that you want to delete the reach '{0'? This action is permanent and cannot be undone.", delReach.ReachCode), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                Segment delItem = (Segment)grdData.SelectedRows[0].DataBoundItem;
+                if (MessageBox.Show(string.Format("Are you sure that you want to delete the segment '{0'? This action is permanent and cannot be undone.", delItem.SegmentCode), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
                     using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
                     {
                         dbCon.Open();
                         MySqlCommand dbCom = new MySqlCommand("DELETE FROM Reaches WHERE ReachID = @ReachID", dbCon);
-                        dbCom.Parameters.AddWithValue("ReachID", delReach.ID);
+                        dbCom.Parameters.AddWithValue("ReachID", delItem.ID);
                         dbCom.ExecuteNonQuery();
                         MasterDatabaseChanged();
                     }

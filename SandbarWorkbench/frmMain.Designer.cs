@@ -54,6 +54,8 @@
             this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssDatabasePath = new System.Windows.Forms.ToolStripStatusLabel();
+            this.segmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -122,9 +124,11 @@
             // viewsToolStripMenuItem
             // 
             this.viewsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reachesToolStripMenuItem,
             this.remoteCamerasToolStripMenuItem,
-            this.sandbarSitesToolStripMenuItem});
+            this.sandbarSitesToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.reachesToolStripMenuItem,
+            this.segmentsToolStripMenuItem});
             this.viewsToolStripMenuItem.Name = "viewsToolStripMenuItem";
             this.viewsToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.viewsToolStripMenuItem.Text = "Views";
@@ -266,6 +270,18 @@
             this.tssDatabasePath.Text = "tssDatabasePath";
             this.tssDatabasePath.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
+            // segmentsToolStripMenuItem
+            // 
+            this.segmentsToolStripMenuItem.Name = "segmentsToolStripMenuItem";
+            this.segmentsToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.segmentsToolStripMenuItem.Text = "Segments";
+            this.segmentsToolStripMenuItem.Click += new System.EventHandler(this.segmentsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +331,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem syncToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reachesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem segmentsToolStripMenuItem;
     }
 }
 
