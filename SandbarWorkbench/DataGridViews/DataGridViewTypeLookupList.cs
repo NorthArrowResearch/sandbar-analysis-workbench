@@ -11,7 +11,7 @@ namespace SandbarWorkbench.DataGridViews
         public long ListID { get; internal set; }
 
         public DataGridViewTypeLookupList(long nListID, string sNoun, string sMenuItemText)
-            : base (sNoun,sMenuItemText, "SELECT ItemID, Title FROM LookupListItems ORDER BY Title", "DELETE FROM LookupListItems WHERE ItemID = @ID")
+            : base (sNoun,sMenuItemText, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID ORDER BY Title", "DELETE FROM LookupListItems WHERE ItemID = @ID")
         {
             ListID = nListID;
         }

@@ -34,6 +34,8 @@ namespace SandbarWorkbench.DataGridViews
 
         private void frmDataGridView_Load(object sender, EventArgs e)
         {
+            this.Icon = (Icon)Icon.Clone();
+            
             Helpers.DataGridViewHelpers.ConfigureDataGridView(ref grdData, DockStyle.Fill, false, true);
             LoadDataGridView();
         }
@@ -47,7 +49,11 @@ namespace SandbarWorkbench.DataGridViews
                 using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                 {
                     dbCon.Open();
-                      SQLiteCommand dbCom = new SQLiteCommand(TypeInfo.SelectSQL, dbCon);
+                    SQLiteCommand dbCom = new SQLiteCommand(TypeInfo.SelectSQL, dbCon);
+
+                    if (TypeInfo is DataGridViewTypeLookupList)
+                        dbCom.Parameters.AddWithValue("ListID", ((DataGridViewTypeLookupList)TypeInfo).ListID);
+
                     DataTable dt = new DataTable();
                     dt.Load(dbCom.ExecuteReader());
                     grdData.DataSource = dt;
@@ -78,7 +84,10 @@ namespace SandbarWorkbench.DataGridViews
                 else if (TypeInfo.SelectSQL.ToLower().Contains("segments"))
                     frm = new Segments.frmSegmentPropertiesEdit(ID);
                 else
-                    throw new Exception(string.Format("Unhandled add/edit operation for data gridview type {0}", TypeInfo.Noun));
+                {
+                    DataGridViews.DataGridViewTypeLookupList dgvlTag = (DataGridViews.DataGridViewTypeLookupList)TypeInfo;
+                    frm = new frmLookupItemEdit(dgvlTag.ListID, dgvlTag.Noun, ID);
+                }
 
                 if (frm.ShowDialog() == DialogResult.OK)
                 {

@@ -309,10 +309,6 @@ namespace SandbarWorkbench
             {
                 frm = new DataGridViews.frmDataGridView((DataGridViews.DataGridViewTypeBase) mnu.Tag);
                 frm.MdiParent = this;
-
-                // Only maximize the form if there are no other MDI forms and this is a new version
-                if (this.MdiChildren.Count<Form>() < 2)
-                    frm.WindowState = FormWindowState.Maximized;
             }
 
             frm.Show();

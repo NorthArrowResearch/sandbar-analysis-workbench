@@ -117,35 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="cmsDataGrid.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>254, 17</value>
-  </metadata>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
-        AAD///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af//
-        /wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af//
-        /wH///8B////Af///wG3opP/Y0k1/2NJNf9jSTX/Y0k1/2NJNf9jSTX/Y0k1/2NJNf9jSTX/Y0k1/2NJ
-        Nf9jSTX/Y0k1/////wH///8Bt6KT/9vLwf/OvbH/y7mt/8m2qf/FsqX/wq6g/7+snv+9qZr/uqWW/7ql
-        lv+3opP/t6KT/2NJNf////8B////Abeik//+/v7//v7+//37+v/Lua3//PPt//vt5f/659z/v6yd//fb
-        yv/21cD/9c+3/7eik/9jSTX/////Af///wG3opP//v7+//7+/v/+/v7/zr2x//339P/88+3/++3l/8Ku
-        oP/54tP/99vK//bVwP+6pZb/Y0k1/////wH///8Bt6KT/+DTyv/Xx7z/1cS4/9HAtf/OvbH/y7mt/8m2
-        qf/FsqX/wq6g/7+snf+9qZr/uqWW/2NJNf////8B////Abqllv/+/v7//v7+//7+/v/VxLj//v7+//37
-        +v/99/T/ybap//vu5P/659z/+eLT/72pmv9jSTX/////Af///wG9qZr//v7+//7+/v/+/v7/18e8//7+
-        /v/+/v7//fv6/8u5rf/88+3/+u3l//rn3P+/rJ3/Y0k1/////wH///8Bwq6g/+TY0P/dzsX/28vB/9vL
-        wf/Xx7z/1cS4/9HAtf/OvbH/y7mt/8m2qf/FsqX/wq6g/2NJNf////8B////Aciyo//+/v7//v7+//7+
-        /v/by8H//v7+//7+/v/+/v7/0cC1//37+f/99/T//PPt/8Wypf9jSTX/////Af///wHJtqn//v7+//7+
-        /v/+/v7/3c7F//7+/v/+/v7//v7+/9XEuP/+/v7//fv6//339P/Jtqn/Y0k1/////wH///8B6qqL/+qq
-        i//qqov/6qaF/+mfev/nlm3/5o5i/+WHV//kfEj/43Y//+JyOf/icjn/4nI5/8tjMP////8B////Aeqq
-        i///waH//8Gh//27mP/9u5j/+7WQ//qwi//5qYH/+amB//agdP/2oHT/9Zlq//OVZf/LYzD/////Af//
-        /wHqqov/6qqL/+qqi//qqov/6qaF/+mhf//om3b/55Zt/+aOYv/lh1f/5IFO/+R8SP/jdj//4nI5////
-        /wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af///wH///8B////Af//
-        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
-        //8AAP//AAD//w==
-</value>
-  </data>
 </root>

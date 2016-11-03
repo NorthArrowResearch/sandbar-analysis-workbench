@@ -29,19 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDataGridView));
             this.grdData = new System.Windows.Forms.DataGridView();
+            this.cmsDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.cmsDataGrid.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grdData
@@ -52,6 +53,39 @@
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(240, 150);
             this.grdData.TabIndex = 0;
+            // 
+            // cmsDataGrid
+            // 
+            this.cmsDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addReachToolStripMenuItem1,
+            this.editReachToolStripMenuItem1,
+            this.deleteReachToolStripMenuItem1});
+            this.cmsDataGrid.Name = "cmsDataGrid";
+            this.cmsDataGrid.Size = new System.Drawing.Size(117, 70);
+            // 
+            // addReachToolStripMenuItem1
+            // 
+            this.addReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.addReachToolStripMenuItem1.Name = "addReachToolStripMenuItem1";
+            this.addReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.addReachToolStripMenuItem1.Text = "Add...";
+            this.addReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
+            // 
+            // editReachToolStripMenuItem1
+            // 
+            this.editReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editReachToolStripMenuItem1.Name = "editReachToolStripMenuItem1";
+            this.editReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.editReachToolStripMenuItem1.Text = "Edit...";
+            this.editReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
+            // 
+            // deleteReachToolStripMenuItem1
+            // 
+            this.deleteReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteReachToolStripMenuItem1.Name = "deleteReachToolStripMenuItem1";
+            this.deleteReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.deleteReachToolStripMenuItem1.Text = "Delete...";
+            this.deleteReachToolStripMenuItem1.Click += new System.EventHandler(this.Delete_Click);
             // 
             // menuStrip1
             // 
@@ -100,39 +134,6 @@
             this.deleteReachToolStripMenuItem.Text = "Delete...";
             this.deleteReachToolStripMenuItem.Click += new System.EventHandler(this.Delete_Click);
             // 
-            // cmsDataGrid
-            // 
-            this.cmsDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addReachToolStripMenuItem1,
-            this.editReachToolStripMenuItem1,
-            this.deleteReachToolStripMenuItem1});
-            this.cmsDataGrid.Name = "cmsDataGrid";
-            this.cmsDataGrid.Size = new System.Drawing.Size(117, 70);
-            // 
-            // addReachToolStripMenuItem1
-            // 
-            this.addReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Add;
-            this.addReachToolStripMenuItem1.Name = "addReachToolStripMenuItem1";
-            this.addReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.addReachToolStripMenuItem1.Text = "Add...";
-            this.addReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
-            // 
-            // editReachToolStripMenuItem1
-            // 
-            this.editReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.editReachToolStripMenuItem1.Name = "editReachToolStripMenuItem1";
-            this.editReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.editReachToolStripMenuItem1.Text = "Edit...";
-            this.editReachToolStripMenuItem1.Click += new System.EventHandler(this.AddEdit_Click);
-            // 
-            // deleteReachToolStripMenuItem1
-            // 
-            this.deleteReachToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.Delete;
-            this.deleteReachToolStripMenuItem1.Name = "deleteReachToolStripMenuItem1";
-            this.deleteReachToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
-            this.deleteReachToolStripMenuItem1.Text = "Delete...";
-            this.deleteReachToolStripMenuItem1.Click += new System.EventHandler(this.Delete_Click);
-            // 
             // frmDataGridView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,13 +141,14 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.grdData);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDataGridView";
             this.Text = "frmDataGridView";
             this.Load += new System.EventHandler(this.frmDataGridView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.cmsDataGrid.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.cmsDataGrid.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
