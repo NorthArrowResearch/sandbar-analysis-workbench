@@ -21,7 +21,9 @@ namespace SandbarWorkbench.DataGridViews
         {
             get
             {
-                return (long)((DataRow)grdData.SelectedRows[0].DataBoundItem)["ID"];
+                DataRowView drv = (DataRowView)grdData.SelectedRows[0].DataBoundItem;
+                DataRow dr = drv.Row;
+                return (long)dr["ID"];
             }
         }
 
@@ -35,7 +37,7 @@ namespace SandbarWorkbench.DataGridViews
         private void frmDataGridView_Load(object sender, EventArgs e)
         {
             this.Icon = (Icon)Icon.Clone();
-            
+
             Helpers.DataGridViewHelpers.ConfigureDataGridView(ref grdData, DockStyle.Fill, false, true);
             LoadDataGridView();
         }
@@ -113,7 +115,7 @@ namespace SandbarWorkbench.DataGridViews
                     {
                         dbCon.Open();
                         MySqlCommand dbCom = new MySqlCommand(TypeInfo.DeleteSQL, dbCon);
-                        dbCom.Parameters.AddWithValue("ReachID", SelectedID);
+                        dbCom.Parameters.AddWithValue("ID", SelectedID);
                         dbCom.ExecuteNonQuery();
                         MasterDatabaseChanged();
                     }

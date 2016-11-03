@@ -56,6 +56,7 @@
             this.cmdOK.TabIndex = 2;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdHelp
             // 
