@@ -27,8 +27,13 @@ namespace SandbarWorkbench.DataGridViews
 
         private void frmReachPropertiesEdit_Load(object sender, EventArgs e)
         {
-            if (ID > 0)
+            if (ID <1)
             {
+                this.Text = string.Format("Add New {0}", Noun);
+            }
+            else
+            {
+                this.Text = string.Format("Edit {0} Properties", Noun);
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
