@@ -105,6 +105,9 @@ namespace SandbarWorkbench.Sandbars
                 Title theTitle = new Title(string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value));
                 theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
                 chtData.Titles.Add(theTitle);
+
+                double fMinY = -1;
+                double fMaxY = -1;
                 foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                 {
                     foreach (long nModelID in ModelResultData.Keys)
@@ -120,8 +123,6 @@ namespace SandbarWorkbench.Sandbars
                             theSeries.BorderDashStyle = ChartDashStyle.Dash;
                             theSeries.MarkerStyle = MarkerStyle.Circle;
 
-                            double fMinY = -1;
-                            double fMaxY = -1;
 
                             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
                             {
@@ -142,21 +143,22 @@ namespace SandbarWorkbench.Sandbars
                                 }
                             }
 
-                            double fInterval, fAxisMin, fAxisMax = 0;
-                            formatAxis(fMinY, fMaxY, out fInterval, out fAxisMin, out fAxisMax);
-                            chtData.ChartAreas[0].AxisY.Interval = fInterval;
-                            chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
-                            chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
-                            chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
-                            chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-
-                            chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
-                            chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
-                            chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
-                            chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
-                            chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
                         }
                     }
+
+                    double fInterval, fAxisMin, fAxisMax = 0;
+                    formatAxis(fMinY, fMaxY, out fInterval, out fAxisMin, out fAxisMax);
+                    chtData.ChartAreas[0].AxisY.Interval = fInterval;
+                    chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
+                    chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
+                    chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
+                    chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+                    chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+                    chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
+                    chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
+                    chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
+                    chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
                 }
 
             }
