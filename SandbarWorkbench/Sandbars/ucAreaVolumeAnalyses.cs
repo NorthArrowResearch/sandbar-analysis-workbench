@@ -106,44 +106,22 @@ namespace SandbarWorkbench.Sandbars
                 theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
                 chtData.Titles.Add(theTitle);
 
-                double fMinY = -1;
-                double fMaxY = -1;
-                foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
+                double fMinY1 = -1;
+                double fMaxY1 = -1;
+
+                double fMinY2 = -1;
+                double fMaxY2 = -1;
+
+                foreach (long nModelID in ModelResultData.Keys)
                 {
-                    foreach (long nModelID in ModelResultData.Keys)
+                    foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                     {
-                        System.Diagnostics.Debug.Print("Loading {0} for section {1}", ModelResultData[nModelID].Title, sectionTypeItem);
+
 
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                        {
-                            Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
-                            theSeries.ChartType = SeriesChartType.Line;
-                            theSeries.BorderWidth = 2;
-                            theSeries.MarkerSize = 10;
-                            theSeries.BorderDashStyle = ChartDashStyle.Dash;
-                            theSeries.MarkerStyle = MarkerStyle.Circle;
+                            AddModelResultToChart(sectionTypeItem, nModelID, AxisType.Primary, fMinY1, fMaxY1);
 
-
-                            foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
-                            {
-                                // See if this model result contains the section type
-                                foreach (double fElevation in aSurvey.Elevations.Keys)
-                                {
-                                    if (fElevation >= fLowerElev)
-                                    {
-                                        theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Area);
-
-                                        if (fMinY == -1 || fMinY > aSurvey.Elevations[fElevation].Area)
-                                            fMinY = aSurvey.Elevations[fElevation].Area;
-
-                                        fMaxY = Math.Max(fMaxY, aSurvey.Elevations[fElevation].Area);
-
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
+                        if (ModelResultData[nModelID].SectionTypes.con)
                     }
 
                     double fInterval, fAxisMin, fAxisMax = 0;
@@ -162,6 +140,39 @@ namespace SandbarWorkbench.Sandbars
                 }
 
             }
+        }
+
+        private void AddModelResultToChart(ListItem sectionTypeItem, long nModelID, AxisType anAxis, ref double fMinY, ref double fMaxY )
+        {
+            System.Diagnostics.Debug.Print("Loading {0} for section {1}", ModelResultData[nModelID].Title, sectionTypeItem);
+
+            Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
+            theSeries.ChartType = SeriesChartType.Line;
+            theSeries.BorderWidth = 2;
+            theSeries.MarkerSize = 10;
+            theSeries.BorderDashStyle = ChartDashStyle.Dash;
+            theSeries.MarkerStyle = MarkerStyle.Circle;
+
+            foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
+            {
+                // See if this model result contains the section type
+                foreach (double fElevation in aSurvey.Elevations.Keys)
+                {
+                    if (fElevation >= fLowerElev)
+                    {
+                        theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Area);
+
+                        if (fMinY == -1 || fMinY > aSurvey.Elevations[fElevation].Area)
+                            fMinY = aSurvey.Elevations[fElevation].Area;
+
+                        fMaxY = Math.Max(fMaxY, aSurvey.Elevations[fElevation].Area);
+
+                        break;
+                    }
+                }
+            }
+
+
         }
 
         private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
