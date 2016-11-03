@@ -102,6 +102,7 @@
             this.MinimizeBox = false;
             this.Name = "frmLookupItemEdit";
             this.Text = "frmLookupItemEdit";
+            this.Load += new System.EventHandler(this.frmReachPropertiesEdit_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -84,7 +84,7 @@ namespace SandbarWorkbench.DataGridViews
                     }
                     else
                     {
-                        dbCom = new MySqlCommand("UPDATE Reaches SET Title = @Title, UpdatedBy = @EditedBy WHERE ItemID = @ItemID", dbTrans.Connection, dbTrans);
+                        dbCom = new MySqlCommand("UPDATE LookupListItems SET Title = @Title, UpdatedBy = @EditedBy WHERE ItemID = @ItemID", dbTrans.Connection, dbTrans);
                         dbCom.Parameters.AddWithValue("ItemID", ID);
                     }
 
