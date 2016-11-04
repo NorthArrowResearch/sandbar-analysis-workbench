@@ -199,7 +199,9 @@ namespace SandbarWorkbench.Sandbars
                     {
                         double displayValue = aSurvey.Elevations[fElevation].Area;
                         if (eType == AreaVolType.Volume)
-                            displayValue = theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Vol);
+                            displayValue = aSurvey.Elevations[fElevation].Vol;
+
+                        theSeries.Points.AddXY(aSurvey.SurveyDate, displayValue);
 
                         UpdateMinMaxValues(ref fMinY, ref fMaxY, displayValue);
                         break;
