@@ -14,6 +14,11 @@ namespace SandbarWorkbench.Sandbars
 {
     public partial class ucAreaVolumeAnalyses : UserControl
     {
+        private enum AreaVolType
+        {
+            Area,
+            Volume
+        }
         public SandbarSite SandbarSite { get; set; }
         private BindingList<ModelRun> ModelRuns;
 
@@ -55,6 +60,7 @@ namespace SandbarWorkbench.Sandbars
 
             chtData.ChartAreas[0].AxisX.Title = "Date";
             chtData.ChartAreas[0].AxisY.Title = "Sandbar Area (m²)";
+            chtData.ChartAreas[0].AxisY2.Title = "Sandbar Volume (m³)";
 
             chtData.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy";
             chtData.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Years;
@@ -116,16 +122,20 @@ namespace SandbarWorkbench.Sandbars
                 {
                     foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                     {
-
-
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                            AddModelResultToChart(sectionTypeItem, nModelID, AxisType.Primary, fMinY1, fMaxY1);
+                            AddModelResultToChart(sectionTypeItem, nModelID, AreaVolType.Area, fLowerElev.Value, ref fMinY1, ref fMaxY1);
+                    }
 
-                        if (ModelResultData[nModelID].SectionTypes.con)
+                    foreach (ListItem sectionTypeItem in chkVolSectionTypes.CheckedItems)
+                    {
+                        if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
+                            AddModelResultToChart(sectionTypeItem, nModelID, AreaVolType.Volume, fLowerElev.Value, ref fMinY2, ref fMaxY2);
                     }
 
                     double fInterval, fAxisMin, fAxisMax = 0;
-                    formatAxis(fMinY, fMaxY, out fInterval, out fAxisMin, out fAxisMax);
+
+                    // First axis for Area
+                    formatAxis(fMinY1, fMaxY1, out fInterval, out fAxisMin, out fAxisMax);
                     chtData.ChartAreas[0].AxisY.Interval = fInterval;
                     chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
                     chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
@@ -137,21 +147,48 @@ namespace SandbarWorkbench.Sandbars
                     chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
                     chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
                     chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
-                }
+                    chtData.ChartAreas[0].AxisY.Enabled = chkAreaSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
+                    chtData.ChartAreas[0].AxisY.IsStartedFromZero = false;
 
+                    // Second Y axis for volume
+                    formatAxis(fMinY2, fMaxY2, out fInterval, out fAxisMin, out fAxisMax);
+                    chtData.ChartAreas[0].AxisY2.Interval = fInterval;
+                    chtData.ChartAreas[0].AxisY2.Minimum = fAxisMin;
+                    chtData.ChartAreas[0].AxisY2.Maximum = fAxisMax;
+                    chtData.ChartAreas[0].AxisY2.MajorGrid.Interval = fInterval;
+                    chtData.ChartAreas[0].AxisY2.MajorGrid.LineColor = Color.LightGray;
+
+                    chtData.ChartAreas[0].AxisY2.MinorGrid.Enabled = true;
+                    chtData.ChartAreas[0].AxisY2.MinorGrid.Interval = fInterval / 2;
+                    chtData.ChartAreas[0].AxisY2.MinorGrid.LineColor = Color.GhostWhite;
+                    chtData.ChartAreas[0].AxisY2.MinorTickMark.Enabled = true;
+                    chtData.ChartAreas[0].AxisY2.MinorTickMark.LineColor = Color.LightGray;
+                    chtData.ChartAreas[0].AxisY2.Enabled = chkVolSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
+                    chtData.ChartAreas[0].AxisY2.IsStartedFromZero = false;
+                }
             }
         }
 
-        private void AddModelResultToChart(ListItem sectionTypeItem, long nModelID, AxisType anAxis, ref double fMinY, ref double fMaxY )
+        private void AddModelResultToChart(ListItem sectionTypeItem, long nModelID, AreaVolType eType, double fLowerElev, ref double fMinY, ref double fMaxY)
         {
-            System.Diagnostics.Debug.Print("Loading {0} for section {1}", ModelResultData[nModelID].Title, sectionTypeItem);
+            AxisType eAxis = AxisType.Primary;
+            string sTypeName = "AREA";
+            MarkerStyle eMarker = MarkerStyle.Circle;
+            if (eType == AreaVolType.Volume)
+            {
+                eAxis = AxisType.Secondary;
+                sTypeName = "VOLUME";
+                eMarker = MarkerStyle.Square;
+            }
 
-            Series theSeries = chtData.Series.Add(string.Format("{0} - {1}", ModelResultData[nModelID].Title, sectionTypeItem.Text));
+            System.Diagnostics.Debug.Print("Loading {0} for section {1} - {2}", ModelResultData[nModelID].Title, sectionTypeItem, sTypeName);
+            Series theSeries = chtData.Series.Add(string.Format("{0} - {1} - {2}", ModelResultData[nModelID].Title, sectionTypeItem.Text, sTypeName));
             theSeries.ChartType = SeriesChartType.Line;
             theSeries.BorderWidth = 2;
             theSeries.MarkerSize = 10;
             theSeries.BorderDashStyle = ChartDashStyle.Dash;
-            theSeries.MarkerStyle = MarkerStyle.Circle;
+            theSeries.MarkerStyle = eMarker;
+            theSeries.YAxisType = eAxis;
 
             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
             {
@@ -160,19 +197,23 @@ namespace SandbarWorkbench.Sandbars
                 {
                     if (fElevation >= fLowerElev)
                     {
-                        theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Area);
+                        double displayValue = aSurvey.Elevations[fElevation].Area;
+                        if (eType == AreaVolType.Volume)
+                            displayValue = theSeries.Points.AddXY(aSurvey.SurveyDate, aSurvey.Elevations[fElevation].Vol);
 
-                        if (fMinY == -1 || fMinY > aSurvey.Elevations[fElevation].Area)
-                            fMinY = aSurvey.Elevations[fElevation].Area;
-
-                        fMaxY = Math.Max(fMaxY, aSurvey.Elevations[fElevation].Area);
-
+                        UpdateMinMaxValues(ref fMinY, ref fMaxY, displayValue);
                         break;
                     }
                 }
             }
+        }
 
+        private void UpdateMinMaxValues(ref double fOldMin, ref double fOldMax, double fNewValue)
+        {
+            if (fOldMin == -1 || fOldMin > fNewValue)
+                fOldMin = fNewValue;
 
+            fOldMax = Math.Max(fOldMax, fNewValue);
         }
 
         private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
