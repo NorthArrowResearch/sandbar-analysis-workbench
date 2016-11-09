@@ -30,27 +30,26 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbarProperties));
             this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.txtRiverMile = new System.Windows.Forms.TextBox();
-            this.grdData = new System.Windows.Forms.DataGridView();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
+            this.txtRiverMile = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabSurveys.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -61,18 +60,8 @@
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 0;
-            this.cmdCancel.Text = "Cancel";
+            this.cmdCancel.Text = "Close";
             this.cmdCancel.UseVisualStyleBackColor = true;
-            // 
-            // cmdOK
-            // 
-            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdOK.Location = new System.Drawing.Point(478, 575);
-            this.cmdOK.Name = "cmdOK";
-            this.cmdOK.Size = new System.Drawing.Size(97, 23);
-            this.cmdOK.TabIndex = 1;
-            this.cmdOK.Text = "Save and Close";
-            this.cmdOK.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -126,6 +115,14 @@
             this.tabPage1.Text = "Basic Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // grdData
+            // 
+            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.Location = new System.Drawing.Point(218, 133);
+            this.grdData.Name = "grdData";
+            this.grdData.Size = new System.Drawing.Size(240, 150);
+            this.grdData.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.ucStageDischarge1);
@@ -136,6 +133,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(630, 472);
+            this.ucStageDischarge1.TabIndex = 0;
             // 
             // tabSurveys
             // 
@@ -168,30 +173,6 @@
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // txtRiverMile
-            // 
-            this.txtRiverMile.Location = new System.Drawing.Point(83, 43);
-            this.txtRiverMile.Name = "txtRiverMile";
-            this.txtRiverMile.ReadOnly = true;
-            this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
-            this.txtRiverMile.TabIndex = 7;
-            // 
-            // grdData
-            // 
-            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdData.Location = new System.Drawing.Point(218, 133);
-            this.grdData.Name = "grdData";
-            this.grdData.Size = new System.Drawing.Size(240, 150);
-            this.grdData.TabIndex = 0;
-            // 
-            // ucStageDischarge1
-            // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(630, 472);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
             // ucAreaVolumeAnalyses1
             // 
             this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -200,6 +181,14 @@
             this.ucAreaVolumeAnalyses1.SandbarSite = null;
             this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(630, 472);
             this.ucAreaVolumeAnalyses1.TabIndex = 0;
+            // 
+            // txtRiverMile
+            // 
+            this.txtRiverMile.Location = new System.Drawing.Point(83, 43);
+            this.txtRiverMile.Name = "txtRiverMile";
+            this.txtRiverMile.ReadOnly = true;
+            this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
+            this.txtRiverMile.TabIndex = 7;
             // 
             // frmSandbarProperties
             // 
@@ -211,7 +200,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSandbarProperties";
@@ -219,11 +207,11 @@
             this.Load += new System.EventHandler(this.frmSandbarProperties_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabSurveys.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,7 +220,6 @@
         #endregion
 
         private System.Windows.Forms.Button cmdCancel;
-        private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;

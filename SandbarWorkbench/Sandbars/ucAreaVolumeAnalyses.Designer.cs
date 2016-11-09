@@ -160,6 +160,11 @@
             // 
             // valDisUpper
             // 
+            this.valDisUpper.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.valDisUpper.Location = new System.Drawing.Point(74, 47);
             this.valDisUpper.Maximum = new decimal(new int[] {
             60000,
@@ -187,6 +192,11 @@
             // 
             // valDisLower
             // 
+            this.valDisLower.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.valDisLower.Location = new System.Drawing.Point(74, 19);
             this.valDisLower.Maximum = new decimal(new int[] {
             50000,
