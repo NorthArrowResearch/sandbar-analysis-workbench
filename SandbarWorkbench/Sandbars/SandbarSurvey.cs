@@ -12,7 +12,16 @@ namespace SandbarWorkbench.Sandbars
     {
         public long TripID { get; internal set; }
         public DateTime TripDate { get; internal set; }
-        public AuditTrail Audit { get; internal set ;}
+        public AuditTrail Audit { get; internal set; }
+
+        public Dictionary<long, SandbarSection> Sections { get; internal set; }
+
+        public bool HasChannel { get; internal set; }
+        public string HasChannelStr { get { return HasChannel ? "True" : "False"; } }
+
+        public int EddyCount { get; internal set; }
+        public bool HasEddy { get { return EddyCount > 0 ; } }
+        public string HasEddyStr { get { return EddyCount > 0 ? "True" : "False"; } }
 
         public SandbarSurvey(long nSurveyID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
             : base(nSurveyID, dSurveyDate)
@@ -20,6 +29,9 @@ namespace SandbarWorkbench.Sandbars
             TripID = nTripID;
             TripDate = dTripDate;
             Audit = new AuditTrail(dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
+            Sections = new Dictionary<long, SandbarSection>();
+            HasChannel = false;
+            EddyCount = 0;
         }
 
         public static BindingList<SandbarSurvey> LoadSandbarSurveys(string sDB, long nSiteID = 0)
@@ -43,7 +55,7 @@ namespace SandbarWorkbench.Sandbars
                     lRecords.Add(new SandbarSurvey(
                         (long)dbRead["SurveyID"]
                         , (long)dbRead["TripID"]
-                        , (DateTime) dbRead["TripDate"]
+                        , (DateTime)dbRead["TripDate"]
                         , (DateTime)dbRead["SurveyDate"]
                         , (DateTime)dbRead["AddedOn"]
                         , (string)dbRead["AddedBy"]
@@ -51,7 +63,43 @@ namespace SandbarWorkbench.Sandbars
                         , (string)dbRead["UpdatedBy"]
                         ));
                 }
+                dbRead.Close();
 
+                // Load a dictionary of section types
+                //Dictionary<long, string> dSectionTypes = new Dictionary<long, string>();
+                dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID", dbCon);
+                dbCom.Parameters.AddWithValue("ListID", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
+                dbRead = dbCom.ExecuteReader();
+                long nChannelSectionTypeID = 0;
+                while (dbRead.Read())
+                {
+                    //dSectionTypes[(long)dbRead["ItemID"]] = (string)dbRead["Title"]);
+
+                    // Determine the one section type that identifies the channel. There can be multiple channel types that represent eddies
+                    if (dbRead.GetString(dbRead.GetOrdinal("Title")).ToLower().Contains("chan"))
+                        nChannelSectionTypeID = (long)dbRead["ItemID"];
+                }
+                // Now load all the surveyed sections
+                Dictionary<long, string> dSections = new Dictionary<long, string>();
+                dbCom = new SQLiteCommand("SELECT SectionID, SectionTypeID, Uncertainty FROM SandbarSections WHERE SurveyID = @SurveyID", dbCon);
+                SQLiteParameter pSurveyID = dbCom.Parameters.Add("SurveyID", System.Data.DbType.Int64);
+
+                foreach (SandbarSurvey aSurvey in lRecords)
+                {
+                    pSurveyID.Value = aSurvey.SurveyID;
+                    dbRead = dbCom.ExecuteReader();
+                    while (dbRead.Read())
+                    {
+                        long nSectionTypeID = (long)dbRead["SectionTypeID"];
+                        aSurvey.Sections[(long)dbRead["SectionID"]] = new SandbarSection((long)dbRead["SectionID"], nSectionTypeID, (double)dbRead["Uncertainty"]);
+
+                        if (nSectionTypeID == nChannelSectionTypeID)
+                            aSurvey.HasChannel = true;
+                        else
+                            aSurvey.EddyCount += 1;
+                    }
+                    dbRead.Close();
+                }
             }
 
             return lRecords;

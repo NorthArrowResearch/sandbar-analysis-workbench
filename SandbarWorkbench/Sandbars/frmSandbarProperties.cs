@@ -54,6 +54,8 @@ namespace SandbarWorkbench.Sandbars
 
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Survey Date", "SurveyDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Trip Date", "TripDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Eddy Count", "EddyCount", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Channel Survey", "HasChannelStr", true);
             Helpers.DataGridViewHelpers.AddDataGridViewAuditColumns(ref grdSurveys);
         }
 

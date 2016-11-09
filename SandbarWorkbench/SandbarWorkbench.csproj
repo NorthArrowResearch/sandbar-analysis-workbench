@@ -101,6 +101,7 @@
     <Compile Include="DBHelpers\LookupTableDef.cs" />
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
+    <Compile Include="Sandbars\SandbarSection.cs" />
     <Compile Include="DBHelpers\SQLiteHelpers.cs" />
     <Compile Include="DBHelpers\SyncHelpers.cs" />
     <Compile Include="ExceptionHandling\AWSCloudWatchSingleton.cs" />
