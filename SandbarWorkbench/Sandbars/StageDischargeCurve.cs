@@ -21,7 +21,7 @@ namespace SandbarWorkbench.Sandbars
         {
             Nullable<double> fResult = new Nullable<double>();
             if (CoeffA.HasValue && CoeffB.HasValue && CoeffC.HasValue)
-                fResult= CoeffA + (CoeffB * fDischarge) - Math.Pow(CoeffC.Value * fDischarge, 2);
+                fResult= CoeffA + (CoeffB * fDischarge) + (CoeffC.Value * Math.Pow(fDischarge, 2));
 
             return fResult;
         }
