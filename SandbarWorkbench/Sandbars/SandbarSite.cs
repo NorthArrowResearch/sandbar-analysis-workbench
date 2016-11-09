@@ -41,6 +41,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> StageChange8k45k { get; internal set; }
         public StageDischargeCurve SDCurve { get; internal set; }
         public BindingList<SandbarSurvey> Surveys { get; set; }
+        public int SurveyCount { get { return Surveys.Count; } }
 
         public string PrimaryGDAWSLink
         {

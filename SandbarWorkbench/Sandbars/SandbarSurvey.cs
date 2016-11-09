@@ -15,12 +15,13 @@ namespace SandbarWorkbench.Sandbars
         public AuditTrail Audit { get; internal set; }
 
         public Dictionary<long, SandbarSection> Sections { get; internal set; }
+        public int SectionCount { get { return Sections.Count; } }
 
         public bool HasChannel { get; internal set; }
         public string HasChannelStr { get { return HasChannel ? "True" : "False"; } }
 
         public int EddyCount { get; internal set; }
-        public bool HasEddy { get { return EddyCount > 0 ; } }
+        public bool HasEddy { get { return EddyCount > 0; } }
         public string HasEddyStr { get { return EddyCount > 0 ? "True" : "False"; } }
 
         public SandbarSurvey(long nSurveyID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)

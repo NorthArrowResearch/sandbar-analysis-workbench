@@ -29,6 +29,7 @@ namespace SandbarWorkbench.Sandbars
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Bank", "RiverSide", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Name", "Title", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Eddy Size", "EddySize", true, "#,##0", eAlignment: DataGridViewContentAlignment.MiddleRight);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Surveys", "SurveyCount", true, "#,##0", eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 8k", "ExpansionRatio8k", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 45k", "ExpansionRatio8k45k", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Stage Change", "StageChange8k45k", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
