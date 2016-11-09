@@ -201,6 +201,7 @@ namespace SandbarWorkbench.Sandbars
                         if (eType == AreaVolType.Volume)
                             displayValue = aSurvey.Elevations[fElevation].Vol;
 
+                        // System.Diagnostics.Debug.Print("{0},{1},{2}", nModelID, aSurvey.SurveyID, displayValue);
                         theSeries.Points.AddXY(aSurvey.SurveyDate, displayValue);
 
                         UpdateMinMaxValues(ref fMinY, ref fMaxY, displayValue);
