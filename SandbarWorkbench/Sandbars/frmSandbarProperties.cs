@@ -108,5 +108,11 @@ namespace SandbarWorkbench.Sandbars
             grdData.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             grdData.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
+
+        private void viewSurveyPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmSurveyProperties frm = new frmSurveyProperties();
+            frm.ShowDialog();            
+        }
     }
 }

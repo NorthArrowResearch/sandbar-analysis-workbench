@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbarProperties));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +44,12 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.txtRiverMile = new System.Windows.Forms.TextBox();
+            this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewSurveyPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -50,6 +57,7 @@
             this.tabSurveys.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.cmsSurveys.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -156,6 +164,7 @@
             // grdSurveys
             // 
             this.grdSurveys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdSurveys.ContextMenuStrip = this.cmsSurveys;
             this.grdSurveys.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdSurveys.Location = new System.Drawing.Point(3, 3);
             this.grdSurveys.Name = "grdSurveys";
@@ -190,6 +199,51 @@
             this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
             this.txtRiverMile.TabIndex = 7;
             // 
+            // cmsSurveys
+            // 
+            this.cmsSurveys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewSurveyPropertiesToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addSurveyToolStripMenuItem,
+            this.editSurveyToolStripMenuItem,
+            this.deleteSurveyToolStripMenuItem});
+            this.cmsSurveys.Name = "cmsSurveys";
+            this.cmsSurveys.Size = new System.Drawing.Size(194, 120);
+            // 
+            // addSurveyToolStripMenuItem
+            // 
+            this.addSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.addSurveyToolStripMenuItem.Name = "addSurveyToolStripMenuItem";
+            this.addSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.addSurveyToolStripMenuItem.Text = "Add Survey";
+            // 
+            // editSurveyToolStripMenuItem
+            // 
+            this.editSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editSurveyToolStripMenuItem.Name = "editSurveyToolStripMenuItem";
+            this.editSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.editSurveyToolStripMenuItem.Text = "Edit Survey";
+            // 
+            // deleteSurveyToolStripMenuItem
+            // 
+            this.deleteSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteSurveyToolStripMenuItem.Name = "deleteSurveyToolStripMenuItem";
+            this.deleteSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.deleteSurveyToolStripMenuItem.Text = "Delete Survey...";
+            // 
+            // viewSurveyPropertiesToolStripMenuItem
+            // 
+            this.viewSurveyPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.viewSurveyPropertiesToolStripMenuItem.Name = "viewSurveyPropertiesToolStripMenuItem";
+            this.viewSurveyPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.viewSurveyPropertiesToolStripMenuItem.Text = "View Survey Properties";
+            this.viewSurveyPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewSurveyPropertiesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            // 
             // frmSandbarProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,6 +266,7 @@
             this.tabSurveys.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).EndInit();
             this.tabPage3.ResumeLayout(false);
+            this.cmsSurveys.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +288,11 @@
         private ucAreaVolumeAnalyses ucAreaVolumeAnalyses1;
         private System.Windows.Forms.TextBox txtRiverMile;
         private System.Windows.Forms.DataGridView grdData;
+        private System.Windows.Forms.ContextMenuStrip cmsSurveys;
+        private System.Windows.Forms.ToolStripMenuItem viewSurveyPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem addSurveyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editSurveyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSurveyToolStripMenuItem;
     }
 }
