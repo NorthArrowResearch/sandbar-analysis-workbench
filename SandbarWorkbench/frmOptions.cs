@@ -35,6 +35,8 @@ namespace SandbarWorkbench
             // Retrieve whether sandbar site folders are identified by either 4 or 5 digit codes
             rdo5Digits.Checked = string.Compare(SandbarWorkbench.Properties.Settings.Default.SandbarIdentification, "sitecode5", true) == 0;
 
+            txtInstallationGuid.Text = SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString();
+
             txtMasterServer.Text = SandbarWorkbench.Properties.Settings.Default.MasterServer;
             txtMasterDatabase.Text = SandbarWorkbench.Properties.Settings.Default.MasterDatabase;
             txtMasterUserName.Text = SandbarWorkbench.Properties.Settings.Default.MasterUser;
@@ -63,6 +65,18 @@ namespace SandbarWorkbench
             valDefaultInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
             valDefaultOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
+
+            // Error Logging
+            if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
+                txtStreamName.Text = AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID.ToString();
+
+            chkAWSLoggingEnabled.Checked = SandbarWorkbench.Properties.Settings.Default.AWSLoggingEnabled;
+#if DEBUG
+            cmdTestAWS.Visible = true;
+#endif
+
+
+
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

@@ -50,12 +50,19 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.valDefaultInputCellSize = new System.Windows.Forms.NumericUpDown();
-            this.valDefaultOutputCellSize = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
             this.cboInterpolation = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.valDefaultOutputCellSize = new System.Windows.Forms.NumericUpDown();
+            this.valDefaultInputCellSize = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cmdTestAWS = new System.Windows.Forms.Button();
+            this.txtStreamName = new System.Windows.Forms.TextBox();
+            this.lblStreamName = new System.Windows.Forms.Label();
+            this.chkAWSLoggingEnabled = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtInstallationGuid = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,8 +70,9 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -88,6 +96,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -96,6 +105,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.txtInstallationGuid);
+            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.cboStartupView);
             this.tabPage1.Controls.Add(this.label1);
@@ -288,39 +299,14 @@
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // cboInterpolation
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(160, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Default input text file cell size (m)";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 47);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(160, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Default raster output cell size (m)";
-            // 
-            // valDefaultInputCellSize
-            // 
-            this.valDefaultInputCellSize.DecimalPlaces = 2;
-            this.valDefaultInputCellSize.Location = new System.Drawing.Point(209, 18);
-            this.valDefaultInputCellSize.Name = "valDefaultInputCellSize";
-            this.valDefaultInputCellSize.Size = new System.Drawing.Size(120, 20);
-            this.valDefaultInputCellSize.TabIndex = 2;
-            // 
-            // valDefaultOutputCellSize
-            // 
-            this.valDefaultOutputCellSize.DecimalPlaces = 2;
-            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(209, 47);
-            this.valDefaultOutputCellSize.Name = "valDefaultOutputCellSize";
-            this.valDefaultOutputCellSize.Size = new System.Drawing.Size(120, 20);
-            this.valDefaultOutputCellSize.TabIndex = 3;
+            this.cboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInterpolation.FormattingEnabled = true;
+            this.cboInterpolation.Location = new System.Drawing.Point(209, 82);
+            this.cboInterpolation.Name = "cboInterpolation";
+            this.cboInterpolation.Size = new System.Drawing.Size(121, 21);
+            this.cboInterpolation.TabIndex = 5;
             // 
             // label8
             // 
@@ -331,14 +317,108 @@
             this.label8.TabIndex = 4;
             this.label8.Text = "Default interpolation method";
             // 
-            // cboInterpolation
+            // valDefaultOutputCellSize
             // 
-            this.cboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboInterpolation.FormattingEnabled = true;
-            this.cboInterpolation.Location = new System.Drawing.Point(209, 82);
-            this.cboInterpolation.Name = "cboInterpolation";
-            this.cboInterpolation.Size = new System.Drawing.Size(121, 21);
-            this.cboInterpolation.TabIndex = 5;
+            this.valDefaultOutputCellSize.DecimalPlaces = 2;
+            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(209, 47);
+            this.valDefaultOutputCellSize.Name = "valDefaultOutputCellSize";
+            this.valDefaultOutputCellSize.Size = new System.Drawing.Size(120, 20);
+            this.valDefaultOutputCellSize.TabIndex = 3;
+            // 
+            // valDefaultInputCellSize
+            // 
+            this.valDefaultInputCellSize.DecimalPlaces = 2;
+            this.valDefaultInputCellSize.Location = new System.Drawing.Point(209, 18);
+            this.valDefaultInputCellSize.Name = "valDefaultInputCellSize";
+            this.valDefaultInputCellSize.Size = new System.Drawing.Size(120, 20);
+            this.valDefaultInputCellSize.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 47);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(160, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Default raster output cell size (m)";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(27, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(160, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Default input text file cell size (m)";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.cmdTestAWS);
+            this.tabPage5.Controls.Add(this.txtStreamName);
+            this.tabPage5.Controls.Add(this.lblStreamName);
+            this.tabPage5.Controls.Add(this.chkAWSLoggingEnabled);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(546, 329);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Error Logging";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cmdTestAWS
+            // 
+            this.cmdTestAWS.Location = new System.Drawing.Point(11, 84);
+            this.cmdTestAWS.Name = "cmdTestAWS";
+            this.cmdTestAWS.Size = new System.Drawing.Size(156, 23);
+            this.cmdTestAWS.TabIndex = 8;
+            this.cmdTestAWS.Text = "Test AWS Message Log";
+            this.cmdTestAWS.UseVisualStyleBackColor = true;
+            this.cmdTestAWS.Visible = false;
+            // 
+            // txtStreamName
+            // 
+            this.txtStreamName.Location = new System.Drawing.Point(119, 36);
+            this.txtStreamName.Name = "txtStreamName";
+            this.txtStreamName.ReadOnly = true;
+            this.txtStreamName.Size = new System.Drawing.Size(407, 20);
+            this.txtStreamName.TabIndex = 7;
+            // 
+            // lblStreamName
+            // 
+            this.lblStreamName.AutoSize = true;
+            this.lblStreamName.Location = new System.Drawing.Point(29, 40);
+            this.lblStreamName.Name = "lblStreamName";
+            this.lblStreamName.Size = new System.Drawing.Size(86, 13);
+            this.lblStreamName.TabIndex = 6;
+            this.lblStreamName.Text = "Error logging key";
+            // 
+            // chkAWSLoggingEnabled
+            // 
+            this.chkAWSLoggingEnabled.AutoSize = true;
+            this.chkAWSLoggingEnabled.Location = new System.Drawing.Point(11, 12);
+            this.chkAWSLoggingEnabled.Name = "chkAWSLoggingEnabled";
+            this.chkAWSLoggingEnabled.Size = new System.Drawing.Size(261, 17);
+            this.chkAWSLoggingEnabled.TabIndex = 5;
+            this.chkAWSLoggingEnabled.Text = "Share status and error information with developers";
+            this.chkAWSLoggingEnabled.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(29, 175);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Installation GUID";
+            // 
+            // txtInstallationGuid
+            // 
+            this.txtInstallationGuid.Location = new System.Drawing.Point(122, 171);
+            this.txtInstallationGuid.MaxLength = 256;
+            this.txtInstallationGuid.Name = "txtInstallationGuid";
+            this.txtInstallationGuid.ReadOnly = true;
+            this.txtInstallationGuid.Size = new System.Drawing.Size(292, 20);
+            this.txtInstallationGuid.TabIndex = 5;
             // 
             // frmOptions
             // 
@@ -363,8 +443,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -398,5 +480,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cboInterpolation;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button cmdTestAWS;
+        private System.Windows.Forms.TextBox txtStreamName;
+        private System.Windows.Forms.Label lblStreamName;
+        private System.Windows.Forms.CheckBox chkAWSLoggingEnabled;
+        private System.Windows.Forms.TextBox txtInstallationGuid;
+        private System.Windows.Forms.Label label9;
     }
 }
