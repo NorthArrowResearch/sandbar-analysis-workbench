@@ -81,7 +81,13 @@ namespace SandbarWorkbench.Trips
                         dbCom = new MySqlCommand("INSERT INTO Trips (TripDate, Remarks, AddedBy, UpdatedBy) VALUES (@TripDate, @Remarks, @EditedBy, @EditedBy)", dbCon);
 
                     dbCom.Parameters.AddWithValue("TripDate", dtTripDate.Value);
-                    dbCom.Parameters.AddWithValue("Remarks", txtRemarks.Text);
+
+                    MySqlParameter pRemarks = dbCom.Parameters.Add("Remarks", MySqlDbType.VarChar);
+                    if (string.IsNullOrEmpty(txtRemarks.Text))
+                        pRemarks.Value = DBNull.Value;
+                    else
+                        pRemarks.Value = txtRemarks.Text;
+
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
                     dbCom.ExecuteNonQuery();
                 }
