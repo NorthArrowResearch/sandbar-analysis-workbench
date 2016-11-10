@@ -52,6 +52,11 @@ namespace SandbarWorkbench.Sandbars
                 dtSurveyDate.Value = Survey.SurveyDate;
                 nTripID = Survey.TripID;
             }
+            else
+            {
+                cmdOK.Visible = false;
+                cmdCancel.Text = "Close";
+            }
 
             ListItem.LoadComboWithListItems(ref cboTrips, DBCon.ConnectionStringLocal, "SELECT TripID, TripDate FROM Trips ORDER BY TripDate Desc", nTripID);
         }
