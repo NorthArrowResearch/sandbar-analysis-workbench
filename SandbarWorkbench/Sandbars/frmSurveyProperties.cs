@@ -16,9 +16,6 @@ namespace SandbarWorkbench.Sandbars
         public SandbarSurvey Survey { get; internal set; }
         public bool Editable { get; internal set; } // true when the argument survey can be edited
 
-        public SortableBindingList<ListItem> SectionTypes { get; internal set; }
-        public SortableBindingList<ListItem> InstrmentTypes { get; internal set; }
-
         /// <summary>
         ///  call for viewing survey properties or editing
         /// </summary>
@@ -42,14 +39,12 @@ namespace SandbarWorkbench.Sandbars
             InitializeComponent();
             Survey = aSurvey;
             Editable = bEditable;
-
-            SectionTypes = new SortableBindingList<ListItem>();
         }
 
         private void frmSurveyProperties_Load(object sender, EventArgs e)
         {
-            SectionTypes = LoadComboColumnItems("colSectionType", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
-            InstrmentTypes = LoadComboColumnItems("colInstrumentType", SandbarWorkbench.Properties.Settings.Default.ListID_InstrumentTypes);
+            LoadComboColumnItems("colSectionType", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
+            LoadComboColumnItems("colInstrumentType", SandbarWorkbench.Properties.Settings.Default.ListID_InstrumentTypes);
 
             long nTripID = 0;
             if (Survey is SandbarSurvey)
@@ -61,7 +56,7 @@ namespace SandbarWorkbench.Sandbars
             ListItem.LoadComboWithListItems(ref cboTrips, DBCon.ConnectionStringLocal, "SELECT TripID, TripDate FROM Trips ORDER BY TripDate Desc", nTripID);
         }
 
-        private SortableBindingList<ListItem> LoadComboColumnItems(string sColName, long nListID)
+        private void LoadComboColumnItems(string sColName, long nListID)
         {
             SortableBindingList<ListItem> lResult = new SortableBindingList<ListItem>();
 
@@ -78,8 +73,6 @@ namespace SandbarWorkbench.Sandbars
 
             DataGridViewComboBoxColumn aCol = (DataGridViewComboBoxColumn)grdData.Columns[sColName];
             aCol.DataSource = lResult;
-
-            return lResult;
         }
     }
 }
