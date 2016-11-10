@@ -85,6 +85,8 @@ namespace SandbarWorkbench.DataGridViews
                     frm = new Reaches.frmReachPropertiesEdit(ID);
                 else if (TypeInfo.SelectSQL.ToLower().Contains("segments"))
                     frm = new Segments.frmSegmentPropertiesEdit(ID);
+                else if (TypeInfo.SelectSQL.ToLower().Contains("trips"))
+                    frm = new Trips.frmTripPropertiesEdit(ID);
                 else
                 {
                     DataGridViews.DataGridViewTypeLookupList dgvlTag = (DataGridViews.DataGridViewTypeLookupList)TypeInfo;

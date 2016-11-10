@@ -82,6 +82,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calendar_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("calendar_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap camera_lens {
             get {
                 object obj = ResourceManager.GetObject("camera_lens", resourceCulture);

@@ -224,7 +224,7 @@ namespace SandbarWorkbench
             // Add the lookup tables that have unique table structures
             lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Reaches", "Reaches", "SELECT ReachID AS ID, ReachCode AS [Reach Code], Title AS [Name], AddedOn AS [Added On], AddedBy AS [Added By], UpdatedOn AS [Updated On], UpdatedBy AS [Updated By] FROM Reaches ORDER BY Title", "DELETE FROM Reaches WHERE ReachID = @ID"));
             lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Segments", "Segments", "SELECT SegmentID AS ID, SegmentCode AS [Segment Code], Title, UpstreamRiverMile AS [Upstream RM], DownstreamRiverMile AS [Downstream RM], AddedOn AS [Added On], AddedBy AS [Added By], UpdatedOn AS [Updated On], UpdatedBy AS [Updated By] FROM Segments ORDER BY Title", "DELETE FROM Segments WHERE SegmentID = @ID"));
-            lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Trips", "Trips", "SELECT TripID AS ID, TripDate AS [Trip Date], AddedOn AS [Added On], AddedBy AS [Added By], UpdatedOn AS [Updated On], UpdatedBy AS [Updated By] FROM Trips ORDER BY TripDate DESC", "DELETE FROM Trips WHERE TripID = @ID"));
+            lMenuItems.Add(new DataGridViews.DataGridViewTypeBase("Trips", "Trips", "SELECT TripID AS ID, TripDate AS[Trip Date], SurveyCount AS[Survey Count], AddedOn AS[Added On], AddedBy AS[Added By], UpdatedOn AS[Updated On], UpdatedBy AS[Updated By] FROM vwTrips ORDER BY TripDate DESC", "DELETE FROM Trips WHERE TripID = @ID"));
 
             // Now add the generic lookup lists (that can be edited by the user)
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
@@ -314,6 +314,11 @@ namespace SandbarWorkbench
 
             frm.Show();
             UpdateMenuItemStatus();
+        }
+
+        private void tripsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
