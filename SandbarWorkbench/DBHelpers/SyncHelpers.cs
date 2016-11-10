@@ -31,7 +31,7 @@ namespace SandbarWorkbench.DBHelpers
             LocalDBCon = sLocalDBCon;
         }
 
-        public void SyncLookupData()
+        public void SynchronizeDatabaseType(long nTableTypeID)
         {
             using (MySqlConnection conMaster = new MySqlConnection(MasterDBCon))
             {
@@ -40,7 +40,7 @@ namespace SandbarWorkbench.DBHelpers
                 // Retrieve the list of lookup tables that should be synced
                 List<LookupTableDef> LookupTables = new List<LookupTableDef>();
                 MySqlCommand dbCom = new MySqlCommand("SELECT TableName FROM TableChangeLog WHERE (Synchronize <> 0) AND (TableTypeID = @TableTypeID) ORDER BY Sequence", conMaster);
-                dbCom.Parameters.AddWithValue("TableTypeID", SandbarWorkbench.Properties.Settings.Default.LookupListID_TableTypes);
+                dbCom.Parameters.AddWithValue("TableTypeID", nTableTypeID);
                 MySqlDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                     LookupTables.Add(new LookupTableDef(dbRead.GetString("TableName")));
@@ -63,7 +63,13 @@ namespace SandbarWorkbench.DBHelpers
                             // A sync is needed if the local has never been synced or the latest change date on master is newer than local
                             if (aTable.RequiresSync)
                             {
-                                if (SynchronizeLookupTable(conMaster, ref dbTrans, aTable))
+                                bool bSuccessfulSync = false;
+                                if (nTableTypeID == SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables)
+                                    bSuccessfulSync = SynchronizeLookupTable(conMaster, ref dbTrans, aTable);
+                                else
+                                    bSuccessfulSync = SynchronizeResultsTable(conMaster, ref dbTrans, aTable);
+
+                                if (bSuccessfulSync)
                                 {
                                     // Update the local TableChangeLog to reflect the update
                                     SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
@@ -167,6 +173,11 @@ namespace SandbarWorkbench.DBHelpers
             }
 
             System.Diagnostics.Debug.Print("{0} inserts = {1}, updates = {2}, deletes = {3}", aTable.TableName, aTable.LocalInserts, aTable.LocalUpdates, aTable.LocalDeletes);
+            return aTable.LocalChanges;
+        }
+
+        private bool SynchronizeResultsTable(MySqlConnection conMaster, ref SQLiteTransaction dbTrans, LookupTableDef aTable)
+        {
             return aTable.LocalChanges;
         }
     }

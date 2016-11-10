@@ -194,9 +194,9 @@ namespace SandbarWorkbench.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("15")]
-        public int LookupListID_TableTypes {
+        public int TableType_LookupTables {
             get {
-                return ((int)(this["LookupListID_TableTypes"]));
+                return ((int)(this["TableType_LookupTables"]));
             }
         }
         
@@ -302,6 +302,15 @@ namespace SandbarWorkbench.Properties {
             }
             set {
                 this["DateFormat_SurveyDates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        public long TableType_ResultsTables {
+            get {
+                return ((long)(this["TableType_ResultsTables"]));
             }
         }
     }

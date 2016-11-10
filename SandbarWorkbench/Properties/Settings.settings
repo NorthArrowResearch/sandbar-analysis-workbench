@@ -47,7 +47,7 @@
     <Setting Name="MasterDatabase" Type="System.String" Scope="User">
       <Value Profile="(Default)">SandbarData</Value>
     </Setting>
-    <Setting Name="LookupListID_TableTypes" Type="System.Int32" Scope="Application">
+    <Setting Name="TableType_LookupTables" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="Folder_SandbarTopoData" Type="System.String" Scope="User">
@@ -76,6 +76,9 @@
     </Setting>
     <Setting Name="DateFormat_SurveyDates" Type="System.String" Scope="User">
       <Value Profile="(Default)">dd MMM yyy</Value>
+    </Setting>
+    <Setting Name="TableType_ResultsTables" Type="System.Int64" Scope="Application">
+      <Value Profile="(Default)">16</Value>
     </Setting>
   </Settings>
 </SettingsFile>

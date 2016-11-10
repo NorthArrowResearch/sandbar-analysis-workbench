@@ -52,7 +52,12 @@ namespace SandbarWorkbench
                 DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
 
                 Cursor.Current = Cursors.WaitCursor;
-                syncTool.SyncLookupData();
+
+                if (chkLookup.Checked)
+                    syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
+
+                if (chkResults.Checked)
+                    syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_ResultsTables);
 
                 foreach (Form frm in this.MdiChildren)
                 {
