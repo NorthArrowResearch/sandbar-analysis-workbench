@@ -75,8 +75,30 @@ namespace SandbarWorkbench
             cmdTestAWS.Visible = true;
 #endif
 
+            // Date Display Formats
+            LoadDateDisplayCombo(ref cboTripDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_TripDates);
+            LoadDateDisplayCombo(ref cboSurveyDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates);
+            LoadDateDisplayCombo(ref cboAuditFieldDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields);
+        }
 
+        private void LoadDateDisplayCombo(ref ComboBox cbo, string sExistingFormat)
+        {
+            // Load the items
+            ListItem.LoadComboWithListItems(ref cbo, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 10 ORDER BY Title");
 
+            // Loop over the items and select the one that matches the existing format.
+            for (int i = 0; i < cbo.Items.Count; i++)
+            {
+                if (((ListItem) cbo.Items[i]).Text.Contains(sExistingFormat))
+                {
+                    cbo.SelectedIndex = i;
+                    break;
+                }
+            }
+
+            // Select the first item in the event that one is not selected
+            if (cbo.SelectedIndex < 0 && cbo.Items.Count > 0)
+                cbo.SelectedIndex = 0;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -98,7 +120,32 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize = valDefaultOutputCellSize.Value;
             SandbarWorkbench.Properties.Settings.Default.Default_Interpolation = ((ListItem)cboInterpolation.SelectedItem).Value;
 
+            // Date Display Formats
+            SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
+            SandbarWorkbench.Properties.Settings.Default.DateFormat_TripDates = GetDateFormatFromCombo(ref cboTripDates);
+            SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields = GetDateFormatFromCombo(ref cboAuditFieldDates);
+
             SandbarWorkbench.Properties.Settings.Default.Save();
+        }
+
+        private string GetDateFormatFromCombo(ref ComboBox cbo)
+        {
+            string sFormat = string.Empty;
+
+            if (cbo.SelectedItem is ListItem)
+            {
+                try
+                {
+                    sFormat = cbo.Text.Split('\"')[1];
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(new Exception("The date format string is missing quotes around the actual format part of the string."));
+                    sFormat = "dd MMM yyy";
+                }
+            }
+
+            return sFormat;
         }
 
         private void grdFolderPaths_CellClick(object sender, DataGridViewCellEventArgs e)

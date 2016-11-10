@@ -32,6 +32,8 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtInstallationGuid = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rdo5Digits = new System.Windows.Forms.RadioButton();
             this.rdo4Digits = new System.Windows.Forms.RadioButton();
@@ -61,8 +63,14 @@
             this.txtStreamName = new System.Windows.Forms.TextBox();
             this.lblStreamName = new System.Windows.Forms.Label();
             this.chkAWSLoggingEnabled = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtInstallationGuid = new System.Windows.Forms.TextBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cboTripDates = new System.Windows.Forms.ComboBox();
+            this.cboSurveyDates = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cboAuditFieldDates = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmdHelp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -73,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -97,6 +106,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -118,6 +128,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Start Up";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtInstallationGuid
+            // 
+            this.txtInstallationGuid.Location = new System.Drawing.Point(122, 171);
+            this.txtInstallationGuid.MaxLength = 256;
+            this.txtInstallationGuid.Name = "txtInstallationGuid";
+            this.txtInstallationGuid.ReadOnly = true;
+            this.txtInstallationGuid.Size = new System.Drawing.Size(292, 20);
+            this.txtInstallationGuid.TabIndex = 5;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(29, 175);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Installation GUID";
             // 
             // groupBox1
             // 
@@ -402,23 +430,90 @@
             this.chkAWSLoggingEnabled.Text = "Share status and error information with developers";
             this.chkAWSLoggingEnabled.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // tabPage6
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(29, 175);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(87, 13);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Installation GUID";
+            this.tabPage6.Controls.Add(this.cboAuditFieldDates);
+            this.tabPage6.Controls.Add(this.label12);
+            this.tabPage6.Controls.Add(this.cboSurveyDates);
+            this.tabPage6.Controls.Add(this.label11);
+            this.tabPage6.Controls.Add(this.cboTripDates);
+            this.tabPage6.Controls.Add(this.label10);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(546, 329);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Dates";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // txtInstallationGuid
+            // label10
             // 
-            this.txtInstallationGuid.Location = new System.Drawing.Point(122, 171);
-            this.txtInstallationGuid.MaxLength = 256;
-            this.txtInstallationGuid.Name = "txtInstallationGuid";
-            this.txtInstallationGuid.ReadOnly = true;
-            this.txtInstallationGuid.Size = new System.Drawing.Size(292, 20);
-            this.txtInstallationGuid.TabIndex = 5;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(40, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Trip dates";
+            // 
+            // cboTripDates
+            // 
+            this.cboTripDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboTripDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTripDates.FormattingEnabled = true;
+            this.cboTripDates.Location = new System.Drawing.Point(101, 17);
+            this.cboTripDates.Name = "cboTripDates";
+            this.cboTripDates.Size = new System.Drawing.Size(430, 21);
+            this.cboTripDates.TabIndex = 1;
+            // 
+            // cboSurveyDates
+            // 
+            this.cboSurveyDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboSurveyDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSurveyDates.FormattingEnabled = true;
+            this.cboSurveyDates.Location = new System.Drawing.Point(101, 44);
+            this.cboSurveyDates.Name = "cboSurveyDates";
+            this.cboSurveyDates.Size = new System.Drawing.Size(430, 21);
+            this.cboSurveyDates.TabIndex = 3;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(25, 48);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(69, 13);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Survey dates";
+            // 
+            // cboAuditFieldDates
+            // 
+            this.cboAuditFieldDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboAuditFieldDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAuditFieldDates.FormattingEnabled = true;
+            this.cboAuditFieldDates.Location = new System.Drawing.Point(101, 71);
+            this.cboAuditFieldDates.Name = "cboAuditFieldDates";
+            this.cboAuditFieldDates.Size = new System.Drawing.Size(430, 21);
+            this.cboAuditFieldDates.TabIndex = 5;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(36, 75);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(58, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Audit fields";
+            // 
+            // cmdHelp
+            // 
+            this.cmdHelp.Location = new System.Drawing.Point(16, 373);
+            this.cmdHelp.Name = "cmdHelp";
+            this.cmdHelp.Size = new System.Drawing.Size(75, 23);
+            this.cmdHelp.TabIndex = 2;
+            this.cmdHelp.Text = "Help";
+            this.cmdHelp.UseVisualStyleBackColor = true;
             // 
             // frmOptions
             // 
@@ -426,6 +521,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 408);
+            this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdOK);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -447,6 +543,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -487,5 +585,13 @@
         private System.Windows.Forms.CheckBox chkAWSLoggingEnabled;
         private System.Windows.Forms.TextBox txtInstallationGuid;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.ComboBox cboAuditFieldDates;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cboSurveyDates;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cboTripDates;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button cmdHelp;
     }
 }

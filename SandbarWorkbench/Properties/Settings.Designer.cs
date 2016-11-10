@@ -268,5 +268,41 @@ namespace SandbarWorkbench.Properties {
                 return ((long)(this["ListID_InstrumentTypes"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd MMM yyy")]
+        public string DateFormat_AuditFields {
+            get {
+                return ((string)(this["DateFormat_AuditFields"]));
+            }
+            set {
+                this["DateFormat_AuditFields"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd MMM yyy")]
+        public string DateFormat_TripDates {
+            get {
+                return ((string)(this["DateFormat_TripDates"]));
+            }
+            set {
+                this["DateFormat_TripDates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dd MMM yyy")]
+        public string DateFormat_SurveyDates {
+            get {
+                return ((string)(this["DateFormat_SurveyDates"]));
+            }
+            set {
+                this["DateFormat_SurveyDates"] = value;
+            }
+        }
     }
 }
