@@ -39,6 +39,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.colSectionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSectionType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colInstrumentType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colUncertainty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -68,33 +69,37 @@
             this.cboTrips.FormattingEnabled = true;
             this.cboTrips.Location = new System.Drawing.Point(82, 43);
             this.cboTrips.Name = "cboTrips";
-            this.cboTrips.Size = new System.Drawing.Size(238, 21);
+            this.cboTrips.Size = new System.Drawing.Size(182, 21);
             this.cboTrips.TabIndex = 2;
             // 
             // dtSurveyDate
             // 
             this.dtSurveyDate.Location = new System.Drawing.Point(82, 13);
             this.dtSurveyDate.Name = "dtSurveyDate";
-            this.dtSurveyDate.Size = new System.Drawing.Size(238, 20);
+            this.dtSurveyDate.Size = new System.Drawing.Size(182, 20);
             this.dtSurveyDate.TabIndex = 3;
             // 
             // grdData
             // 
+            this.grdData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colSectionID,
             this.colSectionType,
+            this.colInstrumentType,
             this.colUncertainty});
             this.grdData.Location = new System.Drawing.Point(16, 19);
             this.grdData.Name = "grdData";
-            this.grdData.Size = new System.Drawing.Size(285, 133);
+            this.grdData.Size = new System.Drawing.Size(419, 133);
             this.grdData.TabIndex = 5;
             // 
             // cmdOK
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(169, 246);
+            this.cmdOK.Location = new System.Drawing.Point(297, 246);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 6;
@@ -105,7 +110,7 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(250, 246);
+            this.button2.Location = new System.Drawing.Point(378, 246);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -124,10 +129,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.grdData);
             this.groupBox1.Location = new System.Drawing.Point(12, 76);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(308, 160);
+            this.groupBox1.Size = new System.Drawing.Size(441, 160);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sandbars Surveyed";
@@ -145,17 +153,27 @@
             this.colSectionType.Name = "colSectionType";
             this.colSectionType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colSectionType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colSectionType.Width = 150;
+            // 
+            // colInstrumentType
+            // 
+            this.colInstrumentType.HeaderText = "Instrument";
+            this.colInstrumentType.Name = "colInstrumentType";
+            this.colInstrumentType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colInstrumentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colInstrumentType.Width = 150;
             // 
             // colUncertainty
             // 
             this.colUncertainty.HeaderText = "Uncertainty";
             this.colUncertainty.Name = "colUncertainty";
+            this.colUncertainty.Width = 75;
             // 
             // frmSurveyProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 281);
+            this.ClientSize = new System.Drawing.Size(465, 281);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.button2);
@@ -187,6 +205,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSectionID;
         private System.Windows.Forms.DataGridViewComboBoxColumn colSectionType;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colInstrumentType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUncertainty;
     }
 }

@@ -259,5 +259,14 @@ namespace SandbarWorkbench.Properties {
                 this["Default_Interpolation"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public long ListID_InstrumentTypes {
+            get {
+                return ((long)(this["ListID_InstrumentTypes"]));
+            }
+        }
     }
 }

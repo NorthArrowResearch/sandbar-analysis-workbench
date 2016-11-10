@@ -17,6 +17,7 @@ namespace SandbarWorkbench.Sandbars
         public bool Editable { get; internal set; } // true when the argument survey can be edited
 
         public SortableBindingList<ListItem> SectionTypes { get; internal set; }
+        public SortableBindingList<ListItem> InstrmentTypes { get; internal set; }
 
         /// <summary>
         ///  call for viewing survey properties or editing
@@ -47,19 +48,8 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSurveyProperties_Load(object sender, EventArgs e)
         {
-            // Load the survey section types into the data grid view combo cell column
-            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
-            {
-                dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID ORDER BY Title", dbCon);
-                dbCom.Parameters.AddWithValue("ListID", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
-                SQLiteDataReader dbRead = dbCom.ExecuteReader();
-                while (dbRead.Read())
-                    SectionTypes.Add(new ListItem((string)dbRead["Title"], (long)dbRead["ItemID"]));
-            }
-
-            DataGridViewComboBoxColumn colSectionTypes = (DataGridViewComboBoxColumn)grdData.Columns["colSectionType"];
-            colSectionTypes.DataSource = SectionTypes;
+            SectionTypes = LoadComboColumnItems("colSectionType", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
+            InstrmentTypes = LoadComboColumnItems("colInstrumentType", SandbarWorkbench.Properties.Settings.Default.ListID_InstrumentTypes);
 
             long nTripID = 0;
             if (Survey is SandbarSurvey)
@@ -69,6 +59,27 @@ namespace SandbarWorkbench.Sandbars
             }
 
             ListItem.LoadComboWithListItems(ref cboTrips, DBCon.ConnectionStringLocal, "SELECT TripID, TripDate FROM Trips ORDER BY TripDate Desc", nTripID);
+        }
+
+        private SortableBindingList<ListItem> LoadComboColumnItems(string sColName, long nListID)
+        {
+            SortableBindingList<ListItem> lResult = new SortableBindingList<ListItem>();
+
+            // Load the survey section types into the data grid view combo cell column
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+            {
+                dbCon.Open();
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID ORDER BY Title", dbCon);
+                dbCom.Parameters.AddWithValue("ListID", nListID);
+                SQLiteDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                    lResult.Add(new ListItem((string)dbRead["Title"], (long)dbRead["ItemID"]));
+            }
+
+            DataGridViewComboBoxColumn aCol = (DataGridViewComboBoxColumn)grdData.Columns[sColName];
+            aCol.DataSource = lResult;
+
+            return lResult;
         }
     }
 }

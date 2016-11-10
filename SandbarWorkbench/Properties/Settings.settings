@@ -65,5 +65,8 @@
     <Setting Name="Default_Interpolation" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">21</Value>
     </Setting>
+    <Setting Name="ListID_InstrumentTypes" Type="System.Int64" Scope="Application">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
