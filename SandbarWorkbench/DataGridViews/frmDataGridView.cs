@@ -60,7 +60,20 @@ namespace SandbarWorkbench.DataGridViews
                     dt.Load(dbCom.ExecuteReader());
                     grdData.DataSource = dt;
 
+                    // Hide the ID column
                     grdData.Columns[0].Visible = false;
+
+                    // Format the audit trail date time columns
+                    if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields))
+                    {
+                        foreach (DataGridViewColumn aCol in grdData.Columns)
+                        {
+                            if (string.Compare(aCol.Name, "Added On", true) == 0 || string.Compare(aCol.Name, "Updated On", true) == 0)
+                            {
+                                aCol.DefaultCellStyle.Format = SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
