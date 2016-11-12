@@ -210,10 +210,8 @@ namespace SandbarWorkbench.DBHelpers
             // 3. Upload local runs that are on the local machine with a Sync value but not on master and have the local GUID
             // 4. Download user runs on master that have an installation GUID that is not the local machine
 
-            Dictionary<long, ModelRun> dMasterRuns = ModelRun.LoadMaster();
-            Dictionary<long, ModelRun> dLocalRuns = ModelRun.LoadLocal();
-
-
+            Dictionary<long, ModelRuns.ModelRunMaster> dMasterRuns = ModelRuns.ModelRunMaster.Load();
+            Dictionary<long, ModelRuns.ModelRunLocal> dLocalRuns = ModelRuns.ModelRunLocal.Load();
 
             //using (MySqlConnection conMasterChange = new MySqlConnection(MasterDBCon))
             //{

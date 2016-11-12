@@ -51,87 +51,134 @@ namespace SandbarWorkbench
                     System.Data.SQLite.SQLiteTransaction transLocal = conLocal.BeginTransaction();
 
                     // Loop over all runs on master
-                    foreach (ModelRunMaster masterRun in dMasterRuns.Values.Where<ModelRunMaster>(x => x.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash))
+                    foreach (ModelRunMaster masterRun in dMasterRuns.Values)
                     {
-                        // Find the local run that has the corresponding master run ID
-                        IEnumerable<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID);
-                        if (lLocalRuns.Count<ModelRunLocal>() > 0)
+                        if (masterRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
                         {
-                            // Delete runs on master that are local to this machine but not longer set to sync
-                            foreach (ModelRunLocal aLocal in lLocalRuns.Where<ModelRunLocal>(x => !x.Sync))
+                            // Find the local run that has the corresponding master run ID
+                            List<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID).ToList<ModelRunLocal>();
+                            if (lLocalRuns != null && lLocalRuns.Count > 0)
+                            {
+                                // found the corresponding local run. Check if the local run is still set to sync.
+                                if (lLocalRuns[0].Sync)
+                                {
+                                    // Check if either has been updated and then update the older of the two.
+                                    if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
+                                        masterRun.Update(lLocalRuns[0], ref transMaster);
+                                    else if (masterRun.UpdatedOn > lLocalRuns[0].UpdatedOn)
+                                        lLocalRuns[0].Update(masterRun, ref transLocal);
+                                }
+                                else
+                                {
+                                    // Run owned by this installation exists on both master and local, but the local is set to not sync. Delete on master.
+                                    ModelRunMaster.Delete(masterRun.ID, ref transMaster);
+                                }
+                            }
+                            else
+                            {
+                                // Run belonging to this installation is on master but no longer on local. Delete on master
                                 ModelRunMaster.Delete(masterRun.ID, ref transMaster);
-
-                            // Update runs on local that are newer on master
-                            foreach (ModelRunLocal aLocal in lLocalRuns.Where<ModelRunLocal>(x => x.UpdatedOn < masterRun.UpdatedOn))
-                                aLocal.Update(masterRun, ref transLocal);
+                            }
                         }
                         else
                         {
-                            // Local run is on master but no longer on local. Delete on master
-                            ModelRunMaster.Delete(masterRun.ID, ref transMaster);
+                            List<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID).ToList<ModelRunLocal>();
+                            if (lLocalRuns == null || lLocalRuns.Count < 1)
+                            {
+                                // Run found on master that belongs to another installation and doesn't exist on local. Insert to local.
+                                // TODO: insert local
+                            }
+                            else
+                            {
+                                // Run found on master that belongs to another installation that already exists on local. Update.
+                                // Check if either has been updated and then update the older of the two.
+                                if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
+                                    masterRun.Update(lLocalRuns[0], ref transMaster);
+                                else if (masterRun.UpdatedOn > dLocalRuns[masterRun.ID].UpdatedOn)
+                                    lLocalRuns[0].Update(masterRun, ref transLocal);
+                            }
+
                         }
                     }
 
-                    // Delete runs on local that were generated on other machines but no longer on master
-                    foreach (ModelRun masterRun in dMasterRuns.Values.Where<ModelRun>(x => x.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash))
+                    // Loop over all rows on local
+                    foreach (ModelRunLocal localRun in dLocalRuns.Values)
                     {
-                        if (dLocalRuns.Values.Where<ModelRun>(x => x.OtherID == masterRun.ID).Count<ModelRun>() > 0)
-                            ModelRun.DeleteMasterRun(masterRun.ID, ref transMaster);
+                        if (localRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
+                        {
+                            if (localRun.Sync)
+                            {
+                                if (!dMasterRuns.ContainsKey(localRun.MasterID))
+                                {
+                                    // TODO: This run was generated on this installation, its set to sync, but it is missing from master. Insert run to master.
+                                }
+                            }
+                            else
+                            {
+                                if (dMasterRuns.ContainsKey(localRun.MasterID))
+                                {
+                                    // This run was generated on this installation and exists on master, but it is no longer set to sync. Delete on master.
+                                    ModelRunMaster.Delete(localRun.MasterID, ref transMaster);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!dMasterRuns.ContainsKey(localRun.MasterID))
+                            {
+                                // This is a run from a different installation that no longer exists on master. Delete local.
+                                ModelRunLocal.Delete(localRun.MasterID, ref transLocal);
+                            }
+                        }
                     }
-
-
                 }
-
             }
-
-
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            
 
+            //if (!(chkLookup.Checked || chkResults.Checked))
+            //{
+            //    MessageBox.Show("You must choose one or both of the data types to synchronize.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    this.DialogResult = DialogResult.None;
+            //    return;
+            //}
 
-            if (!(chkLookup.Checked || chkResults.Checked))
-            {
-                MessageBox.Show("You must choose one or both of the data types to synchronize.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.None;
-                return;
-            }
+            //grpProgress.Visible = true;
+            //this.Height += VariableHeight;
+            //this.FormBorderStyle = FormBorderStyle.Sizable;
 
-            grpProgress.Visible = true;
-            this.Height += VariableHeight;
-            this.FormBorderStyle = FormBorderStyle.Sizable;
+            //try
+            //{
+            //    DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
 
-            try
-            {
-                DBHelpers.SyncHelpers syncTool = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
+            //    Cursor.Current = Cursors.WaitCursor;
 
-                Cursor.Current = Cursors.WaitCursor;
+            //    if (chkLookup.Checked)
+            //        syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
 
-                if (chkLookup.Checked)
-                    syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
+            //    if (chkResults.Checked)
+            //        syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_ResultsTables);
 
-                if (chkResults.Checked)
-                    syncTool.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_ResultsTables);
+            //    foreach (Form frm in this.MdiChildren)
+            //    {
+            //        if (frm is Sandbars.frmSandbars)
+            //        {
+            //            ((Sandbars.frmSandbars)frm).LoadData();
+            //        }
+            //    }
 
-                foreach (Form frm in this.MdiChildren)
-                {
-                    if (frm is Sandbars.frmSandbars)
-                    {
-                        ((Sandbars.frmSandbars)frm).LoadData();
-                    }
-                }
+            //    Cursor.Current = Cursors.Default;
+            //    MessageBox.Show("Local database synchronization with the master database was successful.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ExceptionHandling.NARException.HandleException(ex);
+            //}
+            //finally
+            //{
+            //    Cursor.Current = Cursors.Default;
+            //}
 
-                Cursor.Current = Cursors.Default;
-                MessageBox.Show("Local database synchronization with the master database was successful.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandling.NARException.HandleException(ex);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
-            }
         }
     }
 }
