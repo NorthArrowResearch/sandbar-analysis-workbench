@@ -57,9 +57,18 @@ namespace SandbarWorkbench.ModelRuns
 
             MySqlCommand dbCom = new MySqlCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("@Title", localRun.Title);
-            dbCom.Parameters.AddWithValue("@Remarks", localRun.Remarks);
             dbCom.Parameters.AddWithValue("UpdatedOn", localRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", localRun.UpdatedBy);
+            dbCom.Parameters.AddWithValue("MasterRunID", localRun.MasterID);
+
+            if (string.IsNullOrEmpty(localRun.Remarks))
+            {
+                MySqlParameter pRemarks = dbCom.Parameters.Add("Remarks", System.Data.DbType.String);
+                pRemarks.Value = DBNull.Value;
+            }
+            else
+                dbCom.Parameters.AddWithValue("Remarks", localRun.Remarks);
+
             dbCom.ExecuteNonQuery();
         
             Title = localRun.Title;
@@ -90,6 +99,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.Parameters.AddWithValue("RunTypeID", localRun.RunTypeID);
             dbCom.Parameters.AddWithValue("AddedOn", localRun.AddedOn);
             dbCom.Parameters.AddWithValue("AddedBy", localRun.AddedBy);
+            dbCom.Parameters.AddWithValue("InstallationGuid", localRun.Installation);
             dbCom.Parameters.AddWithValue("UpdatedOn", localRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", localRun.UpdatedBy);
             dbCom.Parameters.AddWithValue("RunOn", localRun.RunOn);
@@ -119,7 +129,7 @@ namespace SandbarWorkbench.ModelRuns
             using (System.Data.SQLite.SQLiteConnection conLocal = new System.Data.SQLite.SQLiteConnection (DBCon.ConnectionStringLocal))
             {
                 // Prepare the local command to insert child records
-                dbCom = new MySqlCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@SectionID, @Elevation, @Area, @Volume)", transMaster.Connection, transMaster);
+                dbCom = new MySqlCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@RunID, @SectionID, @Elevation, @Area, @Volume)", transMaster.Connection, transMaster);
                 dbCom.Parameters.AddWithValue("RunID", theRun.ID);
                 MySqlParameter pSectionID = dbCom.Parameters.Add("SectionID", MySqlDbType.Int64);
                 MySqlParameter pElevation = dbCom.Parameters.Add("Elevation", MySqlDbType.Double);

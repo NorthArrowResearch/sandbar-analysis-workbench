@@ -25,9 +25,18 @@ namespace SandbarWorkbench.ModelRuns
 
             SQLiteCommand dbCom = new SQLiteCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("@Title", masterRun.Title);
-            dbCom.Parameters.AddWithValue("@Remarks", masterRun.Remarks);
             dbCom.Parameters.AddWithValue("UpdatedOn", masterRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", masterRun.UpdatedBy);
+            dbCom.Parameters.AddWithValue("MasterRunID", masterRun.ID);
+
+            if (string.IsNullOrEmpty(masterRun.Remarks))
+            {
+                SQLiteParameter pRemarks = dbCom.Parameters.Add("Remarks", System.Data.DbType.String);
+                pRemarks.Value = DBNull.Value;
+            }
+            else
+                dbCom.Parameters.AddWithValue("Remarks", masterRun.Remarks);
+
             dbCom.ExecuteNonQuery();
 
             Title = masterRun.Title;
@@ -97,10 +106,10 @@ namespace SandbarWorkbench.ModelRuns
 
             dbCom.Parameters.AddWithValue("MasterRunID", masterRun.ID);
             dbCom.Parameters.AddWithValue("Title", masterRun.Title);
-            dbCom.Parameters.AddWithValue("Remarks", masterRun.Remarks);
             dbCom.Parameters.AddWithValue("RunTypeID", masterRun.RunTypeID);
             dbCom.Parameters.AddWithValue("AddedOn", masterRun.AddedOn);
             dbCom.Parameters.AddWithValue("AddedBy", masterRun.AddedBy);
+            dbCom.Parameters.AddWithValue("InstallationGuid", masterRun.Installation.ToString());
             dbCom.Parameters.AddWithValue("UpdatedOn", masterRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", masterRun.UpdatedBy);
             dbCom.Parameters.AddWithValue("RunOn", masterRun.RunOn);
@@ -126,7 +135,7 @@ namespace SandbarWorkbench.ModelRuns
             using (MySql.Data.MySqlClient.MySqlConnection conMaster = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
             {
                 // Prepare the local command to insert child records
-                dbCom = new SQLiteCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@SectionID, @Elevation, @Area, @Volume)", dbTrans.Connection, dbTrans);
+                dbCom = new SQLiteCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@RunID, @SectionID, @Elevation, @Area, @Volume)", dbTrans.Connection, dbTrans);
                 dbCom.Parameters.AddWithValue("RunID", theRun.ID);
                 SQLiteParameter pSectionID = dbCom.Parameters.Add("SectionID", System.Data.DbType.Int64);
                 SQLiteParameter pElevation = dbCom.Parameters.Add("Elevation", System.Data.DbType.Double);
