@@ -33,9 +33,9 @@
             this.chkResults = new System.Windows.Forms.CheckBox();
             this.grpProgress = new System.Windows.Forms.GroupBox();
             this.txtProgress = new System.Windows.Forms.TextBox();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.pgrTask = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.pgrOverall = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -73,9 +73,9 @@
             // grpProgress
             // 
             this.grpProgress.Controls.Add(this.txtProgress);
-            this.grpProgress.Controls.Add(this.progressBar2);
+            this.grpProgress.Controls.Add(this.pgrTask);
             this.grpProgress.Controls.Add(this.label2);
-            this.grpProgress.Controls.Add(this.progressBar1);
+            this.grpProgress.Controls.Add(this.pgrOverall);
             this.grpProgress.Controls.Add(this.label1);
             this.grpProgress.Location = new System.Drawing.Point(12, 60);
             this.grpProgress.Name = "grpProgress";
@@ -95,14 +95,15 @@
             this.txtProgress.Size = new System.Drawing.Size(549, 67);
             this.txtProgress.TabIndex = 4;
             // 
-            // progressBar2
+            // pgrTask
             // 
-            this.progressBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pgrTask.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar2.Location = new System.Drawing.Point(113, 48);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(442, 13);
-            this.progressBar2.TabIndex = 3;
+            this.pgrTask.Location = new System.Drawing.Point(113, 48);
+            this.pgrTask.Name = "pgrTask";
+            this.pgrTask.Size = new System.Drawing.Size(442, 13);
+            this.pgrTask.Step = 1;
+            this.pgrTask.TabIndex = 3;
             // 
             // label2
             // 
@@ -113,14 +114,15 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Current task";
             // 
-            // progressBar1
+            // pgrOverall
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pgrOverall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(113, 29);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(442, 13);
-            this.progressBar1.TabIndex = 1;
+            this.pgrOverall.Location = new System.Drawing.Point(113, 29);
+            this.pgrOverall.Name = "pgrOverall";
+            this.pgrOverall.Size = new System.Drawing.Size(442, 13);
+            this.pgrOverall.Step = 50;
+            this.pgrOverall.TabIndex = 1;
             // 
             // label1
             // 
@@ -204,9 +206,9 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.TextBox txtProgress;
-        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.ProgressBar pgrTask;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar pgrOverall;
         private System.Windows.Forms.Label label1;
         private System.ComponentModel.BackgroundWorker bgWorker;
     }

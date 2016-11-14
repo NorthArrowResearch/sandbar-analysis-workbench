@@ -18,7 +18,7 @@ namespace SandbarWorkbench.DBHelpers
         public bool LookupTables { get; set; }
         public bool ModelRunTables { get; set; }
 
-        public delegate void ProgressUpdate(int value);
+        public delegate void ProgressUpdate(int nOverall, int nTask);
         public event ProgressUpdate OnProgressUpdate;
 
         public List<string> Messages;
@@ -41,21 +41,22 @@ namespace SandbarWorkbench.DBHelpers
 
         }
 
-        private void AddMessage(string sMessage, int nProgress = -1)
+        private void AddMessage(string sMessage, int nOverall, int nTask)
         {
             if (Messages == null)
                 Messages = new List<string>();
 
             Messages.Add(sMessage);
 
+            // If there's a subscribed event handler
             if (OnProgressUpdate != null)
-                OnProgressUpdate(nProgress);
+                OnProgressUpdate(nOverall, nTask);
         }
 
         public void Synchronize()
         {
             Messages = new List<string>();
-            AddMessage("Initializing database synchronization...", 0);
+            AddMessage("Initializing database synchronization...", 0, 0);
 
             if (LookupTables)
                 SynchronizeLookupTables();
@@ -63,12 +64,12 @@ namespace SandbarWorkbench.DBHelpers
             if (ModelRunTables)
                 SynchronizeResults();
 
-            AddMessage("Local database synchronization completed successfully.", 100);
+            AddMessage("Local database synchronization completed successfully.", 100, 100);
         }
 
         public void SynchronizeLookupTables()
         {
-            AddMessage("Initializing lookup table synchronization...", 0);
+            AddMessage("Initializing lookup table synchronization...", 0, 0);
 
             using (MySqlConnection conMaster = new MySqlConnection(MasterDBCon))
             {
@@ -90,8 +91,12 @@ namespace SandbarWorkbench.DBHelpers
 
                     try
                     {
+                        int nTable = 0;
                         foreach (LookupTableDef aTable in LookupTables)
                         {
+                            nTable += 1;
+                            int nTaskProgress = (int)Math.Ceiling(100.0 * (double)nTable / (double)LookupTables.Count);
+
                             // Load the last changed and field schema from both master and local. Then verify that the schemas match (will throw exception if fails)
                             aTable.RetrievePropertiesFromMaster(SchemaName, conMaster);
                             aTable.RetrievePropertiesFromLocal(conLocal);
@@ -100,7 +105,7 @@ namespace SandbarWorkbench.DBHelpers
                             // A sync is needed if the local has never been synced or the latest change date on master is newer than local
                             if (aTable.RequiresSync)
                             {
-                                AddMessage(string.Format("\tSynchronizing lookup table {0}", aTable.TableName));
+                                AddMessage(string.Format("\tSynchronizing lookup table {0}", aTable.TableName), 30, nTaskProgress);
 
                                 if (SynchronizeLookupTable(conMaster, ref dbTrans, aTable))
                                 {
@@ -114,7 +119,7 @@ namespace SandbarWorkbench.DBHelpers
                             }
                             else
                             {
-                                AddMessage(string.Format("\tNo updates for the {0} table. Skipping.", aTable.TableName));
+                                AddMessage(string.Format("\tNo updates for the {0} table. Skipping.", aTable.TableName), 30, nTaskProgress);
                             }
                         }
 
@@ -122,15 +127,15 @@ namespace SandbarWorkbench.DBHelpers
                     }
                     catch (Exception ex)
                     {
-                        AddMessage(string.Format("Error: {0}", ex.Message));
-                        AddMessage("Local database rolled back. No changes committed.");
+                        AddMessage(string.Format("Error: {0}", ex.Message), -1, -1);
+                        AddMessage("Local database rolled back. No changes committed.", -1, -1);
                         dbTrans.Rollback();
                         throw;
                     }
                 }
             }
 
-            AddMessage("Lookup table synchronization completed successfully.", 50);
+            AddMessage("Lookup table synchronization completed successfully.", 50, 100);
         }
 
         private bool SynchronizeLookupTable(MySqlConnection conMaster, ref SQLiteTransaction dbTrans, LookupTableDef aTable)
@@ -219,7 +224,7 @@ namespace SandbarWorkbench.DBHelpers
 
         private void SynchronizeResults()
         {
-            AddMessage("Initializing model run synchronization...", 51);
+            AddMessage("Initializing model run synchronization...", 51, 0);
 
             Dictionary<long, ModelRuns.ModelRunMaster> dMasterRuns = ModelRuns.ModelRunMaster.Load();
             Dictionary<long, ModelRuns.ModelRunLocal> dLocalRuns = ModelRuns.ModelRunLocal.Load();
@@ -234,12 +239,16 @@ namespace SandbarWorkbench.DBHelpers
                     conLocal.Open();
                     System.Data.SQLite.SQLiteTransaction transLocal = conLocal.BeginTransaction();
 
-
                     try
                     {
+                        int nModelRun = 0;
+
                         // Loop over all runs on master
                         foreach (ModelRunMaster masterRun in dMasterRuns.Values)
                         {
+                            nModelRun += 1;
+                            int nTaskProgress = (int)Math.Ceiling(100.0 * (double)nModelRun / (double)(dMasterRuns.Count + dLocalRuns.Count));
+
                             if (masterRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
                             {
                                 // Find the local run that has the corresponding master run ID
@@ -251,21 +260,27 @@ namespace SandbarWorkbench.DBHelpers
                                     {
                                         // Check if either has been updated and then update the older of the two.
                                         if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
+                                        {
+                                            AddMessage(string.Format("\tUpdating model run on master with ID {0}", lLocalRuns[0].MasterID), 75, nTaskProgress);
                                             masterRun.Update(lLocalRuns[0], ref transMaster);
+                                        }
                                         else if (masterRun.UpdatedOn > lLocalRuns[0].UpdatedOn)
+                                        {
+                                            AddMessage(string.Format("\tUpdating local model run with master ID {0}", masterRun.ID), 75, nTaskProgress);
                                             lLocalRuns[0].Update(masterRun, ref transLocal);
+                                        }
                                     }
                                     else
                                     {
                                         // Run owned by this installation exists on both master and local, but the local is set to not sync. Delete on master.
-                                        AddMessage(string.Format("Removing model run on master with ID {0}", masterRun.ID));
+                                        AddMessage(string.Format("\tRemoving model run on master with ID {0}", masterRun.ID), 75, nTaskProgress);
                                         ModelRunMaster.Delete(masterRun.ID, ref transMaster);
                                     }
                                 }
                                 else
                                 {
                                     // Run belonging to this installation is on master but no longer on local. Delete on master
-                                    AddMessage(string.Format("Removing model run on master with ID {0}", masterRun.ID));
+                                    AddMessage(string.Format("\tRemoving model run on master with ID {0}", masterRun.ID), 75, nTaskProgress);
                                     ModelRunMaster.Delete(masterRun.ID, ref transMaster);
                                 }
                             }
@@ -275,7 +290,7 @@ namespace SandbarWorkbench.DBHelpers
                                 if (lLocalRuns.Count < 1)
                                 {
                                     // Run found on master that belongs to another installation and doesn't exist on local. Insert to local.
-                                    AddMessage(string.Format("Downloading model run with ID {0}", masterRun.ID));
+                                    AddMessage(string.Format("\tDownloading model run with ID {0}", masterRun.ID), 75, nTaskProgress);
                                     ModelRunLocal.Insert(masterRun, ref transLocal);
                                 }
                                 else
@@ -284,12 +299,12 @@ namespace SandbarWorkbench.DBHelpers
                                     // Check if either has been updated and then update the older of the two.
                                     if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
                                     {
-                                        AddMessage(string.Format("Updating model run on master with ID {0}", lLocalRuns[0].MasterID));
+                                        AddMessage(string.Format("\tUpdating model run on master with ID {0}", lLocalRuns[0].MasterID), 75, nTaskProgress);
                                         masterRun.Update(lLocalRuns[0], ref transMaster);
                                     }
-                                    else if (masterRun.UpdatedOn > dLocalRuns[masterRun.ID].UpdatedOn)
+                                    else if (masterRun.UpdatedOn > lLocalRuns[0].UpdatedOn)
                                     {
-                                        AddMessage(string.Format("Updating local model run with master ID {0}", masterRun.ID));
+                                        AddMessage(string.Format("\tUpdating local model run with master ID {0}", masterRun.ID), 75, nTaskProgress);
                                         lLocalRuns[0].Update(masterRun, ref transLocal);
                                     }
                                 }
@@ -300,6 +315,9 @@ namespace SandbarWorkbench.DBHelpers
                         // Loop over all rows on local
                         foreach (ModelRunLocal localRun in dLocalRuns.Values)
                         {
+                            nModelRun += 1;
+                            int nTaskProgress = (int)Math.Ceiling(100.0 * (double)nModelRun / (double)(dMasterRuns.Count + dLocalRuns.Count));
+
                             if (localRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
                             {
                                 if (localRun.Sync)
@@ -307,8 +325,8 @@ namespace SandbarWorkbench.DBHelpers
                                     if (!dMasterRuns.ContainsKey(localRun.MasterID))
                                     {
                                         // This run was generated on this installation, its set to sync, but it is missing from master. Insert run to master.
-                                        AddMessage(string.Format("Uploading model run with ID {0}", localRun.ID));
-                                       ModelRunMaster.Insert(localRun, ref transMaster, ref transLocal);
+                                        AddMessage(string.Format("\tUploading model run with ID {0}", localRun.ID), 90, nTaskProgress);
+                                        ModelRunMaster.Insert(localRun, ref transMaster, ref transLocal);
                                     }
                                 }
                                 else
@@ -326,7 +344,7 @@ namespace SandbarWorkbench.DBHelpers
                                 if (!dMasterRuns.ContainsKey(localRun.MasterID))
                                 {
                                     // This is a run from a different installation that no longer exists on master. Delete local.
-                                    AddMessage(string.Format("Deleting local model run with ID {0}", localRun.MasterID));
+                                    AddMessage(string.Format("\tRemoving local model run with ID {0}", localRun.MasterID), 90, nTaskProgress);
                                     ModelRunLocal.Delete(localRun.MasterID, ref transLocal);
                                 }
                             }
@@ -334,11 +352,11 @@ namespace SandbarWorkbench.DBHelpers
 
                         transLocal.Commit();
                         transMaster.Commit();
-                        AddMessage("Model runs synchronized successfully.");
+                        AddMessage("Model runs synchronized successfully.", 90, 100);
                     }
                     catch (Exception ex)
                     {
-                        AddMessage(string.Format("ERROR: {0}", ex.Message));
+                        AddMessage(string.Format("ERROR: {0}", ex.Message), -1, -1);
                         transLocal.Rollback();
                         transMaster.Rollback();
                         throw;

@@ -14,6 +14,7 @@ namespace SandbarWorkbench
     public partial class frmSynchronize : Form
     {
         DBHelpers.SyncHelpers syncEngine;
+        int nTaskPercentage = 0;
 
         public frmSynchronize()
         {
@@ -54,6 +55,7 @@ namespace SandbarWorkbench
 
             try
             {
+                txtProgress.Text = string.Empty;
                 cmdOK.Enabled = false;
                 syncEngine = new DBHelpers.SyncHelpers("SandbarData", DBCon.ConnectionStringMaster, DBCon.ConnectionStringLocal);
                 syncEngine.OnProgressUpdate += syncEngine_OnProgressUpdate;
@@ -91,19 +93,27 @@ namespace SandbarWorkbench
             }
         }
 
-        private void syncEngine_OnProgressUpdate(int value)
+        private void syncEngine_OnProgressUpdate(int nOverall, int nTask)
         {
-            bgWorker.ReportProgress(value);
+            nTaskPercentage = nTask;
+            bgWorker.ReportProgress(nOverall);
         }
 
         private void bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             for (int i = txtProgress.Lines.Count<string>(); i < syncEngine.Messages.Count<string>(); i++)
                 txtProgress.AppendText(syncEngine.Messages[i] + "\r\n");
+
+            if (e.ProgressPercentage != -1)
+                pgrOverall.Value = e.ProgressPercentage;
+
+            if (nTaskPercentage != -1)
+                pgrTask.Value = nTaskPercentage;
         }
 
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            cmdOK.Enabled = true;
             cmdCancel.Text = "Close";
         }
 
