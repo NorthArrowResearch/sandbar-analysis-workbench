@@ -28,7 +28,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.Parameters.AddWithValue("@Remarks", masterRun.Remarks);
             dbCom.Parameters.AddWithValue("UpdatedOn", masterRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", masterRun.UpdatedBy);
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
 
             Title = masterRun.Title;
             Remarks = masterRun.Remarks;
@@ -84,7 +84,7 @@ namespace SandbarWorkbench.ModelRuns
 
             SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM ModelRuns WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("MasterRunID", nMasterID);
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
         }
 
         public static ModelRunLocal Insert(ModelRunMaster masterRun, ref SQLiteTransaction dbTrans)
@@ -114,7 +114,7 @@ namespace SandbarWorkbench.ModelRuns
             else
                 dbCom.Parameters.AddWithValue("Remarks", masterRun.Remarks);
             
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
 
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
             Int64 nLocalRunID = 0;// (Int64)dbCom.ExecuteScalar();
@@ -143,7 +143,7 @@ namespace SandbarWorkbench.ModelRuns
                     pElevation.Value = readMaster.GetDouble("Elevation");
                     pArea.Value = readMaster.GetDouble("Area");
                     pVolume.Value = readMaster.GetDouble("Volume");
-                    //dbCom.ExecuteNonQuery();
+                    dbCom.ExecuteNonQuery();
                 }
             }
 

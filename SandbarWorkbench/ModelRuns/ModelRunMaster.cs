@@ -60,7 +60,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.Parameters.AddWithValue("@Remarks", localRun.Remarks);
             dbCom.Parameters.AddWithValue("UpdatedOn", localRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", localRun.UpdatedBy);
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
         
             Title = localRun.Title;
             Remarks = localRun.Remarks;
@@ -74,7 +74,7 @@ namespace SandbarWorkbench.ModelRuns
 
             MySqlCommand dbCom = new MySqlCommand("DELETE FROM ModelRuns WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("MasterRunID", nMasterID);
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
         }
 
         public static ModelRunMaster Insert(ModelRunLocal localRun, ref MySqlTransaction transMaster, ref System.Data.SQLite.SQLiteTransaction transLocal)
@@ -103,7 +103,7 @@ namespace SandbarWorkbench.ModelRuns
             else
                 dbCom.Parameters.AddWithValue("Remarks", localRun.Remarks);
 
-            //dbCom.ExecuteNonQuery();
+            dbCom.ExecuteNonQuery();
             long nMasterRunID = 0; // dbCom.LastInsertedId;
 
             ModelRunMaster theRun = new ModelRunMaster(nMasterRunID, localRun.Title, localRun.Remarks, localRun.RunTypeID, localRun.Installation.ToString(), localRun.AddedOn
@@ -113,7 +113,7 @@ namespace SandbarWorkbench.ModelRuns
             System.Data.SQLite.SQLiteCommand comLocal = new System.Data.SQLite.SQLiteCommand("UPDATE ModelRuns SET MasterRunID = @MasterRunID WHERE LocalRunID = @LocalRunID", transLocal.Connection, transLocal);
             comLocal.Parameters.AddWithValue("MasterRunID", theRun.ID);
             comLocal.Parameters.AddWithValue("LocalRunID", localRun.ID);
-            //comLocal.ExecuteNonQuery();
+            comLocal.ExecuteNonQuery();
 
             // Now insert all the child records for this model run
             using (System.Data.SQLite.SQLiteConnection conLocal = new System.Data.SQLite.SQLiteConnection (DBCon.ConnectionStringLocal))
@@ -136,7 +136,7 @@ namespace SandbarWorkbench.ModelRuns
                     pElevation.Value = readLocal.GetDouble(readLocal.GetOrdinal("Elevation"));
                     pArea.Value = readLocal.GetDouble(readLocal.GetOrdinal("Area"));
                     pVolume.Value = readLocal.GetDouble(readLocal.GetOrdinal("Volume"));
-                    //dbCom.ExecuteNonQuery();
+                    dbCom.ExecuteNonQuery();
                 }
             }
 
