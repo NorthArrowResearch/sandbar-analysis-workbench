@@ -21,12 +21,13 @@ namespace SandbarWorkbench.ModelRuns
 
         public void Update(ModelRunMaster masterRun, ref SQLiteTransaction dbTrans)
         {
+            System.Diagnostics.Debug.Print("Updating LocalRunID {0} with with MasterID {1}", ID, masterRun.ID);
+
             SQLiteCommand dbCom = new SQLiteCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("@Title", masterRun.Title);
             dbCom.Parameters.AddWithValue("@Remarks", masterRun.Remarks);
             dbCom.Parameters.AddWithValue("UpdatedOn", masterRun.UpdatedOn);
             dbCom.Parameters.AddWithValue("UpdatedBy", masterRun.UpdatedBy);
-            System.Diagnostics.Debug.Print("Local: {0}", dbCom.CommandText);
             //dbCom.ExecuteNonQuery();
 
             Title = masterRun.Title;
@@ -79,14 +80,16 @@ namespace SandbarWorkbench.ModelRuns
 
         public static void Delete(long nMasterID, ref SQLiteTransaction dbTrans)
         {
+            System.Diagnostics.Debug.Print("Deleting run on local with master ID {0}", nMasterID);
+
             SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM ModelRuns WHERE MasterRunID = @MasterRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("MasterRunID", nMasterID);
             //dbCom.ExecuteNonQuery();
-            System.Diagnostics.Debug.Print("Local: " + dbCom.CommandText);
         }
 
         public static ModelRunLocal Insert(ModelRunMaster masterRun, ref SQLiteTransaction dbTrans)
         {
+            System.Diagnostics.Debug.Print("Inserting run onto local with MasterRunID {0}", masterRun.ID);
             System.Diagnostics.Debug.Assert(masterRun.Installation != SandbarWorkbench.Properties.Settings.Default.InstallationHash, "Shouldn't be able to insert runs from master that were generated on this computer");
 
             SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO ModelRuns (MasterRunID, Title, Sync, Remarks, RunTypeID, AddedOn, AddedBy, InstallationGuid, UpdatedOn, UpdatedBy, RunOn, RunBy)" +
@@ -110,12 +113,11 @@ namespace SandbarWorkbench.ModelRuns
             }
             else
                 dbCom.Parameters.AddWithValue("Remarks", masterRun.Remarks);
-
-            System.Diagnostics.Debug.Print("Local: {0}", dbCom.CommandText);
+            
             //dbCom.ExecuteNonQuery();
 
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
-            Int64 nLocalRunID = (Int64)dbCom.ExecuteScalar();
+            Int64 nLocalRunID = 0;// (Int64)dbCom.ExecuteScalar();
 
             ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), masterRun.AddedOn
                 , masterRun.AddedBy, masterRun.UpdatedOn, masterRun.UpdatedBy, masterRun.RunOn, masterRun.RunBy);
@@ -133,6 +135,7 @@ namespace SandbarWorkbench.ModelRuns
 
                 conMaster.Open();
                 MySql.Data.MySqlClient.MySqlCommand comMaster = new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM ModelResultsIncremental WHERE RunID = @RunID", conMaster);
+                comMaster.Parameters.AddWithValue("RunID", masterRun.ID);
                 MySql.Data.MySqlClient.MySqlDataReader readMaster = comMaster.ExecuteReader();
                 while (readMaster.Read())
                 {

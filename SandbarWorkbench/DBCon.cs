@@ -50,7 +50,7 @@ namespace SandbarWorkbench
                         SandbarWorkbench.Properties.Settings.Default.MasterDatabase);
                 }
 
-                System.Diagnostics.Debug.Print("Master DB Con: {0}", sConString);
+                //System.Diagnostics.Debug.Print("Master DB Con: {0}", sConString);
                 return sConString;
             }
         }

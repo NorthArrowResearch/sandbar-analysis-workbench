@@ -83,10 +83,11 @@ namespace SandbarWorkbench
                         else
                         {
                             List<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID).ToList<ModelRunLocal>();
-                            if (lLocalRuns == null || lLocalRuns.Count < 1)
+                            if (lLocalRuns.Count < 1)
                             {
                                 // Run found on master that belongs to another installation and doesn't exist on local. Insert to local.
                                 // TODO: insert local
+                                ModelRunLocal.Insert(masterRun, ref transLocal);
                             }
                             else
                             {
@@ -110,7 +111,8 @@ namespace SandbarWorkbench
                             {
                                 if (!dMasterRuns.ContainsKey(localRun.MasterID))
                                 {
-                                    // TODO: This run was generated on this installation, its set to sync, but it is missing from master. Insert run to master.
+                                    // This run was generated on this installation, its set to sync, but it is missing from master. Insert run to master.
+                                    ModelRunMaster.Insert(localRun, ref transMaster, ref transLocal);
                                 }
                             }
                             else
@@ -118,7 +120,8 @@ namespace SandbarWorkbench
                                 if (dMasterRuns.ContainsKey(localRun.MasterID))
                                 {
                                     // This run was generated on this installation and exists on master, but it is no longer set to sync. Delete on master.
-                                    ModelRunMaster.Delete(localRun.MasterID, ref transMaster);
+                                    // This use case should be handled above during the looping over all master runs
+                                    //ModelRunMaster.Delete(localRun.MasterID, ref transMaster);
                                 }
                             }
                         }
