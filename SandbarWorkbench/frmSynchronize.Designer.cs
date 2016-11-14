@@ -32,14 +32,15 @@
             this.chkLookup = new System.Windows.Forms.CheckBox();
             this.chkResults = new System.Windows.Forms.CheckBox();
             this.grpProgress = new System.Windows.Forms.GroupBox();
+            this.txtProgress = new System.Windows.Forms.TextBox();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtProgress = new System.Windows.Forms.TextBox();
+            this.bgWorker = new System.ComponentModel.BackgroundWorker();
             this.grpProgress.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +49,7 @@
             this.chkLookup.AutoSize = true;
             this.chkLookup.Checked = true;
             this.chkLookup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLookup.Enabled = false;
             this.chkLookup.Location = new System.Drawing.Point(13, 13);
             this.chkLookup.Name = "chkLookup";
             this.chkLookup.Size = new System.Drawing.Size(154, 17);
@@ -60,6 +62,7 @@
             this.chkResults.AutoSize = true;
             this.chkResults.Checked = true;
             this.chkResults.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkResults.Enabled = false;
             this.chkResults.Location = new System.Drawing.Point(13, 37);
             this.chkResults.Name = "chkResults";
             this.chkResults.Size = new System.Drawing.Size(97, 17);
@@ -80,6 +83,53 @@
             this.grpProgress.TabIndex = 2;
             this.grpProgress.TabStop = false;
             this.grpProgress.Text = "Progress";
+            // 
+            // txtProgress
+            // 
+            this.txtProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProgress.Location = new System.Drawing.Point(6, 67);
+            this.txtProgress.Multiline = true;
+            this.txtProgress.Name = "txtProgress";
+            this.txtProgress.Size = new System.Drawing.Size(549, 67);
+            this.txtProgress.TabIndex = 4;
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar2.Location = new System.Drawing.Point(113, 48);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(442, 13);
+            this.progressBar2.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(42, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Current task";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(113, 29);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(442, 13);
+            this.progressBar1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Overall progress";
             // 
             // cmdCancel
             // 
@@ -113,46 +163,13 @@
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // bgWorker
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Overall progress";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(113, 29);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(442, 13);
-            this.progressBar1.TabIndex = 1;
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(113, 48);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(442, 13);
-            this.progressBar2.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Current task";
-            // 
-            // txtProgress
-            // 
-            this.txtProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProgress.Location = new System.Drawing.Point(6, 67);
-            this.txtProgress.Multiline = true;
-            this.txtProgress.Name = "txtProgress";
-            this.txtProgress.Size = new System.Drawing.Size(549, 67);
-            this.txtProgress.TabIndex = 4;
+            this.bgWorker.WorkerReportsProgress = true;
+            this.bgWorker.WorkerSupportsCancellation = true;
+            this.bgWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWorker_DoWork);
+            this.bgWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgWorker_ProgressChanged);
+            this.bgWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWorker_RunWorkerCompleted);
             // 
             // frmSynchronize
             // 
@@ -191,5 +208,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
+        private System.ComponentModel.BackgroundWorker bgWorker;
     }
 }

@@ -126,7 +126,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.ExecuteNonQuery();
 
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
-            Int64 nLocalRunID = 0;// (Int64)dbCom.ExecuteScalar();
+            Int64 nLocalRunID = (Int64)dbCom.ExecuteScalar();
 
             ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), masterRun.AddedOn
                 , masterRun.AddedBy, masterRun.UpdatedOn, masterRun.UpdatedBy, masterRun.RunOn, masterRun.RunBy);

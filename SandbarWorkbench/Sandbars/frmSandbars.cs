@@ -199,7 +199,7 @@ namespace SandbarWorkbench.Sandbars
                 Cursor.Current = Cursors.WaitCursor;
 
                 DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                sync.SynchronizeDatabaseType(SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
+                sync.SynchronizeLookupTables();
                 LoadData(nSelectID);
             }
             finally

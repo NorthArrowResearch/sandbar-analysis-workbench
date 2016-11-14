@@ -114,7 +114,7 @@ namespace SandbarWorkbench.ModelRuns
                 dbCom.Parameters.AddWithValue("Remarks", localRun.Remarks);
 
             dbCom.ExecuteNonQuery();
-            long nMasterRunID = 0; // dbCom.LastInsertedId;
+            long nMasterRunID = dbCom.LastInsertedId;
 
             ModelRunMaster theRun = new ModelRunMaster(nMasterRunID, localRun.Title, localRun.Remarks, localRun.RunTypeID, localRun.Installation.ToString(), localRun.AddedOn
                 , localRun.AddedBy, localRun.UpdatedOn, localRun.UpdatedBy, localRun.RunOn, localRun.RunBy);

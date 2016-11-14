@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using MySql.Data.MySqlClient;
+using SandbarWorkbench.ModelRuns;
 
 namespace SandbarWorkbench.DBHelpers
 {
@@ -13,6 +14,14 @@ namespace SandbarWorkbench.DBHelpers
         public string SchemaName { get; internal set; }
         public string MasterDBCon { get; internal set; }
         public string LocalDBCon { get; internal set; }
+
+        public bool LookupTables { get; set; }
+        public bool ModelRunTables { get; set; }
+
+        public delegate void ProgressUpdate(int value);
+        public event ProgressUpdate OnProgressUpdate;
+
+        public List<string> Messages;
 
         public SyncHelpers(string sSchemaName, string sMasterDBCon, string sLocalDBCon)
         {
@@ -29,10 +38,38 @@ namespace SandbarWorkbench.DBHelpers
             SchemaName = sSchemaName;
             MasterDBCon = sMasterDBCon;
             LocalDBCon = sLocalDBCon;
+
         }
 
-        public void SynchronizeDatabaseType(long nTableTypeID)
+        private void AddMessage(string sMessage, int nProgress = -1)
         {
+            if (Messages == null)
+                Messages = new List<string>();
+
+            Messages.Add(sMessage);
+
+            if (OnProgressUpdate != null)
+                OnProgressUpdate(nProgress);
+        }
+
+        public void Synchronize()
+        {
+            Messages = new List<string>();
+            AddMessage("Initializing database synchronization...", 0);
+
+            if (LookupTables)
+                SynchronizeLookupTables();
+
+            if (ModelRunTables)
+                SynchronizeResults();
+
+            AddMessage("Local database synchronization completed successfully.", 100);
+        }
+
+        public void SynchronizeLookupTables()
+        {
+            AddMessage("Initializing lookup table synchronization...", 0);
+
             using (MySqlConnection conMaster = new MySqlConnection(MasterDBCon))
             {
                 conMaster.Open();
@@ -40,7 +77,7 @@ namespace SandbarWorkbench.DBHelpers
                 // Retrieve the list of lookup tables that should be synced
                 List<LookupTableDef> LookupTables = new List<LookupTableDef>();
                 MySqlCommand dbCom = new MySqlCommand("SELECT TableName FROM TableChangeLog WHERE (Synchronize <> 0) AND (TableTypeID = @TableTypeID) ORDER BY Sequence", conMaster);
-                dbCom.Parameters.AddWithValue("TableTypeID", nTableTypeID);
+                dbCom.Parameters.AddWithValue("TableTypeID", SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
                 MySqlDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                     LookupTables.Add(new LookupTableDef(dbRead.GetString("TableName")));
@@ -63,13 +100,9 @@ namespace SandbarWorkbench.DBHelpers
                             // A sync is needed if the local has never been synced or the latest change date on master is newer than local
                             if (aTable.RequiresSync)
                             {
-                                bool bSuccessfulSync = false;
-                                if (nTableTypeID == SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables)
-                                    bSuccessfulSync = SynchronizeLookupTable(conMaster, ref dbTrans, aTable);
-                                else
-                                    //bSuccessfulSync = SynchronizeResultsTable(conMaster, ref dbTrans, aTable);
+                                AddMessage(string.Format("\tSynchronizing lookup table {0}", aTable.TableName));
 
-                                if (bSuccessfulSync)
+                                if (SynchronizeLookupTable(conMaster, ref dbTrans, aTable))
                                 {
                                     // Update the local TableChangeLog to reflect the update
                                     SQLiteCommand cLocal = new SQLiteCommand("UPDATE TableChangeLog SET UpdatedOn = @UpdatedOn WHERE TableName = @TableName", conLocal, dbTrans);
@@ -79,17 +112,25 @@ namespace SandbarWorkbench.DBHelpers
                                         throw new Exception("Error updating the TableChangeLog on local");
                                 }
                             }
+                            else
+                            {
+                                AddMessage(string.Format("\tNo updates for the {0} table. Skipping.", aTable.TableName));
+                            }
                         }
 
                         dbTrans.Commit();
                     }
                     catch (Exception ex)
                     {
+                        AddMessage(string.Format("Error: {0}", ex.Message));
+                        AddMessage("Local database rolled back. No changes committed.");
                         dbTrans.Rollback();
                         throw;
                     }
                 }
             }
+
+            AddMessage("Lookup table synchronization completed successfully.", 50);
         }
 
         private bool SynchronizeLookupTable(MySqlConnection conMaster, ref SQLiteTransaction dbTrans, LookupTableDef aTable)
@@ -176,104 +217,134 @@ namespace SandbarWorkbench.DBHelpers
             return aTable.LocalChanges;
         }
 
-        //private bool SynchronizeResultsTableOtherUsers(MySqlConnection conMaster, ref SQLiteTransaction dbTrans)
-        //{
-        //    // 1. Delete local runs by other users that are present on local but not on master
-        //    // 2. Update local runs for this user that have an updated date newer than the master
-        //    // 2. Upload local runs that are on the local machine with a Sync value but not on master and have the local GUID
-        //    // 3. Download user runs on master that have an installation GUID that is not the local machine
-
-        //    // Connection to read local rows (needs to be separate to the connection used to insert/update/delete rows)
-        //    using (SQLiteConnection conReadLocal = new SQLiteConnection(LocalDBCon))
-        //    {
-        //        conReadLocal.Open();
-
-        //        SQLiteCommand comLocalRead = new SQLiteCommand("SELECT * FROM ModelRuns", conReadLocal);
-        //        SQLiteDataReader readLocal = comLocalRead.ExecuteReader();
-        //        while (readLocal.Read())
-        //        {
-        //            bool bSync = (bool)readLocal["Sync"];
-        //            string sInstallation = (string)readLocal[""]
-
-        //        }
-
-
-
-
-
-        //    }
-
-        private void SynchronizeResultsTableThisUser(MySqlConnection conMaster, ref SQLiteTransaction transLocal)
+        private void SynchronizeResults()
         {
-            // 1. Delete runs on master for this user that no longer exist on local
-            // 2. Update local runs for this user that have an updated date newer than the master
-            // 3. Upload local runs that are on the local machine with a Sync value but not on master and have the local GUID
-            // 4. Download user runs on master that have an installation GUID that is not the local machine
+            AddMessage("Initializing model run synchronization...", 51);
 
             Dictionary<long, ModelRuns.ModelRunMaster> dMasterRuns = ModelRuns.ModelRunMaster.Load();
             Dictionary<long, ModelRuns.ModelRunLocal> dLocalRuns = ModelRuns.ModelRunLocal.Load();
 
-            //using (MySqlConnection conMasterChange = new MySqlConnection(MasterDBCon))
-            //{
-            //    conMasterChange.Open();
-            //    MySqlTransaction transMaster = conMasterChange.BeginTransaction();
+            using (MySql.Data.MySqlClient.MySqlConnection conMaster = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
+            {
+                conMaster.Open();
+                MySql.Data.MySqlClient.MySqlTransaction transMaster = conMaster.BeginTransaction();
 
-            //    // Command to delete runs on master by this user that no longer exist on local
-            //    MySqlCommand comDeleteMaster = new MySqlCommand("DELETE FROM ModelRuns WHERE (AddedBy = @AddedBy) AND (MasterRunID = @MasterRunID)", transMaster.Connection, transMaster);
-            //    comDeleteMaster.Parameters.AddWithValue("AddedBy", Environment.UserName);
-            //    MySqlParameter pMasterRunID = comDeleteMaster.Parameters.Add("MasterRunID", MySqlDbType.Int64);
-
-            //    // Connection to read local rows (needs to be separate to the connection used to insert/update/delete rows)
-            //    using (SQLiteConnection conReadLocal = new SQLiteConnection(LocalDBCon))
-            //    {
-            //        conReadLocal.Open();
-
-            //        // Command to find run on local
-            //        SQLiteCommand comLocalRead = new SQLiteCommand("SELECT MasterRunID FROM ModelRuns WHERE MasterRunID = @MasterRunID", conReadLocal);
-            //        SQLiteParameter pLocalRead = comLocalRead.Parameters.Add("MasterRunID", System.Data.DbType.UInt64);
-
-            //        // Command to loop over master rows
-            //        MySqlCommand comReadMaster = new MySqlCommand("SELECT LocalRunID, MasterRunID FROM ModelRuns WHERE AddedBy = @AddedBy)", conMaster);
-            //        comReadMaster.Parameters.AddWithValue("AddedBy", Environment.UserName);
-            //        MySqlDataReader readMaster = comReadMaster.ExecuteReader();
-            //        while (readMaster.Read())
-            //        {
-            //            pLocalRead.Value = readMaster["MasterRunID"];
-            //            object objMasterID = comLocalRead.ExecuteScalar();
-            //            if (objMasterID == null || objMasterID == DBNull.Value)
-            //            {
-            //                // This run was created by this userexists 
-            //                pMasterRunID.Value = readMaster["MasterRunID"];
-            //                comDeleteMaster.ExecuteNonQuery();
-            //            }
-            //        }
+                using (System.Data.SQLite.SQLiteConnection conLocal = new System.Data.SQLite.SQLiteConnection(DBCon.ConnectionStringLocal))
+                {
+                    conLocal.Open();
+                    System.Data.SQLite.SQLiteTransaction transLocal = conLocal.BeginTransaction();
 
 
+                    try
+                    {
+                        // Loop over all runs on master
+                        foreach (ModelRunMaster masterRun in dMasterRuns.Values)
+                        {
+                            if (masterRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
+                            {
+                                // Find the local run that has the corresponding master run ID
+                                List<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID).ToList<ModelRunLocal>();
+                                if (lLocalRuns != null && lLocalRuns.Count > 0)
+                                {
+                                    // found the corresponding local run. Check if the local run is still set to sync.
+                                    if (lLocalRuns[0].Sync)
+                                    {
+                                        // Check if either has been updated and then update the older of the two.
+                                        if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
+                                            masterRun.Update(lLocalRuns[0], ref transMaster);
+                                        else if (masterRun.UpdatedOn > lLocalRuns[0].UpdatedOn)
+                                            lLocalRuns[0].Update(masterRun, ref transLocal);
+                                    }
+                                    else
+                                    {
+                                        // Run owned by this installation exists on both master and local, but the local is set to not sync. Delete on master.
+                                        AddMessage(string.Format("Removing model run on master with ID {0}", masterRun.ID));
+                                        ModelRunMaster.Delete(masterRun.ID, ref transMaster);
+                                    }
+                                }
+                                else
+                                {
+                                    // Run belonging to this installation is on master but no longer on local. Delete on master
+                                    AddMessage(string.Format("Removing model run on master with ID {0}", masterRun.ID));
+                                    ModelRunMaster.Delete(masterRun.ID, ref transMaster);
+                                }
+                            }
+                            else
+                            {
+                                List<ModelRunLocal> lLocalRuns = dLocalRuns.Values.Where<ModelRunLocal>(x => x.MasterID == masterRun.ID).ToList<ModelRunLocal>();
+                                if (lLocalRuns.Count < 1)
+                                {
+                                    // Run found on master that belongs to another installation and doesn't exist on local. Insert to local.
+                                    AddMessage(string.Format("Downloading model run with ID {0}", masterRun.ID));
+                                    ModelRunLocal.Insert(masterRun, ref transLocal);
+                                }
+                                else
+                                {
+                                    // Run found on master that belongs to another installation that already exists on local. Update.
+                                    // Check if either has been updated and then update the older of the two.
+                                    if (lLocalRuns[0].UpdatedOn > masterRun.UpdatedOn)
+                                    {
+                                        AddMessage(string.Format("Updating model run on master with ID {0}", lLocalRuns[0].MasterID));
+                                        masterRun.Update(lLocalRuns[0], ref transMaster);
+                                    }
+                                    else if (masterRun.UpdatedOn > dLocalRuns[masterRun.ID].UpdatedOn)
+                                    {
+                                        AddMessage(string.Format("Updating local model run with master ID {0}", masterRun.ID));
+                                        lLocalRuns[0].Update(masterRun, ref transLocal);
+                                    }
+                                }
 
-            //        SQLiteCommand comLocalRead = new SQLiteCommand("SELECT * FROM ModelRuns", conReadLocal);
-            //        SQLiteDataReader readLocal = comLocalRead.ExecuteReader();
-            //        while (readLocal.Read())
-            //        {
-            //            bool bSync = (bool)readLocal["Sync"];
-            //            string sInstallation = (string)readLocal[""]
+                            }
+                        }
 
+                        // Loop over all rows on local
+                        foreach (ModelRunLocal localRun in dLocalRuns.Values)
+                        {
+                            if (localRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash)
+                            {
+                                if (localRun.Sync)
+                                {
+                                    if (!dMasterRuns.ContainsKey(localRun.MasterID))
+                                    {
+                                        // This run was generated on this installation, its set to sync, but it is missing from master. Insert run to master.
+                                        AddMessage(string.Format("Uploading model run with ID {0}", localRun.ID));
+                                       ModelRunMaster.Insert(localRun, ref transMaster, ref transLocal);
+                                    }
+                                }
+                                else
+                                {
+                                    if (dMasterRuns.ContainsKey(localRun.MasterID))
+                                    {
+                                        // This run was generated on this installation and exists on master, but it is no longer set to sync. Delete on master.
+                                        // This use case should be handled above during the looping over all master runs
+                                        //ModelRunMaster.Delete(localRun.MasterID, ref transMaster);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (!dMasterRuns.ContainsKey(localRun.MasterID))
+                                {
+                                    // This is a run from a different installation that no longer exists on master. Delete local.
+                                    AddMessage(string.Format("Deleting local model run with ID {0}", localRun.MasterID));
+                                    ModelRunLocal.Delete(localRun.MasterID, ref transLocal);
+                                }
+                            }
+                        }
 
-            //    }
-
-
-
-
-
-            //    }
-
-
-
-            //}
-
-
-
-
-            //return aTable.LocalChanges;
+                        transLocal.Commit();
+                        transMaster.Commit();
+                        AddMessage("Model runs synchronized successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        AddMessage(string.Format("ERROR: {0}", ex.Message));
+                        transLocal.Rollback();
+                        transMaster.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
     }
 }
