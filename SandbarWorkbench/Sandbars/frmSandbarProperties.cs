@@ -114,7 +114,7 @@ namespace SandbarWorkbench.Sandbars
             if (grdSurveys.SelectedRows[0].DataBoundItem is SandbarSurvey)
             {
                 SandbarSurvey selSurvey = (SandbarSurvey)grdSurveys.SelectedRows[0].DataBoundItem;
-                frmSurveyProperties frm = new frmSurveyProperties(selSurvey, false);
+                frmSurveyProperties frm = new frmSurveyProperties(ref selSurvey, false);
                 frm.ShowDialog();
             }
 
@@ -127,6 +127,16 @@ namespace SandbarWorkbench.Sandbars
             if (frm.ShowDialog() == DialogResult.OK)
             {
 
+            }
+        }
+
+        private void grdSurveys_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                SandbarSurvey selSurvey = (SandbarSurvey) grdSurveys.SelectedRows[0].DataBoundItem;
+                frmSurveyProperties frm = new frmSurveyProperties(ref selSurvey, false);
+                frm.ShowDialog();
             }
         }
     }

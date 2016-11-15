@@ -35,13 +35,13 @@ namespace SandbarWorkbench.Sandbars
             {
                 dbCon.Open();
 
-                string sSQL = "SELECT M.RunID, M.Title, M.RunTypeID, L.Title AS RunType, M.AddedOn, M.AddedBy FROM ModelRuns M INNER JOIN LookupListItems L ON (M.RunTypeID = L.ItemID) ORDER BY M.AddedOn DESC";
+                string sSQL = "SELECT M.LocalRunID, M.Title, M.RunTypeID, L.Title AS RunType, M.AddedOn, M.AddedBy FROM ModelRuns M INNER JOIN LookupListItems L ON (M.RunTypeID = L.ItemID) ORDER BY M.AddedOn DESC";
                 SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbCon);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
                     lRecords.Add(new ModelRun(
-                        (long)dbRead["RunID"]
+                        (long)dbRead["LocalRunID"]
                         , (string)dbRead["Title"]
                         , (long)dbRead["RunTypeID"]
                         , (string)dbRead["RunType"]

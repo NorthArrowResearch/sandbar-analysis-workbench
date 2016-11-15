@@ -38,7 +38,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -48,8 +47,9 @@
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.txtRiverMile = new System.Windows.Forms.TextBox();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -142,14 +142,6 @@
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // ucStageDischarge1
-            // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(630, 472);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
             // tabSurveys
             // 
             this.tabSurveys.Controls.Add(this.grdSurveys);
@@ -170,6 +162,7 @@
             this.grdSurveys.Name = "grdSurveys";
             this.grdSurveys.Size = new System.Drawing.Size(630, 472);
             this.grdSurveys.TabIndex = 0;
+            this.grdSurveys.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSurveys_CellDoubleClick);
             // 
             // cmsSurveys
             // 
@@ -180,7 +173,7 @@
             this.editSurveyToolStripMenuItem,
             this.deleteSurveyToolStripMenuItem});
             this.cmsSurveys.Name = "cmsSurveys";
-            this.cmsSurveys.Size = new System.Drawing.Size(194, 120);
+            this.cmsSurveys.Size = new System.Drawing.Size(194, 98);
             // 
             // viewSurveyPropertiesToolStripMenuItem
             // 
@@ -228,6 +221,22 @@
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // txtRiverMile
+            // 
+            this.txtRiverMile.Location = new System.Drawing.Point(83, 43);
+            this.txtRiverMile.Name = "txtRiverMile";
+            this.txtRiverMile.ReadOnly = true;
+            this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
+            this.txtRiverMile.TabIndex = 7;
+            // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(630, 472);
+            this.ucStageDischarge1.TabIndex = 0;
+            // 
             // ucAreaVolumeAnalyses1
             // 
             this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -236,14 +245,6 @@
             this.ucAreaVolumeAnalyses1.SandbarSite = null;
             this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(630, 472);
             this.ucAreaVolumeAnalyses1.TabIndex = 0;
-            // 
-            // txtRiverMile
-            // 
-            this.txtRiverMile.Location = new System.Drawing.Point(83, 43);
-            this.txtRiverMile.Name = "txtRiverMile";
-            this.txtRiverMile.ReadOnly = true;
-            this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
-            this.txtRiverMile.TabIndex = 7;
             // 
             // frmSandbarProperties
             // 

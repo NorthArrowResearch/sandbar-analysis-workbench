@@ -81,6 +81,12 @@ namespace SandbarWorkbench
 
         #region Background worker events
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>http://stackoverflow.com/questions/14871238/report-progress-backgroundworker-from-different-class-c-sharp</remarks>
         private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try

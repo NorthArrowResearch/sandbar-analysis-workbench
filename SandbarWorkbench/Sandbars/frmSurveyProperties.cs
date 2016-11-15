@@ -23,9 +23,9 @@ namespace SandbarWorkbench.Sandbars
         /// </summary>
         /// <param name="aSurvey"></param>
         /// <param name="bEditable"></param>
-        public frmSurveyProperties(SandbarSurvey aSurvey, bool bEditable)
+        public frmSurveyProperties(ref SandbarSurvey aSurvey, bool bEditable)
         {
-            Init(aSurvey, bEditable);
+            Init(ref aSurvey, bEditable);
         }
 
         /// <summary>
@@ -33,10 +33,11 @@ namespace SandbarWorkbench.Sandbars
         /// </summary>
         public frmSurveyProperties()
         {
-            Init(null, false);
+            SandbarSurvey aSurvey = null;
+            Init(ref aSurvey, false);
         }
 
-        private void Init(SandbarSurvey aSurvey, bool bEditable)
+        private void Init(ref SandbarSurvey aSurvey, bool bEditable)
         {
             InitializeComponent();
             Editable = bEditable;
@@ -47,6 +48,16 @@ namespace SandbarWorkbench.Sandbars
             if (aSurvey is SandbarSurvey)
             {
                 Survey = aSurvey;
+                if (!bEditable)
+                {
+                    grdData.ReadOnly = true;
+                    grdData.AllowUserToAddRows = false;
+                    grdData.AllowUserToDeleteRows = false;
+                    cboTrips.Enabled = false;
+                    dtSurveyDate.Enabled = false;
+                    cmdOK.Visible = false;
+                    cmdCancel.Text = "Close";
+                }
             }
             else
                 Survey = new SandbarSurvey();

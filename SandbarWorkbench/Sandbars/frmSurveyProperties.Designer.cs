@@ -189,6 +189,7 @@
             this.Controls.Add(this.cboTrips);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(481, 250);
             this.Name = "frmSurveyProperties";
             this.Text = "frmSurveyProperties";
             this.Load += new System.EventHandler(this.frmSurveyProperties_Load);
