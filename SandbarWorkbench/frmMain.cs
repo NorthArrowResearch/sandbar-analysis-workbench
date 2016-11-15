@@ -285,7 +285,7 @@ namespace SandbarWorkbench
                 Cursor.Current = Cursors.Default;
             }
         }
-                
+
         private void DataGridViewMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem mnu = (ToolStripMenuItem)sender;
@@ -296,7 +296,7 @@ namespace SandbarWorkbench
             {
                 if (frmChild is DataGridViews.frmDataGridView)
                 {
-                    DataGridViews.DataGridViewTypeBase mnuTag = (DataGridViews.DataGridViewTypeBase) mnu.Tag;
+                    DataGridViews.DataGridViewTypeBase mnuTag = (DataGridViews.DataGridViewTypeBase)mnu.Tag;
                     if (mnuTag.MenuItemText == mnu.Text)
                     {
                         frmChild.Activate();
@@ -308,7 +308,7 @@ namespace SandbarWorkbench
 
             if (frm == null)
             {
-                frm = new DataGridViews.frmDataGridView((DataGridViews.DataGridViewTypeBase) mnu.Tag);
+                frm = new DataGridViews.frmDataGridView((DataGridViews.DataGridViewTypeBase)mnu.Tag);
                 frm.MdiParent = this;
             }
 
@@ -319,6 +319,109 @@ namespace SandbarWorkbench
         private void tripsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void removeDuplicateSectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SQLiteConnection conRead = new SQLiteConnection(DBCon.ConnectionStringLocal))
+            {
+                conRead.Open();
+                SQLiteCommand comRead = new SQLiteCommand("SELECT * FROM SandbarSections ORDER BY SurveyID, SectionID", conRead);
+                SQLiteDataReader dbRead = comRead.ExecuteReader();
+
+                using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                {
+                    dbCon.Open();
+                    SQLiteTransaction dbTrans = dbCon.BeginTransaction();
+
+                    try
+                    {
+                        SQLiteCommand comDelete = new SQLiteCommand("DELETE FROM SandbarSections WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
+                        SQLiteParameter pSectionID = comDelete.Parameters.Add("SectionID", DbType.Int64);
+
+                        long nSurveyID = -1;
+                        long nDeleted = 0;
+                        Dictionary<long, string> dSections = null;
+                        while (dbRead.Read())
+                        {
+                            if (dbRead.GetInt64(dbRead.GetOrdinal("SurveyID")) != nSurveyID)
+                            {
+                                dSections = new Dictionary<long, string>();
+                                nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
+                            }
+
+                            if (dSections.ContainsKey(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID"))))
+                            {
+                                pSectionID.Value = dbRead.GetInt64(dbRead.GetOrdinal("SectionID"));
+                                nDeleted += comDelete.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                dSections.Add(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID")), string.Empty);
+                            }
+                        }
+
+                        //dbTrans.Rollback();
+                        dbTrans.Commit();
+                        MessageBox.Show(string.Format("SqLite completed successfully. {0} deleted.", nDeleted));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTrans.Rollback();
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+
+            using (MySqlConnection conRead = new MySqlConnection(DBCon.ConnectionStringMaster))
+            {
+                conRead.Open();
+                MySqlCommand comRead = new MySqlCommand("SELECT * FROM SandbarSections ORDER BY SurveyID, SectionID", conRead);
+                MySqlDataReader dbRead = comRead.ExecuteReader();
+
+                using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                {
+                    dbCon.Open();
+                    MySqlTransaction dbTrans = dbCon.BeginTransaction();
+
+                    try
+                    {
+                        MySqlCommand comDelete = new MySqlCommand("DELETE FROM SandbarSections WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
+                        MySqlParameter pSectionID = comDelete.Parameters.Add("SectionID", DbType.Int64);
+
+                        long nSurveyID = -1;
+                        long nDeleted = 0;
+                        Dictionary<long, string> dSections = null;
+                        while (dbRead.Read())
+                        {
+                            if (dbRead.GetInt64(dbRead.GetOrdinal("SurveyID")) != nSurveyID)
+                            {
+                                dSections = new Dictionary<long, string>();
+                                nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
+                            }
+
+                            if (dSections.ContainsKey(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID"))))
+                            {
+                                pSectionID.Value = dbRead.GetInt64(dbRead.GetOrdinal("SectionID"));
+                                nDeleted += comDelete.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                dSections.Add(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID")), string.Empty);
+                            }
+                        }
+
+                        //dbTrans.Rollback();
+                        dbTrans.Commit();
+                        MessageBox.Show(string.Format("MySQL completed successfully. {0} deleted.", nDeleted));
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTrans.Rollback();
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
     }
 }

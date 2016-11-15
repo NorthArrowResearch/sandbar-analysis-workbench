@@ -202,6 +202,7 @@
             this.editSurveyToolStripMenuItem.Name = "editSurveyToolStripMenuItem";
             this.editSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.editSurveyToolStripMenuItem.Text = "Edit Survey";
+            this.editSurveyToolStripMenuItem.Click += new System.EventHandler(this.editSurveyToolStripMenuItem_Click);
             // 
             // deleteSurveyToolStripMenuItem
             // 
@@ -209,6 +210,7 @@
             this.deleteSurveyToolStripMenuItem.Name = "deleteSurveyToolStripMenuItem";
             this.deleteSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.deleteSurveyToolStripMenuItem.Text = "Delete Survey...";
+            this.deleteSurveyToolStripMenuItem.Click += new System.EventHandler(this.deleteSurveyToolStripMenuItem_Click);
             // 
             // tabPage3
             // 

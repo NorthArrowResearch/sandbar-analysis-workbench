@@ -54,6 +54,8 @@
             this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssDatabasePath = new System.Windows.Forms.ToolStripStatusLabel();
+            this.experimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeDuplicateSectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,6 +67,7 @@
             this.viewsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.windowToolStripMenuItem,
+            this.experimentalToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -264,6 +267,21 @@
             this.tssDatabasePath.Text = "tssDatabasePath";
             this.tssDatabasePath.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
+            // experimentalToolStripMenuItem
+            // 
+            this.experimentalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeDuplicateSectionsToolStripMenuItem});
+            this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.experimentalToolStripMenuItem.Text = "Experimental";
+            // 
+            // removeDuplicateSectionsToolStripMenuItem
+            // 
+            this.removeDuplicateSectionsToolStripMenuItem.Name = "removeDuplicateSectionsToolStripMenuItem";
+            this.removeDuplicateSectionsToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.removeDuplicateSectionsToolStripMenuItem.Text = "Remove Duplicate Sections";
+            this.removeDuplicateSectionsToolStripMenuItem.Click += new System.EventHandler(this.removeDuplicateSectionsToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,6 +331,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem syncToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeDuplicateSectionsToolStripMenuItem;
     }
 }
 

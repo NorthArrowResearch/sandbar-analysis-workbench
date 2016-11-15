@@ -167,5 +167,103 @@ namespace SandbarWorkbench.Sandbars
                 frm.ShowDialog();
             }
         }
+
+        private void deleteSurveyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdSurveys.SelectedRows.Count > 0)
+            {
+                string sMessage = string.Format("Are you sure that you want to delete the {0} selected surveys." +
+                    " All surveyed section data and associated model results will also be deleted both locally and on the master database." +
+                    " This action is permanent cannot be undone.", grdSurveys.SelectedRows.Count);
+
+                switch (MessageBox.Show(sMessage, "Confirm Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+                    case DialogResult.Cancel:
+                        this.DialogResult = DialogResult.Cancel;
+                        return;
+
+                    case DialogResult.No:
+                        return;
+                }
+
+                using (MySql.Data.MySqlClient.MySqlConnection dbCon = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+
+                    dbCon.Open();
+                    MySql.Data.MySqlClient.MySqlTransaction dbTrans = dbCon.BeginTransaction();
+
+                    try
+                    {
+                        MySql.Data.MySqlClient.MySqlCommand dbCom = new MySql.Data.MySqlClient.MySqlCommand("DELETE FROM SandbarSurveys WHERE SurveyID = @SurveyID", dbTrans.Connection, dbTrans);
+                        MySql.Data.MySqlClient.MySqlParameter pSurveyID = dbCom.Parameters.Add("SurveyID", MySql.Data.MySqlClient.MySqlDbType.Int64);
+
+                        foreach (DataGridViewRow row in grdSurveys.SelectedRows)
+                        {
+                            pSurveyID.Value = ((SandbarSurvey)row.DataBoundItem).SurveyID;
+                            dbCom.ExecuteNonQuery();
+                        }
+
+                        dbTrans.Commit();
+
+                        // Reload the data
+                        DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                        sync.SynchronizeLookupTables();
+
+                        m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
+                        grdSurveys.DataSource = m_Site.Surveys;
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTrans.Rollback();
+                        ExceptionHandling.NARException.HandleException(ex);
+                    }
+                    finally
+                    {
+                        Cursor.Current = Cursors.Default;
+                    }
+                }
+            }
+        }
+
+        private void editSurveyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdSurveys.SelectedRows.Count < 1)
+                return;
+
+            SandbarSurvey selSurvey = grdSurveys.SelectedRows[0].DataBoundItem as SandbarSurvey;
+            frmSurveyProperties frm = new frmSurveyProperties(ref selSurvey, true);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                    sync.SynchronizeLookupTables();
+
+                    m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
+                    grdSurveys.DataSource = m_Site.Surveys;
+
+                    for (int i = 0; i < grdSurveys.Rows.Count; i++)
+                    {
+                        if (((SandbarSurvey)grdSurveys.Rows[i].DataBoundItem).SurveyID == frm.Survey.SurveyID)
+                        {
+                            grdSurveys.ClearSelection();
+                            grdSurveys.Rows[i].Selected = true;
+                            grdSurveys.FirstDisplayedScrollingRowIndex = i;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
     }
 }

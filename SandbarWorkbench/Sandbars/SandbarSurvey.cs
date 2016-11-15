@@ -93,6 +93,7 @@ namespace SandbarWorkbench.Sandbars
                     if (dbRead.GetString(dbRead.GetOrdinal("Title")).ToLower().Contains("chan"))
                         nChannelSectionTypeID = (long)dbRead["ItemID"];
                 }
+
                 // Now load all the surveyed sections
                 Dictionary<long, string> dSections = new Dictionary<long, string>();
                 dbCom = new SQLiteCommand("SELECT SectionID, SectionTypeID, InstrumentID, Uncertainty FROM SandbarSections WHERE SurveyID = @SurveyID", dbCon);
