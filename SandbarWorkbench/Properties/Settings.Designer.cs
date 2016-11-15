@@ -313,5 +313,14 @@ namespace SandbarWorkbench.Properties {
                 return ((long)(this["TableType_ResultsTables"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int MaxTripLength {
+            get {
+                return ((int)(this["MaxTripLength"]));
+            }
+        }
     }
 }

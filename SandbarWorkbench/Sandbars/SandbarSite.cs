@@ -118,7 +118,21 @@ namespace SandbarWorkbench.Sandbars
             StageChange8k45k = fStageChange8k45k;
         }
 
+        public static SandbarSite LoadSandbarSite(string sDB, long nSiteID)
+        {
+            SortableBindingList<SandbarSite> lItems = LoadData(sDB, nSiteID);
+            if (lItems.Count == 1)
+                return lItems[0];
+            else
+                return null;
+        }
+
         public static SortableBindingList<SandbarSite> LoadSandbarSites(string sDB)
+        {
+            return LoadData(sDB);
+        }
+
+        private static SortableBindingList<SandbarSite> LoadData(string sDB, long nSiteID = -1)
         {
             SortableBindingList<SandbarSite> lItems = new SortableBindingList<SandbarSite>();
 
@@ -126,6 +140,13 @@ namespace SandbarWorkbench.Sandbars
             {
                 dbCon.Open();
                 SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM vwSandbarSites ORDER BY RiverMile", dbCon);
+
+                if (nSiteID > 0)
+                {
+                    dbCom = new SQLiteCommand("SELECT * FROM vwSandbarSites WHERE SiteID = @SiteID", dbCon);
+                    dbCom.Parameters.AddWithValue("SiteID", nSiteID);
+                }
+
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
@@ -138,7 +159,7 @@ namespace SandbarWorkbench.Sandbars
                         , (long)dbRead["RiverSideID"]
                         , (string)dbRead["RiverSide"]
                         , (string)dbRead["Title"]
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead ,"AlternateTitle")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AlternateTitle")
                         , (long)dbRead["SiteTypeID"]
                         , (string)dbRead["SiteType"]
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "History")

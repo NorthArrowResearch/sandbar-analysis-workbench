@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSurveyProperties));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cboTrips = new System.Windows.Forms.ComboBox();
@@ -48,33 +49,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Location = new System.Drawing.Point(12, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 2;
             this.label1.Text = "Survey date";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 47);
+            this.label2.Location = new System.Drawing.Point(51, 17);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Trip";
             // 
             // cboTrips
             // 
             this.cboTrips.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTrips.FormattingEnabled = true;
-            this.cboTrips.Location = new System.Drawing.Point(82, 43);
+            this.cboTrips.Location = new System.Drawing.Point(82, 13);
             this.cboTrips.Name = "cboTrips";
             this.cboTrips.Size = new System.Drawing.Size(182, 21);
-            this.cboTrips.TabIndex = 2;
+            this.cboTrips.TabIndex = 1;
+            this.cboTrips.SelectedIndexChanged += new System.EventHandler(this.cboTrips_SelectedIndexChanged);
             // 
             // dtSurveyDate
             // 
-            this.dtSurveyDate.Location = new System.Drawing.Point(82, 13);
+            this.dtSurveyDate.Location = new System.Drawing.Point(82, 43);
             this.dtSurveyDate.Name = "dtSurveyDate";
             this.dtSurveyDate.Size = new System.Drawing.Size(182, 20);
             this.dtSurveyDate.TabIndex = 3;
@@ -93,7 +95,7 @@
             this.grdData.Location = new System.Drawing.Point(16, 19);
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(419, 133);
-            this.grdData.TabIndex = 5;
+            this.grdData.TabIndex = 0;
             this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
             this.grdData.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grdData_RowValidating);
             // 
@@ -137,7 +139,7 @@
             this.cmdOK.Location = new System.Drawing.Point(297, 246);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 6;
+            this.cmdOK.TabIndex = 5;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -149,7 +151,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(378, 246);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 6;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -159,7 +161,7 @@
             this.cmdHelp.Location = new System.Drawing.Point(12, 246);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
-            this.cmdHelp.TabIndex = 8;
+            this.cmdHelp.TabIndex = 7;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
@@ -172,14 +174,16 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 76);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(441, 160);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sandbars Surveyed";
             // 
             // frmSurveyProperties
             // 
+            this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(465, 281);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdHelp);
@@ -189,6 +193,7 @@
             this.Controls.Add(this.cboTrips);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(481, 250);
             this.Name = "frmSurveyProperties";
             this.Text = "frmSurveyProperties";

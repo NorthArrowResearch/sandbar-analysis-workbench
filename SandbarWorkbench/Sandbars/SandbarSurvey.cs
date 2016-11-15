@@ -11,6 +11,7 @@ namespace SandbarWorkbench.Sandbars
     public class SandbarSurvey : SandbarSurveyBase
     {
         public long TripID { get; internal set; }
+        public long SiteID { get; internal set; }
         public DateTime TripDate { get; internal set; }
         public AuditTrail Audit { get; internal set; }
 
@@ -24,19 +25,20 @@ namespace SandbarWorkbench.Sandbars
         public bool HasEddy { get { return EddyCount > 0; } }
         public string HasEddyStr { get { return EddyCount > 0 ? "True" : "False"; } }
 
-        public SandbarSurvey(long nSurveyID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
+        public SandbarSurvey(long nSurveyID, long nSiteID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
             : base(nSurveyID, dSurveyDate)
         {
-            Init(nTripID, dTripDate, dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
+            Init(nSiteID, nTripID, dTripDate, dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
         }
 
-        public SandbarSurvey() : base(0, DateTime.Now)
+        public SandbarSurvey(long nSiteID) : base(0, DateTime.Now)
         {
-            Init(0, DateTime.Now, DateTime.Now, string.Empty, DateTime.Now, string.Empty);
+            Init(nSiteID, 0, DateTime.Now, DateTime.Now, string.Empty, DateTime.Now, string.Empty);
         }
 
-        private void Init(long nTripID, DateTime dTripDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
+        private void Init(long nSiteID, long nTripID, DateTime dTripDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
         {
+            SiteID = nSiteID;
             TripID = nTripID;
             TripDate = dTripDate;
             Audit = new AuditTrail(dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
@@ -53,7 +55,7 @@ namespace SandbarWorkbench.Sandbars
             {
                 dbCon.Open();
 
-                string sSQL = "SELECT S.SurveyID, T.TripID, T.TripDate, S.SurveyDate, S.AddedOn, S.AddedBy, S.UpdatedOn, S.UpdatedBy FROM SandbarSurveys S INNER JOIN Trips T ON (S.TripID = T.TripID)";
+                string sSQL = "SELECT S.SurveyID, S.SiteID, T.TripID, T.TripDate, S.SurveyDate, S.AddedOn, S.AddedBy, S.UpdatedOn, S.UpdatedBy FROM SandbarSurveys S INNER JOIN Trips T ON (S.TripID = T.TripID)";
                 if (nSiteID > 0)
                     sSQL += string.Format(" WHERE S.SiteID = {0}", nSiteID);
                 sSQL += " ORDER BY S.SurveyDate DESC";
@@ -65,6 +67,7 @@ namespace SandbarWorkbench.Sandbars
 
                     lRecords.Add(new SandbarSurvey(
                         (long)dbRead["SurveyID"]
+                        , (long) dbRead["SiteID"]
                         , (long)dbRead["TripID"]
                         , (DateTime)dbRead["TripDate"]
                         , (DateTime)dbRead["SurveyDate"]

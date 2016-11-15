@@ -123,9 +123,37 @@ namespace SandbarWorkbench.Sandbars
 
         private void addSurveyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmSurveyProperties frm = new frmSurveyProperties();
+            frmSurveyProperties frm = new frmSurveyProperties(m_Site.SiteID);
             if (frm.ShowDialog() == DialogResult.OK)
             {
+                Cursor.Current = Cursors.WaitCursor;
+                try
+                {
+                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                    sync.SynchronizeLookupTables();
+
+                    m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
+                    grdSurveys.DataSource = m_Site.Surveys;
+
+                    for (int i = 0; i < grdSurveys.Rows.Count; i++)
+                    {
+                        if (((SandbarSurvey)grdSurveys.Rows[i].DataBoundItem).SurveyID == frm.Survey.SurveyID)
+                        {
+                            grdSurveys.ClearSelection();
+                            grdSurveys.Rows[i].Selected = true;
+                            grdSurveys.FirstDisplayedScrollingRowIndex = i;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
+                }
 
             }
         }
@@ -134,7 +162,7 @@ namespace SandbarWorkbench.Sandbars
         {
             if (e.RowIndex >= 0)
             {
-                SandbarSurvey selSurvey = (SandbarSurvey) grdSurveys.SelectedRows[0].DataBoundItem;
+                SandbarSurvey selSurvey = (SandbarSurvey)grdSurveys.SelectedRows[0].DataBoundItem;
                 frmSurveyProperties frm = new frmSurveyProperties(ref selSurvey, false);
                 frm.ShowDialog();
             }
