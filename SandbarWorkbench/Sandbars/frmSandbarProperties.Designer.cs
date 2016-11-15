@@ -41,23 +41,23 @@
             this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
-            this.txtRiverMile = new System.Windows.Forms.TextBox();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewSurveyPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewSurveyPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
+            this.txtRiverMile = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabSurveys.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).BeginInit();
-            this.tabPage3.SuspendLayout();
             this.cmsSurveys.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -171,6 +171,52 @@
             this.grdSurveys.Size = new System.Drawing.Size(630, 472);
             this.grdSurveys.TabIndex = 0;
             // 
+            // cmsSurveys
+            // 
+            this.cmsSurveys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewSurveyPropertiesToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addSurveyToolStripMenuItem,
+            this.editSurveyToolStripMenuItem,
+            this.deleteSurveyToolStripMenuItem});
+            this.cmsSurveys.Name = "cmsSurveys";
+            this.cmsSurveys.Size = new System.Drawing.Size(194, 120);
+            // 
+            // viewSurveyPropertiesToolStripMenuItem
+            // 
+            this.viewSurveyPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.viewSurveyPropertiesToolStripMenuItem.Name = "viewSurveyPropertiesToolStripMenuItem";
+            this.viewSurveyPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.viewSurveyPropertiesToolStripMenuItem.Text = "View Survey Properties";
+            this.viewSurveyPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewSurveyPropertiesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            // 
+            // addSurveyToolStripMenuItem
+            // 
+            this.addSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.addSurveyToolStripMenuItem.Name = "addSurveyToolStripMenuItem";
+            this.addSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.addSurveyToolStripMenuItem.Text = "Add Survey";
+            this.addSurveyToolStripMenuItem.Click += new System.EventHandler(this.addSurveyToolStripMenuItem_Click);
+            // 
+            // editSurveyToolStripMenuItem
+            // 
+            this.editSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editSurveyToolStripMenuItem.Name = "editSurveyToolStripMenuItem";
+            this.editSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.editSurveyToolStripMenuItem.Text = "Edit Survey";
+            // 
+            // deleteSurveyToolStripMenuItem
+            // 
+            this.deleteSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteSurveyToolStripMenuItem.Name = "deleteSurveyToolStripMenuItem";
+            this.deleteSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.deleteSurveyToolStripMenuItem.Text = "Delete Survey...";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.ucAreaVolumeAnalyses1);
@@ -199,51 +245,6 @@
             this.txtRiverMile.Size = new System.Drawing.Size(100, 20);
             this.txtRiverMile.TabIndex = 7;
             // 
-            // cmsSurveys
-            // 
-            this.cmsSurveys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewSurveyPropertiesToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addSurveyToolStripMenuItem,
-            this.editSurveyToolStripMenuItem,
-            this.deleteSurveyToolStripMenuItem});
-            this.cmsSurveys.Name = "cmsSurveys";
-            this.cmsSurveys.Size = new System.Drawing.Size(194, 120);
-            // 
-            // addSurveyToolStripMenuItem
-            // 
-            this.addSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
-            this.addSurveyToolStripMenuItem.Name = "addSurveyToolStripMenuItem";
-            this.addSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.addSurveyToolStripMenuItem.Text = "Add Survey";
-            // 
-            // editSurveyToolStripMenuItem
-            // 
-            this.editSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.editSurveyToolStripMenuItem.Name = "editSurveyToolStripMenuItem";
-            this.editSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.editSurveyToolStripMenuItem.Text = "Edit Survey";
-            // 
-            // deleteSurveyToolStripMenuItem
-            // 
-            this.deleteSurveyToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
-            this.deleteSurveyToolStripMenuItem.Name = "deleteSurveyToolStripMenuItem";
-            this.deleteSurveyToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.deleteSurveyToolStripMenuItem.Text = "Delete Survey...";
-            // 
-            // viewSurveyPropertiesToolStripMenuItem
-            // 
-            this.viewSurveyPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
-            this.viewSurveyPropertiesToolStripMenuItem.Name = "viewSurveyPropertiesToolStripMenuItem";
-            this.viewSurveyPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.viewSurveyPropertiesToolStripMenuItem.Text = "View Survey Properties";
-            this.viewSurveyPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewSurveyPropertiesToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
-            // 
             // frmSandbarProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -265,8 +266,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabSurveys.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdSurveys)).EndInit();
-            this.tabPage3.ResumeLayout(false);
             this.cmsSurveys.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,7 +14,7 @@ namespace SandbarWorkbench.Sandbars
         public DateTime TripDate { get; internal set; }
         public AuditTrail Audit { get; internal set; }
 
-        public Dictionary<long, SandbarSection> Sections { get; internal set; }
+        public SortableBindingList<SandbarSection> Sections { get; set; }
         public int SectionCount { get { return Sections.Count; } }
 
         public bool HasChannel { get; internal set; }
@@ -27,10 +27,20 @@ namespace SandbarWorkbench.Sandbars
         public SandbarSurvey(long nSurveyID, long nTripID, DateTime dTripDate, DateTime dSurveyDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
             : base(nSurveyID, dSurveyDate)
         {
+            Init(nTripID, dTripDate, dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
+        }
+
+        public SandbarSurvey() : base(0, DateTime.Now)
+        {
+            Init(0, DateTime.Now, DateTime.Now, string.Empty, DateTime.Now, string.Empty);
+        }
+
+        private void Init(long nTripID, DateTime dTripDate, DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
+        {
             TripID = nTripID;
             TripDate = dTripDate;
             Audit = new AuditTrail(dAddedOn, sAddedBy, dUpdatedOn, sUpdatedBy);
-            Sections = new Dictionary<long, SandbarSection>();
+            Sections = new SortableBindingList<SandbarSection>();
             HasChannel = false;
             EddyCount = 0;
         }
@@ -82,7 +92,7 @@ namespace SandbarWorkbench.Sandbars
                 }
                 // Now load all the surveyed sections
                 Dictionary<long, string> dSections = new Dictionary<long, string>();
-                dbCom = new SQLiteCommand("SELECT SectionID, SectionTypeID, Uncertainty FROM SandbarSections WHERE SurveyID = @SurveyID", dbCon);
+                dbCom = new SQLiteCommand("SELECT SectionID, SectionTypeID, InstrumentID, Uncertainty FROM SandbarSections WHERE SurveyID = @SurveyID", dbCon);
                 SQLiteParameter pSurveyID = dbCom.Parameters.Add("SurveyID", System.Data.DbType.Int64);
 
                 foreach (SandbarSurvey aSurvey in lRecords)
@@ -92,7 +102,7 @@ namespace SandbarWorkbench.Sandbars
                     while (dbRead.Read())
                     {
                         long nSectionTypeID = (long)dbRead["SectionTypeID"];
-                        aSurvey.Sections[(long)dbRead["SectionID"]] = new SandbarSection((long)dbRead["SectionID"], nSectionTypeID, (double)dbRead["Uncertainty"]);
+                        aSurvey.Sections.Add(new SandbarSection((long)dbRead["SectionID"], nSectionTypeID, (long)dbRead["InstrumentID"], (double)dbRead["Uncertainty"]));
 
                         if (nSectionTypeID == nChannelSectionTypeID)
                             aSurvey.HasChannel = true;

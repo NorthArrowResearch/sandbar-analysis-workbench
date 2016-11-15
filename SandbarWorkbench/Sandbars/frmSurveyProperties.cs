@@ -13,8 +13,10 @@ namespace SandbarWorkbench.Sandbars
 {
     public partial class frmSurveyProperties : Form
     {
-        public SandbarSurvey Survey { get; internal set; }
+        public SandbarSurvey Survey { get; set; }
         public bool Editable { get; internal set; } // true when the argument survey can be edited
+
+        private List<long> DeletedItems;
 
         /// <summary>
         ///  call for viewing survey properties or editing
@@ -37,8 +39,19 @@ namespace SandbarWorkbench.Sandbars
         private void Init(SandbarSurvey aSurvey, bool bEditable)
         {
             InitializeComponent();
-            Survey = aSurvey;
             Editable = bEditable;
+            DeletedItems = new List<long>();
+
+            grdData.AutoGenerateColumns = false;
+
+            if (aSurvey is SandbarSurvey)
+            {
+                Survey = aSurvey;
+            }
+            else
+                Survey = new SandbarSurvey();
+
+            Survey.Sections.ListChanged += Sections_ListChanged;
         }
 
         private void frmSurveyProperties_Load(object sender, EventArgs e)
@@ -51,6 +64,8 @@ namespace SandbarWorkbench.Sandbars
             {
                 dtSurveyDate.Value = Survey.SurveyDate;
                 nTripID = Survey.TripID;
+
+                grdData.DataSource = Survey.Sections;
             }
             else
             {
@@ -76,8 +91,67 @@ namespace SandbarWorkbench.Sandbars
                     lResult.Add(new ListItem((string)dbRead["Title"], (long)dbRead["ItemID"]));
             }
 
+            // Add the empty item for new list items.
+            lResult.Add(new ListItem(string.Empty, 0));
+
             DataGridViewComboBoxColumn aCol = (DataGridViewComboBoxColumn)grdData.Columns[sColName];
             aCol.DataSource = lResult;
+            aCol.ValueMember = "Value";
+            aCol.DisplayMember = "Text";
+        }
+
+        private void grdData_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message);
+        }
+
+        private void grdData_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if ((long)grdData.Rows[e.RowIndex].Cells[1].Value < 1)
+            {
+                MessageBox.Show("You must select a valid section type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+
+            if ((long)grdData.Rows[e.RowIndex].Cells[2].Value < 1)
+            {
+                MessageBox.Show("You must select a valid instrument type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+
+            if (grdData.Rows[e.RowIndex].Cells[3] == null)
+            {
+                MessageBox.Show("You must provide an uncertainty value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+            else
+            {
+                double fValue = 0;
+                if (!double.TryParse(grdData.Rows[e.RowIndex].Cells[3].Value.ToString(), out fValue) || fValue < 0)
+                {
+                    MessageBox.Show("The uncertainty value must be a positive real value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        void Sections_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemDeleted)
+            {
+                if (Survey.Sections.Count > e.NewIndex)
+                    DeletedItems.Add(Survey.Sections[e.NewIndex].SectionID);
+            }
+        }
+
+        private void cmdOK_Click(object sender, EventArgs e)
+        {
+
+            foreach (SandbarSection aSection in Survey.Sections)
+            {
+                //Survey.Sections.
+            }
+
         }
     }
 }

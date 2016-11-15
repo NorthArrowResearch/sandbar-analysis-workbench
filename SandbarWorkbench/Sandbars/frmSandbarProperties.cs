@@ -111,8 +111,23 @@ namespace SandbarWorkbench.Sandbars
 
         private void viewSurveyPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (grdSurveys.SelectedRows[0].DataBoundItem is SandbarSurvey)
+            {
+                SandbarSurvey selSurvey = (SandbarSurvey)grdSurveys.SelectedRows[0].DataBoundItem;
+                frmSurveyProperties frm = new frmSurveyProperties(selSurvey, false);
+                frm.ShowDialog();
+            }
+
+
+        }
+
+        private void addSurveyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             frmSurveyProperties frm = new frmSurveyProperties();
-            frm.ShowDialog();            
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

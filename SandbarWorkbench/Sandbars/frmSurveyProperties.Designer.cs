@@ -33,14 +33,14 @@
             this.cboTrips = new System.Windows.Forms.ComboBox();
             this.dtSurveyDate = new System.Windows.Forms.DateTimePicker();
             this.grdData = new System.Windows.Forms.DataGridView();
-            this.cmdOK = new System.Windows.Forms.Button();
-            this.cmdCancel = new System.Windows.Forms.Button();
-            this.cmdHelp = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.colSectionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSectionType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colInstrumentType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colUncertainty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmdOK = new System.Windows.Forms.Button();
+            this.cmdCancel = new System.Windows.Forms.Button();
+            this.cmdHelp = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +94,41 @@
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(419, 133);
             this.grdData.TabIndex = 5;
+            this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
+            this.grdData.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grdData_RowValidating);
+            // 
+            // colSectionID
+            // 
+            this.colSectionID.DataPropertyName = "SectionID";
+            this.colSectionID.HeaderText = "SectionID";
+            this.colSectionID.Name = "colSectionID";
+            this.colSectionID.ReadOnly = true;
+            this.colSectionID.Visible = false;
+            // 
+            // colSectionType
+            // 
+            this.colSectionType.DataPropertyName = "SectionTypeID";
+            this.colSectionType.HeaderText = "Section Type";
+            this.colSectionType.Name = "colSectionType";
+            this.colSectionType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colSectionType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colSectionType.Width = 150;
+            // 
+            // colInstrumentType
+            // 
+            this.colInstrumentType.DataPropertyName = "InstrumentID";
+            this.colInstrumentType.HeaderText = "Instrument";
+            this.colInstrumentType.Name = "colInstrumentType";
+            this.colInstrumentType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colInstrumentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.colInstrumentType.Width = 150;
+            // 
+            // colUncertainty
+            // 
+            this.colUncertainty.DataPropertyName = "Uncertainty";
+            this.colUncertainty.HeaderText = "Uncertainty";
+            this.colUncertainty.Name = "colUncertainty";
+            this.colUncertainty.Width = 75;
             // 
             // cmdOK
             // 
@@ -105,6 +140,7 @@
             this.cmdOK.TabIndex = 6;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
+            this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
             // cmdCancel
             // 
@@ -139,35 +175,6 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sandbars Surveyed";
-            // 
-            // colSectionID
-            // 
-            this.colSectionID.HeaderText = "SectionID";
-            this.colSectionID.Name = "colSectionID";
-            this.colSectionID.ReadOnly = true;
-            this.colSectionID.Visible = false;
-            // 
-            // colSectionType
-            // 
-            this.colSectionType.HeaderText = "Section Type";
-            this.colSectionType.Name = "colSectionType";
-            this.colSectionType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colSectionType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colSectionType.Width = 150;
-            // 
-            // colInstrumentType
-            // 
-            this.colInstrumentType.HeaderText = "Instrument";
-            this.colInstrumentType.Name = "colInstrumentType";
-            this.colInstrumentType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colInstrumentType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.colInstrumentType.Width = 150;
-            // 
-            // colUncertainty
-            // 
-            this.colUncertainty.HeaderText = "Uncertainty";
-            this.colUncertainty.Name = "colUncertainty";
-            this.colUncertainty.Width = 75;
             // 
             // frmSurveyProperties
             // 
