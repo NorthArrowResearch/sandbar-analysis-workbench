@@ -14,6 +14,11 @@ namespace SandbarWorkbench.Sandbars
     {
         private SandbarSite m_Site;
 
+        public frmSandbarProperties()
+        {
+            InitializeComponent();
+        }
+
         public frmSandbarProperties(ref SandbarSite aSite)
         {
             InitializeComponent();
