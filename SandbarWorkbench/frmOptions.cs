@@ -65,6 +65,7 @@ namespace SandbarWorkbench
             valDefaultInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
             valDefaultOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
+            txtSpatialReference.Text = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
 
             // Error Logging
             if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
@@ -119,6 +120,7 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize = valDefaultInputCellSize.Value;
             SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize = valDefaultOutputCellSize.Value;
             SandbarWorkbench.Properties.Settings.Default.Default_Interpolation = ((ListItem)cboInterpolation.SelectedItem).Value;
+            SandbarWorkbench.Properties.Settings.Default.SpatialReference = txtSpatialReference.Text;
 
             // Date Display Formats
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);

@@ -322,5 +322,17 @@ namespace SandbarWorkbench.Properties {
                 return ((int)(this["MaxTripLength"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"PROJCS[""NAD_1983_2011_StatePlane_Arizona_Central_FIPS_0202"",GEOGCS[""GCS_NAD_1983_2011"",DATUM[""NAD_1983_2011"",SPHEROID[""GRS_1980"",6378137.0,298.257222101]],PRIMEM[""Greenwich"",0.0],UNIT[""Degree"",0.0174532925199433]],PROJECTION[""Transverse_Mercator""],PARAMETER[""false_easting"",213360.0],PARAMETER[""false_northing"",0.0],PARAMETER[""central_meridian"",-111.9166666666667],PARAMETER[""scale_factor"",0.9999],PARAMETER[""latitude_of_origin"",31.0],UNIT[""Meter"",1.0]]")]
+        public string SpatialReference {
+            get {
+                return ((string)(this["SpatialReference"]));
+            }
+            set {
+                this["SpatialReference"] = value;
+            }
+        }
     }
 }

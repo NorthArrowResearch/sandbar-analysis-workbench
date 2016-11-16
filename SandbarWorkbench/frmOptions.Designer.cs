@@ -64,13 +64,15 @@
             this.lblStreamName = new System.Windows.Forms.Label();
             this.chkAWSLoggingEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.cboTripDates = new System.Windows.Forms.ComboBox();
-            this.cboSurveyDates = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.cboAuditFieldDates = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.cboSurveyDates = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cboTripDates = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtSpatialReference = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -82,6 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -313,6 +316,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.cboInterpolation);
             this.tabPage4.Controls.Add(this.label8);
             this.tabPage4.Controls.Add(this.valDefaultOutputCellSize);
@@ -446,25 +450,25 @@
             this.tabPage6.Text = "Dates";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // cboAuditFieldDates
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(40, 21);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(54, 13);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Trip dates";
-            // 
-            // cboTripDates
-            // 
-            this.cboTripDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cboAuditFieldDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboTripDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTripDates.FormattingEnabled = true;
-            this.cboTripDates.Location = new System.Drawing.Point(101, 17);
-            this.cboTripDates.Name = "cboTripDates";
-            this.cboTripDates.Size = new System.Drawing.Size(430, 21);
-            this.cboTripDates.TabIndex = 1;
+            this.cboAuditFieldDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAuditFieldDates.FormattingEnabled = true;
+            this.cboAuditFieldDates.Location = new System.Drawing.Point(101, 71);
+            this.cboAuditFieldDates.Name = "cboAuditFieldDates";
+            this.cboAuditFieldDates.Size = new System.Drawing.Size(430, 21);
+            this.cboAuditFieldDates.TabIndex = 5;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(36, 75);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(58, 13);
+            this.label12.TabIndex = 4;
+            this.label12.Text = "Audit fields";
             // 
             // cboSurveyDates
             // 
@@ -486,25 +490,25 @@
             this.label11.TabIndex = 2;
             this.label11.Text = "Survey dates";
             // 
-            // cboAuditFieldDates
+            // cboTripDates
             // 
-            this.cboAuditFieldDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.cboTripDates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboAuditFieldDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboAuditFieldDates.FormattingEnabled = true;
-            this.cboAuditFieldDates.Location = new System.Drawing.Point(101, 71);
-            this.cboAuditFieldDates.Name = "cboAuditFieldDates";
-            this.cboAuditFieldDates.Size = new System.Drawing.Size(430, 21);
-            this.cboAuditFieldDates.TabIndex = 5;
+            this.cboTripDates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTripDates.FormattingEnabled = true;
+            this.cboTripDates.Location = new System.Drawing.Point(101, 17);
+            this.cboTripDates.Name = "cboTripDates";
+            this.cboTripDates.Size = new System.Drawing.Size(430, 21);
+            this.cboTripDates.TabIndex = 1;
             // 
-            // label12
+            // label10
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(36, 75);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(58, 13);
-            this.label12.TabIndex = 4;
-            this.label12.Text = "Audit fields";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(40, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Trip dates";
             // 
             // cmdHelp
             // 
@@ -514,6 +518,30 @@
             this.cmdHelp.TabIndex = 2;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.txtSpatialReference);
+            this.groupBox2.Location = new System.Drawing.Point(6, 121);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(534, 202);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Spatial Reference";
+            // 
+            // txtSpatialReference
+            // 
+            this.txtSpatialReference.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSpatialReference.Location = new System.Drawing.Point(6, 19);
+            this.txtSpatialReference.Multiline = true;
+            this.txtSpatialReference.Name = "txtSpatialReference";
+            this.txtSpatialReference.Size = new System.Drawing.Size(522, 177);
+            this.txtSpatialReference.TabIndex = 0;
             // 
             // frmOptions
             // 
@@ -545,6 +573,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -593,5 +623,7 @@
         private System.Windows.Forms.ComboBox cboTripDates;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button cmdHelp;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtSpatialReference;
     }
 }
