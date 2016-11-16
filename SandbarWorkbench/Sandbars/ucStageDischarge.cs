@@ -23,6 +23,9 @@ namespace SandbarWorkbench.Sandbars
 
         private void ucStageDischarge_Load(object sender, EventArgs e)
         {
+            if (SDCurve == null)
+                return;
+
             AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
 
@@ -42,7 +45,8 @@ namespace SandbarWorkbench.Sandbars
 
             chtData.ChartAreas[0].AxisY.Title = "Stage (ft)";
 
-
+            // Should trigger calculation of stage.
+            valDischarge.Value = 8000;
         }
 
         private void LoadStageDischargeCurve()
@@ -90,6 +94,16 @@ namespace SandbarWorkbench.Sandbars
                         BinSeries.Points[nPoint].Label = string.Format("{0:#,##0} cfs stage is {1:0.00}", fBin, fStage.Value);
                     }
                 }
+            }
+        }
+
+        private void valDischarge_ValueChanged(object sender, EventArgs e)
+        {
+            if (SDCurve is StageDischargeCurve)
+            {
+                Nullable<double> fStage = SDCurve.Stage((double)valDischarge.Value);
+                if (fStage.HasValue)
+                    txtStage.Text = fStage.Value.ToString("#,##0.00");
             }
         }
     }
