@@ -96,6 +96,7 @@
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(419, 133);
             this.grdData.TabIndex = 0;
+            this.grdData.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.grdData_CellValidating);
             this.grdData.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.grdData_DataError);
             this.grdData.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.grdData_RowValidating);
             // 

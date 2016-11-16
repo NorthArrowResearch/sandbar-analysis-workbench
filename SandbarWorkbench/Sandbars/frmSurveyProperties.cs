@@ -126,32 +126,32 @@ namespace SandbarWorkbench.Sandbars
         private void grdData_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
 
-            if (grdData.Rows[e.RowIndex].Cells[1].Value == null || (long)grdData.Rows[e.RowIndex].Cells[1].Value < 1)
-            {
-                MessageBox.Show("You must select a valid section type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Cancel = true;
-            }
+            //if (grdData.Rows[e.RowIndex].Cells[1].Value == null || (long)grdData.Rows[e.RowIndex].Cells[1].Value < 1)
+            //{
+            //    MessageBox.Show("You must select a valid section type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    e.Cancel = true;
+            //}
 
-            if (grdData.Rows[e.RowIndex].Cells[2].Value == null || (long)grdData.Rows[e.RowIndex].Cells[2].Value < 1)
-            {
-                MessageBox.Show("You must select a valid instrument type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Cancel = true;
-            }
+            //if (grdData.Rows[e.RowIndex].Cells[2].Value == null || (long)grdData.Rows[e.RowIndex].Cells[2].Value < 1)
+            //{
+            //    MessageBox.Show("You must select a valid instrument type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    e.Cancel = true;
+            //}
 
-            if (grdData.Rows[e.RowIndex].Cells[3] == null)
-            {
-                MessageBox.Show("You must provide an uncertainty value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Cancel = true;
-            }
-            else
-            {
-                double fValue = 0;
-                if (grdData.Rows[e.RowIndex].Cells[3].Value == null || !double.TryParse(grdData.Rows[e.RowIndex].Cells[3].Value.ToString(), out fValue) || fValue < 0)
-                {
-                    MessageBox.Show("The uncertainty value must be a positive real value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    e.Cancel = true;
-                }
-            }
+            //if (grdData.Rows[e.RowIndex].Cells[3] == null)
+            //{
+            //    MessageBox.Show("You must provide an uncertainty value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    e.Cancel = true;
+            //}
+            //else
+            //{
+            //    double fValue = 0;
+            //    if (grdData.Rows[e.RowIndex].Cells[3].Value == null || !double.TryParse(grdData.Rows[e.RowIndex].Cells[3].Value.ToString(), out fValue) || fValue < 0)
+            //    {
+            //        MessageBox.Show("The uncertainty value must be a positive real value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        e.Cancel = true;
+            //    }
+            //}
         }
 
         void Sections_ListChanged(object sender, ListChangedEventArgs e)
@@ -299,6 +299,39 @@ namespace SandbarWorkbench.Sandbars
             {
                 IFormatProvider culture = new System.Globalization.CultureInfo("en-US", true);
                 dtSurveyDate.Value = DateTime.Parse(cboTrips.SelectedItem.ToString(), culture, System.Globalization.DateTimeStyles.AssumeLocal);
+            }
+        }
+
+        private void grdData_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.ColumnIndex == 1 && string.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                MessageBox.Show("You must select a valid section type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+
+            if (e.ColumnIndex == 2 && string.IsNullOrEmpty(e.FormattedValue.ToString()))
+            {
+                MessageBox.Show("You must select a valid instrument type or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                e.Cancel = true;
+            }
+
+            if (e.ColumnIndex == 3)
+            {
+                if (string.IsNullOrEmpty(e.FormattedValue.ToString()))
+                {
+                    MessageBox.Show("You must provide an uncertainty value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    double fValue = 0;
+                    if (!double.TryParse(e.FormattedValue.ToString(), out fValue) || fValue < 0)
+                    {
+                        MessageBox.Show("The uncertainty value must be a positive real value or press the Escape key to discard the row being edited.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        e.Cancel = true;
+                    }
+                }
             }
         }
     }
