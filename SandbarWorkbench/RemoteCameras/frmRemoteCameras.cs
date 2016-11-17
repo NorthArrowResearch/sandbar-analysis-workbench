@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.RemoteCameras
 {
@@ -26,6 +27,7 @@ namespace SandbarWorkbench.RemoteCameras
             grdData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             grdData.MultiSelect = false;
             grdData.AutoGenerateColumns = false;
+            grdData.ContextMenuStrip = cmsGridView;
 
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "CameraID", "CameraID", false);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "River Mile", "RiverMile", true);
@@ -50,13 +52,29 @@ namespace SandbarWorkbench.RemoteCameras
             // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
             this.Icon = (Icon)Icon.Clone();
 
-            RemoteCameras = RemoteCamera.LoadRemoteCameras(DBCon.ConnectionStringLocal);
-
-            DataView custDV = new DataView();
-            grdData.DataSource = RemoteCameras;
-            FilterItems(null,null);
+            LoadData();
+            FilterItems(null, null);
         }
 
+        public void LoadData(long nSelectID = 0)
+        {
+            RemoteCameras = RemoteCamera.LoadRemoteCameras(DBCon.ConnectionStringLocal);
+            DataView custDV = new DataView();
+            grdData.DataSource = RemoteCameras;
+
+            if (nSelectID > 0)
+            {
+                grdData.ClearSelection();
+                for (int i = 0; i < grdData.Rows.Count; i++)
+                {
+                    if (((RemoteCamera)grdData.Rows[i].DataBoundItem).CameraID == nSelectID)
+                    {
+                        grdData.Rows[i].Selected = true;
+                        break;
+                    }
+                }
+            }
+        }
 
         private void FilterItemsRiverMileUpstream(object sender, EventArgs e)
         {
@@ -119,13 +137,93 @@ namespace SandbarWorkbench.RemoteCameras
         private void rdo_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton theControl = (RadioButton)sender;
-            
+
             //theControl.CheckedChanged -= rdo_CheckedChanged;
             //theControl.Checked = !theControl.Checked;
             //theControl.CheckedChanged += rdo_CheckedChanged;
 
             if (theControl.Checked)
                 FilterItems(null, null);
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit();
+                if (frm.ShowDialog() == DialogResult.OK)
+                    MasterDatabaseChanged(frm.RemoteCameraID);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        private void MasterDatabaseChanged(long nSelectID = 0)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                sync.SynchronizeLookupTables();
+                LoadData(nSelectID);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows[0].DataBoundItem is RemoteCamera)
+            {
+                RemoteCamera theCamera = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
+                if (MessageBox.Show(string.Format("Are you sure that you want to delete the remote camera at site '{0}'? This process is permanent and cannot be undone.", theCamera.SiteCode5), "Confirm Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    {
+                        dbCon.Open();
+
+                        try
+                        {
+                            Cursor.Current = Cursors.WaitCursor;
+                            MySqlCommand dbCom = new MySqlCommand("DELETE FROM RemoteCameras WHERE CameraID = @RemoteCameraID", dbCon);
+                            dbCom.Parameters.AddWithValue("RemoteCameraID", theCamera.CameraID);
+                            dbCom.ExecuteNonQuery();
+                            MasterDatabaseChanged();
+                        }
+                        catch (Exception ex)
+                        {
+                            ExceptionHandling.NARException.HandleException(ex);
+                        }
+                        finally
+                        {
+                            Cursor.Current = Cursors.Default;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void editPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                RemoteCamera selCamera = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
+
+                frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit(selCamera);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    MasterDatabaseChanged(selCamera.CameraID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
         }
     }
 }

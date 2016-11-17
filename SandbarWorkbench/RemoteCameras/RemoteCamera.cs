@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace SandbarWorkbench.RemoteCameras
 {
-    class RemoteCamera
+    public class RemoteCamera
     {
         public long CameraID { get; internal set; }
         public double RiverMile { get; internal set; }

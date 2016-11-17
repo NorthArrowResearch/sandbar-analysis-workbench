@@ -161,7 +161,7 @@ namespace SandbarWorkbench.Sandbars
                         ID = dbCom.LastInsertedId;
 
                     Cursor.Current = Cursors.Default;
-                    MessageBox.Show("Sandbar Data Saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Sandbar site data saved to the remote, master database. Your local database will now be updated when you click OK.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

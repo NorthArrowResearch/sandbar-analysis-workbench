@@ -48,6 +48,11 @@ namespace SandbarWorkbench
             return cbo.Items.Count;
         }
 
+        public static int LoadComboWithLookupListItems(ref System.Windows.Forms.ComboBox cbo, string sDBCon, long nListID, long nSelectID = 0)
+        {
+            return LoadComboWithListItems(ref cbo, sDBCon, string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0} ORDER BY Title", nListID), nSelectID);
+        }
+
         public static int LoadComboWithListItemsMySQL(ref System.Windows.Forms.ComboBox cbo, string sDBCon, string sSQL, long nSelectID = 0)
         {
             cbo.Items.Clear();

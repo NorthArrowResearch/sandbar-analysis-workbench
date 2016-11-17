@@ -90,5 +90,11 @@ namespace SandbarWorkbench.DBHelpers
                 dbCom.Parameters.AddWithValue(sParameterName, ((ListItem)ctrl.SelectedItem).Value);
             }
         }
+
+        public static void AddParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, string sParameterName)
+        {
+            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.Bit);
+            p.Value = ctrl.Checked;
+        }
     }
 }

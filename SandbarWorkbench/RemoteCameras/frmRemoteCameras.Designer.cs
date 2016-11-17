@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameras));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chkActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoTRight = new System.Windows.Forms.RadioButton();
             this.rdoTLeft = new System.Windows.Forms.RadioButton();
@@ -48,7 +50,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grdData = new System.Windows.Forms.DataGridView();
-            this.chkActive = new System.Windows.Forms.CheckBox();
+            this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.browseTopoFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -60,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+            this.cmsGridView.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -92,6 +101,19 @@
             this.splitContainer1.Size = new System.Drawing.Size(745, 555);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // chkActive
+            // 
+            this.chkActive.AutoSize = true;
+            this.chkActive.Checked = true;
+            this.chkActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActive.Location = new System.Drawing.Point(13, 268);
+            this.chkActive.Name = "chkActive";
+            this.chkActive.Size = new System.Drawing.Size(150, 17);
+            this.chkActive.TabIndex = 5;
+            this.chkActive.Text = "Active camera setups only";
+            this.chkActive.UseVisualStyleBackColor = true;
+            this.chkActive.CheckedChanged += new System.EventHandler(this.FilterItems);
             // 
             // groupBox2
             // 
@@ -276,18 +298,60 @@
             this.grdData.Size = new System.Drawing.Size(492, 555);
             this.grdData.TabIndex = 0;
             // 
-            // chkActive
+            // cmsGridView
             // 
-            this.chkActive.AutoSize = true;
-            this.chkActive.Checked = true;
-            this.chkActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActive.Location = new System.Drawing.Point(13, 268);
-            this.chkActive.Name = "chkActive";
-            this.chkActive.Size = new System.Drawing.Size(150, 17);
-            this.chkActive.TabIndex = 5;
-            this.chkActive.Text = "Active camera setups only";
-            this.chkActive.UseVisualStyleBackColor = true;
-            this.chkActive.CheckedChanged += new System.EventHandler(this.FilterItems);
+            this.cmsGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewPropertiesToolStripMenuItem,
+            this.browseTopoFolderToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.addNewToolStripMenuItem,
+            this.editPropertiesToolStripMenuItem,
+            this.deleteSelectedToolStripMenuItem});
+            this.cmsGridView.Name = "cmsSite";
+            this.cmsGridView.Size = new System.Drawing.Size(188, 142);
+            // 
+            // viewPropertiesToolStripMenuItem
+            // 
+            this.viewPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
+            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.viewPropertiesToolStripMenuItem.Text = "View Properties";
+            // 
+            // browseTopoFolderToolStripMenuItem
+            // 
+            this.browseTopoFolderToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.browseTopoFolderToolStripMenuItem.Name = "browseTopoFolderToolStripMenuItem";
+            this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.browseTopoFolderToolStripMenuItem.Text = "Browse Topo Folder...";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
+            // 
+            // addNewToolStripMenuItem
+            // 
+            this.addNewToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.addNewToolStripMenuItem.Text = "Add New...";
+            this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
+            // 
+            // editPropertiesToolStripMenuItem
+            // 
+            this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
+            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
+            this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Delete Selected...";
+            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
             // frmRemoteCameras
             // 
@@ -317,6 +381,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.cmsGridView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -344,5 +409,12 @@
         private System.Windows.Forms.RadioButton rdoTLeft;
         private System.Windows.Forms.RadioButton rdoTBoth;
         private System.Windows.Forms.CheckBox chkActive;
+        private System.Windows.Forms.ContextMenuStrip cmsGridView;
+        private System.Windows.Forms.ToolStripMenuItem viewPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem browseTopoFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
     }
 }

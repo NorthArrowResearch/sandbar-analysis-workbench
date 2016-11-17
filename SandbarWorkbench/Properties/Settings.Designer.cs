@@ -334,5 +334,23 @@ namespace SandbarWorkbench.Properties {
                 this["SpatialReference"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public long ListID_RiverBanks {
+            get {
+                return ((long)(this["ListID_RiverBanks"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public long ListID_CameraCardTypes {
+            get {
+                return ((long)(this["ListID_CameraCardTypes"]));
+            }
+        }
     }
 }

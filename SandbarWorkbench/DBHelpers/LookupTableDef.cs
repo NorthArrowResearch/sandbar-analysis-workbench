@@ -106,6 +106,10 @@ namespace SandbarWorkbench.DBHelpers
                             theDataType = System.Data.DbType.DateTime;
                             break;
 
+                        case "tinyint":
+                            theDataType = System.Data.DbType.Boolean;
+                            break;
+
                         default:
                             throw new Exception(string.Format("Unhandled master database field type '{0}' for column {1} in table {2}", dbRead.GetString("DATA_TYPE"), dbRead.GetString("COLUMN_NAME"), TableName));
 
@@ -168,6 +172,8 @@ namespace SandbarWorkbench.DBHelpers
                         theDataType = System.Data.DbType.Double;
                     else if (string.Compare(sDataType, "datetime", true) == 0 || string.Compare(sDataType, "date", true) == 0)
                         theDataType = System.Data.DbType.DateTime;
+                    else if (string.Compare(sDataType, "boolean", true) == 0)
+                        theDataType = System.Data.DbType.Boolean;
                     else
                         throw new Exception(string.Format("Unhandled local database field type '{0}' in LOCAL table {1}", sDataType, TableName));
 

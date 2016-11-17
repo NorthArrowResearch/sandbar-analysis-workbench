@@ -48,7 +48,6 @@ namespace SandbarWorkbench.Sandbars
 
         public void LoadData(long nSelectID = 0)
         {
-
             SandbarSites = SandbarSite.LoadSandbarSites(DBCon.ConnectionStringLocal);
             DataView custDV = new DataView();
             grdData.DataSource = SandbarSites;
