@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameras));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.picThumbnail = new System.Windows.Forms.PictureBox();
             this.chkActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoTRight = new System.Windows.Forms.RadioButton();
@@ -58,11 +57,11 @@
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picThumbnail)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpSiteName.SuspendLayout();
@@ -91,7 +90,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.picThumbnail);
+            this.splitContainer1.Panel1.Controls.Add(this.ucThumbail);
             this.splitContainer1.Panel1.Controls.Add(this.chkActive);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -104,14 +103,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(745, 555);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
-            // 
-            // picThumbnail
-            // 
-            this.picThumbnail.Location = new System.Drawing.Point(8, 291);
-            this.picThumbnail.Name = "picThumbnail";
-            this.picThumbnail.Size = new System.Drawing.Size(227, 169);
-            this.picThumbnail.TabIndex = 6;
-            this.picThumbnail.TabStop = false;
             // 
             // chkActive
             // 
@@ -365,6 +356,13 @@
             this.deleteSelectedToolStripMenuItem.Text = "Delete Selected...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
+            // ucThumbail
+            // 
+            this.ucThumbail.Location = new System.Drawing.Point(8, 291);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 187);
+            this.ucThumbail.TabIndex = 6;
+            // 
             // frmRemoteCameras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -382,7 +380,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picThumbnail)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -429,6 +426,6 @@
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
-        private System.Windows.Forms.PictureBox picThumbnail;
+        private Pictures.ucThumbail ucThumbail;
     }
 }

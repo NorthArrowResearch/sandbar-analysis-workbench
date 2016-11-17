@@ -105,6 +105,12 @@
     <Compile Include="ModelRuns\ModelRunLocal.cs" />
     <Compile Include="ModelRuns\ModelRunMaster.cs" />
     <Compile Include="Pictures\PictureInfo.cs" />
+    <Compile Include="Pictures\ucThumbail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pictures\ucThumbail.Designer.cs">
+      <DependentUpon>ucThumbail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\frmSurveyProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSynchronize.resx">
       <DependentUpon>frmSynchronize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pictures\ucThumbail.resx">
+      <DependentUpon>ucThumbail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

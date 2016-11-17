@@ -63,6 +63,21 @@ namespace SandbarWorkbench.RemoteCameras
 
             // Special method that loads combo with sandbar site information (which is then available to help with other controls)
             SandbarSiteInfo.LoadSandbarSiteInfo(ref cboSandbarSite, nSandbarSite);
+
+            // Experiment to load thumbnails
+            string sPath = "D:\\GCMRC\\PHYSICAL\\Sandbars\\RemoteCameras\\Photos_Thumb_Res\\RC0089L";
+
+            imgThumbnails.ImageSize = new Size(100, 100);
+            lstThumbnails.LargeImageList = imgThumbnails;
+
+            lstThumbnails.View = View.LargeIcon;
+            int i = 0;
+            foreach (string sFile in System.IO.Directory.GetFiles(sPath, "*.jpg"))
+            {
+                imgThumbnails.Images.Add(System.Drawing.Image.FromFile(sFile));
+                lstThumbnails.Items.Add(sFile, i);
+                i += 1;
+            }
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

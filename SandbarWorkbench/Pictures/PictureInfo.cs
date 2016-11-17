@@ -12,7 +12,7 @@ namespace SandbarWorkbench.Pictures
     {
         private const string FileSuffix = ".jpg";
 
-        public string  RemoteCameraCode { get; internal set; }
+        public string RemoteCameraCode { get; internal set; }
         public System.IO.FileInfo ThumbailPath { get; internal set; }
         public System.IO.FileInfo FullResPath { get; internal set; }
         public System.IO.FileInfo WebResPath { get; internal set; }
@@ -24,6 +24,60 @@ namespace SandbarWorkbench.Pictures
             ThumbailPath = fiThumb;
             FullResPath = fiFullRes;
             WebResPath = fiWebRes;
+        }
+
+        public System.IO.FileInfo BestImage
+        {
+            get
+            {
+                if (FullResPath is System.IO.FileInfo && FullResPath.Exists)
+                    return FullResPath;
+                else if (WebResPath is System.IO.FileInfo && WebResPath.Exists)
+                    return WebResPath;
+                else if (ThumbailPath is System.IO.FileInfo && ThumbailPath.Exists)
+                    return ThumbailPath;
+                else
+                    return null;
+            }
+        }
+
+        public string BestImagePath
+        {
+            get
+            {
+                System.IO.FileInfo fiPath = BestImage;
+                if (fiPath is System.IO.FileInfo)
+                    return fiPath.FullName;
+                else
+                    return string.Empty;
+            }
+        }
+
+        public System.IO.FileInfo SmallestImage
+        {
+            get
+            {
+                if (ThumbailPath is System.IO.FileInfo && ThumbailPath.Exists)
+                    return ThumbailPath;
+                else if (WebResPath is System.IO.FileInfo && WebResPath.Exists)
+                    return WebResPath;
+                else if (FullResPath is System.IO.FileInfo && FullResPath.Exists)
+                    return FullResPath;
+                else
+                    return null;
+            }
+        }
+
+        public string SmallestImagePath
+        {
+            get
+            {
+                System.IO.FileInfo fiPath = SmallestImage;
+                if (fiPath is System.IO.FileInfo)
+                    return fiPath.FullName;
+                else
+                    return string.Empty;
+            }
         }
 
         public static PictureInfo GetPictureInfo(string sRemoteCameraCode, string sBestTime)
@@ -44,9 +98,9 @@ namespace SandbarWorkbench.Pictures
                 System.IO.FileInfo fiFullRes = GetClosestFile(sFullResFoldr, sBestTime);
                 System.IO.FileInfo fiWebRes = GetClosestFile(sWebResFolder, sBestTime);
 
-                if( fiThumb is System.IO.FileInfo || fiFullRes is System.IO.FileInfo || fiWebRes is System.IO.FileInfo)
+                if (fiThumb is System.IO.FileInfo || fiFullRes is System.IO.FileInfo || fiWebRes is System.IO.FileInfo)
                 {
-                    picResult = new PictureInfo(sRemoteCameraCode,fiThumb,fiFullRes,fiWebRes);
+                    picResult = new PictureInfo(sRemoteCameraCode, fiThumb, fiFullRes, fiWebRes);
                 }
             }
 

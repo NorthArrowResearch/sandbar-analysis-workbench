@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameraPropertiesEdit));
             this.chkCurrentNSPPermit = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,6 +69,8 @@
             this.cmdHelp = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
+            this.lstThumbnails = new System.Windows.Forms.ListView();
+            this.imgThumbnails = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -437,7 +440,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(436, 501);
+            this.cmdCancel.Location = new System.Drawing.Point(1058, 501);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -448,7 +451,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(358, 501);
+            this.cmdOK.Location = new System.Drawing.Point(980, 501);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -456,13 +459,28 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
+            // lstThumbnails
+            // 
+            this.lstThumbnails.Location = new System.Drawing.Point(647, 58);
+            this.lstThumbnails.Name = "lstThumbnails";
+            this.lstThumbnails.Size = new System.Drawing.Size(458, 390);
+            this.lstThumbnails.TabIndex = 11;
+            this.lstThumbnails.UseCompatibleStateImageBehavior = false;
+            // 
+            // imgThumbnails
+            // 
+            this.imgThumbnails.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imgThumbnails.ImageSize = new System.Drawing.Size(16, 16);
+            this.imgThumbnails.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // frmRemoteCameraPropertiesEdit
             // 
             this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(524, 536);
+            this.ClientSize = new System.Drawing.Size(1146, 536);
+            this.Controls.Add(this.lstThumbnails);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.cmdHelp);
@@ -533,5 +551,7 @@
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
+        private System.Windows.Forms.ListView lstThumbnails;
+        private System.Windows.Forms.ImageList imgThumbnails;
     }
 }
