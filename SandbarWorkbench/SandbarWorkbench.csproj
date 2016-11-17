@@ -104,6 +104,7 @@
     <Compile Include="ModelRuns\ModelRunBase.cs" />
     <Compile Include="ModelRuns\ModelRunLocal.cs" />
     <Compile Include="ModelRuns\ModelRunMaster.cs" />
+    <Compile Include="Pictures\PictureInfo.cs" />
     <Compile Include="Sandbars\frmSurveyProperties.cs">
       <SubType>Form</SubType>
     </Compile>

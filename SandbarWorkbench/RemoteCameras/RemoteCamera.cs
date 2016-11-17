@@ -93,7 +93,7 @@ namespace SandbarWorkbench.RemoteCameras
             UpdatedOn = dtUpdatedOn;
             UpdatedBy = sUpdatedBy;
         }
-        
+
         public static SortableBindingList<RemoteCamera> LoadRemoteCameras(string sDB)
         {
             SortableBindingList<RemoteCamera> lItems = new SortableBindingList<RemoteCamera>();

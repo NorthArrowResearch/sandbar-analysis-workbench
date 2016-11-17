@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameras));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.picThumbnail = new System.Windows.Forms.PictureBox();
             this.chkActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoTRight = new System.Windows.Forms.RadioButton();
@@ -61,6 +62,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picThumbnail)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpSiteName.SuspendLayout();
@@ -89,6 +91,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.picThumbnail);
             this.splitContainer1.Panel1.Controls.Add(this.chkActive);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -101,6 +104,14 @@
             this.splitContainer1.Size = new System.Drawing.Size(745, 555);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // picThumbnail
+            // 
+            this.picThumbnail.Location = new System.Drawing.Point(8, 291);
+            this.picThumbnail.Name = "picThumbnail";
+            this.picThumbnail.Size = new System.Drawing.Size(227, 169);
+            this.picThumbnail.TabIndex = 6;
+            this.picThumbnail.TabStop = false;
             // 
             // chkActive
             // 
@@ -297,6 +308,7 @@
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(492, 555);
             this.grdData.TabIndex = 0;
+            this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
             // 
             // cmsGridView
             // 
@@ -308,32 +320,32 @@
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedToolStripMenuItem});
             this.cmsGridView.Name = "cmsSite";
-            this.cmsGridView.Size = new System.Drawing.Size(188, 142);
+            this.cmsGridView.Size = new System.Drawing.Size(188, 120);
             // 
             // viewPropertiesToolStripMenuItem
             // 
             this.viewPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Settings;
             this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
-            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.viewPropertiesToolStripMenuItem.Text = "View Properties";
             // 
             // browseTopoFolderToolStripMenuItem
             // 
             this.browseTopoFolderToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.explorer;
             this.browseTopoFolderToolStripMenuItem.Name = "browseTopoFolderToolStripMenuItem";
-            this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.browseTopoFolderToolStripMenuItem.Text = "Browse Topo Folder...";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
             // 
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.addNewToolStripMenuItem.Text = "Add New...";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
             // 
@@ -341,7 +353,7 @@
             // 
             this.editPropertiesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editPropertiesToolStripMenuItem.Name = "editPropertiesToolStripMenuItem";
-            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.editPropertiesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.editPropertiesToolStripMenuItem.Text = "Edit Properties";
             this.editPropertiesToolStripMenuItem.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
             // 
@@ -370,6 +382,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picThumbnail)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -416,5 +429,6 @@
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
+        private System.Windows.Forms.PictureBox picThumbnail;
     }
 }

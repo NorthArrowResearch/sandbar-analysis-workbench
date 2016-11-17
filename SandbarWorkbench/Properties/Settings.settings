@@ -92,5 +92,8 @@
     <Setting Name="ListID_CameraCardTypes" Type="System.Int64" Scope="Application">
       <Value Profile="(Default)">7</Value>
     </Setting>
+    <Setting Name="Folder_RemoteCameras" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\RemoteCameras</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

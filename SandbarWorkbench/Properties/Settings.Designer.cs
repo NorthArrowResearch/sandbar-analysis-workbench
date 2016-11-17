@@ -352,5 +352,17 @@ namespace SandbarWorkbench.Properties {
                 return ((long)(this["ListID_CameraCardTypes"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\RemoteCameras")]
+        public string Folder_RemoteCameras {
+            get {
+                return ((string)(this["Folder_RemoteCameras"]));
+            }
+            set {
+                this["Folder_RemoteCameras"] = value;
+            }
+        }
     }
 }

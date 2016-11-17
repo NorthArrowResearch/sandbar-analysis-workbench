@@ -225,5 +225,32 @@ namespace SandbarWorkbench.RemoteCameras
                 ExceptionHandling.NARException.HandleException(ex);
             }
         }
+
+        private void grdData_SelectionChanged(object sender, EventArgs e)
+        {
+            picThumbnail.Visible = false;
+            picThumbnail.ImageLocation = string.Empty;
+
+            if (grdData.SelectedRows.Count == 1)
+            {
+                RemoteCamera rc = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
+                if (!string.IsNullOrEmpty(rc.SiteCode))
+                {
+                    try
+                    {
+                        Pictures.PictureInfo picInfo = Pictures.PictureInfo.GetPictureInfo(rc.SiteCode, rc.BestPhotoTime);
+                        if (picInfo is Pictures.PictureInfo)
+                        {
+                            picThumbnail.ImageLocation = picInfo.ThumbailPath.FullName;
+                            picThumbnail.Visible = true;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        System.Diagnostics.Debug.Print(ex.Message);
+                    }
+                }
+            }
+        }
     }
 }
