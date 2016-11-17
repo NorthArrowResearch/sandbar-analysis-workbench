@@ -45,6 +45,9 @@
             this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.chkRiverMile = new System.Windows.Forms.CheckBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sandbarAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,9 +56,7 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sandbarAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,9 +67,9 @@
             this.grpRiverMile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.cmsSite.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -81,6 +82,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.ucThumbail);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.grpTimeSeries);
             this.splitContainer1.Panel1.Controls.Add(this.grpSiteName);
@@ -251,6 +253,36 @@
             this.chkRiverMile.UseVisualStyleBackColor = true;
             this.chkRiverMile.CheckedChanged += new System.EventHandler(this.FilterItems);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(249, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sandbarAnalysisToolStripMenuItem});
+            this.toolsToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
+            this.toolsToolStripMenuItem.MergeIndex = 2;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            this.toolsToolStripMenuItem.Visible = false;
+            // 
+            // sandbarAnalysisToolStripMenuItem
+            // 
+            this.sandbarAnalysisToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
+            this.sandbarAnalysisToolStripMenuItem.MergeIndex = 0;
+            this.sandbarAnalysisToolStripMenuItem.Name = "sandbarAnalysisToolStripMenuItem";
+            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.sandbarAnalysisToolStripMenuItem.Text = "Sandbar Analysis...";
+            this.sandbarAnalysisToolStripMenuItem.Click += new System.EventHandler(this.sandbarAnalysisToolStripMenuItem_Click);
+            // 
             // grdData
             // 
             this.grdData.AllowUserToAddRows = false;
@@ -266,6 +298,7 @@
             this.grdData.Size = new System.Drawing.Size(494, 532);
             this.grdData.TabIndex = 0;
             this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
+            this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
             this.grdData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grdData_MouseClick);
             // 
             // cmsSite
@@ -324,35 +357,12 @@
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
-            // menuStrip1
+            // ucThumbail
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(249, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sandbarAnalysisToolStripMenuItem});
-            this.toolsToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
-            this.toolsToolStripMenuItem.MergeIndex = 2;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            this.toolsToolStripMenuItem.Visible = false;
-            // 
-            // sandbarAnalysisToolStripMenuItem
-            // 
-            this.sandbarAnalysisToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
-            this.sandbarAnalysisToolStripMenuItem.MergeIndex = 0;
-            this.sandbarAnalysisToolStripMenuItem.Name = "sandbarAnalysisToolStripMenuItem";
-            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.sandbarAnalysisToolStripMenuItem.Text = "Sandbar Analysis...";
-            this.sandbarAnalysisToolStripMenuItem.Click += new System.EventHandler(this.sandbarAnalysisToolStripMenuItem_Click);
+            this.ucThumbail.Location = new System.Drawing.Point(12, 328);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
+            this.ucThumbail.TabIndex = 5;
             // 
             // frmSandbars
             // 
@@ -380,10 +390,10 @@
             this.grpRiverMile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
-            this.cmsSite.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.cmsSite.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -416,5 +426,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sandbarAnalysisToolStripMenuItem;
+        private Pictures.ucThumbail ucThumbail;
     }
 }

@@ -26,7 +26,6 @@ namespace SandbarWorkbench.Sandbars
         public ListItem Reach { get; internal set; }
         public ListItem Segment { get; internal set; }
         public string CampSiteSurveyRecord { get; internal set; }
-        public Nullable<long> RemoteCameraID { get; internal set; }
         public Nullable<double> StageDischargeA { get; internal set; }
         public Nullable<double> StageDischargeB { get; internal set; }
         public Nullable<double> StageDischargeC { get; internal set; }
@@ -42,6 +41,11 @@ namespace SandbarWorkbench.Sandbars
         public StageDischargeCurve SDCurve { get; internal set; }
         public BindingList<SandbarSurvey> Surveys { get; set; }
         public int SurveyCount { get { return Surveys.Count; } }
+
+        // Best photo time is used to support the thumbnail viewer on the main data grid
+        public Nullable<long> RemoteCameraID { get; internal set; }
+        public string RemoteCameraSiteCode { get; internal set; }
+        public string BestPhotoTime { get; internal set; }
 
         public string PrimaryGDAWSLink
         {
@@ -70,6 +74,8 @@ namespace SandbarWorkbench.Sandbars
             , string sSegment
             , string sCampSiteSurveyRecord
             , Nullable<long> nRemoteCameraID
+            , string sRemoteCameraSiteCode
+            , string sBestPhotoTime
             , Nullable<double> fStageDischargeA
             , Nullable<double> fStageDischargeB
             , Nullable<double> fStageDischargeC, Nullable<double> fNorthing
@@ -106,6 +112,8 @@ namespace SandbarWorkbench.Sandbars
 
             CampSiteSurveyRecord = sCampSiteSurveyRecord;
             RemoteCameraID = nRemoteCameraID;
+            RemoteCameraSiteCode = sRemoteCameraSiteCode;
+            BestPhotoTime = sBestPhotoTime;
             SDCurve = new StageDischargeCurve(fStageDischargeA, fStageDischargeB, fStageDischargeC);
             Northing = fNorthing;
             Easting = fEasting;
@@ -171,6 +179,8 @@ namespace SandbarWorkbench.Sandbars
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Segment")
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CampSiteSurveyRecord")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "RemoteCameraID")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "RemoteCameraSiteCode")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
