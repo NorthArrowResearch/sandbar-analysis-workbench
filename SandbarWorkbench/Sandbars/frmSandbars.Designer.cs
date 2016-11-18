@@ -56,6 +56,7 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmdBrowse = new System.Windows.Forms.Button();
             this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -82,9 +83,11 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cmdBrowse);
             this.splitContainer1.Panel1.Controls.Add(this.ucThumbail);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.grpTimeSeries);
+            this.splitContainer1.Panel1.Controls.Add(this.chkRiverMile);
             this.splitContainer1.Panel1.Controls.Add(this.grpSiteName);
             this.splitContainer1.Panel1.Controls.Add(this.grpRiverMile);
             this.splitContainer1.Panel1.Controls.Add(this.menuStrip1);
@@ -92,7 +95,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grdData);
-            this.splitContainer1.Size = new System.Drawing.Size(747, 532);
+            this.splitContainer1.Size = new System.Drawing.Size(747, 588);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -100,7 +103,7 @@
             // 
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 253);
+            this.groupBox1.Location = new System.Drawing.Point(12, 274);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(227, 69);
             this.groupBox1.TabIndex = 3;
@@ -137,7 +140,7 @@
             // 
             this.grpTimeSeries.Controls.Add(this.checkBox2);
             this.grpTimeSeries.Controls.Add(this.checkBox1);
-            this.grpTimeSeries.Location = new System.Drawing.Point(12, 178);
+            this.grpTimeSeries.Location = new System.Drawing.Point(12, 199);
             this.grpTimeSeries.Name = "grpTimeSeries";
             this.grpTimeSeries.Size = new System.Drawing.Size(227, 69);
             this.grpTimeSeries.TabIndex = 2;
@@ -173,7 +176,7 @@
             // grpSiteName
             // 
             this.grpSiteName.Controls.Add(this.txtTitle);
-            this.grpSiteName.Location = new System.Drawing.Point(12, 119);
+            this.grpSiteName.Location = new System.Drawing.Point(12, 140);
             this.grpSiteName.Name = "grpSiteName";
             this.grpSiteName.Size = new System.Drawing.Size(227, 53);
             this.grpSiteName.TabIndex = 1;
@@ -194,8 +197,7 @@
             this.grpRiverMile.Controls.Add(this.label2);
             this.grpRiverMile.Controls.Add(this.valUpstream);
             this.grpRiverMile.Controls.Add(this.label1);
-            this.grpRiverMile.Controls.Add(this.chkRiverMile);
-            this.grpRiverMile.Location = new System.Drawing.Point(12, 12);
+            this.grpRiverMile.Location = new System.Drawing.Point(12, 33);
             this.grpRiverMile.Name = "grpRiverMile";
             this.grpRiverMile.Size = new System.Drawing.Size(227, 100);
             this.grpRiverMile.TabIndex = 0;
@@ -245,7 +247,7 @@
             // chkRiverMile
             // 
             this.chkRiverMile.AutoSize = true;
-            this.chkRiverMile.Location = new System.Drawing.Point(11, 0);
+            this.chkRiverMile.Location = new System.Drawing.Point(21, 27);
             this.chkRiverMile.Name = "chkRiverMile";
             this.chkRiverMile.Size = new System.Drawing.Size(73, 17);
             this.chkRiverMile.TabIndex = 0;
@@ -262,6 +264,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(249, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
             // 
             // toolsToolStripMenuItem
             // 
@@ -295,7 +298,7 @@
             this.grdData.Name = "grdData";
             this.grdData.ReadOnly = true;
             this.grdData.RowHeadersVisible = false;
-            this.grdData.Size = new System.Drawing.Size(494, 532);
+            this.grdData.Size = new System.Drawing.Size(494, 588);
             this.grdData.TabIndex = 0;
             this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
             this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
@@ -357,9 +360,21 @@
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
+            // cmdBrowse
+            // 
+            this.cmdBrowse.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cmdBrowse.Location = new System.Drawing.Point(164, 9);
+            this.cmdBrowse.Name = "cmdBrowse";
+            this.cmdBrowse.Size = new System.Drawing.Size(75, 23);
+            this.cmdBrowse.TabIndex = 6;
+            this.cmdBrowse.Text = "    Browse";
+            this.cmdBrowse.UseVisualStyleBackColor = true;
+            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
+            // 
             // ucThumbail
             // 
-            this.ucThumbail.Location = new System.Drawing.Point(12, 328);
+            this.ucThumbail.Location = new System.Drawing.Point(12, 349);
             this.ucThumbail.Name = "ucThumbail";
             this.ucThumbail.Size = new System.Drawing.Size(227, 192);
             this.ucThumbail.TabIndex = 5;
@@ -368,7 +383,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 532);
+            this.ClientSize = new System.Drawing.Size(747, 588);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -427,5 +442,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sandbarAnalysisToolStripMenuItem;
         private Pictures.ucThumbail ucThumbail;
+        private System.Windows.Forms.Button cmdBrowse;
     }
 }
