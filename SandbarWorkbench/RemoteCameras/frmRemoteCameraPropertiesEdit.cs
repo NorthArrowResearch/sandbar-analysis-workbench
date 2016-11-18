@@ -76,6 +76,13 @@ namespace SandbarWorkbench.RemoteCameras
             {
                 imgThumbnails.Images.Add(System.Drawing.Image.FromFile(sFile));
                 lstThumbnails.Items.Add(sFile, i);
+
+                PictureBox pic = new PictureBox();
+                pic.ImageLocation = sFile;
+                pic.Size = new Size(64, 64);
+                pic.SizeMode = PictureBoxSizeMode.AutoSize;
+                flwPanel.Controls.Add(pic);
+
                 i += 1;
             }
         }

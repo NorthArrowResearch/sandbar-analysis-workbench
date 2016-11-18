@@ -28,25 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPictureViewer));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoFull = new System.Windows.Forms.RadioButton();
+            this.rdoWeb = new System.Windows.Forms.RadioButton();
+            this.rdoThumb = new System.Windows.Forms.RadioButton();
             this.valSize = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.cboRCSetup = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lstPictures = new System.Windows.Forms.ListView();
-            this.imgList = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdoThumb = new System.Windows.Forms.RadioButton();
-            this.rdoWeb = new System.Windows.Forms.RadioButton();
-            this.rdoFull = new System.Windows.Forms.RadioButton();
+            this.flwPanel = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valSize)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valSize)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -66,10 +64,59 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.lstPictures);
+            this.splitContainer1.Panel2.Controls.Add(this.flwPanel);
             this.splitContainer1.Size = new System.Drawing.Size(576, 535);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdoFull);
+            this.groupBox1.Controls.Add(this.rdoWeb);
+            this.groupBox1.Controls.Add(this.rdoThumb);
+            this.groupBox1.Location = new System.Drawing.Point(16, 83);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(116, 100);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Picture Type";
+            // 
+            // rdoFull
+            // 
+            this.rdoFull.AutoSize = true;
+            this.rdoFull.Location = new System.Drawing.Point(14, 71);
+            this.rdoFull.Name = "rdoFull";
+            this.rdoFull.Size = new System.Drawing.Size(94, 17);
+            this.rdoFull.TabIndex = 2;
+            this.rdoFull.TabStop = true;
+            this.rdoFull.Text = "Full Resolution";
+            this.rdoFull.UseVisualStyleBackColor = true;
+            this.rdoFull.CheckedChanged += new System.EventHandler(this.LoadPictures);
+            // 
+            // rdoWeb
+            // 
+            this.rdoWeb.AutoSize = true;
+            this.rdoWeb.Location = new System.Drawing.Point(14, 47);
+            this.rdoWeb.Name = "rdoWeb";
+            this.rdoWeb.Size = new System.Drawing.Size(101, 17);
+            this.rdoWeb.TabIndex = 1;
+            this.rdoWeb.TabStop = true;
+            this.rdoWeb.Text = "Web Resolution";
+            this.rdoWeb.UseVisualStyleBackColor = true;
+            this.rdoWeb.CheckedChanged += new System.EventHandler(this.LoadPictures);
+            // 
+            // rdoThumb
+            // 
+            this.rdoThumb.AutoSize = true;
+            this.rdoThumb.Checked = true;
+            this.rdoThumb.Location = new System.Drawing.Point(14, 23);
+            this.rdoThumb.Name = "rdoThumb";
+            this.rdoThumb.Size = new System.Drawing.Size(68, 17);
+            this.rdoThumb.TabIndex = 0;
+            this.rdoThumb.TabStop = true;
+            this.rdoThumb.Text = "Thumbail";
+            this.rdoThumb.UseVisualStyleBackColor = true;
+            this.rdoThumb.CheckedChanged += new System.EventHandler(this.LoadPictures);
             // 
             // valSize
             // 
@@ -124,69 +171,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "RC Setup";
             // 
-            // lstPictures
+            // flwPanel
             // 
-            this.lstPictures.Location = new System.Drawing.Point(144, 120);
-            this.lstPictures.Name = "lstPictures";
-            this.lstPictures.Size = new System.Drawing.Size(121, 97);
-            this.lstPictures.TabIndex = 0;
-            this.lstPictures.UseCompatibleStateImageBehavior = false;
-            this.lstPictures.DoubleClick += new System.EventHandler(this.lstPictures_DoubleClick);
-            // 
-            // imgList
-            // 
-            this.imgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imgList.ImageSize = new System.Drawing.Size(16, 16);
-            this.imgList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rdoFull);
-            this.groupBox1.Controls.Add(this.rdoWeb);
-            this.groupBox1.Controls.Add(this.rdoThumb);
-            this.groupBox1.Location = new System.Drawing.Point(16, 83);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(116, 100);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Picture Type";
-            // 
-            // rdoThumb
-            // 
-            this.rdoThumb.AutoSize = true;
-            this.rdoThumb.Checked = true;
-            this.rdoThumb.Location = new System.Drawing.Point(14, 23);
-            this.rdoThumb.Name = "rdoThumb";
-            this.rdoThumb.Size = new System.Drawing.Size(68, 17);
-            this.rdoThumb.TabIndex = 0;
-            this.rdoThumb.TabStop = true;
-            this.rdoThumb.Text = "Thumbail";
-            this.rdoThumb.UseVisualStyleBackColor = true;
-            this.rdoThumb.CheckedChanged += new System.EventHandler(this.LoadPictures);
-            // 
-            // rdoWeb
-            // 
-            this.rdoWeb.AutoSize = true;
-            this.rdoWeb.Location = new System.Drawing.Point(14, 47);
-            this.rdoWeb.Name = "rdoWeb";
-            this.rdoWeb.Size = new System.Drawing.Size(101, 17);
-            this.rdoWeb.TabIndex = 1;
-            this.rdoWeb.TabStop = true;
-            this.rdoWeb.Text = "Web Resolution";
-            this.rdoWeb.UseVisualStyleBackColor = true;
-            this.rdoWeb.CheckedChanged += new System.EventHandler(this.LoadPictures);
-            // 
-            // rdoFull
-            // 
-            this.rdoFull.AutoSize = true;
-            this.rdoFull.Location = new System.Drawing.Point(14, 71);
-            this.rdoFull.Name = "rdoFull";
-            this.rdoFull.Size = new System.Drawing.Size(94, 17);
-            this.rdoFull.TabIndex = 2;
-            this.rdoFull.TabStop = true;
-            this.rdoFull.Text = "Full Resolution";
-            this.rdoFull.UseVisualStyleBackColor = true;
-            this.rdoFull.CheckedChanged += new System.EventHandler(this.LoadPictures);
+            this.flwPanel.Location = new System.Drawing.Point(121, 275);
+            this.flwPanel.Name = "flwPanel";
+            this.flwPanel.Size = new System.Drawing.Size(200, 100);
+            this.flwPanel.TabIndex = 1;
             // 
             // frmPictureViewer
             // 
@@ -203,9 +193,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.valSize)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -215,13 +205,12 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ComboBox cboRCSetup;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListView lstPictures;
-        private System.Windows.Forms.ImageList imgList;
         private System.Windows.Forms.NumericUpDown valSize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rdoFull;
         private System.Windows.Forms.RadioButton rdoWeb;
         private System.Windows.Forms.RadioButton rdoThumb;
+        private System.Windows.Forms.FlowLayoutPanel flwPanel;
     }
 }

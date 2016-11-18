@@ -24,17 +24,19 @@ namespace SandbarWorkbench.Pictures
             // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
             this.Icon = (Icon)Icon.Clone();
 
-            lstPictures.Dock = DockStyle.Fill;
-            lstPictures.LargeImageList = imgList;
-            lstPictures.View = View.LargeIcon;
+            flwPanel.Dock = DockStyle.Fill;
+            flwPanel.FlowDirection = FlowDirection.LeftToRight;
+            flwPanel.AutoScroll = true;
 
             cboRCSetup.DataSource = RemoteCameraSetupInfo.Load();
         }
 
         private void LoadPictures(object sender, EventArgs e)
         {
-            imgList.Images.Clear();
-            lstPictures.Items.Clear();
+            //imgList.Images.Clear();
+            //lstPictures.Items.Clear();
+
+            flwPanel.Controls.Clear();
 
             if (sender is RadioButton && !((RadioButton)sender).Checked)
                 return;
@@ -45,7 +47,7 @@ namespace SandbarWorkbench.Pictures
                 return;
             }
 
-            imgList.ImageSize = new Size((int)valSize.Value, (int)valSize.Value);
+            //imgList.ImageSize = new Size((int)valSize.Value, (int)valSize.Value);
 
             if (cboRCSetup.SelectedItem is RemoteCameraSetupInfo)
             {
@@ -66,10 +68,17 @@ namespace SandbarWorkbench.Pictures
                     {
                         foreach (string sFile in System.IO.Directory.GetFiles(sFolder, string.Format("*{0}", PictureInfo.FileSuffix)))
                         {
-                            imgList.Images.Add(System.Drawing.Image.FromFile(sFile));
-                            ListViewItem l = lstPictures.Items.Add(System.IO.Path.GetFileNameWithoutExtension(sFile), i);
-                            l.Tag = sFile;
-                            i += 1;
+                            PictureBox pic = new PictureBox();
+                            pic.ImageLocation = sFile;
+                            pic.Size = new Size((int)valSize.Value, (int)valSize.Value);
+                            pic.SizeMode = PictureBoxSizeMode.AutoSize;
+                            flwPanel.Controls.Add(pic);
+                            pic.Tag = sFile;
+
+                            //imgList.Images.Add(System.Drawing.Image.FromFile(sFile));
+                            //ListViewItem l = lstPictures.Items.Add(System.IO.Path.GetFileNameWithoutExtension(sFile), i);
+                            //l.Tag = sFile;
+                            //i += 1;
                         }
                     }
                     catch (OutOfMemoryException ex)
@@ -80,12 +89,12 @@ namespace SandbarWorkbench.Pictures
             }
         }
 
-        private void lstPictures_DoubleClick(object sender, EventArgs e)
-        {
-            if (lstPictures.SelectedItems.Count > 0)
-            {
-                System.Diagnostics.Process.Start(lstPictures.SelectedItems[0].Tag.ToString());
-            }
-        }
+        //private void lstPictures_DoubleClick(object sender, EventArgs e)
+        //{
+        //    if (flow.SelectedItems.Count > 0)
+        //    {
+        //        System.Diagnostics.Process.Start(lstPictures.SelectedItems[0].Tag.ToString());
+        //    }
+        //}
     }
 }

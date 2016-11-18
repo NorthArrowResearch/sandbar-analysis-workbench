@@ -71,6 +71,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.lstThumbnails = new System.Windows.Forms.ListView();
             this.imgThumbnails = new System.Windows.Forms.ImageList(this.components);
+            this.flwPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -461,9 +462,9 @@
             // 
             // lstThumbnails
             // 
-            this.lstThumbnails.Location = new System.Drawing.Point(647, 58);
+            this.lstThumbnails.Location = new System.Drawing.Point(944, 58);
             this.lstThumbnails.Name = "lstThumbnails";
-            this.lstThumbnails.Size = new System.Drawing.Size(458, 390);
+            this.lstThumbnails.Size = new System.Drawing.Size(161, 390);
             this.lstThumbnails.TabIndex = 11;
             this.lstThumbnails.UseCompatibleStateImageBehavior = false;
             // 
@@ -473,6 +474,13 @@
             this.imgThumbnails.ImageSize = new System.Drawing.Size(16, 16);
             this.imgThumbnails.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // flwPanel
+            // 
+            this.flwPanel.Location = new System.Drawing.Point(540, 21);
+            this.flwPanel.Name = "flwPanel";
+            this.flwPanel.Size = new System.Drawing.Size(380, 468);
+            this.flwPanel.TabIndex = 12;
+            // 
             // frmRemoteCameraPropertiesEdit
             // 
             this.AcceptButton = this.cmdOK;
@@ -480,6 +488,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(1146, 536);
+            this.Controls.Add(this.flwPanel);
             this.Controls.Add(this.lstThumbnails);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
@@ -553,5 +562,6 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.ListView lstThumbnails;
         private System.Windows.Forms.ImageList imgThumbnails;
+        private System.Windows.Forms.FlowLayoutPanel flwPanel;
     }
 }
