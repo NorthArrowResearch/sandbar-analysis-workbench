@@ -101,6 +101,7 @@
     <Compile Include="DBHelpers\LookupTableDef.cs" />
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
+    <Compile Include="IOHelpers\IOHelpers.cs" />
     <Compile Include="ModelRuns\ModelRunBase.cs" />
     <Compile Include="ModelRuns\ModelRunLocal.cs" />
     <Compile Include="ModelRuns\ModelRunMaster.cs" />
