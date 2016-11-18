@@ -174,6 +174,34 @@ namespace SandbarWorkbench
             UpdateMenuItemStatus();
         }
 
+        private void remoteCameraPictureViewerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pictures.frmPictureViewer frm = null;
+            foreach (Form frmChild in this.MdiChildren)
+            {
+                if (frmChild is Pictures.frmPictureViewer)
+                {
+                    frm = (Pictures.frmPictureViewer)frmChild;
+                    frm.Activate();
+                    frm.BringToFront();
+                    break;
+                }
+            }
+
+            if (frm == null)
+            {
+                frm = new Pictures.frmPictureViewer();
+                frm.MdiParent = this;
+
+                // Only maximize the form if there are no other MDI forms and this is a new version
+                if (this.MdiChildren.Count<Form>() < 2)
+                    frm.WindowState = FormWindowState.Maximized;
+            }
+
+            frm.Show();
+            UpdateMenuItemStatus();
+        }
+
         private void openDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog frm = new OpenFileDialog();
@@ -423,5 +451,7 @@ namespace SandbarWorkbench
                 }
             }
         }
+
+
     }
 }

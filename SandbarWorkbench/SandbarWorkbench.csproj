@@ -104,13 +104,21 @@
     <Compile Include="ModelRuns\ModelRunBase.cs" />
     <Compile Include="ModelRuns\ModelRunLocal.cs" />
     <Compile Include="ModelRuns\ModelRunMaster.cs" />
+    <Compile Include="Pictures\frmPictureViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pictures\frmPictureViewer.Designer.cs">
+      <DependentUpon>frmPictureViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pictures\PictureInfo.cs" />
+    <Compile Include="Pictures\RemoteCameraSetupInfo.cs" />
     <Compile Include="Pictures\ucThumbail.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pictures\ucThumbail.Designer.cs">
       <DependentUpon>ucThumbail.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemoteCameras\RemoteCameraBase.cs" />
     <Compile Include="Sandbars\frmSurveyProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSynchronize.resx">
       <DependentUpon>frmSynchronize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pictures\frmPictureViewer.resx">
+      <DependentUpon>frmPictureViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures\ucThumbail.resx">
       <DependentUpon>ucThumbail.cs</DependentUpon>

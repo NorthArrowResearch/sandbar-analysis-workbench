@@ -48,14 +48,15 @@
             this.tileVerticaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.experimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeDuplicateSectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarWorkbenchOnlineHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssDatabasePath = new System.Windows.Forms.ToolStripStatusLabel();
-            this.experimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeDuplicateSectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteCameraPictureViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -126,6 +127,7 @@
             // 
             this.viewsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.remoteCamerasToolStripMenuItem,
+            this.remoteCameraPictureViewerToolStripMenuItem,
             this.sandbarSitesToolStripMenuItem,
             this.toolStripSeparator3});
             this.viewsToolStripMenuItem.Name = "viewsToolStripMenuItem";
@@ -136,7 +138,7 @@
             // 
             this.remoteCamerasToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.camera_lens;
             this.remoteCamerasToolStripMenuItem.Name = "remoteCamerasToolStripMenuItem";
-            this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
             this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.remoteCamerasToolStripMenuItem_Click);
             // 
@@ -144,14 +146,14 @@
             // 
             this.sandbarSitesToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.sandbar;
             this.sandbarSitesToolStripMenuItem.Name = "sandbarSitesToolStripMenuItem";
-            this.sandbarSitesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.sandbarSitesToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.sandbarSitesToolStripMenuItem.Text = "Sandbar Sites";
             this.sandbarSitesToolStripMenuItem.Click += new System.EventHandler(this.sandbarSitesToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
             // 
             // toolsToolStripMenuItem
             // 
@@ -218,6 +220,21 @@
             this.cascadeToolStripMenuItem.Text = "Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
             // 
+            // experimentalToolStripMenuItem
+            // 
+            this.experimentalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeDuplicateSectionsToolStripMenuItem});
+            this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
+            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.experimentalToolStripMenuItem.Text = "Experimental";
+            // 
+            // removeDuplicateSectionsToolStripMenuItem
+            // 
+            this.removeDuplicateSectionsToolStripMenuItem.Name = "removeDuplicateSectionsToolStripMenuItem";
+            this.removeDuplicateSectionsToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.removeDuplicateSectionsToolStripMenuItem.Text = "Remove Duplicate Sections";
+            this.removeDuplicateSectionsToolStripMenuItem.Click += new System.EventHandler(this.removeDuplicateSectionsToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -267,20 +284,13 @@
             this.tssDatabasePath.Text = "tssDatabasePath";
             this.tssDatabasePath.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
-            // experimentalToolStripMenuItem
+            // remoteCameraPictureViewerToolStripMenuItem
             // 
-            this.experimentalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeDuplicateSectionsToolStripMenuItem});
-            this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
-            this.experimentalToolStripMenuItem.Text = "Experimental";
-            // 
-            // removeDuplicateSectionsToolStripMenuItem
-            // 
-            this.removeDuplicateSectionsToolStripMenuItem.Name = "removeDuplicateSectionsToolStripMenuItem";
-            this.removeDuplicateSectionsToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
-            this.removeDuplicateSectionsToolStripMenuItem.Text = "Remove Duplicate Sections";
-            this.removeDuplicateSectionsToolStripMenuItem.Click += new System.EventHandler(this.removeDuplicateSectionsToolStripMenuItem_Click);
+            this.remoteCameraPictureViewerToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.camera_lens;
+            this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
+            this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
+            this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.remoteCameraPictureViewerToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -333,6 +343,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeDuplicateSectionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem remoteCameraPictureViewerToolStripMenuItem;
     }
 }
 

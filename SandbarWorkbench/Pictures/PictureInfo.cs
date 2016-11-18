@@ -8,19 +8,17 @@ using System.Globalization;
 
 namespace SandbarWorkbench.Pictures
 {
-    public class PictureInfo
+    public class PictureInfo : RemoteCameras.RemoteCameraBase
     {
-        private const string FileSuffix = ".jpg";
+        public const string FileSuffix = ".jpg";
 
-        public string RemoteCameraCode { get; internal set; }
         public System.IO.FileInfo ThumbailPath { get; internal set; }
         public System.IO.FileInfo FullResPath { get; internal set; }
         public System.IO.FileInfo WebResPath { get; internal set; }
         //public DateTime DateTimeTaken { get; internal set; }
 
-        public PictureInfo(string sRemoteCameraCode, System.IO.FileInfo fiThumb, System.IO.FileInfo fiFullRes, System.IO.FileInfo fiWebRes)
+        public PictureInfo(string sRemoteCameraCode, System.IO.FileInfo fiThumb, System.IO.FileInfo fiFullRes, System.IO.FileInfo fiWebRes) : base(sRemoteCameraCode)
         {
-            RemoteCameraCode = sRemoteCameraCode;
             ThumbailPath = fiThumb;
             FullResPath = fiFullRes;
             WebResPath = fiWebRes;
