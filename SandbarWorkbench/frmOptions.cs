@@ -64,12 +64,16 @@ namespace SandbarWorkbench
 
             nRow = grdFolderPaths.Rows.Add("Remote Camera Photo Image Folder", SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
             grdFolderPaths.Rows[nRow].Tag = "Folder_RemoteCameras";
-            
+
+            nRow = grdFolderPaths.Rows.Add("Sandbar Bar Analysis Results", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults);
+            grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarAnalysisResults";
+
             // Sandbar Analysis Tab
             valDefaultInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
             valDefaultOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
             txtSpatialReference.Text = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
+            txtCompExtents.Text = SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile;
 
             // Error Logging
             if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
@@ -176,6 +180,29 @@ namespace SandbarWorkbench
                     SandbarWorkbench.Properties.Settings.Default[grdFolderPaths.Rows[e.RowIndex].Tag.ToString()] = frm.SelectedPath;
                     SandbarWorkbench.Properties.Settings.Default.Save();
                 }
+            }
+        }
+
+        private void cmdBrowseCompExtents_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog frm = new OpenFileDialog();
+            frm.Title = "Computational Extents ShapeFile";
+            frm.CheckFileExists = true;
+            frm.Filter = "ShapeFiles (*.shp)|*.shp";
+            frm.AddExtension = true;
+
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile)
+                && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile)))
+            {
+                frm.InitialDirectory = (System.IO.Path.GetDirectoryName(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile));
+                if (System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile))
+                    frm.FileName = System.IO.Path.GetFileNameWithoutExtension(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile);
+            }
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile = frm.FileName;
+                txtCompExtents.Text = frm.FileName;
             }
         }
     }

@@ -52,6 +52,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtSpatialReference = new System.Windows.Forms.TextBox();
             this.cboInterpolation = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.valDefaultOutputCellSize = new System.Windows.Forms.NumericUpDown();
@@ -71,8 +73,9 @@
             this.cboTripDates = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtSpatialReference = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtCompExtents = new System.Windows.Forms.TextBox();
+            this.cmdBrowseCompExtents = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -80,11 +83,11 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -316,6 +319,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cmdBrowseCompExtents);
+            this.tabPage4.Controls.Add(this.txtCompExtents);
+            this.tabPage4.Controls.Add(this.label13);
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.cboInterpolation);
             this.tabPage4.Controls.Add(this.label8);
@@ -331,11 +337,35 @@
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.txtSpatialReference);
+            this.groupBox2.Location = new System.Drawing.Point(6, 140);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(534, 183);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Spatial Reference";
+            // 
+            // txtSpatialReference
+            // 
+            this.txtSpatialReference.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSpatialReference.Location = new System.Drawing.Point(6, 19);
+            this.txtSpatialReference.Multiline = true;
+            this.txtSpatialReference.Name = "txtSpatialReference";
+            this.txtSpatialReference.Size = new System.Drawing.Size(522, 158);
+            this.txtSpatialReference.TabIndex = 0;
+            // 
             // cboInterpolation
             // 
             this.cboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboInterpolation.FormattingEnabled = true;
-            this.cboInterpolation.Location = new System.Drawing.Point(209, 82);
+            this.cboInterpolation.Location = new System.Drawing.Point(176, 80);
             this.cboInterpolation.Name = "cboInterpolation";
             this.cboInterpolation.Size = new System.Drawing.Size(121, 21);
             this.cboInterpolation.TabIndex = 5;
@@ -343,7 +373,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 82);
+            this.label8.Location = new System.Drawing.Point(33, 84);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(139, 13);
             this.label8.TabIndex = 4;
@@ -352,7 +382,7 @@
             // valDefaultOutputCellSize
             // 
             this.valDefaultOutputCellSize.DecimalPlaces = 2;
-            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(209, 47);
+            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(176, 49);
             this.valDefaultOutputCellSize.Name = "valDefaultOutputCellSize";
             this.valDefaultOutputCellSize.Size = new System.Drawing.Size(120, 20);
             this.valDefaultOutputCellSize.TabIndex = 3;
@@ -360,7 +390,7 @@
             // valDefaultInputCellSize
             // 
             this.valDefaultInputCellSize.DecimalPlaces = 2;
-            this.valDefaultInputCellSize.Location = new System.Drawing.Point(209, 18);
+            this.valDefaultInputCellSize.Location = new System.Drawing.Point(176, 18);
             this.valDefaultInputCellSize.Name = "valDefaultInputCellSize";
             this.valDefaultInputCellSize.Size = new System.Drawing.Size(120, 20);
             this.valDefaultInputCellSize.TabIndex = 2;
@@ -368,7 +398,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 47);
+            this.label7.Location = new System.Drawing.Point(12, 53);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 13);
             this.label7.TabIndex = 1;
@@ -377,7 +407,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 18);
+            this.label6.Location = new System.Drawing.Point(12, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(160, 13);
             this.label6.TabIndex = 0;
@@ -512,6 +542,7 @@
             // 
             // cmdHelp
             // 
+            this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmdHelp.Location = new System.Drawing.Point(16, 373);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
@@ -519,29 +550,35 @@
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // label13
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 116);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(156, 13);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Computational extents shapefile";
+            // 
+            // txtCompExtents
+            // 
+            this.txtCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.txtSpatialReference);
-            this.groupBox2.Location = new System.Drawing.Point(6, 121);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(534, 202);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Spatial Reference";
+            this.txtCompExtents.Location = new System.Drawing.Point(176, 112);
+            this.txtCompExtents.Name = "txtCompExtents";
+            this.txtCompExtents.ReadOnly = true;
+            this.txtCompExtents.Size = new System.Drawing.Size(335, 20);
+            this.txtCompExtents.TabIndex = 8;
             // 
-            // txtSpatialReference
+            // cmdBrowseCompExtents
             // 
-            this.txtSpatialReference.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSpatialReference.Location = new System.Drawing.Point(6, 19);
-            this.txtSpatialReference.Multiline = true;
-            this.txtSpatialReference.Name = "txtSpatialReference";
-            this.txtSpatialReference.Size = new System.Drawing.Size(522, 177);
-            this.txtSpatialReference.TabIndex = 0;
+            this.cmdBrowseCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseCompExtents.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowseCompExtents.Location = new System.Drawing.Point(517, 111);
+            this.cmdBrowseCompExtents.Name = "cmdBrowseCompExtents";
+            this.cmdBrowseCompExtents.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowseCompExtents.TabIndex = 9;
+            this.cmdBrowseCompExtents.UseVisualStyleBackColor = true;
+            this.cmdBrowseCompExtents.Click += new System.EventHandler(this.cmdBrowseCompExtents_Click);
             // 
             // frmOptions
             // 
@@ -567,14 +604,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -625,5 +662,8 @@
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtSpatialReference;
+        private System.Windows.Forms.Button cmdBrowseCompExtents;
+        private System.Windows.Forms.TextBox txtCompExtents;
+        private System.Windows.Forms.Label label13;
     }
 }

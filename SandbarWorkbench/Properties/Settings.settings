@@ -95,5 +95,11 @@
     <Setting Name="Folder_RemoteCameras" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\RemoteCameras</Value>
     </Setting>
+    <Setting Name="Folder_SandbarAnalysisResults" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Temp\GCMRC</Value>
+    </Setting>
+    <Setting Name="CompExtents_ShapeFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\Topo_Data\corgrids\ComputationExtents.shp</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

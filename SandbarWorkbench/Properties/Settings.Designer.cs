@@ -364,5 +364,29 @@ namespace SandbarWorkbench.Properties {
                 this["Folder_RemoteCameras"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Temp\\GCMRC")]
+        public string Folder_SandbarAnalysisResults {
+            get {
+                return ((string)(this["Folder_SandbarAnalysisResults"]));
+            }
+            set {
+                this["Folder_SandbarAnalysisResults"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data\\corgrids\\ComputationExtents.shp")]
+        public string CompExtents_ShapeFile {
+            get {
+                return ((string)(this["CompExtents_ShapeFile"]));
+            }
+            set {
+                this["CompExtents_ShapeFile"] = value;
+            }
+        }
     }
 }
