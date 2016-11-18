@@ -38,7 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboRCSetup = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.flwPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,7 +64,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.flwPanel);
+            this.splitContainer1.Panel2.Controls.Add(this.ucPictureViewer);
             this.splitContainer1.Size = new System.Drawing.Size(576, 535);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 0;
@@ -171,12 +171,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "RC Setup";
             // 
-            // flwPanel
+            // ucPictureViewer
             // 
-            this.flwPanel.Location = new System.Drawing.Point(121, 275);
-            this.flwPanel.Name = "flwPanel";
-            this.flwPanel.Size = new System.Drawing.Size(200, 100);
-            this.flwPanel.TabIndex = 1;
+            this.ucPictureViewer.Location = new System.Drawing.Point(110, 83);
+            this.ucPictureViewer.Name = "ucPictureViewer";
+            this.ucPictureViewer.Size = new System.Drawing.Size(187, 112);
+            this.ucPictureViewer.TabIndex = 2;
             // 
             // frmPictureViewer
             // 
@@ -211,6 +211,6 @@
         private System.Windows.Forms.RadioButton rdoFull;
         private System.Windows.Forms.RadioButton rdoWeb;
         private System.Windows.Forms.RadioButton rdoThumb;
-        private System.Windows.Forms.FlowLayoutPanel flwPanel;
+        private ucPictureViewer ucPictureViewer;
     }
 }

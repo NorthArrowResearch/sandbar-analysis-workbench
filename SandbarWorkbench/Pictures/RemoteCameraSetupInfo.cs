@@ -26,6 +26,37 @@ namespace SandbarWorkbench.Pictures
             BestPhotoTime = sBestPhotoTime;
         }
 
+        public System.IO.DirectoryInfo GetPictureFolder(PictureInfo.PictureSizes eSize)
+        {
+            string sFolderPath = string.Empty;
+
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras)
+               && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras))
+            {
+                switch (eSize)
+                {
+                    case PictureInfo.PictureSizes.Thumbnail:
+                        sFolderPath = "Photos_Thumb_Res";
+                        break;
+
+                    case PictureInfo.PictureSizes.WebResolution:
+                        sFolderPath = "Photos_Web_Res";
+                        break;
+
+                    case PictureInfo.PictureSizes.FullResolution:
+                        sFolderPath = "Photos_Full_Res";
+                        break;
+
+                    default:
+                        throw new Exception("Unhandled picture size");
+                }
+
+                sFolderPath = System.IO.Path.Combine(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras, sFolderPath, SiteCodeFormatted);
+            }
+
+            return new System.IO.DirectoryInfo(sFolderPath);
+        }
+
         public static BindingList<RemoteCameraSetupInfo> Load()
         {
             BindingList<RemoteCameraSetupInfo> lResult = new BindingList<RemoteCameraSetupInfo>();

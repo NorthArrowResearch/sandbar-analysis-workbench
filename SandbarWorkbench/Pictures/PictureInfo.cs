@@ -12,6 +12,13 @@ namespace SandbarWorkbench.Pictures
     {
         public const string FileSuffix = ".jpg";
 
+        public enum PictureSizes
+        {
+            Thumbnail,
+            WebResolution,
+            FullResolution
+        }
+
         public System.IO.FileInfo ThumbailPath { get; internal set; }
         public System.IO.FileInfo FullResPath { get; internal set; }
         public System.IO.FileInfo WebResPath { get; internal set; }

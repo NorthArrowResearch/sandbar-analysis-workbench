@@ -112,6 +112,12 @@
     </Compile>
     <Compile Include="Pictures\PictureInfo.cs" />
     <Compile Include="Pictures\RemoteCameraSetupInfo.cs" />
+    <Compile Include="Pictures\ucPictureViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pictures\ucPictureViewer.Designer.cs">
+      <DependentUpon>ucPictureViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pictures\ucThumbail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures\frmPictureViewer.resx">
       <DependentUpon>frmPictureViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pictures\ucPictureViewer.resx">
+      <DependentUpon>ucPictureViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures\ucThumbail.resx">
       <DependentUpon>ucThumbail.cs</DependentUpon>
