@@ -42,7 +42,7 @@ namespace SandbarWorkbench.Pictures
                     eSize = PictureInfo.PictureSizes.FullResolution;
 
                 RemoteCameraSetupInfo rc = cboRCSetup.SelectedItem as RemoteCameraSetupInfo;
-                ucPictureViewer.UpdateViewer(rc, eSize, (int)valSize.Value);
+                ucPictureViewer.UpdateViewer(rc, eSize, (int)valSize.Value, false);
             }
         }
     }

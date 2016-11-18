@@ -300,6 +300,7 @@
             this.grdData.Size = new System.Drawing.Size(492, 555);
             this.grdData.TabIndex = 0;
             this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
+            this.grdData.DoubleClick += new System.EventHandler(this.viewPropertiesToolStripMenuItem_Click);
             // 
             // cmsGridView
             // 
@@ -319,6 +320,7 @@
             this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
             this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.viewPropertiesToolStripMenuItem.Text = "View Properties";
+            this.viewPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewPropertiesToolStripMenuItem_Click);
             // 
             // browseTopoFolderToolStripMenuItem
             // 

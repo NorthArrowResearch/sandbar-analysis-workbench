@@ -210,20 +210,7 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void editPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                RemoteCamera selCamera = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
-
-                frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit(selCamera);
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    MasterDatabaseChanged(selCamera.CameraID);
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandling.NARException.HandleException(ex);
-            }
+            ShowPropertiesForm(true);
         }
 
         private void grdData_SelectionChanged(object sender, EventArgs e)
@@ -235,6 +222,29 @@ namespace SandbarWorkbench.RemoteCameras
                 {
                     ucThumbail.UpdateThumbnail(rc.SiteCode, rc.BestPhotoTime);
                 }
+            }
+        }
+
+        private void viewPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowPropertiesForm(false);
+        }
+
+        private void ShowPropertiesForm(bool bEditable)
+        {
+            try
+            {
+                RemoteCamera selCamera = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
+
+                frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit(selCamera, bEditable);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    MasterDatabaseChanged(selCamera.CameraID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
             }
         }
     }

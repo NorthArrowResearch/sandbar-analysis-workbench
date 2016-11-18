@@ -94,6 +94,14 @@ namespace SandbarWorkbench.RemoteCameras
             UpdatedBy = sUpdatedBy;
         }
 
+        public Pictures.RemoteCameraSetupInfo RemoteCameraSetupInfo
+        {
+            get
+            {
+                return new Pictures.RemoteCameraSetupInfo(SiteCode, RiverMile, SiteName, BestPhotoTime);
+            }
+        }
+
         public static SortableBindingList<RemoteCamera> LoadRemoteCameras(string sDB)
         {
             SortableBindingList<RemoteCamera> lItems = new SortableBindingList<RemoteCamera>();

@@ -12,9 +12,14 @@ namespace SandbarWorkbench.Pictures
 {
     public partial class ucPictureViewer : UserControl
     {
+        // When the user double clicks an image, this flag determines whether the user sees the best image
+        // or the actual image clicked.
+        public bool bDblClickShowsBest { get; internal set; }
+
         public ucPictureViewer()
         {
             InitializeComponent();
+            bDblClickShowsBest = false;
         }
 
         private void ucPictureViewer_Load(object sender, EventArgs e)
@@ -24,10 +29,11 @@ namespace SandbarWorkbench.Pictures
             flwPanel.AutoScroll = true;
         }
 
-        public void UpdateViewer(RemoteCameraSetupInfo rc, PictureInfo.PictureSizes eSize, int nSize)
+        public void UpdateViewer(RemoteCameraSetupInfo rc, PictureInfo.PictureSizes eSize, int nSize, bool bUseBestOnDblClick)
         {
             Cursor.Current = Cursors.WaitCursor;
             flwPanel.Controls.Clear();
+            bDblClickShowsBest = bUseBestOnDblClick;
             
             System.IO.DirectoryInfo diFolder = rc.GetPictureFolder(eSize);
             if (diFolder.Exists)
@@ -63,12 +69,18 @@ namespace SandbarWorkbench.Pictures
                 PictureBox picBox = (PictureBox)sender;
                 if (picBox.Tag is PictureInfo)
                 {
+                    // Default picture to show is the one used for the picture box
+                    System.IO.FileInfo fiPicture = new System.IO.FileInfo(picBox.ImageLocation);
+
                     PictureInfo picInfo = (PictureInfo)picBox.Tag;
-                    System.IO.FileInfo fiPicture = picInfo.BestImage;
-                    if (fiPicture is System.IO.FileInfo && fiPicture.Exists)
+                    if (bDblClickShowsBest)
                     {
-                        System.Diagnostics.Process.Start(picBox.ImageLocation);
+                        // override hte picture to show with the best image
+                        fiPicture = picInfo.BestImage;
                     }
+
+                    if (fiPicture is System.IO.FileInfo && fiPicture.Exists)
+                        System.Diagnostics.Process.Start(fiPicture.FullName);
                 }
             }
         }

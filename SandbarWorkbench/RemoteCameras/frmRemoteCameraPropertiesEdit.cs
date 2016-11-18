@@ -15,11 +15,25 @@ namespace SandbarWorkbench.RemoteCameras
     {
         private RemoteCamera m_RemoteCamera { get; set; }
         public long RemoteCameraID { get; internal set; }
+        public bool Editable { get; internal set; }
+        int OriginalFormWidth;
 
-        public frmRemoteCameraPropertiesEdit(RemoteCamera rc = null)
+        public frmRemoteCameraPropertiesEdit()
+        {
+            Init(null, true);
+        }
+
+        public frmRemoteCameraPropertiesEdit(RemoteCamera rc, bool bEditable)
+        {
+            Init(rc, bEditable);
+        }
+
+        private void Init(RemoteCamera rc, bool bEditable)
         {
             InitializeComponent();
             m_RemoteCamera = rc;
+            Editable = bEditable;
+            OriginalFormWidth = this.Width;
         }
 
         private void frmRemoteCameraPropertiesEdit_Load(object sender, EventArgs e)
@@ -38,7 +52,7 @@ namespace SandbarWorkbench.RemoteCameras
 
                 if (m_RemoteCamera.SiteID.HasValue)
                     nSandbarSite = m_RemoteCamera.SiteID.Value;
-                
+
                 valRiverMile.Value = (decimal)m_RemoteCamera.RiverMile;
                 txtSiteCode.Text = m_RemoteCamera.SiteCode;
                 txtSiteName.Text = m_RemoteCamera.SiteName;
@@ -55,7 +69,39 @@ namespace SandbarWorkbench.RemoteCameras
 
                 txtBeginDigital.Text = m_RemoteCamera.BeginDigitalRecord;
                 txtEndDigital.Text = m_RemoteCamera.EndDigitalRecord;
+
+                if (Editable)
+                {
+                    cmdPictures.Visible = false;
+                }
+                else
+                {
+                    // Set all the controls to read only.
+                    valRiverMile.Enabled = false;
+                    cboCameraRiverBank.Enabled = false;
+                    cboTargetRiverBank.Enabled = false;
+                    cboSandbarSite.Enabled = false;
+                    txtSiteName.ReadOnly = true;
+                    txtNAUName.ReadOnly = true;
+                    txtSiteCode.ReadOnly = true;
+                    chkCurrentNSPPermit.Enabled = false;
+
+                    txtSubject.ReadOnly = true;
+                    txtView.ReadOnly = true;
+                    cboCardType.Enabled = false;
+                    txtBestPhotoTime.ReadOnly = true;
+                    chkHavePhotos.Enabled = false;
+                    txtBeginFilm.ReadOnly = true;
+                    txtEndFilm.ReadOnly = true;
+                    txtBeginDigital.ReadOnly = true;
+                    txtEndDigital.ReadOnly = true;
+
+                    cmdOK.Visible = false;
+                    cmdCancel.Text = "Close";
+                }
             }
+            else
+                cmdPictures.Visible = false;
 
             ListItem.LoadComboWithLookupListItems(ref cboCameraRiverBank, DBCon.ConnectionStringLocal, SandbarWorkbench.Properties.Settings.Default.ListID_RiverBanks, nCameraRiverBank);
             ListItem.LoadComboWithLookupListItems(ref cboTargetRiverBank, DBCon.ConnectionStringLocal, SandbarWorkbench.Properties.Settings.Default.ListID_RiverBanks, nTargetRiverBank);
@@ -64,27 +110,8 @@ namespace SandbarWorkbench.RemoteCameras
             // Special method that loads combo with sandbar site information (which is then available to help with other controls)
             SandbarSiteInfo.LoadSandbarSiteInfo(ref cboSandbarSite, nSandbarSite);
 
-            // Experiment to load thumbnails
-            string sPath = "D:\\GCMRC\\PHYSICAL\\Sandbars\\RemoteCameras\\Photos_Thumb_Res\\RC0089L";
-
-            imgThumbnails.ImageSize = new Size(100, 100);
-            lstThumbnails.LargeImageList = imgThumbnails;
-
-            lstThumbnails.View = View.LargeIcon;
-            int i = 0;
-            foreach (string sFile in System.IO.Directory.GetFiles(sPath, "*.jpg"))
-            {
-                imgThumbnails.Images.Add(System.Drawing.Image.FromFile(sFile));
-                lstThumbnails.Items.Add(sFile, i);
-
-                PictureBox pic = new PictureBox();
-                pic.ImageLocation = sFile;
-                pic.Size = new Size(64, 64);
-                pic.SizeMode = PictureBoxSizeMode.AutoSize;
-                flwPanel.Controls.Add(pic);
-
-                i += 1;
-            }
+            ShowHidePictureViewer(false);
+            ucPictureViewer.Dock = DockStyle.Fill;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
@@ -218,18 +245,18 @@ namespace SandbarWorkbench.RemoteCameras
                 SandbarSiteInfo selSite = cboSandbarSite.SelectedItem as SandbarSiteInfo;
 
                 //if (string.IsNullOrEmpty(txtSiteCode.Text))
-                    txtSiteCode.Text = selSite.SiteCode;
+                txtSiteCode.Text = selSite.SiteCode;
 
                 //if (string.IsNullOrEmpty(txtSiteName.Text))
-                    txtSiteName.Text = selSite.Text;
+                txtSiteName.Text = selSite.Text;
             }
         }
 
-/// <summary>
-/// Lightweight class for sandbar site information so that when the user picks 
-/// a sandbar site from the dropdown, the relevant properties can be populated into the other
-/// controls on this form.
-/// </summary>
+        /// <summary>
+        /// Lightweight class for sandbar site information so that when the user picks 
+        /// a sandbar site from the dropdown, the relevant properties can be populated into the other
+        /// controls on this form.
+        /// </summary>
         private class SandbarSiteInfo : ListItem
         {
             public string SiteCode { get; internal set; }
@@ -239,7 +266,7 @@ namespace SandbarWorkbench.RemoteCameras
                 return string.Format("{0} - {1}", SiteCode, Text);
             }
 
-            public SandbarSiteInfo(long nSiteID, string sSiteCode, string sSiteName) : base (sSiteName, nSiteID)
+            public SandbarSiteInfo(long nSiteID, string sSiteCode, string sSiteName) : base(sSiteName, nSiteID)
             {
                 SiteCode = sSiteCode;
             }
@@ -263,6 +290,32 @@ namespace SandbarWorkbench.RemoteCameras
                             cbo.SelectedIndex = nIn;
                     }
                 }
+            }
+        }
+
+        private void cmdPictures_Click(object sender, EventArgs e)
+        {
+            ShowHidePictureViewer(splitContainer1.Panel2Collapsed);            
+        }
+
+        private void ShowHidePictureViewer(bool bShow)
+        {
+            if (bShow)
+            {
+                splitContainer1.Panel2Collapsed = false;
+                splitContainer1.Panel2.Show();
+                this.Width = OriginalFormWidth;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                cmdPictures.Text = "<<< Hide Pictures";
+                ucPictureViewer.UpdateViewer(m_RemoteCamera.RemoteCameraSetupInfo, Pictures.PictureInfo.PictureSizes.Thumbnail, 0, true);
+            }
+            else
+            {
+                splitContainer1.Panel2Collapsed = true;
+                splitContainer1.Panel2.Hide();
+                this.Width = groupBox1.Width + 30;
+                this.FormBorderStyle = FormBorderStyle.FixedDialog;
+                cmdPictures.Text = "Show Pictures >>>";
             }
         }
     }

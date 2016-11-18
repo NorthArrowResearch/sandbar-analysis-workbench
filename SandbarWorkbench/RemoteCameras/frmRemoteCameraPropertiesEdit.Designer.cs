@@ -69,14 +69,19 @@
             this.cmdHelp = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
-            this.lstThumbnails = new System.Windows.Forms.ListView();
             this.imgThumbnails = new System.Windows.Forms.ImageList(this.components);
-            this.flwPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
+            this.cmdPictures = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chkCurrentNSPPermit
@@ -100,7 +105,7 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtSiteCode);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 48);
+            this.groupBox1.Location = new System.Drawing.Point(3, 33);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(500, 169);
             this.groupBox1.TabIndex = 6;
@@ -180,7 +185,7 @@
             // 
             this.cboTargetRiverBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTargetRiverBank.FormattingEnabled = true;
-            this.cboTargetRiverBank.Location = new System.Drawing.Point(436, 21);
+            this.cboTargetRiverBank.Location = new System.Drawing.Point(427, 6);
             this.cboTargetRiverBank.Name = "cboTargetRiverBank";
             this.cboTargetRiverBank.Size = new System.Drawing.Size(76, 21);
             this.cboTargetRiverBank.TabIndex = 5;
@@ -188,7 +193,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(345, 25);
+            this.label3.Location = new System.Drawing.Point(336, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 13);
             this.label3.TabIndex = 4;
@@ -198,7 +203,7 @@
             // 
             this.cboCameraRiverBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCameraRiverBank.FormattingEnabled = true;
-            this.cboCameraRiverBank.Location = new System.Drawing.Point(259, 21);
+            this.cboCameraRiverBank.Location = new System.Drawing.Point(250, 6);
             this.cboCameraRiverBank.Name = "cboCameraRiverBank";
             this.cboCameraRiverBank.Size = new System.Drawing.Size(76, 21);
             this.cboCameraRiverBank.TabIndex = 3;
@@ -206,7 +211,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(162, 25);
+            this.label2.Location = new System.Drawing.Point(153, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 2;
@@ -215,7 +220,7 @@
             // valRiverMile
             // 
             this.valRiverMile.DecimalPlaces = 2;
-            this.valRiverMile.Location = new System.Drawing.Point(67, 21);
+            this.valRiverMile.Location = new System.Drawing.Point(58, 6);
             this.valRiverMile.Minimum = new decimal(new int[] {
             10,
             0,
@@ -228,7 +233,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 25);
+            this.label1.Location = new System.Drawing.Point(3, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
@@ -420,7 +425,7 @@
             this.groupBox4.Controls.Add(this.groupBox2);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txtBestPhotoTime);
-            this.groupBox4.Location = new System.Drawing.Point(12, 223);
+            this.groupBox4.Location = new System.Drawing.Point(3, 208);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(500, 266);
             this.groupBox4.TabIndex = 7;
@@ -430,7 +435,7 @@
             // cmdHelp
             // 
             this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdHelp.Location = new System.Drawing.Point(12, 501);
+            this.cmdHelp.Location = new System.Drawing.Point(3, 481);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
             this.cmdHelp.TabIndex = 10;
@@ -441,7 +446,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(1058, 501);
+            this.cmdCancel.Location = new System.Drawing.Point(428, 481);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 9;
@@ -452,7 +457,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(980, 501);
+            this.cmdOK.Location = new System.Drawing.Point(349, 481);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 8;
@@ -460,26 +465,58 @@
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
             // 
-            // lstThumbnails
-            // 
-            this.lstThumbnails.Location = new System.Drawing.Point(944, 58);
-            this.lstThumbnails.Name = "lstThumbnails";
-            this.lstThumbnails.Size = new System.Drawing.Size(161, 390);
-            this.lstThumbnails.TabIndex = 11;
-            this.lstThumbnails.UseCompatibleStateImageBehavior = false;
-            // 
             // imgThumbnails
             // 
             this.imgThumbnails.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imgThumbnails.ImageSize = new System.Drawing.Size(16, 16);
             this.imgThumbnails.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // flwPanel
+            // splitContainer1
             // 
-            this.flwPanel.Location = new System.Drawing.Point(540, 21);
-            this.flwPanel.Name = "flwPanel";
-            this.flwPanel.Size = new System.Drawing.Size(380, 468);
-            this.flwPanel.TabIndex = 12;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.cmdPictures);
+            this.splitContainer1.Panel1.Controls.Add(this.cmdOK);
+            this.splitContainer1.Panel1.Controls.Add(this.cmdCancel);
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Controls.Add(this.cboCameraRiverBank);
+            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.cmdHelp);
+            this.splitContainer1.Panel1.Controls.Add(this.valRiverMile);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox4);
+            this.splitContainer1.Panel1.Controls.Add(this.cboTargetRiverBank);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.ucPictureViewer);
+            this.splitContainer1.Size = new System.Drawing.Size(1272, 508);
+            this.splitContainer1.SplitterDistance = 510;
+            this.splitContainer1.TabIndex = 11;
+            // 
+            // ucPictureViewer
+            // 
+            this.ucPictureViewer.Location = new System.Drawing.Point(19, 19);
+            this.ucPictureViewer.Name = "ucPictureViewer";
+            this.ucPictureViewer.Size = new System.Drawing.Size(66, 115);
+            this.ucPictureViewer.TabIndex = 0;
+            // 
+            // cmdPictures
+            // 
+            this.cmdPictures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdPictures.Location = new System.Drawing.Point(170, 481);
+            this.cmdPictures.Name = "cmdPictures";
+            this.cmdPictures.Size = new System.Drawing.Size(147, 23);
+            this.cmdPictures.TabIndex = 12;
+            this.cmdPictures.Text = "Show Pictures >>>";
+            this.cmdPictures.UseVisualStyleBackColor = true;
+            this.cmdPictures.Click += new System.EventHandler(this.cmdPictures_Click);
             // 
             // frmRemoteCameraPropertiesEdit
             // 
@@ -487,20 +524,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(1146, 536);
-            this.Controls.Add(this.flwPanel);
-            this.Controls.Add(this.lstThumbnails);
-            this.Controls.Add(this.cmdOK);
-            this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdHelp);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cboTargetRiverBank);
-            this.Controls.Add(this.valRiverMile);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cboCameraRiverBank);
+            this.ClientSize = new System.Drawing.Size(1272, 508);
+            this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRemoteCameraPropertiesEdit";
@@ -515,8 +540,12 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -560,8 +589,9 @@
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
-        private System.Windows.Forms.ListView lstThumbnails;
         private System.Windows.Forms.ImageList imgThumbnails;
-        private System.Windows.Forms.FlowLayoutPanel flwPanel;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private Pictures.ucPictureViewer ucPictureViewer;
+        private System.Windows.Forms.Button cmdPictures;
     }
 }
