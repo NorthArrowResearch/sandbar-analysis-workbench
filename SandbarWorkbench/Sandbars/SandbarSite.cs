@@ -179,7 +179,7 @@ namespace SandbarWorkbench.Sandbars
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Segment")
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CampSiteSurveyRecord")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "RemoteCameraID")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "RemoteCameraSiteCode")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CameraSiteCode")
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
