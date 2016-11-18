@@ -247,5 +247,14 @@ namespace SandbarWorkbench.RemoteCameras
                 ExceptionHandling.NARException.HandleException(ex);
             }
         }
+
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras)
+                && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras))
+            {
+                System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
+            }
+        }
     }
 }
