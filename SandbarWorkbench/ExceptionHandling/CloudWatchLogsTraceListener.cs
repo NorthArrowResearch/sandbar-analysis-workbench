@@ -173,7 +173,7 @@ namespace SandbarWorkbench.AWSCloudWatch
             catch (Exception ex)
             {
                 _ConnectionFailed = true;
-                if (FailOnError) throw;
+                //if (FailOnError) throw;
             }
 
             if (!_ConnectionFailed)
