@@ -139,7 +139,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(562, 540);
+            this.tabPage2.Size = new System.Drawing.Size(562, 536);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -149,7 +149,7 @@
             this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
             this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(630, 472);
+            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
             this.ucStageDischarge1.TabIndex = 0;
             // 
             // tabSurveys
@@ -158,7 +158,7 @@
             this.tabSurveys.Location = new System.Drawing.Point(4, 22);
             this.tabSurveys.Name = "tabSurveys";
             this.tabSurveys.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSurveys.Size = new System.Drawing.Size(562, 540);
+            this.tabSurveys.Size = new System.Drawing.Size(562, 536);
             this.tabSurveys.TabIndex = 2;
             this.tabSurveys.Text = "Surveys";
             this.tabSurveys.UseVisualStyleBackColor = true;
@@ -170,7 +170,7 @@
             this.grdSurveys.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grdSurveys.Location = new System.Drawing.Point(3, 3);
             this.grdSurveys.Name = "grdSurveys";
-            this.grdSurveys.Size = new System.Drawing.Size(556, 534);
+            this.grdSurveys.Size = new System.Drawing.Size(556, 530);
             this.grdSurveys.TabIndex = 0;
             this.grdSurveys.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSurveys_CellDoubleClick);
             // 
@@ -228,7 +228,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(562, 540);
+            this.tabPage3.Size = new System.Drawing.Size(562, 536);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -239,7 +239,7 @@
             this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
             this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
             this.ucAreaVolumeAnalyses1.SandbarSite = null;
-            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 534);
+            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
             this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
             // txtRiverMile

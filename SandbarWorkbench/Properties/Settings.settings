@@ -101,5 +101,14 @@
     <Setting Name="CompExtents_ShapeFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\GCMRC\PHYSICAL\Sandbars\Topo_Data\corgrids\ComputationExtents.shp</Value>
     </Setting>
+    <Setting Name="GDALWarp" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\OSGeo4W64\bin\gdalwarp.exe</Value>
+    </Setting>
+    <Setting Name="ElevationIncrement" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="BenchmarkStage" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">8000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -388,5 +388,41 @@ namespace SandbarWorkbench.Properties {
                 this["CompExtents_ShapeFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\OSGeo4W64\\bin\\gdalwarp.exe")]
+        public string GDALWarp {
+            get {
+                return ((string)(this["GDALWarp"]));
+            }
+            set {
+                this["GDALWarp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public decimal ElevationIncrement {
+            get {
+                return ((decimal)(this["ElevationIncrement"]));
+            }
+            set {
+                this["ElevationIncrement"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8000")]
+        public decimal BenchmarkStage {
+            get {
+                return ((decimal)(this["BenchmarkStage"]));
+            }
+            set {
+                this["BenchmarkStage"] = value;
+            }
+        }
     }
 }

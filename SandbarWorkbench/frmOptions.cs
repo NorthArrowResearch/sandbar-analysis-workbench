@@ -74,6 +74,9 @@ namespace SandbarWorkbench
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
             txtSpatialReference.Text = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
             txtCompExtents.Text = SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile;
+            IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.GDALWarp, ref txtGDALWarp);
+            valIncrement.Value = SandbarWorkbench.Properties.Settings.Default.ElevationIncrement;
+            valBenchmark.Value = SandbarWorkbench.Properties.Settings.Default.BenchmarkStage;
 
             // Error Logging
             if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
@@ -129,6 +132,8 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize = valDefaultOutputCellSize.Value;
             SandbarWorkbench.Properties.Settings.Default.Default_Interpolation = ((ListItem)cboInterpolation.SelectedItem).Value;
             SandbarWorkbench.Properties.Settings.Default.SpatialReference = txtSpatialReference.Text;
+            SandbarWorkbench.Properties.Settings.Default.ElevationIncrement = valIncrement.Value;
+            SandbarWorkbench.Properties.Settings.Default.BenchmarkStage = valBenchmark.Value;
 
             // Date Display Formats
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
@@ -204,6 +209,11 @@ namespace SandbarWorkbench
                 SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile = frm.FileName;
                 txtCompExtents.Text = frm.FileName;
             }
+        }
+
+        private void cmdBrowseGDALWarp_Click(object sender, EventArgs e)
+        {
+            IOHelpers.IOHelpers.BrowseFillTextBoxFile("GDAL Warp", "Executable Files (*.exe)|*.exe", ref txtGDALWarp, true);
         }
     }
 }

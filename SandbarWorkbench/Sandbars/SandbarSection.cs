@@ -11,7 +11,7 @@ namespace SandbarWorkbench.Sandbars
 {
     // : INotifyPropertyChanged
 
-    public class SandbarSection 
+    public class SandbarSection
     {
         //public event PropertyChangedEventHandler PropertyChanged;
 

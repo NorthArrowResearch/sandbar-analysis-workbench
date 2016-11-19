@@ -32,14 +32,10 @@
             this.lstSites = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.ucAnalysisTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.ucAnalysisFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.ucMinimumTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.ucMinimumFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboInterpolationMethod = new System.Windows.Forms.ComboBox();
             this.lblInterpolationMethod = new System.Windows.Forms.Label();
@@ -60,6 +56,10 @@
             this.cmdBrowseResults = new System.Windows.Forms.Button();
             this.txtResults = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.ucMinimumTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucMinimumFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucAnalysisTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucAnalysisFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -107,15 +107,6 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "To:";
             // 
-            // ucAnalysisTo
-            // 
-            this.ucAnalysisTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucAnalysisTo.Location = new System.Drawing.Point(76, 49);
-            this.ucAnalysisTo.Name = "ucAnalysisTo";
-            this.ucAnalysisTo.Size = new System.Drawing.Size(315, 21);
-            this.ucAnalysisTo.SurveyDates = null;
-            this.ucAnalysisTo.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -124,15 +115,6 @@
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "From:";
-            // 
-            // ucAnalysisFrom
-            // 
-            this.ucAnalysisFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucAnalysisFrom.Location = new System.Drawing.Point(76, 22);
-            this.ucAnalysisFrom.Name = "ucAnalysisFrom";
-            this.ucAnalysisFrom.Size = new System.Drawing.Size(315, 21);
-            this.ucAnalysisFrom.SurveyDates = null;
-            this.ucAnalysisFrom.TabIndex = 2;
             // 
             // groupBox2
             // 
@@ -156,15 +138,6 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "To:";
             // 
-            // ucMinimumTo
-            // 
-            this.ucMinimumTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucMinimumTo.Location = new System.Drawing.Point(76, 49);
-            this.ucMinimumTo.Name = "ucMinimumTo";
-            this.ucMinimumTo.Size = new System.Drawing.Size(315, 21);
-            this.ucMinimumTo.SurveyDates = null;
-            this.ucMinimumTo.TabIndex = 4;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -173,15 +146,6 @@
             this.label5.Size = new System.Drawing.Size(33, 13);
             this.label5.TabIndex = 3;
             this.label5.Text = "From:";
-            // 
-            // ucMinimumFrom
-            // 
-            this.ucMinimumFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucMinimumFrom.Location = new System.Drawing.Point(76, 22);
-            this.ucMinimumFrom.Name = "ucMinimumFrom";
-            this.ucMinimumFrom.Size = new System.Drawing.Size(315, 21);
-            this.ucMinimumFrom.SurveyDates = null;
-            this.ucMinimumFrom.TabIndex = 2;
             // 
             // groupBox3
             // 
@@ -392,6 +356,42 @@
             this.label10.Size = new System.Drawing.Size(98, 13);
             this.label10.TabIndex = 16;
             this.label10.Text = "Model results folder";
+            // 
+            // ucMinimumTo
+            // 
+            this.ucMinimumTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucMinimumTo.Location = new System.Drawing.Point(76, 49);
+            this.ucMinimumTo.Name = "ucMinimumTo";
+            this.ucMinimumTo.Size = new System.Drawing.Size(315, 21);
+            this.ucMinimumTo.SurveyDates = null;
+            this.ucMinimumTo.TabIndex = 4;
+            // 
+            // ucMinimumFrom
+            // 
+            this.ucMinimumFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucMinimumFrom.Location = new System.Drawing.Point(76, 22);
+            this.ucMinimumFrom.Name = "ucMinimumFrom";
+            this.ucMinimumFrom.Size = new System.Drawing.Size(315, 21);
+            this.ucMinimumFrom.SurveyDates = null;
+            this.ucMinimumFrom.TabIndex = 2;
+            // 
+            // ucAnalysisTo
+            // 
+            this.ucAnalysisTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucAnalysisTo.Location = new System.Drawing.Point(76, 49);
+            this.ucAnalysisTo.Name = "ucAnalysisTo";
+            this.ucAnalysisTo.Size = new System.Drawing.Size(315, 21);
+            this.ucAnalysisTo.SurveyDates = null;
+            this.ucAnalysisTo.TabIndex = 4;
+            // 
+            // ucAnalysisFrom
+            // 
+            this.ucAnalysisFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucAnalysisFrom.Location = new System.Drawing.Point(76, 22);
+            this.ucAnalysisFrom.Name = "ucAnalysisFrom";
+            this.ucAnalysisFrom.Size = new System.Drawing.Size(315, 21);
+            this.ucAnalysisFrom.SurveyDates = null;
+            this.ucAnalysisFrom.TabIndex = 2;
             // 
             // frmAnalysisConfig
             // 

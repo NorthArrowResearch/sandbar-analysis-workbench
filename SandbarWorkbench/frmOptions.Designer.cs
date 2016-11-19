@@ -52,6 +52,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cmdBrowseCompExtents = new System.Windows.Forms.Button();
+            this.txtCompExtents = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSpatialReference = new System.Windows.Forms.TextBox();
             this.cboInterpolation = new System.Windows.Forms.ComboBox();
@@ -73,9 +76,13 @@
             this.cboTripDates = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtCompExtents = new System.Windows.Forms.TextBox();
-            this.cmdBrowseCompExtents = new System.Windows.Forms.Button();
+            this.cmdBrowseGDALWarp = new System.Windows.Forms.Button();
+            this.txtGDALWarp = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.valIncrement = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.valBenchmark = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -88,6 +95,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -319,6 +328,13 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.valBenchmark);
+            this.tabPage4.Controls.Add(this.label16);
+            this.tabPage4.Controls.Add(this.valIncrement);
+            this.tabPage4.Controls.Add(this.label15);
+            this.tabPage4.Controls.Add(this.cmdBrowseGDALWarp);
+            this.tabPage4.Controls.Add(this.txtGDALWarp);
+            this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.cmdBrowseCompExtents);
             this.tabPage4.Controls.Add(this.txtCompExtents);
             this.tabPage4.Controls.Add(this.label13);
@@ -337,15 +353,45 @@
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cmdBrowseCompExtents
+            // 
+            this.cmdBrowseCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseCompExtents.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowseCompExtents.Location = new System.Drawing.Point(517, 111);
+            this.cmdBrowseCompExtents.Name = "cmdBrowseCompExtents";
+            this.cmdBrowseCompExtents.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowseCompExtents.TabIndex = 9;
+            this.cmdBrowseCompExtents.UseVisualStyleBackColor = true;
+            this.cmdBrowseCompExtents.Click += new System.EventHandler(this.cmdBrowseCompExtents_Click);
+            // 
+            // txtCompExtents
+            // 
+            this.txtCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCompExtents.Location = new System.Drawing.Point(176, 112);
+            this.txtCompExtents.Name = "txtCompExtents";
+            this.txtCompExtents.ReadOnly = true;
+            this.txtCompExtents.Size = new System.Drawing.Size(335, 20);
+            this.txtCompExtents.TabIndex = 8;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 116);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(156, 13);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Computational extents shapefile";
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtSpatialReference);
-            this.groupBox2.Location = new System.Drawing.Point(6, 140);
+            this.groupBox2.Location = new System.Drawing.Point(6, 183);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(534, 183);
+            this.groupBox2.Size = new System.Drawing.Size(534, 140);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Spatial Reference";
@@ -358,7 +404,7 @@
             this.txtSpatialReference.Location = new System.Drawing.Point(6, 19);
             this.txtSpatialReference.Multiline = true;
             this.txtSpatialReference.Name = "txtSpatialReference";
-            this.txtSpatialReference.Size = new System.Drawing.Size(522, 158);
+            this.txtSpatialReference.Size = new System.Drawing.Size(522, 115);
             this.txtSpatialReference.TabIndex = 0;
             // 
             // cboInterpolation
@@ -550,35 +596,93 @@
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // cmdBrowseGDALWarp
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 116);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(156, 13);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "Computational extents shapefile";
+            this.cmdBrowseGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseGDALWarp.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowseGDALWarp.Location = new System.Drawing.Point(517, 142);
+            this.cmdBrowseGDALWarp.Name = "cmdBrowseGDALWarp";
+            this.cmdBrowseGDALWarp.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowseGDALWarp.TabIndex = 12;
+            this.cmdBrowseGDALWarp.UseVisualStyleBackColor = true;
+            this.cmdBrowseGDALWarp.Click += new System.EventHandler(this.cmdBrowseGDALWarp_Click);
             // 
-            // txtCompExtents
+            // txtGDALWarp
             // 
-            this.txtCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCompExtents.Location = new System.Drawing.Point(176, 112);
-            this.txtCompExtents.Name = "txtCompExtents";
-            this.txtCompExtents.ReadOnly = true;
-            this.txtCompExtents.Size = new System.Drawing.Size(335, 20);
-            this.txtCompExtents.TabIndex = 8;
+            this.txtGDALWarp.Location = new System.Drawing.Point(176, 143);
+            this.txtGDALWarp.Name = "txtGDALWarp";
+            this.txtGDALWarp.ReadOnly = true;
+            this.txtGDALWarp.Size = new System.Drawing.Size(335, 20);
+            this.txtGDALWarp.TabIndex = 11;
             // 
-            // cmdBrowseCompExtents
+            // label14
             // 
-            this.cmdBrowseCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseCompExtents.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseCompExtents.Location = new System.Drawing.Point(517, 111);
-            this.cmdBrowseCompExtents.Name = "cmdBrowseCompExtents";
-            this.cmdBrowseCompExtents.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseCompExtents.TabIndex = 9;
-            this.cmdBrowseCompExtents.UseVisualStyleBackColor = true;
-            this.cmdBrowseCompExtents.Click += new System.EventHandler(this.cmdBrowseCompExtents_Click);
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(11, 147);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(156, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Computational extents shapefile";
+            // 
+            // valIncrement
+            // 
+            this.valIncrement.DecimalPlaces = 1;
+            this.valIncrement.Location = new System.Drawing.Point(420, 18);
+            this.valIncrement.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.valIncrement.Name = "valIncrement";
+            this.valIncrement.Size = new System.Drawing.Size(120, 20);
+            this.valIncrement.TabIndex = 14;
+            this.valIncrement.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(300, 22);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Elevation increment (m)";
+            // 
+            // valBenchmark
+            // 
+            this.valBenchmark.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.valBenchmark.Location = new System.Drawing.Point(420, 49);
+            this.valBenchmark.Maximum = new decimal(new int[] {
+            40000,
+            0,
+            0,
+            0});
+            this.valBenchmark.Name = "valBenchmark";
+            this.valBenchmark.Size = new System.Drawing.Size(120, 20);
+            this.valBenchmark.TabIndex = 16;
+            this.valBenchmark.Value = new decimal(new int[] {
+            8000,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(304, 53);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(113, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Benchmark stage (cfs)";
             // 
             // frmOptions
             // 
@@ -612,6 +716,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -665,5 +771,12 @@
         private System.Windows.Forms.Button cmdBrowseCompExtents;
         private System.Windows.Forms.TextBox txtCompExtents;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button cmdBrowseGDALWarp;
+        private System.Windows.Forms.TextBox txtGDALWarp;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown valBenchmark;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown valIncrement;
+        private System.Windows.Forms.Label label15;
     }
 }
