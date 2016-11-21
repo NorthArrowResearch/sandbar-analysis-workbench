@@ -157,77 +157,60 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             try
             {
-                // System.IO.FileInfo fiInputs = GenerateInputXML(out fiBinned, out fiIncremental, out fiLog);
-
-                //                echo off
-                //SET OSGEO4W_ROOT = C:\OSGeo4W64
-                //  call "%OSGEO4W_ROOT%"\bin\o4w_env.bat
-                //  @echo off
-                //path % PATH %;% OSGEO4W_ROOT %\apps\qgis\bin
-
-                //    set PYTHONPATH =% PYTHONPATH %;% OSGEO4W_ROOT %\apps\qgis\python;
-                //                set PYTHONPATH =% PYTHONPATH %;% OSGEO4W_ROOT %\apps\Python27\Lib\site - packages
-                //set QGIS_PREFIX_PATH =% OSGEO4W_ROOT %\apps\qgis
+                System.IO.FileInfo fiInputs = GenerateInputXML(out fiBinned, out fiIncremental, out fiLog);
 
                 try
                 {
+                    //string sSetup = "SET OSGEO4W_ROOT=C:\\OSGeo4W64&" +
+                    //    @"echo OSGeo Path = %OSGEO4W_ROOT%&" +
+                    //    @"call C:\OSGeo4W64\bin\o4w_env.bat&" +
+                    //    @"set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin&" +
+                    //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python;&" +
+                    //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages&" +
+                    //    @"set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis&" +
+                    //    @"echo done&" +
+                    //    @"echo %PATH%&" +
+                    //    @"python D:\Code\sandbar-analysis\sandbar-analysis\experiments\print_test.py&"+
+                    //    "exit";
 
-                    // http://gis.stackexchange.com/questions/108230/arcgis-geoprocessing-and-32-64-bit-architecture-issue/108788#108788
-                    ProcessStartInfo psi = new ProcessStartInfo();
+                    //string[] sCommands = sSetup.Split('&');
 
-                    psi.FileName = "C:\\OSGeo4W64\\bin\\python.exe";
-                    //psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fiInputs.DirectoryName);
-                    psi.Arguments = string.Format("{0}", "D:\\Code\\sandbar-analysis\\sandbar-analysis\\experiments\\print_test.py");//, fiInputs.FullName);
-                    psi.CreateNoWindow = false;
+                    List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>();
+                    lCommands.Insert(0, "echo off");
+                    lCommands.Add("echo off");
+                    lCommands.Add(string.Format("python {0} {1}", @"D:\Code\sandbar-analysis\sandbar-analysis\main.py", fiInputs.FullName));
+                    lCommands.Add("exit");
+
+                    ProcessStartInfo psi = new ProcessStartInfo("cmd.exe");
                     psi.UseShellExecute = false;
+                    psi.RedirectStandardInput = true;
                     psi.RedirectStandardOutput = true;
                     psi.RedirectStandardError = true;
 
-                    string sOSGeo = "C:\\OSGeo4W64";
-
-                    psi.EnvironmentVariables["OSGEO4W_ROOT"] = sOSGeo;
-
-                    // Taken from "%OSGEO4W_ROOT%"\bin\o4w_env.bat
-                    // set path=%OSGEO4W_ROOT%\bin;%WINDIR%\system32;%WINDIR%;%WINDIR%\WBem
-                    //C:\OSGeo4W64\apps\Python27\Lib\site-packages
-
-                    psi.EnvironmentVariables["PATH"] = string.Format("{0}\\bin;%WINDIR%\\system32;%WINDIR%;%WINDIR%\\WBem;{0}\\apps\\qgis\\bin", sOSGeo);
-                    psi.EnvironmentVariables["PYTHONPATH"] = string.Format("{0}\\apps\\qgis\\python;{0}\\apps\\Python27\\Lib\\site-packages", sOSGeo);
-
-                    // gdal.bat
-                    psi.EnvironmentVariables["GDAL_DATA"] = string.Format("{0}\\share\\gdal", sOSGeo);
-                    psi.EnvironmentVariables["GDAL_DRIVER_PATH"] = string.Format("{0}\\bin\\gdalplugins", sOSGeo);
-
-                    // libgeotiff.bat
-                    //psi.EnvironmentVariables["GEOTIFF_CSV"] = string.Format("{0}\\share\\epsg_csv", sOSGeo);
-
-                    // libjpeg.bat
-                    //psi.EnvironmentVariables["JPEGMEM"] = 1000000.ToString();
-
-                    // liblas.bat
-                    // Same set of GDAL_DATA
-
-                    // msvcrt.bat
-                    // Empty!
-
-                    // proj.bat
-                    //psi.EnvironmentVariables["PROJ_LIB"] = string.Format("{0}\\share\\proj", sOSGeo);
-
-                    // Python Core
-                    psi.EnvironmentVariables["PYTHONHOME"] = string.Format("{0}\\apps\\Python27", sOSGeo);
-                    psi.EnvironmentVariables["PATH"] = string.Format("{0}\\apps\\Python27\\Scripts;% PATH %", sOSGeo);
-
-                    // qt4.bat
-                    //psi.EnvironmentVariables["QT_PLUGIN_PATH"] = string.Format("{0}\\apps\\Qt4\\plugins", sOSGeo);
-                    //psi.EnvironmentVariables["QT_RASTER_CLIP_LIMIT"] = 4096.ToString();
-                    
                     System.Diagnostics.Process proc = new Process();
                     proc.StartInfo = psi;
-
                     proc.Start();
+
+                    int cmdIndex = 0;
+                    while (!proc.HasExited)
+                    {
+                        if (proc.Threads.Count == 1 && cmdIndex < lCommands.Count)
+                        {
+                            string sCmd = lCommands[cmdIndex].Trim();
+                            if (!string.IsNullOrEmpty(sCmd))
+                            {
+                                Debug.Print(sCmd);
+                                proc.StandardInput.WriteLine(sCmd);
+                            }
+                        }
+                        cmdIndex++;
+                    }
+                    
                     //System.IO.StreamReader stdErr = proc.StandardError;
                     string sError = proc.StandardError.ReadToEnd();
                     string output = proc.StandardOutput.ReadToEnd();
+                    Console.Write(output);
+
                     proc.WaitForExit();
                     if (proc.ExitCode != 0)
                     {

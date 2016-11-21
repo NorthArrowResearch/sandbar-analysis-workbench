@@ -92,6 +92,9 @@ namespace SandbarWorkbench
             LoadDateDisplayCombo(ref cboTripDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_TripDates);
             LoadDateDisplayCombo(ref cboSurveyDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates);
             LoadDateDisplayCombo(ref cboAuditFieldDates, SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields);
+
+            // Python
+            txtPython.Text = SandbarWorkbench.Properties.Settings.Default.PythonConfig;
         }
 
         private void LoadDateDisplayCombo(ref ComboBox cbo, string sExistingFormat)
@@ -140,6 +143,9 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
             SandbarWorkbench.Properties.Settings.Default.DateFormat_TripDates = GetDateFormatFromCombo(ref cboTripDates);
             SandbarWorkbench.Properties.Settings.Default.DateFormat_AuditFields = GetDateFormatFromCombo(ref cboAuditFieldDates);
+
+            // Python
+            SandbarWorkbench.Properties.Settings.Default.PythonConfig = txtPython.Text;
 
             SandbarWorkbench.Properties.Settings.Default.Save();
         }

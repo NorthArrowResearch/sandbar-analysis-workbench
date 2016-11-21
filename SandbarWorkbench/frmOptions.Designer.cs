@@ -52,6 +52,13 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.valBenchmark = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.valIncrement = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cmdBrowseGDALWarp = new System.Windows.Forms.Button();
+            this.txtGDALWarp = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.cmdBrowseCompExtents = new System.Windows.Forms.Button();
             this.txtCompExtents = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -76,13 +83,8 @@
             this.cboTripDates = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.cmdBrowseGDALWarp = new System.Windows.Forms.Button();
-            this.txtGDALWarp = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.valIncrement = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.valBenchmark = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.txtPython = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,13 +92,14 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultInputCellSize)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).BeginInit();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -122,6 +125,7 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -352,6 +356,94 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // valBenchmark
+            // 
+            this.valBenchmark.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.valBenchmark.Location = new System.Drawing.Point(420, 49);
+            this.valBenchmark.Maximum = new decimal(new int[] {
+            40000,
+            0,
+            0,
+            0});
+            this.valBenchmark.Name = "valBenchmark";
+            this.valBenchmark.Size = new System.Drawing.Size(120, 20);
+            this.valBenchmark.TabIndex = 16;
+            this.valBenchmark.Value = new decimal(new int[] {
+            8000,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(304, 53);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(113, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Benchmark stage (cfs)";
+            // 
+            // valIncrement
+            // 
+            this.valIncrement.DecimalPlaces = 1;
+            this.valIncrement.Location = new System.Drawing.Point(420, 18);
+            this.valIncrement.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.valIncrement.Name = "valIncrement";
+            this.valIncrement.Size = new System.Drawing.Size(120, 20);
+            this.valIncrement.TabIndex = 14;
+            this.valIncrement.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(300, 22);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(117, 13);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Elevation increment (m)";
+            // 
+            // cmdBrowseGDALWarp
+            // 
+            this.cmdBrowseGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseGDALWarp.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowseGDALWarp.Location = new System.Drawing.Point(517, 142);
+            this.cmdBrowseGDALWarp.Name = "cmdBrowseGDALWarp";
+            this.cmdBrowseGDALWarp.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowseGDALWarp.TabIndex = 12;
+            this.cmdBrowseGDALWarp.UseVisualStyleBackColor = true;
+            this.cmdBrowseGDALWarp.Click += new System.EventHandler(this.cmdBrowseGDALWarp_Click);
+            // 
+            // txtGDALWarp
+            // 
+            this.txtGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGDALWarp.Location = new System.Drawing.Point(176, 143);
+            this.txtGDALWarp.Name = "txtGDALWarp";
+            this.txtGDALWarp.ReadOnly = true;
+            this.txtGDALWarp.Size = new System.Drawing.Size(335, 20);
+            this.txtGDALWarp.TabIndex = 11;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(11, 147);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(156, 13);
+            this.label14.TabIndex = 10;
+            this.label14.Text = "Computational extents shapefile";
             // 
             // cmdBrowseCompExtents
             // 
@@ -596,93 +688,25 @@
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
-            // cmdBrowseGDALWarp
+            // tabPage7
             // 
-            this.cmdBrowseGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseGDALWarp.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseGDALWarp.Location = new System.Drawing.Point(517, 142);
-            this.cmdBrowseGDALWarp.Name = "cmdBrowseGDALWarp";
-            this.cmdBrowseGDALWarp.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseGDALWarp.TabIndex = 12;
-            this.cmdBrowseGDALWarp.UseVisualStyleBackColor = true;
-            this.cmdBrowseGDALWarp.Click += new System.EventHandler(this.cmdBrowseGDALWarp_Click);
+            this.tabPage7.Controls.Add(this.txtPython);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(546, 329);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Python";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // txtGDALWarp
+            // txtPython
             // 
-            this.txtGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGDALWarp.Location = new System.Drawing.Point(176, 143);
-            this.txtGDALWarp.Name = "txtGDALWarp";
-            this.txtGDALWarp.ReadOnly = true;
-            this.txtGDALWarp.Size = new System.Drawing.Size(335, 20);
-            this.txtGDALWarp.TabIndex = 11;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 147);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(156, 13);
-            this.label14.TabIndex = 10;
-            this.label14.Text = "Computational extents shapefile";
-            // 
-            // valIncrement
-            // 
-            this.valIncrement.DecimalPlaces = 1;
-            this.valIncrement.Location = new System.Drawing.Point(420, 18);
-            this.valIncrement.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.valIncrement.Name = "valIncrement";
-            this.valIncrement.Size = new System.Drawing.Size(120, 20);
-            this.valIncrement.TabIndex = 14;
-            this.valIncrement.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(300, 22);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(117, 13);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "Elevation increment (m)";
-            // 
-            // valBenchmark
-            // 
-            this.valBenchmark.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.valBenchmark.Location = new System.Drawing.Point(420, 49);
-            this.valBenchmark.Maximum = new decimal(new int[] {
-            40000,
-            0,
-            0,
-            0});
-            this.valBenchmark.Name = "valBenchmark";
-            this.valBenchmark.Size = new System.Drawing.Size(120, 20);
-            this.valBenchmark.TabIndex = 16;
-            this.valBenchmark.Value = new decimal(new int[] {
-            8000,
-            0,
-            0,
-            0});
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(304, 53);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(113, 13);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "Benchmark stage (cfs)";
+            this.txtPython.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPython.Location = new System.Drawing.Point(3, 3);
+            this.txtPython.Multiline = true;
+            this.txtPython.Name = "txtPython";
+            this.txtPython.Size = new System.Drawing.Size(540, 323);
+            this.txtPython.TabIndex = 0;
             // 
             // frmOptions
             // 
@@ -708,6 +732,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDefaultOutputCellSize)).EndInit();
@@ -716,8 +742,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valIncrement)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valBenchmark)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -778,5 +804,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.NumericUpDown valIncrement;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TextBox txtPython;
     }
 }

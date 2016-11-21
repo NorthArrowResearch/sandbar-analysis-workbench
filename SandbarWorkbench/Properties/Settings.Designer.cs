@@ -424,5 +424,22 @@ namespace SandbarWorkbench.Properties {
                 this["BenchmarkStage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"set OSGEO4W_ROOT=C:\\OSGeo4W64
+call C:\OSGeo4W64\bin\o4w_env.bat
+set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin
+set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python
+set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages
+set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis")]
+        public string PythonConfig {
+            get {
+                return ((string)(this["PythonConfig"]));
+            }
+            set {
+                this["PythonConfig"] = value;
+            }
+        }
     }
 }
