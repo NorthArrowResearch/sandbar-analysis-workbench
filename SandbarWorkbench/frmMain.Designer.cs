@@ -157,7 +157,7 @@
             this.remoteCamerasToolStripMenuItem.Name = "remoteCamerasToolStripMenuItem";
             this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
-            this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.remoteCamerasToolStripMenuItem_Click);
+            this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // remoteCameraPictureViewerToolStripMenuItem
             // 
@@ -165,7 +165,7 @@
             this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
             this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
-            this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.remoteCameraPictureViewerToolStripMenuItem_Click);
+            this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // sandbarSitesToolStripMenuItem
             // 
@@ -173,7 +173,7 @@
             this.sandbarSitesToolStripMenuItem.Name = "sandbarSitesToolStripMenuItem";
             this.sandbarSitesToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.sandbarSitesToolStripMenuItem.Text = "Sandbar Sites";
-            this.sandbarSitesToolStripMenuItem.Click += new System.EventHandler(this.sandbarSitesToolStripMenuItem_Click);
+            this.sandbarSitesToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // toolStripSeparator3
             // 

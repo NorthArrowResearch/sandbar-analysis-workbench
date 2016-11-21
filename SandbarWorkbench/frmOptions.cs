@@ -20,6 +20,7 @@ namespace SandbarWorkbench
             lItems.Add(new ListItemInt("-- None --", 0));
             lItems.Add(new ListItemInt("Sandbar Sites", 1));
             lItems.Add(new ListItemInt("Remote Camera Sites", 2));
+            lItems.Add(new ListItemInt("Remote Camera Pictures", 3));
             cboStartupView.ValueMember = "Value";
             cboStartupView.DisplayMember = "Text";
             cboStartupView.DataSource = lItems;

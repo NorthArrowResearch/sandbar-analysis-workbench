@@ -44,11 +44,15 @@ namespace SandbarWorkbench
                 switch (SandbarWorkbench.Properties.Settings.Default.StartupView)
                 {
                     case 1:
-                        sandbarSitesToolStripMenuItem_Click(null, null);
+                        LoadView(sandbarSitesToolStripMenuItem.Text, null);
                         break;
 
                     case 2:
-                        remoteCamerasToolStripMenuItem_Click(null, null);
+                        LoadView(remoteCamerasToolStripMenuItem.Text, null);
+                        break;
+
+                    case 3:
+                        LoadView(remoteCameraPictureViewerToolStripMenuItem.Text, null);
                         break;
                 }
             }
@@ -118,88 +122,46 @@ namespace SandbarWorkbench
 
         #endregion
 
-        private void sandbarSitesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadView(object sender, EventArgs e)
         {
-            Sandbars.frmSandbars frm = null;
-            foreach (Form frmChild in this.MdiChildren)
+            // Add the key word for each view type here and then the full namespace of the associated view form.
+            // Each form needs a default constructor with no arguments.
+            Dictionary<string, string> dViewTypes = new Dictionary<string, string>();
+            dViewTypes["sandbar"] = "SandbarWorkbench.Sandbars.frmSandbars";
+            dViewTypes["cameras"] = "SandbarWorkbench.RemoteCameras.frmRemoteCameras";
+            dViewTypes["picture"] = "SandbarWorkbench.Pictures.frmPictureViewer";
+
+            try
             {
-                if (frmChild is Sandbars.frmSandbars)
+                // Find the associated MDI form type based on the keyword
+                Type frmType = null;
+                foreach (string sKey in dViewTypes.Keys)
                 {
-                    frm = (Sandbars.frmSandbars)frmChild;
-                    frm.Activate();
-                    frm.BringToFront();
-                    break;
+                    if (sender.ToString().ToLower().Contains(sKey))
+                    {
+                        frmType = Type.GetType(dViewTypes[sKey], true, true);
+                        break;
+                    }
                 }
-            }
 
-            if (frm == null)
-            {
-                frm = new Sandbars.frmSandbars();
-                frm.MdiParent = this;
-
-                // Only maximize the form if there are no other MDI forms and this is a new version
-                if (this.MdiChildren.Count<Form>() < 2)
-                    frm.WindowState = FormWindowState.Maximized;
-            }
-
-            frm.Show();
-            UpdateMenuItemStatus();
-        }
-
-        private void remoteCamerasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RemoteCameras.frmRemoteCameras frm = null;
-            foreach (Form frmChild in this.MdiChildren)
-            {
-                if (frmChild is RemoteCameras.frmRemoteCameras)
+                foreach (Form mdiForm in this.MdiChildren)
                 {
-                    frm = (RemoteCameras.frmRemoteCameras)frmChild;
-                    frm.Activate();
-                    frm.BringToFront();
-                    break;
+                    if (mdiForm.GetType() == frmType)
+                    {
+                        mdiForm.Focus();
+                        return;
+                    }
                 }
-            }
 
-            if (frm == null)
-            {
-                frm = new RemoteCameras.frmRemoteCameras();
+                Form frm = (Form)Activator.CreateInstance(frmType);
                 frm.MdiParent = this;
-
-                // Only maximize the form if there are no other MDI forms and this is a new version
-                if (this.MdiChildren.Count<Form>() < 2)
-                    frm.WindowState = FormWindowState.Maximized;
+                frm.WindowState = this.MdiChildren.Count<Form>() == 0 ? FormWindowState.Maximized : FormWindowState.Normal;
+                frm.Show();
             }
-
-            frm.Show();
-            UpdateMenuItemStatus();
-        }
-
-        private void remoteCameraPictureViewerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Pictures.frmPictureViewer frm = null;
-            foreach (Form frmChild in this.MdiChildren)
+            catch (Exception ex)
             {
-                if (frmChild is Pictures.frmPictureViewer)
-                {
-                    frm = (Pictures.frmPictureViewer)frmChild;
-                    frm.Activate();
-                    frm.BringToFront();
-                    break;
-                }
+                MessageBox.Show(ex.Message);
             }
-
-            if (frm == null)
-            {
-                frm = new Pictures.frmPictureViewer();
-                frm.MdiParent = this;
-
-                // Only maximize the form if there are no other MDI forms and this is a new version
-                if (this.MdiChildren.Count<Form>() < 2)
-                    frm.WindowState = FormWindowState.Maximized;
-            }
-
-            frm.Show();
-            UpdateMenuItemStatus();
         }
 
         private void openDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -455,11 +417,11 @@ namespace SandbarWorkbench
         private void createNewDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog frm = new SaveFileDialog();
-            frm.Title = string.Format( "New {0} Database File", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
+            frm.Title = string.Format("New {0} Database File", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
             frm.Filter = "SQLite Databases (*.sqlite)|*.sqlite|Other SQLite Database Extensions (*.db *.sdb *.sqlite *.db3 *.s3db *.sl3)|*.db;*.sdb;*.sqlite;*.db3;*.s3db;*.sl3";
             frm.AddExtension = true;
 
-            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName( SandbarWorkbench.Properties.Settings.Default.LastDatabasePath)))
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath)))
                 frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
 
             frm.FileName = "SandbarWorkbench";
@@ -475,7 +437,7 @@ namespace SandbarWorkbench
                         OpenDatabase(fiNewDatabase);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
                 }
