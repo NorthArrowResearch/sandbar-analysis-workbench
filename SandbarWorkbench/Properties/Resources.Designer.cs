@@ -171,6 +171,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NewDatabase {
+            get {
+                object obj = ResourceManager.GetObject("NewDatabase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sandbar {
             get {
                 object obj = ResourceManager.GetObject("sandbar", resourceCulture);

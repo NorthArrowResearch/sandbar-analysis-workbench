@@ -452,6 +452,34 @@ namespace SandbarWorkbench
             }
         }
 
+        private void createNewDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog frm = new SaveFileDialog();
+            frm.Title = string.Format( "New {0} Database File", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
+            frm.Filter = "SQLite Databases (*.sqlite)|*.sqlite|Other SQLite Database Extensions (*.db *.sdb *.sqlite *.db3 *.s3db *.sl3)|*.db;*.sdb;*.sqlite;*.db3;*.s3db;*.sl3";
+            frm.AddExtension = true;
 
+            if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.Directory.Exists(System.IO.Path.GetDirectoryName( SandbarWorkbench.Properties.Settings.Default.LastDatabasePath)))
+                frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
+
+            frm.FileName = "SandbarWorkbench";
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    System.IO.FileInfo fiNewDatabase = DBHelpers.DBVersionManager.CreateNewDatabase(frm.FileName);
+                    if (fiNewDatabase is System.IO.FileInfo && fiNewDatabase.Exists)
+                    {
+                        // Now open the new database. This will also save it as the new last database.
+                        OpenDatabase(fiNewDatabase);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
+                }
+            }
+        }
     }
 }

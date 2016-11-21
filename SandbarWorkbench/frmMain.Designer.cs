@@ -33,11 +33,14 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.createNewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteCamerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remoteCameraPictureViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +59,6 @@
             this.aboutTheWorkbenchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssDatabasePath = new System.Windows.Forms.ToolStripStatusLabel();
-            this.remoteCameraPictureViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +83,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openDatabaseToolStripMenuItem,
             this.closeDatabaseToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.createNewDatabaseToolStripMenuItem,
             this.databaseInformationToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -92,34 +96,47 @@
             // 
             this.openDatabaseToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.database;
             this.openDatabaseToolStripMenuItem.Name = "openDatabaseToolStripMenuItem";
-            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.openDatabaseToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.openDatabaseToolStripMenuItem.Text = "Open Database";
             this.openDatabaseToolStripMenuItem.Click += new System.EventHandler(this.openDatabaseToolStripMenuItem_Click);
             // 
             // closeDatabaseToolStripMenuItem
             // 
             this.closeDatabaseToolStripMenuItem.Name = "closeDatabaseToolStripMenuItem";
-            this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.closeDatabaseToolStripMenuItem.Text = "Close Database";
             this.closeDatabaseToolStripMenuItem.Click += new System.EventHandler(this.closeDatabaseToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(192, 6);
+            // 
+            // createNewDatabaseToolStripMenuItem
+            // 
+            this.createNewDatabaseToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.NewDatabase;
+            this.createNewDatabaseToolStripMenuItem.Name = "createNewDatabaseToolStripMenuItem";
+            this.createNewDatabaseToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.createNewDatabaseToolStripMenuItem.Text = "Create New Database...";
+            this.createNewDatabaseToolStripMenuItem.Click += new System.EventHandler(this.createNewDatabaseToolStripMenuItem_Click);
             // 
             // databaseInformationToolStripMenuItem
             // 
             this.databaseInformationToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Help;
             this.databaseInformationToolStripMenuItem.Name = "databaseInformationToolStripMenuItem";
-            this.databaseInformationToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.databaseInformationToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.databaseInformationToolStripMenuItem.Text = "Database Information";
             this.databaseInformationToolStripMenuItem.Click += new System.EventHandler(this.databaseInformationToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(192, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -141,6 +158,14 @@
             this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
             this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.remoteCamerasToolStripMenuItem_Click);
+            // 
+            // remoteCameraPictureViewerToolStripMenuItem
+            // 
+            this.remoteCameraPictureViewerToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.camera_lens;
+            this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
+            this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
+            this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.remoteCameraPictureViewerToolStripMenuItem_Click);
             // 
             // sandbarSitesToolStripMenuItem
             // 
@@ -284,14 +309,6 @@
             this.tssDatabasePath.Text = "tssDatabasePath";
             this.tssDatabasePath.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
-            // remoteCameraPictureViewerToolStripMenuItem
-            // 
-            this.remoteCameraPictureViewerToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.camera_lens;
-            this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
-            this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
-            this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.remoteCameraPictureViewerToolStripMenuItem_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -344,6 +361,8 @@
         private System.Windows.Forms.ToolStripMenuItem experimentalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeDuplicateSectionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem remoteCameraPictureViewerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem createNewDatabaseToolStripMenuItem;
     }
 }
 
