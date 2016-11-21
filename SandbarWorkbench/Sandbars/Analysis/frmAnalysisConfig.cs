@@ -193,6 +193,33 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
                     psi.EnvironmentVariables["PATH"] = string.Format("{0}\\bin;%WINDIR%\\system32;%WINDIR%;%WINDIR%\\WBem;{0}\\apps\\qgis\\bin", sOSGeo);
                     psi.EnvironmentVariables["PYTHONPATH"] = string.Format("{0}\\apps\\qgis\\python;{0}\\apps\\Python27\\Lib\\site-packages", sOSGeo);
+
+                    // gdal.bat
+                    psi.EnvironmentVariables["GDAL_DATA"] = string.Format("{0}\\share\\gdal", sOSGeo);
+                    psi.EnvironmentVariables["GDAL_DRIVER_PATH"] = string.Format("{0}\\bin\\gdalplugins", sOSGeo);
+
+                    // libgeotiff.bat
+                    //psi.EnvironmentVariables["GEOTIFF_CSV"] = string.Format("{0}\\share\\epsg_csv", sOSGeo);
+
+                    // libjpeg.bat
+                    //psi.EnvironmentVariables["JPEGMEM"] = 1000000.ToString();
+
+                    // liblas.bat
+                    // Same set of GDAL_DATA
+
+                    // msvcrt.bat
+                    // Empty!
+
+                    // proj.bat
+                    //psi.EnvironmentVariables["PROJ_LIB"] = string.Format("{0}\\share\\proj", sOSGeo);
+
+                    // Python Core
+                    psi.EnvironmentVariables["PYTHONHOME"] = string.Format("{0}\\apps\\Python27", sOSGeo);
+                    psi.EnvironmentVariables["PATH"] = string.Format("{0}\\apps\\Python27\\Scripts;% PATH %", sOSGeo);
+
+                    // qt4.bat
+                    //psi.EnvironmentVariables["QT_PLUGIN_PATH"] = string.Format("{0}\\apps\\Qt4\\plugins", sOSGeo);
+                    //psi.EnvironmentVariables["QT_RASTER_CLIP_LIMIT"] = 4096.ToString();
                     
                     System.Diagnostics.Process proc = new Process();
                     proc.StartInfo = psi;
