@@ -162,20 +162,15 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 try
                 {
                     //string sSetup = "SET OSGEO4W_ROOT=C:\\OSGeo4W64&" +
-                    //    @"echo OSGeo Path = %OSGEO4W_ROOT%&" +
                     //    @"call C:\OSGeo4W64\bin\o4w_env.bat&" +
                     //    @"set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin&" +
                     //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python;&" +
                     //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages&" +
                     //    @"set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis&" +
-                    //    @"echo done&" +
-                    //    @"echo %PATH%&" +
-                    //    @"python D:\Code\sandbar-analysis\sandbar-analysis\experiments\print_test.py&"+
-                    //    "exit";
-
-                    //string[] sCommands = sSetup.Split('&');
-
-                    List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>();
+                    ////    @"python D:\Code\sandbar-analysis\sandbar-analysis\experiments\print_test.py&"+
+                    ////    "exit";
+                    
+                    List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>(); // sSetup.Split('&').toList<string>();
                     lCommands.Insert(0, "echo off");
                     lCommands.Add("echo off");
                     lCommands.Add(string.Format("python {0} {1}", @"D:\Code\sandbar-analysis\sandbar-analysis\main.py", fiInputs.FullName));
@@ -229,36 +224,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 {
                     System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //System.Diagnostics.Process.Start(fiInputs.FullName);
             }
             catch (Exception ex)
             {
