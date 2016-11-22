@@ -127,6 +127,7 @@
       <DependentUpon>ucThumbail.cs</DependentUpon>
     </Compile>
     <Compile Include="RemoteCameras\RemoteCameraBase.cs" />
+    <Compile Include="Sandbars\Analysis\ResultsScavenger.cs" />
     <Compile Include="Sandbars\frmSurveyProperties.cs">
       <SubType>Form</SubType>
     </Compile>

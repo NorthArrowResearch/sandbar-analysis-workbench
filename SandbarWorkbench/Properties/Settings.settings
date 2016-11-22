@@ -118,5 +118,8 @@ set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python
 set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages
 set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis</Value>
     </Setting>
+    <Setting Name="RunTypeID_UserGenerated" Type="System.Int64" Scope="Application">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -441,5 +441,14 @@ set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis")]
                 this["PythonConfig"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
+        public long RunTypeID_UserGenerated {
+            get {
+                return ((long)(this["RunTypeID_UserGenerated"]));
+            }
+        }
     }
 }

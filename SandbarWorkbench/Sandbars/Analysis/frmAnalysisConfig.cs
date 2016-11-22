@@ -207,6 +207,17 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     Console.Write(output);
 
                     proc.WaitForExit();
+
+
+                    if (fiIncremental.Exists || fiBinned.Exists)
+                    {
+                        ResultsScavenger scav = new ResultsScavenger(DBCon.ConnectionStringLocal);
+                        scav.Run(txtInputs.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned);
+
+                        MessageBox.Show(string.Format("Model Run ID {0} inserted into the local database with {1} incremental and {2} binned analysis results.", scav.ModelRunID, scav.IncrementalResults, scav.BinnedResults));
+
+                    }
+
                     if (proc.ExitCode != 0)
                     {
                         Exception ex = new Exception("Python Script Error");
@@ -219,6 +230,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
+                    this.DialogResult = DialogResult.None;
                 }
                 finally
                 {
@@ -408,7 +420,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 }
                 dbRead.Close();
             }
-            
+
             XmlNode nodSites = xmlDoc.CreateElement("Sites");
             nodInputs.AppendChild(nodSites);
 
