@@ -169,7 +169,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     //    @"set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis&" +
                     ////    @"python D:\Code\sandbar-analysis\sandbar-analysis\experiments\print_test.py&"+
                     ////    "exit";
-                    
+
                     List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>(); // sSetup.Split('&').toList<string>();
                     lCommands.Insert(0, "echo off");
                     lCommands.Add("echo off");
@@ -200,7 +200,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                         }
                         cmdIndex++;
                     }
-                    
+
                     //System.IO.StreamReader stdErr = proc.StandardError;
                     string sError = proc.StandardError.ReadToEnd();
                     string output = proc.StandardOutput.ReadToEnd();
@@ -291,7 +291,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             string sLogFile = System.IO.Path.Combine(sAnalysisFolder, "log.xml");
             fiLog = new System.IO.FileInfo(sLogFile);
-            XmlNode nodLog = xmlDoc.CreateElement("log");
+            XmlNode nodLog = xmlDoc.CreateElement("Log");
             nodLog.InnerText = System.IO.Path.GetFileName(sLogFile);
             nodOutputs.AppendChild(nodLog);
 
@@ -351,6 +351,67 @@ namespace SandbarWorkbench.Sandbars.Analysis
             nodReuse.InnerText = false.ToString();
             nodInputs.AppendChild(nodReuse);
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Section Type and Analysis Bin Lookups
+            XmlNode nodSectionTypes = xmlDoc.CreateElement("SectionTypes");
+            nodInputs.AppendChild(nodSectionTypes);
+
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+            {
+                dbCon.Open();
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID ORDER BY ItemID", dbCon);
+                dbCom.Parameters.AddWithValue("ListID", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
+                SQLiteDataReader dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    XmlNode nodSection = xmlDoc.CreateElement("Section");
+                    XmlAttribute attID = xmlDoc.CreateAttribute("id");
+                    attID.Value = dbRead.GetInt64(dbRead.GetOrdinal("ItemID")).ToString();
+                    nodSection.Attributes.Append(attID);
+
+                    XmlAttribute attTitle = xmlDoc.CreateAttribute("title");
+                    attTitle.Value = dbRead.GetString(dbRead.GetOrdinal("Title"));
+                    nodSection.Attributes.Append(attTitle);
+
+                    nodSectionTypes.AppendChild(nodSection);
+                }
+                dbRead.Close();
+
+                XmlNode nodAnalysisBins = xmlDoc.CreateElement("AnalysisBins");
+                nodInputs.AppendChild(nodAnalysisBins);
+
+                dbCom = new SQLiteCommand("SELECT BinID, Title, LowerDischarge, UpperDischarge FROM AnalysisBins WHERE IsActive <> 0 ORDER BY BinID", dbCon);
+                dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    XmlNode nodBin = xmlDoc.CreateElement("Bin");
+                    XmlAttribute attID = xmlDoc.CreateAttribute("id");
+                    attID.Value = dbRead.GetInt64(dbRead.GetOrdinal("BinID")).ToString();
+                    nodBin.Attributes.Append(attID);
+
+                    XmlAttribute attTitle = xmlDoc.CreateAttribute("title");
+                    attTitle.Value = dbRead.GetString(dbRead.GetOrdinal("Title"));
+                    nodBin.Attributes.Append(attTitle);
+
+                    XmlAttribute attLD = xmlDoc.CreateAttribute("lower");
+                    if (dbRead.IsDBNull(dbRead.GetOrdinal("LowerDischarge")))
+                        attLD.Value = string.Empty;
+                    else
+                        attLD.Value = dbRead.GetDouble(dbRead.GetOrdinal("LowerDischarge")).ToString();
+                    nodBin.Attributes.Append(attLD);
+
+                    XmlAttribute attUD = xmlDoc.CreateAttribute("upper");
+                    if (dbRead.IsDBNull(dbRead.GetOrdinal("UpperDischarge")))
+                        attUD.Value = string.Empty;
+                    else
+                        attUD.Value = dbRead.GetDouble(dbRead.GetOrdinal("UpperDischarge")).ToString();
+                    nodBin.Attributes.Append(attUD);
+
+                    nodAnalysisBins.AppendChild(nodBin);
+                }
+                dbRead.Close();
+            }
+            
             XmlNode nodSites = xmlDoc.CreateElement("Sites");
             nodInputs.AppendChild(nodSites);
 
