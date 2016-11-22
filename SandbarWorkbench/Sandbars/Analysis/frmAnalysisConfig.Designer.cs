@@ -61,10 +61,10 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtTitle = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,6 +93,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.ucAnalysisTo);
             this.groupBox1.Controls.Add(this.label2);
@@ -142,6 +144,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.ucMinimumTo);
             this.groupBox2.Controls.Add(this.label5);
@@ -191,6 +195,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.cboInterpolationMethod);
             this.groupBox3.Controls.Add(this.lblInterpolationMethod);
             this.groupBox3.Controls.Add(this.valOutputCellSize);
@@ -260,6 +266,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.cmdBrowseResults);
             this.groupBox4.Controls.Add(this.txtResults);
             this.groupBox4.Controls.Add(this.label10);
@@ -401,6 +409,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.txtRemarks);
             this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.txtTitle);
@@ -412,22 +422,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Model Run Description";
             // 
-            // label11
+            // txtRemarks
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 23);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Title";
-            // 
-            // txtTitle
-            // 
-            this.txtTitle.Location = new System.Drawing.Point(60, 20);
-            this.txtTitle.MaxLength = 50;
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(514, 20);
-            this.txtTitle.TabIndex = 1;
+            this.txtRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRemarks.Location = new System.Drawing.Point(60, 49);
+            this.txtRemarks.MaxLength = 1000;
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.Size = new System.Drawing.Size(514, 69);
+            this.txtRemarks.TabIndex = 3;
             // 
             // label12
             // 
@@ -438,14 +442,24 @@
             this.label12.TabIndex = 2;
             this.label12.Text = "Remarks";
             // 
-            // txtRemarks
+            // txtTitle
             // 
-            this.txtRemarks.Location = new System.Drawing.Point(60, 49);
-            this.txtRemarks.MaxLength = 1000;
-            this.txtRemarks.Multiline = true;
-            this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.Size = new System.Drawing.Size(514, 69);
-            this.txtRemarks.TabIndex = 3;
+            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTitle.Location = new System.Drawing.Point(60, 20);
+            this.txtTitle.MaxLength = 50;
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(514, 20);
+            this.txtTitle.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(29, 23);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Title";
             // 
             // frmAnalysisConfig
             // 
@@ -464,6 +478,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lstSites);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(626, 636);
             this.Name = "frmAnalysisConfig";
             this.Text = "Sandbar Analysis Configuration";
             this.Load += new System.EventHandler(this.frmAnalysisConfig_Load);

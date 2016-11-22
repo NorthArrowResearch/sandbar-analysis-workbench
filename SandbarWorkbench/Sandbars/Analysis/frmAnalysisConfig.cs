@@ -40,6 +40,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void frmAnalysisConfig_Load(object sender, EventArgs e)
         {
+            txtTitle.Text = string.Format("Run by {0} on {1} with {2} site{3}", Environment.UserName, Environment.MachineName, SitesToProcess.Count, SitesToProcess.Count > 1 ? "s" : "");
             lstSites.DataSource = SitesToProcess.Select(x => x.SiteCode5).ToList<string>();
 
             long nDefaultInterpolation = SandbarWorkbench.Properties.Settings.Default.Default_Interpolation;
@@ -77,6 +78,13 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private bool ValidateForm()
         {
+            if (string.IsNullOrEmpty(txtTitle.Text))
+            {
+                MessageBox.Show("You must provide a title for this model run.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtTitle.Select();
+                return false;
+            }
+
             if (lstSites.Items.Count < 1)
             {
                 MessageBox.Show("There are no sandbar sites selected. Return to the main sandbar site data grid and select one or more sites.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
