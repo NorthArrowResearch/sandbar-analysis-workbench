@@ -284,10 +284,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             XmlNode nodOutputs = xmlDoc.CreateElement("Outputs");
             nodTopLevel.AppendChild(nodOutputs);
 
-            string sAnalysisFolder = System.IO.Path.Combine(txtResults.Text, string.Format("ModelRun_{0:yyyyMMdd_hhmmss}.xml", DateTime.Now));
-            XmlNode nodAnalysisFolder = xmlDoc.CreateElement("AnalysisFolder");
-            nodAnalysisFolder.InnerText = txtResults.Text;
-            nodOutputs.AppendChild(nodAnalysisFolder);
+            string sAnalysisFolder = System.IO.Path.Combine(txtResults.Text, string.Format("ModelRun_{0:yyyyMMdd_hhmmss}", DateTime.Now));
 
             string sLogFile = System.IO.Path.Combine(sAnalysisFolder, "log.xml");
             fiLog = new System.IO.FileInfo(sLogFile);
@@ -418,9 +415,25 @@ namespace SandbarWorkbench.Sandbars.Analysis
             foreach (SandbarSite aSite in SitesToProcess)
             {
                 XmlNode nodSite = xmlDoc.CreateElement("Site");
-                XmlAttribute attSiteCode = xmlDoc.CreateAttribute("code");
-                attSiteCode.Value = aSite.SiteCode5;
-                nodSite.Attributes.Append(attSiteCode);
+                XmlAttribute attSiteCode5 = xmlDoc.CreateAttribute("code5");
+                attSiteCode5.Value = aSite.SiteCode5;
+                nodSite.Attributes.Append(attSiteCode5);
+
+                XmlAttribute attSiteCode4 = xmlDoc.CreateAttribute("code4");
+                attSiteCode4.Value = aSite.SiteCode;
+                nodSite.Attributes.Append(attSiteCode4);
+
+                XmlAttribute attStageDischargeA = xmlDoc.CreateAttribute("stagedisa");
+                attStageDischargeA.Value = aSite.SDCurve.CoeffA.ToString();
+                nodSite.Attributes.Append(attStageDischargeA);
+
+                XmlAttribute attStageDischargeB = xmlDoc.CreateAttribute("stagedisb");
+                attStageDischargeB.Value = aSite.SDCurve.CoeffB.ToString();
+                nodSite.Attributes.Append(attStageDischargeB);
+
+                XmlAttribute attStageDischargeC = xmlDoc.CreateAttribute("stagedisc");
+                attStageDischargeC.Value = aSite.SDCurve.CoeffC.ToString();
+                nodSite.Attributes.Append(attStageDischargeC);
 
                 XmlAttribute attSiteID = xmlDoc.CreateAttribute("id");
                 attSiteID.Value = aSite.SiteID.ToString();

@@ -26,9 +26,6 @@ namespace SandbarWorkbench.Sandbars
         public ListItem Reach { get; internal set; }
         public ListItem Segment { get; internal set; }
         public string CampSiteSurveyRecord { get; internal set; }
-        public Nullable<double> StageDischargeA { get; internal set; }
-        public Nullable<double> StageDischargeB { get; internal set; }
-        public Nullable<double> StageDischargeC { get; internal set; }
         public Nullable<double> Northing { get; internal set; }
         public Nullable<double> Easting { get; internal set; }
         public Nullable<double> Latitude { get; internal set; }
@@ -78,7 +75,8 @@ namespace SandbarWorkbench.Sandbars
             , string sBestPhotoTime
             , Nullable<double> fStageDischargeA
             , Nullable<double> fStageDischargeB
-            , Nullable<double> fStageDischargeC, Nullable<double> fNorthing
+            , Nullable<double> fStageDischargeC
+            , Nullable<double> fNorthing
             , Nullable<double> fEasting
             , Nullable<double> fLatitude
             , Nullable<double> fLongitude
