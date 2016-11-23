@@ -43,7 +43,7 @@ namespace SandbarWorkbench.RemoteCameras
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Begin Film", "BeginFilmRecord", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "End Film", "EndFilmRecord", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Begin Digital", "BeginDigitalRecord", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "EndDigital", "EndDigitalRecord", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "End Digital", "EndDigitalRecord", true);
         }
 
         private void frmRemoteCameras_Load(object sender, EventArgs e)
