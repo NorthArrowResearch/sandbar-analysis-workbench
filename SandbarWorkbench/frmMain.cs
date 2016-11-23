@@ -73,6 +73,11 @@ namespace SandbarWorkbench
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
             tssDatabasePath.Text = DBCon.DatabasePath;
+
+            experimentalToolStripMenuItem.Visible = false;
+#if DEBUG
+            experimentalToolStripMenuItem.Visible = true;
+#endif
         }
 
         #region "Generic Main Form Events"
