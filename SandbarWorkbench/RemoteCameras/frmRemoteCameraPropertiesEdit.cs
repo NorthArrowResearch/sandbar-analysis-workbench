@@ -73,10 +73,13 @@ namespace SandbarWorkbench.RemoteCameras
 
                 if (Editable)
                 {
+                    this.Text = "Edit Remote Camera Setup";
                     cmdPictures.Visible = false;
                 }
                 else
                 {
+                    this.Text = "View Remote Camera Setup";
+
                     // Set all the controls to read only.
                     valRiverMile.Enabled = false;
                     cboCameraRiverBank.Enabled = false;
@@ -103,7 +106,10 @@ namespace SandbarWorkbench.RemoteCameras
                 }
             }
             else
+            {
+                this.Text = "Add New Remote Camera Setup";
                 cmdPictures.Visible = false;
+            }
 
             ListItem.LoadComboWithLookupListItems(ref cboCameraRiverBank, DBCon.ConnectionStringLocal, SandbarWorkbench.Properties.Settings.Default.ListID_RiverBanks, nCameraRiverBank);
             ListItem.LoadComboWithLookupListItems(ref cboTargetRiverBank, DBCon.ConnectionStringLocal, SandbarWorkbench.Properties.Settings.Default.ListID_RiverBanks, nTargetRiverBank);
