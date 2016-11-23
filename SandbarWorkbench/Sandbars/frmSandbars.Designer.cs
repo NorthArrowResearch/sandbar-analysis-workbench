@@ -33,6 +33,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolBrowse = new System.Windows.Forms.ToolStripButton();
+            this.toolProperties = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolEdit = new System.Windows.Forms.ToolStripButton();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -58,12 +64,6 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolProperties = new System.Windows.Forms.ToolStripButton();
-            this.toolAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolEdit = new System.Windows.Forms.ToolStripButton();
-            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -131,6 +131,61 @@
             this.toolBrowse.Size = new System.Drawing.Size(23, 22);
             this.toolBrowse.ToolTipText = "Browse sandbar site topo data folder";
             this.toolBrowse.Click += new System.EventHandler(this.toolBrowse_Click);
+            // 
+            // toolProperties
+            // 
+            this.toolProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolProperties.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.toolProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProperties.Name = "toolProperties";
+            this.toolProperties.Size = new System.Drawing.Size(23, 22);
+            this.toolProperties.Text = "toolStripButton1";
+            this.toolProperties.ToolTipText = "View sandbar site properties";
+            this.toolProperties.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolBestPhoto_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolAdd
+            // 
+            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolAdd.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAdd.Name = "toolAdd";
+            this.toolAdd.Size = new System.Drawing.Size(23, 22);
+            this.toolAdd.Text = "toolStripButton1";
+            this.toolAdd.ToolTipText = "Add new sandbar site";
+            this.toolAdd.Click += new System.EventHandler(this.addNewSandbarToolStripMenuItem_Click);
+            // 
+            // toolEdit
+            // 
+            this.toolEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolEdit.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.toolEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolEdit.Name = "toolEdit";
+            this.toolEdit.Size = new System.Drawing.Size(23, 22);
+            this.toolEdit.Text = "toolStripButton1";
+            this.toolEdit.ToolTipText = "Edit the selected sandbar site properties";
+            this.toolEdit.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // ucThumbail
+            // 
+            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
+            this.ucThumbail.TabIndex = 5;
             // 
             // groupBox1
             // 
@@ -252,6 +307,11 @@
             // 
             this.valDownstream.DecimalPlaces = 1;
             this.valDownstream.Location = new System.Drawing.Point(141, 50);
+            this.valDownstream.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.valDownstream.Name = "valDownstream";
             this.valDownstream.Size = new System.Drawing.Size(75, 20);
             this.valDownstream.TabIndex = 4;
@@ -272,6 +332,11 @@
             // 
             this.valUpstream.DecimalPlaces = 1;
             this.valUpstream.Location = new System.Drawing.Point(141, 24);
+            this.valUpstream.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
             this.valUpstream.Name = "valUpstream";
             this.valUpstream.Size = new System.Drawing.Size(75, 20);
             this.valUpstream.TabIndex = 2;
@@ -392,61 +457,6 @@
             this.deleteSelectedSandbarToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
-            // 
-            // toolProperties
-            // 
-            this.toolProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolProperties.Image = global::SandbarWorkbench.Properties.Resources.Settings;
-            this.toolProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolProperties.Name = "toolProperties";
-            this.toolProperties.Size = new System.Drawing.Size(23, 22);
-            this.toolProperties.Text = "toolStripButton1";
-            this.toolProperties.ToolTipText = "View sandbar site properties";
-            this.toolProperties.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
-            // 
-            // toolAdd
-            // 
-            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolAdd.Image = global::SandbarWorkbench.Properties.Resources.Add;
-            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolAdd.Name = "toolAdd";
-            this.toolAdd.Size = new System.Drawing.Size(23, 22);
-            this.toolAdd.Text = "toolStripButton1";
-            this.toolAdd.ToolTipText = "Add new sandbar site";
-            this.toolAdd.Click += new System.EventHandler(this.addNewSandbarToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolEdit
-            // 
-            this.toolEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolEdit.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.toolEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolEdit.Name = "toolEdit";
-            this.toolEdit.Size = new System.Drawing.Size(23, 22);
-            this.toolEdit.Text = "toolStripButton1";
-            this.toolEdit.ToolTipText = "Edit the selected sandbar site properties";
-            this.toolEdit.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
-            // 
-            // ucThumbail
-            // 
-            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
-            this.ucThumbail.Name = "ucThumbail";
-            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
-            this.ucThumbail.TabIndex = 5;
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolBestPhoto_Click);
             // 
             // frmSandbars
             // 
