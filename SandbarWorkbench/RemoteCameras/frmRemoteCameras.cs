@@ -218,10 +218,7 @@ namespace SandbarWorkbench.RemoteCameras
             if (grdData.SelectedRows.Count == 1)
             {
                 RemoteCamera rc = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
-                if (!string.IsNullOrEmpty(rc.SiteCode))
-                {
-                    ucThumbail.UpdateThumbnail(rc.SiteCode, rc.BestPhotoTime);
-                }
+                ucThumbail.UpdateThumbnail(rc.SiteCode, rc.BestPhotoTime);
             }
         }
 
