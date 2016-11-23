@@ -74,6 +74,8 @@ namespace SandbarWorkbench.RemoteCameras
                     }
                 }
             }
+
+            UpdateGridViewCMS();
         }
 
         private void FilterItemsRiverMileUpstream(object sender, EventArgs e)
@@ -215,11 +217,23 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void grdData_SelectionChanged(object sender, EventArgs e)
         {
+            UpdateGridViewCMS();
+
             if (grdData.SelectedRows.Count == 1)
             {
                 RemoteCamera rc = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
                 ucThumbail.UpdateThumbnail(rc.SiteCode, rc.BestPhotoTime);
             }
+        }
+
+        private void UpdateGridViewCMS()
+        {
+            bool bActiveSelection = grdData.SelectedRows.Count > 0;
+
+            viewPropertiesToolStripMenuItem.Enabled = bActiveSelection;
+            editPropertiesToolStripMenuItem.Enabled = bActiveSelection;
+            deleteSelectedToolStripMenuItem.Enabled = bActiveSelection;
+            browseTopoFolderToolStripMenuItem.Enabled = bActiveSelection;
         }
 
         private void viewPropertiesToolStripMenuItem_Click(object sender, EventArgs e)

@@ -32,12 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameras));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             this.chkActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoTRight = new System.Windows.Forms.RadioButton();
             this.rdoTLeft = new System.Windows.Forms.RadioButton();
             this.rdoTBoth = new System.Windows.Forms.RadioButton();
+            this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rdoCRight = new System.Windows.Forms.RadioButton();
             this.rdoCLeft = new System.Windows.Forms.RadioButton();
@@ -49,7 +49,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +57,7 @@
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmdBrowse = new System.Windows.Forms.Button();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -91,7 +90,6 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.cmdBrowse);
             this.splitContainer1.Panel1.Controls.Add(this.ucThumbail);
             this.splitContainer1.Panel1.Controls.Add(this.chkActive);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
@@ -107,19 +105,12 @@
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
             // 
-            // ucThumbail
-            // 
-            this.ucThumbail.Location = new System.Drawing.Point(8, 318);
-            this.ucThumbail.Name = "ucThumbail";
-            this.ucThumbail.Size = new System.Drawing.Size(227, 187);
-            this.ucThumbail.TabIndex = 6;
-            // 
             // chkActive
             // 
             this.chkActive.AutoSize = true;
             this.chkActive.Checked = true;
             this.chkActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkActive.Location = new System.Drawing.Point(13, 295);
+            this.chkActive.Location = new System.Drawing.Point(13, 277);
             this.chkActive.Name = "chkActive";
             this.chkActive.Size = new System.Drawing.Size(150, 17);
             this.chkActive.TabIndex = 5;
@@ -132,7 +123,7 @@
             this.groupBox2.Controls.Add(this.rdoTRight);
             this.groupBox2.Controls.Add(this.rdoTLeft);
             this.groupBox2.Controls.Add(this.rdoTBoth);
-            this.groupBox2.Location = new System.Drawing.Point(124, 197);
+            this.groupBox2.Location = new System.Drawing.Point(124, 179);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(111, 91);
             this.groupBox2.TabIndex = 4;
@@ -174,12 +165,22 @@
             this.rdoTBoth.UseVisualStyleBackColor = true;
             this.rdoTBoth.CheckedChanged += new System.EventHandler(this.rdo_CheckedChanged);
             // 
+            // chkRiverMile
+            // 
+            this.chkRiverMile.AutoSize = true;
+            this.chkRiverMile.Location = new System.Drawing.Point(18, 9);
+            this.chkRiverMile.Name = "chkRiverMile";
+            this.chkRiverMile.Size = new System.Drawing.Size(73, 17);
+            this.chkRiverMile.TabIndex = 0;
+            this.chkRiverMile.Text = "River Mile";
+            this.chkRiverMile.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rdoCRight);
             this.groupBox1.Controls.Add(this.rdoCLeft);
             this.groupBox1.Controls.Add(this.rdoCBoth);
-            this.groupBox1.Location = new System.Drawing.Point(8, 197);
+            this.groupBox1.Location = new System.Drawing.Point(8, 179);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(104, 91);
             this.groupBox1.TabIndex = 3;
@@ -224,7 +225,7 @@
             // grpSiteName
             // 
             this.grpSiteName.Controls.Add(this.txtTitle);
-            this.grpSiteName.Location = new System.Drawing.Point(8, 138);
+            this.grpSiteName.Location = new System.Drawing.Point(8, 120);
             this.grpSiteName.Name = "grpSiteName";
             this.grpSiteName.Size = new System.Drawing.Size(227, 53);
             this.grpSiteName.TabIndex = 2;
@@ -245,7 +246,7 @@
             this.grpRiverMile.Controls.Add(this.label2);
             this.grpRiverMile.Controls.Add(this.valUpstream);
             this.grpRiverMile.Controls.Add(this.label1);
-            this.grpRiverMile.Location = new System.Drawing.Point(8, 32);
+            this.grpRiverMile.Location = new System.Drawing.Point(8, 14);
             this.grpRiverMile.Name = "grpRiverMile";
             this.grpRiverMile.Size = new System.Drawing.Size(227, 100);
             this.grpRiverMile.TabIndex = 1;
@@ -290,16 +291,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Upstream";
             // 
-            // chkRiverMile
-            // 
-            this.chkRiverMile.AutoSize = true;
-            this.chkRiverMile.Location = new System.Drawing.Point(18, 27);
-            this.chkRiverMile.Name = "chkRiverMile";
-            this.chkRiverMile.Size = new System.Drawing.Size(73, 17);
-            this.chkRiverMile.TabIndex = 0;
-            this.chkRiverMile.Text = "River Mile";
-            this.chkRiverMile.UseVisualStyleBackColor = true;
-            // 
             // grdData
             // 
             this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -321,7 +312,7 @@
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedToolStripMenuItem});
             this.cmsGridView.Name = "cmsSite";
-            this.cmsGridView.Size = new System.Drawing.Size(188, 120);
+            this.cmsGridView.Size = new System.Drawing.Size(188, 142);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -367,17 +358,12 @@
             this.deleteSelectedToolStripMenuItem.Text = "Delete Selected...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
-            // cmdBrowse
+            // ucThumbail
             // 
-            this.cmdBrowse.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdBrowse.Location = new System.Drawing.Point(160, 7);
-            this.cmdBrowse.Name = "cmdBrowse";
-            this.cmdBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdBrowse.TabIndex = 7;
-            this.cmdBrowse.Text = "    Browse";
-            this.cmdBrowse.UseVisualStyleBackColor = true;
-            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
+            this.ucThumbail.Location = new System.Drawing.Point(8, 300);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 187);
+            this.ucThumbail.TabIndex = 6;
             // 
             // frmRemoteCameras
             // 
@@ -443,6 +429,5 @@
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
         private Pictures.ucThumbail ucThumbail;
-        private System.Windows.Forms.Button cmdBrowse;
     }
 }
