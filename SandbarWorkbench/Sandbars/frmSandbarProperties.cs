@@ -46,15 +46,9 @@ namespace SandbarWorkbench.Sandbars
                 // Attempt to load a Google map of the site
                 if (m_Site.Latitude.HasValue && m_Site.Longitude.HasValue)
                 {
-                    //webMap.Url = new Uri(string.Format("http://maps.google.com/maps?z=12&t=k&q=loc:{0}+{1}", m_Site.Latitude.Value, m_Site.Longitude.Value));
-                    ////webMap.Url = new Uri(string.Format("http://maps.google.com/maps/place/{2}/@{0},{1},15z", m_Site.Latitude.Value, m_Site.Longitude.Value, m_Site.SiteCode5));
-
-                    //webMap.Url = new Uri(string.Format("http://bing.com/maps/default.aspx?cp={0}~{1}&style=a&lvl=12", m_Site.Latitude, m_Site.Longitude));
-
                     try
                     {
-                        webMap.Url = new Uri(@"http://s3-us-west-2.amazonaws.com/demos.northarrowresearch.com/mapviewer2/CrossSectionMap.html");
-                        webMap.Navigate(@"http://s3-us-west-2.amazonaws.com/demos.northarrowresearch.com/mapviewer2/CrossSectionMap.html");
+                        webMap.Navigate(string.Format(@"http://demos.northarrowresearch.com/sandbar-site/index.html?siteLat={0}&siteLng={1}", m_Site.Longitude, m_Site.Latitude));
                     }
                     catch (Exception ex)
                     {
