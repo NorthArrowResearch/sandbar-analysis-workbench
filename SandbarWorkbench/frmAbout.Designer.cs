@@ -36,7 +36,9 @@
             this.lblWebSite = new System.Windows.Forms.LinkLabel();
             this.lblDBVersion = new System.Windows.Forms.Label();
             this.lnkVersion = new System.Windows.Forms.LinkLabel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdOK
@@ -109,6 +111,16 @@
             this.lnkVersion.TabStop = true;
             this.lnkVersion.Text = "lnkVersion";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(34, 93);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(155, 100);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
             // frmAbout
             // 
             this.AcceptButton = this.cmdOK;
@@ -116,6 +128,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdOK;
             this.ClientSize = new System.Drawing.Size(508, 237);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.lnkVersion);
             this.Controls.Add(this.lblDBVersion);
             this.Controls.Add(this.lblWebSite);
@@ -131,6 +144,7 @@
             this.Text = "frmAbout";
             this.Load += new System.EventHandler(this.frmAbout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +159,6 @@
         private System.Windows.Forms.LinkLabel lblWebSite;
         private System.Windows.Forms.Label lblDBVersion;
         private System.Windows.Forms.LinkLabel lnkVersion;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
