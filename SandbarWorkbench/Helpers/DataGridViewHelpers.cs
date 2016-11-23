@@ -56,6 +56,7 @@ namespace SandbarWorkbench.Helpers
             aCol.DataPropertyName = sDataPropertyMember;
             aCol.UseColumnTextForLinkValue = false;
             aCol.DefaultCellStyle.Alignment = eAlignment;
+            aCol.Name = sHeaderText.Replace(" ", "");
             dg.Columns.Add(aCol);
         }
 
