@@ -257,6 +257,7 @@
             this.picBestPhoto.TabIndex = 0;
             this.picBestPhoto.TabStop = false;
             this.picBestPhoto.Paint += new System.Windows.Forms.PaintEventHandler(this.picBestPhoto_Paint);
+            this.picBestPhoto.DoubleClick += new System.EventHandler(this.picBestPhoto_DoubleClick);
             // 
             // tabMap
             // 

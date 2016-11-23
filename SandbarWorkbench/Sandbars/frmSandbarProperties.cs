@@ -310,6 +310,7 @@ namespace SandbarWorkbench.Sandbars
                 picBestPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
                 Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(m_Site.RemoteCameraSiteCode, m_Site.BestPhotoTime);
                 System.IO.FileInfo fiImage = pic.BestImage;
+                picBestPhoto.ImageLocation = fiImage.FullName;
                 if (fiImage is System.IO.FileInfo && fiImage.Exists)
                 {
                     System.Drawing.Image image = System.Drawing.Image.FromFile(fiImage.FullName);
@@ -328,6 +329,12 @@ namespace SandbarWorkbench.Sandbars
             }
             else
                 tabPhoto.Hide();
+        }
+
+        private void picBestPhoto_DoubleClick(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(picBestPhoto.ImageLocation) && System.IO.File.Exists(picBestPhoto.ImageLocation))
+                System.Diagnostics.Process.Start(picBestPhoto.ImageLocation);              
         }
     }
 }
