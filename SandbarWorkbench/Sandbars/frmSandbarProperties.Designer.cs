@@ -38,6 +38,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -47,15 +48,16 @@
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabPhoto = new System.Windows.Forms.TabPage();
+            this.picBestPhoto = new System.Windows.Forms.PictureBox();
             this.tabMap = new System.Windows.Forms.TabPage();
             this.webMap = new System.Windows.Forms.WebBrowser();
             this.txtRiverMile = new System.Windows.Forms.TextBox();
             this.txtSiteCode = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.picBestPhoto = new System.Windows.Forms.PictureBox();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtRemarks = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -65,8 +67,9 @@
             this.cmsSurveys.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPhoto.SuspendLayout();
-            this.tabMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBestPhoto)).BeginInit();
+            this.tabMap.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -117,6 +120,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPhoto);
             this.tabControl1.Controls.Add(this.tabMap);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 69);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -152,6 +156,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
+            this.ucStageDischarge1.TabIndex = 0;
             // 
             // tabSurveys
             // 
@@ -234,6 +246,15 @@
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // ucAreaVolumeAnalyses1
+            // 
+            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
+            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
+            this.ucAreaVolumeAnalyses1.SandbarSite = null;
+            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
+            this.ucAreaVolumeAnalyses1.TabIndex = 0;
+            // 
             // tabPhoto
             // 
             this.tabPhoto.Controls.Add(this.picBestPhoto);
@@ -244,6 +265,15 @@
             this.tabPhoto.TabIndex = 4;
             this.tabPhoto.Text = "Photo";
             this.tabPhoto.UseVisualStyleBackColor = true;
+            // 
+            // picBestPhoto
+            // 
+            this.picBestPhoto.Location = new System.Drawing.Point(256, 104);
+            this.picBestPhoto.Name = "picBestPhoto";
+            this.picBestPhoto.Size = new System.Drawing.Size(100, 50);
+            this.picBestPhoto.TabIndex = 0;
+            this.picBestPhoto.TabStop = false;
+            this.picBestPhoto.Paint += new System.Windows.Forms.PaintEventHandler(this.picBestPhoto_Paint);
             // 
             // tabMap
             // 
@@ -290,31 +320,27 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Site code";
             // 
-            // picBestPhoto
+            // tabPage4
             // 
-            this.picBestPhoto.Location = new System.Drawing.Point(256, 104);
-            this.picBestPhoto.Name = "picBestPhoto";
-            this.picBestPhoto.Size = new System.Drawing.Size(100, 50);
-            this.picBestPhoto.TabIndex = 0;
-            this.picBestPhoto.TabStop = false;
-            this.picBestPhoto.Paint += new System.Windows.Forms.PaintEventHandler(this.picBestPhoto_Paint);
+            this.tabPage4.Controls.Add(this.txtRemarks);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(562, 536);
+            this.tabPage4.TabIndex = 6;
+            this.tabPage4.Text = "Remarks";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // ucStageDischarge1
+            // txtRemarks
             // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
-            // ucAreaVolumeAnalyses1
-            // 
-            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
-            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
-            this.ucAreaVolumeAnalyses1.SandbarSite = null;
-            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
-            this.ucAreaVolumeAnalyses1.TabIndex = 0;
+            this.txtRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRemarks.Location = new System.Drawing.Point(3, 3);
+            this.txtRemarks.MaxLength = 1000;
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.ReadOnly = true;
+            this.txtRemarks.Size = new System.Drawing.Size(556, 530);
+            this.txtRemarks.TabIndex = 0;
             // 
             // frmSandbarProperties
             // 
@@ -343,8 +369,10 @@
             this.cmsSurveys.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPhoto.ResumeLayout(false);
-            this.tabMap.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picBestPhoto)).EndInit();
+            this.tabMap.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,5 +406,7 @@
         private System.Windows.Forms.TabPage tabMap;
         private System.Windows.Forms.WebBrowser webMap;
         private System.Windows.Forms.PictureBox picBestPhoto;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox txtRemarks;
     }
 }

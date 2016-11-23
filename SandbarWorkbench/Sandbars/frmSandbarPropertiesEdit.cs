@@ -78,6 +78,9 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "Northing", ref valNorthing);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "Latitude", ref valLatitude);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "Longitude", ref valLongitude);
+
+                    // Tab - Remarks
+                    DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "Remarks", ref txtRemarks);
                 }
             }
 
@@ -100,7 +103,7 @@ namespace SandbarWorkbench.Sandbars
 
             string[] sFields = {"RiverMile","SiteCode5", "Title", "AlternateTitle" , "History", "ExpansionRatio8k" , "ExpansionRatio45k" , "StageChange8k45k", "SecondaryGDAWS",
                     "ReachID", "SegmentID", "CampsiteSurveyRecord" , "RemoteCameraID" , "StageDischargeA", "StageDischargeB", "StageDischargeC" , "Northing", "Easting", "Latitude" ,"Longitude",
-                    "RiverSideID" , "SiteTypeID", "EddySize", "PrimaryGDAWS" }; //"InitialSurvey",
+                    "RiverSideID" , "SiteTypeID", "EddySize", "PrimaryGDAWS", "Remarks" };
 
             using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
             {
@@ -149,6 +152,7 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboSiteType, "SiteTypeID");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valEddySize, "EddySize");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtPrimaryGDAWS, "PrimaryGDAWS");
+                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtRemarks, "Remarks");
 
                     // Both queries require the user name
                     dbCom.Parameters.AddWithValue("UserName", Environment.UserName);

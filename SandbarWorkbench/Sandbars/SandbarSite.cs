@@ -44,6 +44,8 @@ namespace SandbarWorkbench.Sandbars
         public string RemoteCameraSiteCode { get; internal set; }
         public string BestPhotoTime { get; internal set; }
 
+        public string Remarks { get; internal set; }
+
         public string PrimaryGDAWSLink
         {
             get
@@ -85,6 +87,7 @@ namespace SandbarWorkbench.Sandbars
             , Nullable<double> fExpansionRatio8k
             , Nullable<double> fExpansionRatio45k
             , Nullable<double> fStageChange8k45k
+            , string sRemarks
             , DateTime dtAddedOn
             , string sAddedBy
             , DateTime dtUpdatedOn
@@ -122,6 +125,7 @@ namespace SandbarWorkbench.Sandbars
             ExpansionRatio8k = fExpansionRatio8k;
             ExpansionRatio45k = fExpansionRatio45k;
             StageChange8k45k = fStageChange8k45k;
+            Remarks = sRemarks;
         }
 
         public static SandbarSite LoadSandbarSite(string sDB, long nSiteID)
@@ -191,6 +195,7 @@ namespace SandbarWorkbench.Sandbars
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
                         , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
                         , (DateTime)dbRead["AddedOn"]
                         , (string)dbRead["AddedBy"]
                         , (DateTime)dbRead["UpdatedOn"]

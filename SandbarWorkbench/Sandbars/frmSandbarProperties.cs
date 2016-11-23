@@ -39,6 +39,7 @@ namespace SandbarWorkbench.Sandbars
                 txtName.Text = m_Site.Title;
                 txtRiverMile.Text = m_Site.RiverMile.ToString();
                 txtSiteCode.Text = m_Site.SiteCode5;
+                txtRemarks.Text = m_Site.Remarks;
 
                 grdSurveys.DataSource = m_Site.Surveys;
                 LoadBasicSandbarProperties();

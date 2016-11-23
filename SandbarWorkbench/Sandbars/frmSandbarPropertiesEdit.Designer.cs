@@ -85,6 +85,8 @@
             this.valEasting = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtRemarks = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEddySize)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -103,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.valLatitude)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valNorthing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEasting)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -372,6 +375,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -745,6 +749,27 @@
             this.label14.TabIndex = 0;
             this.label14.Text = "Easting";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtRemarks);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(495, 383);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Remarks";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtRemarks
+            // 
+            this.txtRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRemarks.Location = new System.Drawing.Point(3, 3);
+            this.txtRemarks.MaxLength = 1000;
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.Size = new System.Drawing.Size(489, 377);
+            this.txtRemarks.TabIndex = 0;
+            // 
             // frmSandbarPropertiesEdit
             // 
             this.AcceptButton = this.cmdOK;
@@ -782,6 +807,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.valLatitude)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valNorthing)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEasting)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -844,5 +871,7 @@
         private System.Windows.Forms.NumericUpDown valEasting;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox txtRemarks;
     }
 }

@@ -65,7 +65,7 @@ namespace SandbarWorkbench
 #endif
             bool bSuccessful = false;
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
-            string sDeveloperCredentials = System.IO.Path.Combine(dir.Parent.Parent.Parent.FullName, "master_database_credentials.xml");
+            string sDeveloperCredentials = System.IO.Path.Combine(dir.Parent.Parent.FullName, "master_database_credentials.xml");
             if (System.IO.File.Exists(sDeveloperCredentials))
             {
                 XmlDocument xmlDoc = new XmlDocument();
