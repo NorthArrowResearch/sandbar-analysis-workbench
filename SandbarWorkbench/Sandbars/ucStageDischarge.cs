@@ -43,7 +43,7 @@ namespace SandbarWorkbench.Sandbars
             chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
             chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
 
-            chtData.ChartAreas[0].AxisY.Title = "Stage (ft)";
+            chtData.ChartAreas[0].AxisY.Title = "Stage (m)";
 
             // Should trigger calculation of stage.
             valDischarge.Value = 8000;
