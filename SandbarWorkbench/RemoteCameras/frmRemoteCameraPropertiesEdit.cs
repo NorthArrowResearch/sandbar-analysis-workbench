@@ -69,6 +69,7 @@ namespace SandbarWorkbench.RemoteCameras
 
                 txtBeginDigital.Text = m_RemoteCamera.BeginDigitalRecord;
                 txtEndDigital.Text = m_RemoteCamera.EndDigitalRecord;
+                txtRemarks.Text = m_RemoteCamera.Remarks;
 
                 if (Editable)
                 {
@@ -95,6 +96,7 @@ namespace SandbarWorkbench.RemoteCameras
                     txtEndFilm.ReadOnly = true;
                     txtBeginDigital.ReadOnly = true;
                     txtEndDigital.ReadOnly = true;
+                    txtRemarks.ReadOnly = true;
 
                     cmdOK.Visible = false;
                     cmdCancel.Text = "Close";

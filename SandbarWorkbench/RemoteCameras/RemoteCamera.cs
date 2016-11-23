@@ -34,6 +34,7 @@ namespace SandbarWorkbench.RemoteCameras
         public string EndDigitalRecord { get; internal set; }
         public long CardTypeID { get; internal set; }
         public string CardType { get; internal set; }
+        public string Remarks { get; internal set; }
         public DateTime AddedOn { get; internal set; }
         public string AddedBy { get; internal set; }
         public DateTime UpdatedOn { get; internal set; }
@@ -61,6 +62,7 @@ namespace SandbarWorkbench.RemoteCameras
             , string sEndDigitalRecord
             , long nCardTypeID
             , string sCardType
+            , string sRemarks
             , DateTime dtAddedOn
             , string sAddedBy
             , DateTime dtUpdatedOn
@@ -88,6 +90,7 @@ namespace SandbarWorkbench.RemoteCameras
             EndDigitalRecord = sEndDigitalRecord;
             CardTypeID = nCardTypeID;
             CardType = sCardType;
+            Remarks = sRemarks;
             AddedOn = dtAddedOn;
             AddedBy = sAddedBy;
             UpdatedOn = dtUpdatedOn;
@@ -136,6 +139,7 @@ namespace SandbarWorkbench.RemoteCameras
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "EndDigitalRecord")
                         , DBHelpers.SQLiteHelpers.GetSafeValueInt(ref dbRead, "CardTypeID")
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CardType")
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
                         , DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "AddedOn")
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AddedBy")
                         , DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "UpdatedOn")
