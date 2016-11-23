@@ -36,7 +36,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> ExpansionRatio45k { get; internal set; }
         public Nullable<double> StageChange8k45k { get; internal set; }
         public StageDischargeCurve SDCurve { get; internal set; }
-        public BindingList<SandbarSurvey> Surveys { get; set; }
+        public SortableBindingList<SandbarSurvey> Surveys { get; set; }
         public int SurveyCount { get { return Surveys.Count; } }
 
         // Best photo time is used to support the thumbnail viewer on the main data grid

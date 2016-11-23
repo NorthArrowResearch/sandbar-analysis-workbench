@@ -47,9 +47,9 @@ namespace SandbarWorkbench.Sandbars
             EddyCount = 0;
         }
 
-        public static BindingList<SandbarSurvey> LoadSandbarSurveys(string sDB, long nSiteID = 0)
+        public static SortableBindingList<SandbarSurvey> LoadSandbarSurveys(string sDB, long nSiteID = 0)
         {
-            BindingList<SandbarSurvey> lRecords = new BindingList<SandbarSurvey>();
+            SortableBindingList<SandbarSurvey> lRecords = new SortableBindingList<SandbarSurvey>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDB))
             {
