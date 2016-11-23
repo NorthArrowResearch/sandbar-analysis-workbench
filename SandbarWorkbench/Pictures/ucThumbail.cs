@@ -35,6 +35,7 @@ namespace SandbarWorkbench.Pictures
                         picThumbnail.Visible = true;
                         picThumbnail.Tag = picInfo;
                         lblCaption.Text = System.IO.Path.GetFileNameWithoutExtension(picThumbnail.ImageLocation);
+                        lblCaption.Visible = true;
                     }
                 }
                 catch (Exception ex)

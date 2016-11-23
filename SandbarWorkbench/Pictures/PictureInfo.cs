@@ -24,6 +24,14 @@ namespace SandbarWorkbench.Pictures
         public System.IO.FileInfo WebResPath { get; internal set; }
         //public DateTime DateTimeTaken { get; internal set; }
 
+            public string Caption
+        {
+            get
+            {
+                return System.IO.Path.GetFileNameWithoutExtension(BestImagePath);
+            }
+        }
+
         public PictureInfo(string sRemoteCameraCode, System.IO.FileInfo fiThumb, System.IO.FileInfo fiFullRes, System.IO.FileInfo fiWebRes) : base(sRemoteCameraCode)
         {
             ThumbailPath = fiThumb;

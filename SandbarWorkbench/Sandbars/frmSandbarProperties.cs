@@ -311,6 +311,7 @@ namespace SandbarWorkbench.Sandbars
                 Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(m_Site.RemoteCameraSiteCode, m_Site.BestPhotoTime);
                 System.IO.FileInfo fiImage = pic.BestImage;
                 picBestPhoto.ImageLocation = fiImage.FullName;
+                tTip.SetToolTip(picBestPhoto, pic.Caption);
                 if (fiImage is System.IO.FileInfo && fiImage.Exists)
                 {
                     System.Drawing.Image image = System.Drawing.Image.FromFile(fiImage.FullName);
