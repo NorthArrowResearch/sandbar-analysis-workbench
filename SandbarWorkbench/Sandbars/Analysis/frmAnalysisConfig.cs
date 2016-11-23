@@ -187,8 +187,8 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     ProcessStartInfo psi = new ProcessStartInfo("cmd.exe");
                     psi.UseShellExecute = false;
                     psi.RedirectStandardInput = true;
-                    psi.RedirectStandardOutput = true;
-                    psi.RedirectStandardError = true;
+                    psi.RedirectStandardOutput = false;
+                    psi.RedirectStandardError = false;
 
                     System.Diagnostics.Process proc = new Process();
                     proc.StartInfo = psi;
@@ -210,9 +210,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     }
 
                     //System.IO.StreamReader stdErr = proc.StandardError;
-                    string sError = proc.StandardError.ReadToEnd();
-                    string output = proc.StandardOutput.ReadToEnd();
-                    Console.Write(output);
+                    //string sError = proc.StandardError.ReadToEnd();
+                    //string output = proc.StandardOutput.ReadToEnd();
+                    //Console.Write(output);
 
                     proc.WaitForExit();
 

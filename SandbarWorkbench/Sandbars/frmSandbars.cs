@@ -246,10 +246,10 @@ namespace SandbarWorkbench.Sandbars
                 Analysis.frmAnalysisConfig frm = new Analysis.frmAnalysisConfig(grdData.SelectedRows.Cast<DataGridViewRow>().Select(x => x.DataBoundItem as SandbarSite).ToList<SandbarSite>());
                 frm.ShowDialog();
             }
-           catch(Exception ex)
+            catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
-            }           
+            }
 
         }
 
@@ -265,12 +265,49 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
-        private void cmdBrowse_Click(object sender, EventArgs e)
+        private void toolBrowse_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData)
-                && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData))
+               && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData))
             {
                 System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>http://stackoverflow.com/questions/5251224/merge-toolstrip-mdi-child-parent</remarks>
+        private void frmSandbars_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ToolStripManager.RevertMerge(((frmMain)this.MdiParent).toolStrip1);
+        }
+
+        private void toolBestPhoto_Click(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows.Count > 5)
+            {
+                if (MessageBox.Show(string.Format("Do you want to open the best photo for all {0} selected sites?", grdData.SelectedRows.Count), SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    return;
+            }
+
+            foreach (DataGridViewRow dgvr in grdData.SelectedRows)
+            {
+                if (dgvr.DataBoundItem is SandbarSite)
+                {
+                    SandbarSite selSite = dgvr.DataBoundItem as SandbarSite;
+                    if (selSite.RemoteCameraID.HasValue)
+                    {
+                        Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(selSite.RemoteCameraSiteCode, selSite.BestPhotoTime);
+                        System.IO.FileInfo fiImage = pic.BestImage;
+                        if (fiImage is System.IO.FileInfo && fiImage.Exists)
+                        {
+                            System.Diagnostics.Process.Start(fiImage.FullName);
+                        }
+                    }
+                }
             }
         }
     }

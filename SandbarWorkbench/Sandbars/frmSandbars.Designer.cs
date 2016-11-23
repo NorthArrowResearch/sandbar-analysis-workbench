@@ -31,12 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbars));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolBrowse = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.grpTimeSeries = new System.Windows.Forms.GroupBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.grpSiteName = new System.Windows.Forms.GroupBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.grpRiverMile = new System.Windows.Forms.GroupBox();
@@ -44,7 +47,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkRiverMile = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,12 +58,17 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmdBrowse = new System.Windows.Forms.Button();
+            this.toolProperties = new System.Windows.Forms.ToolStripButton();
+            this.toolAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolEdit = new System.Windows.Forms.ToolStripButton();
             this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpTimeSeries.SuspendLayout();
             this.grpSiteName.SuspendLayout();
@@ -83,7 +90,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.cmdBrowse);
+            this.splitContainer1.Panel1.Controls.Add(this.toolStrip1);
             this.splitContainer1.Panel1.Controls.Add(this.ucThumbail);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Controls.Add(this.grpTimeSeries);
@@ -99,11 +106,37 @@
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 0;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolBrowse,
+            this.toolProperties,
+            this.toolStripButton1,
+            this.toolStripSeparator1,
+            this.toolAdd,
+            this.toolEdit});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(249, 25);
+            this.toolStrip1.TabIndex = 7;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Visible = false;
+            // 
+            // toolBrowse
+            // 
+            this.toolBrowse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolBrowse.Image = ((System.Drawing.Image)(resources.GetObject("toolBrowse.Image")));
+            this.toolBrowse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBrowse.Name = "toolBrowse";
+            this.toolBrowse.Size = new System.Drawing.Size(23, 22);
+            this.toolBrowse.ToolTipText = "Browse sandbar site topo data folder";
+            this.toolBrowse.Click += new System.EventHandler(this.toolBrowse_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 274);
+            this.groupBox1.Location = new System.Drawing.Point(12, 255);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(227, 69);
             this.groupBox1.TabIndex = 3;
@@ -140,7 +173,7 @@
             // 
             this.grpTimeSeries.Controls.Add(this.checkBox2);
             this.grpTimeSeries.Controls.Add(this.checkBox1);
-            this.grpTimeSeries.Location = new System.Drawing.Point(12, 199);
+            this.grpTimeSeries.Location = new System.Drawing.Point(12, 180);
             this.grpTimeSeries.Name = "grpTimeSeries";
             this.grpTimeSeries.Size = new System.Drawing.Size(227, 69);
             this.grpTimeSeries.TabIndex = 2;
@@ -173,10 +206,21 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.TextChanged += new System.EventHandler(this.FilterItems);
             // 
+            // chkRiverMile
+            // 
+            this.chkRiverMile.AutoSize = true;
+            this.chkRiverMile.Location = new System.Drawing.Point(21, 8);
+            this.chkRiverMile.Name = "chkRiverMile";
+            this.chkRiverMile.Size = new System.Drawing.Size(73, 17);
+            this.chkRiverMile.TabIndex = 0;
+            this.chkRiverMile.Text = "River Mile";
+            this.chkRiverMile.UseVisualStyleBackColor = true;
+            this.chkRiverMile.CheckedChanged += new System.EventHandler(this.FilterItems);
+            // 
             // grpSiteName
             // 
             this.grpSiteName.Controls.Add(this.txtTitle);
-            this.grpSiteName.Location = new System.Drawing.Point(12, 140);
+            this.grpSiteName.Location = new System.Drawing.Point(12, 121);
             this.grpSiteName.Name = "grpSiteName";
             this.grpSiteName.Size = new System.Drawing.Size(227, 53);
             this.grpSiteName.TabIndex = 1;
@@ -197,7 +241,7 @@
             this.grpRiverMile.Controls.Add(this.label2);
             this.grpRiverMile.Controls.Add(this.valUpstream);
             this.grpRiverMile.Controls.Add(this.label1);
-            this.grpRiverMile.Location = new System.Drawing.Point(12, 33);
+            this.grpRiverMile.Location = new System.Drawing.Point(12, 14);
             this.grpRiverMile.Name = "grpRiverMile";
             this.grpRiverMile.Size = new System.Drawing.Size(227, 100);
             this.grpRiverMile.TabIndex = 0;
@@ -243,17 +287,6 @@
             this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Upstream";
-            // 
-            // chkRiverMile
-            // 
-            this.chkRiverMile.AutoSize = true;
-            this.chkRiverMile.Location = new System.Drawing.Point(21, 27);
-            this.chkRiverMile.Name = "chkRiverMile";
-            this.chkRiverMile.Size = new System.Drawing.Size(73, 17);
-            this.chkRiverMile.TabIndex = 0;
-            this.chkRiverMile.Text = "River Mile";
-            this.chkRiverMile.UseVisualStyleBackColor = true;
-            this.chkRiverMile.CheckedChanged += new System.EventHandler(this.FilterItems);
             // 
             // menuStrip1
             // 
@@ -360,24 +393,60 @@
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
-            // cmdBrowse
+            // toolProperties
             // 
-            this.cmdBrowse.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cmdBrowse.Location = new System.Drawing.Point(164, 9);
-            this.cmdBrowse.Name = "cmdBrowse";
-            this.cmdBrowse.Size = new System.Drawing.Size(75, 23);
-            this.cmdBrowse.TabIndex = 6;
-            this.cmdBrowse.Text = "    Browse";
-            this.cmdBrowse.UseVisualStyleBackColor = true;
-            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
+            this.toolProperties.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolProperties.Image = global::SandbarWorkbench.Properties.Resources.Settings;
+            this.toolProperties.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolProperties.Name = "toolProperties";
+            this.toolProperties.Size = new System.Drawing.Size(23, 22);
+            this.toolProperties.Text = "toolStripButton1";
+            this.toolProperties.ToolTipText = "View sandbar site properties";
+            this.toolProperties.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // toolAdd
+            // 
+            this.toolAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolAdd.Image = global::SandbarWorkbench.Properties.Resources.Add;
+            this.toolAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolAdd.Name = "toolAdd";
+            this.toolAdd.Size = new System.Drawing.Size(23, 22);
+            this.toolAdd.Text = "toolStripButton1";
+            this.toolAdd.ToolTipText = "Add new sandbar site";
+            this.toolAdd.Click += new System.EventHandler(this.addNewSandbarToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolEdit
+            // 
+            this.toolEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolEdit.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.toolEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolEdit.Name = "toolEdit";
+            this.toolEdit.Size = new System.Drawing.Size(23, 22);
+            this.toolEdit.Text = "toolStripButton1";
+            this.toolEdit.ToolTipText = "Edit the selected sandbar site properties";
+            this.toolEdit.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
             // 
             // ucThumbail
             // 
-            this.ucThumbail.Location = new System.Drawing.Point(12, 349);
+            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
             this.ucThumbail.Name = "ucThumbail";
             this.ucThumbail.Size = new System.Drawing.Size(227, 192);
             this.ucThumbail.TabIndex = 5;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolBestPhoto_Click);
             // 
             // frmSandbars
             // 
@@ -389,12 +458,15 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmSandbars";
             this.Text = "Sandbar Sites";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSandbars_FormClosing);
             this.Load += new System.EventHandler(this.frmSandbars_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grpTimeSeries.ResumeLayout(false);
@@ -442,6 +514,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sandbarAnalysisToolStripMenuItem;
         private Pictures.ucThumbail ucThumbail;
-        private System.Windows.Forms.Button cmdBrowse;
+        public System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolBrowse;
+        private System.Windows.Forms.ToolStripButton toolProperties;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolAdd;
+        private System.Windows.Forms.ToolStripButton toolEdit;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

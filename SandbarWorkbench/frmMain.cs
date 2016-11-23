@@ -156,6 +156,10 @@ namespace SandbarWorkbench
                 Form frm = (Form)Activator.CreateInstance(frmType);
                 frm.MdiParent = this;
                 frm.WindowState = this.MdiChildren.Count<Form>() == 0 ? FormWindowState.Maximized : FormWindowState.Normal;
+
+                if (frm is Sandbars.frmSandbars)
+                    ToolStripManager.Merge(((Sandbars.frmSandbars) frm).toolStrip1, this.toolStrip1);
+
                 frm.Show();
             }
             catch (Exception ex)
