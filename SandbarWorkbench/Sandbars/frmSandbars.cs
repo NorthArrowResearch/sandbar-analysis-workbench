@@ -258,10 +258,7 @@ namespace SandbarWorkbench.Sandbars
             if (grdData.SelectedRows.Count == 1)
             {
                 SandbarSite ss = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
-                if (!string.IsNullOrEmpty(ss.RemoteCameraSiteCode))
-                {
-                    ucThumbail.UpdateThumbnail(ss.RemoteCameraSiteCode, ss.BestPhotoTime);
-                }
+                ucThumbail.UpdateThumbnail(ss.RemoteCameraSiteCode, ss.BestPhotoTime);
             }
         }
 
