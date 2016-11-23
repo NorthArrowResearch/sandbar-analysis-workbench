@@ -64,15 +64,14 @@ namespace SandbarWorkbench
         {
             bool bActiveDatabase = !string.IsNullOrEmpty(DBCon.ConnectionStringLocal) && System.IO.File.Exists(DBCon.DatabasePath);
 
+            // All items under Views, Tools and Experimental are only enabled when there's a database.
+            ToolStripMenuItem[] arrtMenus = { viewsToolStripMenuItem, toolsToolStripMenuItem, experimentalToolStripMenuItem };
+            foreach (ToolStripMenuItem mnu in arrtMenus)
+                foreach (ToolStripMenuItem subItem in mnu.DropDownItems.OfType<ToolStripMenuItem>())
+                    subItem.Enabled = bActiveDatabase;
+            
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
-            sandbarSitesToolStripMenuItem.Enabled = bActiveDatabase;
-            remoteCamerasToolStripMenuItem.Enabled = bActiveDatabase;
-
-            cascadeToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
-            tileHorizontalToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
-            tileVerticaToolStripMenuItem.Enabled = this.MdiChildren.Count<Form>() > 0;
-
             tssDatabasePath.Text = DBCon.DatabasePath;
         }
 
@@ -158,7 +157,7 @@ namespace SandbarWorkbench
                 frm.WindowState = this.MdiChildren.Count<Form>() == 0 ? FormWindowState.Maximized : FormWindowState.Normal;
 
                 if (frm is Sandbars.frmSandbars)
-                    ToolStripManager.Merge(((Sandbars.frmSandbars) frm).toolStrip1, this.toolStrip1);
+                    ToolStripManager.Merge(((Sandbars.frmSandbars)frm).toolStrip1, this.toolStrip1);
 
                 frm.Show();
             }
@@ -210,7 +209,10 @@ namespace SandbarWorkbench
             // Remove all items after the separator in the Views menu (then re-add them below)
             int i = viewsToolStripMenuItem.DropDownItems.Count - 1;
             while (!(viewsToolStripMenuItem.DropDownItems[i] is ToolStripSeparator) && i >= 0)
+            {
                 viewsToolStripMenuItem.DropDownItems.RemoveAt(i);
+                i--;
+            }
 
             // Create a list to store the definitions of all the custom views that will be added to the View menu.
             List<DataGridViews.DataGridViewTypeBase> lMenuItems = new List<DataGridViews.DataGridViewTypeBase>();
