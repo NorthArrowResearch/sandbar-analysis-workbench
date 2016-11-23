@@ -106,7 +106,7 @@
             this.closeDatabaseToolStripMenuItem.Name = "closeDatabaseToolStripMenuItem";
             this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.closeDatabaseToolStripMenuItem.Text = "Close Database";
-            this.closeDatabaseToolStripMenuItem.Click += new System.EventHandler(this.closeDatabaseToolStripMenuItem_Click);
+            this.closeDatabaseToolStripMenuItem.Click += new System.EventHandler(this.CloseDBMenuItem_Click);
             // 
             // toolStripSeparator4
             // 

@@ -241,8 +241,17 @@ namespace SandbarWorkbench
             }
         }
 
-        private void closeDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CloseDBMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.MdiChildren.ToList<Form>().ForEach(x => x.Close());
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+
             DBCon.CloseDatabase();
             UpdateMenuItemStatus();
         }
