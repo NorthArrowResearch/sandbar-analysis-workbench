@@ -42,6 +42,43 @@ namespace SandbarWorkbench.Sandbars
 
                 grdSurveys.DataSource = m_Site.Surveys;
                 LoadBasicSandbarProperties();
+
+                // Attempt to load a Google map of the site
+                if (m_Site.Latitude.HasValue && m_Site.Longitude.HasValue)
+                {
+                    webMap.Url = new Uri(string.Format("http://maps.google.com/maps?z=12&t=k&q=loc:{0}+{1}", m_Site.Latitude.Value, m_Site.Longitude.Value));
+                    //webMap.Url = new Uri(string.Format("http://maps.google.com/maps/place/{2}/@{0},{1},15z", m_Site.Latitude.Value, m_Site.Longitude.Value, m_Site.SiteCode5));
+
+                    webMap.Url = new Uri(string.Format("http://bing.com/maps/default.aspx?cp={0}~{1}&style=a&lvl=12", m_Site.Latitude, m_Site.Longitude));
+                }
+                else
+                    tabMap.Hide();
+
+                //if (m_Site.RemoteCameraID.HasValue)
+                //{
+
+                //    //picBestPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
+                //    //Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(m_Site.RemoteCameraSiteCode, m_Site.BestPhotoTime);
+                //    //System.IO.FileInfo fiImage = pic.BestImage;
+                //    //if (fiImage is System.IO.FileInfo && fiImage.Exists)
+                //    //{
+                //    //    System.Drawing.Image img = System.Drawing.Image.FromFile(@"c:\ggs\ggs Access\images\members\1.jpg");
+                //    //    picBestPhoto.Left = 0;
+                //    //    picBestPhoto.Top = 0;
+                //    //    picBestPhoto.Width = tabPhoto.Width;
+                //    //    picBestPhoto;
+
+                //    //    double fWidthRatio = (double) tabPhoto.Width / (double) img.Width;
+                //    //    double fHeightRation = (double) tabPhoto.Height / (double) img
+
+
+                //    //    picBestPhoto.ImageLocation = fiImage.FullName;
+                //    }
+                //    else
+                //        tabPhoto.Hide();
+                //}
+                //else
+                //    tabPhoto.Hide();
             }
         }
 
@@ -270,6 +307,37 @@ namespace SandbarWorkbench.Sandbars
                     Cursor.Current = Cursors.Default;
                 }
             }
+        }
+
+        private void picBestPhoto_Paint(object sender, PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+
+            if (m_Site.RemoteCameraID.HasValue)
+            {
+                picBestPhoto.Dock = DockStyle.Fill;
+                picBestPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
+                Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(m_Site.RemoteCameraSiteCode, m_Site.BestPhotoTime);
+                System.IO.FileInfo fiImage = pic.BestImage;
+                if (fiImage is System.IO.FileInfo && fiImage.Exists)
+                {
+                    System.Drawing.Image image = System.Drawing.Image.FromFile(fiImage.FullName);
+
+                    Size sourceSize = image.Size, targetSize = ClientSize;
+                    float scale = Math.Max((float)targetSize.Width / sourceSize.Width, (float)targetSize.Height / sourceSize.Height);
+                    var rect = new RectangleF();
+                    rect.Width = scale * sourceSize.Width;
+                    rect.Height = scale * sourceSize.Height;
+                    rect.X = (targetSize.Width - rect.Width) / 2;
+                    rect.Y = (targetSize.Height - rect.Height) / 2;
+                    e.Graphics.DrawImage(image, rect);
+                }
+                else
+                    tabPhoto.Hide();
+            }
+            else
+                tabPhoto.Hide();
         }
     }
 }
