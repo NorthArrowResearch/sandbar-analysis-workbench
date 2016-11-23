@@ -64,7 +64,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     dbCom.Parameters.AddWithValue("Title", sTitle);
                     dbCom.Parameters.AddWithValue("RunTypeID", SandbarWorkbench.Properties.Settings.Default.RunTypeID_UserGenerated);
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-                    dbCom.Parameters.AddWithValue("InstallationGuid", SandbarWorkbench.Properties.Settings.Default.InstallationHash);
+                    dbCom.Parameters.AddWithValue("InstallationGuid", SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString());
 
                     if (string.IsNullOrEmpty(sRemarks))
                         dbCom.Parameters.Add("Remarks", System.Data.DbType.String).Value = DBNull.Value;
