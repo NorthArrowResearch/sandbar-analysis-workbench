@@ -1,0 +1,85 @@
+@import "settings";
+@import "foundation";
+@import "leaflet";
+@import "chosen";
+@import "compass/css3";
+
+/**
+ * Map Styling goes here
+ **/
+
+#map {
+  .legend {
+      line-height: 18px;
+      color: #555;
+      z-index: 100;
+  }
+  .legend i {
+      width: 24px;
+      height: 24px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+  }
+  .legend-item{
+    width: 200px;
+
+    // When legend items are clicked they turn "off". 
+    &.off{
+      i{ background: #666!important; }
+      font-style: italic;
+      &, label {color: #666; }
+    }
+  }
+
+  // The following is a fix for the google layer wanting to
+  // be on top of everything (including the vector layers)
+  .leaflet-map-pane { z-index: 2 !important; }
+  .leaflet-google-layer { z-index: 1 !important; }
+
+}
+
+/**
+ * Form Styling Goes here.
+ **/
+.legend label, form label{
+  font-size: 18px;
+  color: white;
+  @include text-shadow(#000 1px 1px 4px);
+}
+
+#mapform {
+  position: absolute; 
+  top: 20px; 
+  left: 50px; 
+  z-index: 100;
+  width: 90hw; 
+
+  input.jump-input{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0 0 0 8px;
+    height: 25px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #fff;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #f6f6f6), color-stop(52%, #eeeeee), color-stop(100%, #f4f4f4));
+    background: -webkit-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+    background: -moz-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+    background: -o-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+    background: linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #444;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 24px;
+  }
+}
+
+
+
+
+
+
