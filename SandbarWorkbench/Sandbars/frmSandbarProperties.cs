@@ -44,6 +44,13 @@ namespace SandbarWorkbench.Sandbars
                 grdSurveys.DataSource = m_Site.Surveys;
                 LoadBasicSandbarProperties();
 
+                cmdBrowse.Enabled = m_Site.TopoDataFolderExists;
+                cmdGDAWS.Enabled = m_Site.PrimaryGDAWS.HasValue;
+                cmdPhotos.Enabled = m_Site.BestPhoto is Pictures.PictureInfo;
+
+                if (m_Site.BestPhoto == null)
+                   tabControl1.TabPages.Remove(tabPhoto);
+
                 // Attempt to load a Google map of the site
                 if (m_Site.Latitude.HasValue && m_Site.Longitude.HasValue)
                 {
@@ -61,6 +68,9 @@ namespace SandbarWorkbench.Sandbars
                 else
                     tabMap.Hide();
             }
+
+            // Refresh the CMS for the surveys grid
+            grdSurveys_SelectionChanged(null, null);
         }
 
         private void ConfigureSurveysGrid()
@@ -336,6 +346,33 @@ namespace SandbarWorkbench.Sandbars
         {
             if (!string.IsNullOrEmpty(picBestPhoto.ImageLocation) && System.IO.File.Exists(picBestPhoto.ImageLocation))
                 System.Diagnostics.Process.Start(picBestPhoto.ImageLocation);              
+        }
+
+        private void cmdBrowse_Click(object sender, EventArgs e)
+        {
+            if (m_Site.TopoDataFolderExists)
+                System.Diagnostics.Process.Start(m_Site.TopoDataFolder.FullName);
+        }
+
+        private void cmdGDAWS_Click(object sender, EventArgs e)
+        {
+            if (m_Site.PrimaryGDAWS.HasValue)
+                System.Diagnostics.Process.Start(m_Site.PrimaryGDAWSLink);
+        }
+
+        private void cmdPhotos_Click(object sender, EventArgs e)
+        {
+            Pictures.PictureInfo pic = m_Site.BestPhoto;
+            if (pic is Pictures.PictureInfo)
+                System.Diagnostics.Process.Start(pic.BestImagePath);
+        }
+
+        private void grdSurveys_SelectionChanged(object sender, EventArgs e)
+        {
+           bool bSelectedSurvey = grdSurveys.SelectedRows.Count > 0;
+            editSurveyToolStripMenuItem.Enabled = bSelectedSurvey;
+            deleteSurveyToolStripMenuItem.Enabled = bSelectedSurvey;
+            viewSurveyPropertiesToolStripMenuItem.Enabled = bSelectedSurvey;
         }
     }
 }

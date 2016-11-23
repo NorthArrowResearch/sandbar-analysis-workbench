@@ -54,6 +54,43 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
+        public System.IO.DirectoryInfo TopoDataFolder
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData)
+                    && System.IO.Directory.Exists(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData))
+                    {
+                    string sSite = string.Compare(SandbarWorkbench.Properties.Settings.Default.SandbarIdentification, "SiteCode5", true) == 0 ? this.SiteCode5 : this.SiteCode;
+                    sSite = string.Format("{0}corgrids", sSite);
+                    string sPath = System.IO.Path.Combine(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, sSite);
+                    if (System.IO.Directory.Exists(sPath))
+                        return new System.IO.DirectoryInfo(sPath);
+                }
+                return null;
+            }
+        }
+
+        public Pictures.PictureInfo BestPhoto
+        {
+            get
+            {
+                if (RemoteCameraID.HasValue)
+                    return Pictures.PictureInfo.GetPictureInfo(RemoteCameraSiteCode, BestPhotoTime);
+                else
+                    return null;
+            }
+        }
+
+        public bool TopoDataFolderExists
+        {
+            get
+            {
+                System.IO.DirectoryInfo diTopoData = TopoDataFolder;
+                return diTopoData is System.IO.DirectoryInfo && diTopoData.Exists;
+            }
+        }
+        
         public SandbarSite(long nSiteID
             , string sSiteCode
             , string sSiteCode5

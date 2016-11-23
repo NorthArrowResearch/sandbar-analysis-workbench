@@ -38,7 +38,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -48,7 +47,6 @@
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.picBestPhoto = new System.Windows.Forms.PictureBox();
             this.tabMap = new System.Windows.Forms.TabPage();
@@ -59,6 +57,11 @@
             this.txtSiteCode = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cmdBrowse = new System.Windows.Forms.Button();
+            this.cmdGDAWS = new System.Windows.Forms.Button();
+            this.cmdPhotos = new System.Windows.Forms.Button();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -80,7 +83,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(507, 637);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 7;
+            this.cmdCancel.TabIndex = 10;
             this.cmdCancel.Text = "Close";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -107,7 +110,7 @@
             this.label2.Location = new System.Drawing.Point(12, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 5;
             this.label2.Text = "River mile";
             // 
             // tabControl1
@@ -126,7 +129,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(570, 562);
-            this.tabControl1.TabIndex = 6;
+            this.tabControl1.TabIndex = 9;
             // 
             // tabPage1
             // 
@@ -158,14 +161,6 @@
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // ucStageDischarge1
-            // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
             // tabSurveys
             // 
             this.tabSurveys.Controls.Add(this.grdSurveys);
@@ -187,6 +182,7 @@
             this.grdSurveys.Size = new System.Drawing.Size(556, 530);
             this.grdSurveys.TabIndex = 0;
             this.grdSurveys.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdSurveys_CellDoubleClick);
+            this.grdSurveys.SelectionChanged += new System.EventHandler(this.grdSurveys_SelectionChanged);
             // 
             // cmsSurveys
             // 
@@ -246,15 +242,6 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // ucAreaVolumeAnalyses1
-            // 
-            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
-            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
-            this.ucAreaVolumeAnalyses1.SandbarSite = null;
-            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
-            this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
             // tabPhoto
             // 
@@ -325,7 +312,7 @@
             this.txtRiverMile.Name = "txtRiverMile";
             this.txtRiverMile.ReadOnly = true;
             this.txtRiverMile.Size = new System.Drawing.Size(123, 20);
-            this.txtRiverMile.TabIndex = 3;
+            this.txtRiverMile.TabIndex = 6;
             // 
             // txtSiteCode
             // 
@@ -333,7 +320,7 @@
             this.txtSiteCode.Name = "txtSiteCode";
             this.txtSiteCode.ReadOnly = true;
             this.txtSiteCode.Size = new System.Drawing.Size(123, 20);
-            this.txtSiteCode.TabIndex = 5;
+            this.txtSiteCode.TabIndex = 8;
             // 
             // label3
             // 
@@ -341,14 +328,64 @@
             this.label3.Location = new System.Drawing.Point(214, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 7;
             this.label3.Text = "Site code";
+            // 
+            // cmdBrowse
+            // 
+            this.cmdBrowse.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowse.Location = new System.Drawing.Point(401, 12);
+            this.cmdBrowse.Name = "cmdBrowse";
+            this.cmdBrowse.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowse.TabIndex = 2;
+            this.cmdBrowse.UseVisualStyleBackColor = true;
+            this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
+            // 
+            // cmdGDAWS
+            // 
+            this.cmdGDAWS.Image = global::SandbarWorkbench.Properties.Resources.USGS_logo_icon;
+            this.cmdGDAWS.Location = new System.Drawing.Point(430, 12);
+            this.cmdGDAWS.Name = "cmdGDAWS";
+            this.cmdGDAWS.Size = new System.Drawing.Size(23, 23);
+            this.cmdGDAWS.TabIndex = 3;
+            this.cmdGDAWS.UseVisualStyleBackColor = true;
+            this.cmdGDAWS.Click += new System.EventHandler(this.cmdGDAWS_Click);
+            // 
+            // cmdPhotos
+            // 
+            this.cmdPhotos.Image = global::SandbarWorkbench.Properties.Resources.pictures2;
+            this.cmdPhotos.Location = new System.Drawing.Point(459, 12);
+            this.cmdPhotos.Name = "cmdPhotos";
+            this.cmdPhotos.Size = new System.Drawing.Size(23, 23);
+            this.cmdPhotos.TabIndex = 4;
+            this.cmdPhotos.UseVisualStyleBackColor = true;
+            this.cmdPhotos.Click += new System.EventHandler(this.cmdPhotos_Click);
+            // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
+            this.ucStageDischarge1.TabIndex = 0;
+            // 
+            // ucAreaVolumeAnalyses1
+            // 
+            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
+            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
+            this.ucAreaVolumeAnalyses1.SandbarSite = null;
+            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
+            this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
             // frmSandbarProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 672);
+            this.Controls.Add(this.cmdPhotos);
+            this.Controls.Add(this.cmdGDAWS);
+            this.Controls.Add(this.cmdBrowse);
             this.Controls.Add(this.txtSiteCode);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtRiverMile);
@@ -411,5 +448,8 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.ToolTip tTip;
+        private System.Windows.Forms.Button cmdBrowse;
+        private System.Windows.Forms.Button cmdGDAWS;
+        private System.Windows.Forms.Button cmdPhotos;
     }
 }

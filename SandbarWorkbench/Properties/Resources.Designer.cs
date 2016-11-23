@@ -191,6 +191,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pictures2 {
+            get {
+                object obj = ResourceManager.GetObject("pictures2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sandbar {
             get {
                 object obj = ResourceManager.GetObject("sandbar", resourceCulture);
@@ -272,6 +282,16 @@ namespace SandbarWorkbench.Properties {
         internal static System.Drawing.Bitmap USGS_logo {
             get {
                 object obj = ResourceManager.GetObject("USGS_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap USGS_logo_icon {
+            get {
+                object obj = ResourceManager.GetObject("USGS_logo_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
