@@ -38,6 +38,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -47,6 +48,7 @@
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.picBestPhoto = new System.Windows.Forms.PictureBox();
             this.tabMap = new System.Windows.Forms.TabPage();
@@ -60,8 +62,6 @@
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.cmdGDAWS = new System.Windows.Forms.Button();
             this.cmdPhotos = new System.Windows.Forms.Button();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -161,6 +161,14 @@
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
+            this.ucStageDischarge1.TabIndex = 0;
+            // 
             // tabSurveys
             // 
             this.tabSurveys.Controls.Add(this.grdSurveys);
@@ -242,6 +250,15 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // ucAreaVolumeAnalyses1
+            // 
+            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
+            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
+            this.ucAreaVolumeAnalyses1.SandbarSite = null;
+            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
+            this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
             // tabPhoto
             // 
@@ -361,27 +378,12 @@
             this.cmdPhotos.UseVisualStyleBackColor = true;
             this.cmdPhotos.Click += new System.EventHandler(this.cmdPhotos_Click);
             // 
-            // ucStageDischarge1
-            // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
-            // ucAreaVolumeAnalyses1
-            // 
-            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
-            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
-            this.ucAreaVolumeAnalyses1.SandbarSite = null;
-            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
-            this.ucAreaVolumeAnalyses1.TabIndex = 0;
-            // 
             // frmSandbarProperties
             // 
+            this.AcceptButton = this.cmdCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(594, 672);
             this.Controls.Add(this.cmdPhotos);
             this.Controls.Add(this.cmdGDAWS);
