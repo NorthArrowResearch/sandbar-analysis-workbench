@@ -23,8 +23,12 @@ namespace SandbarWorkbench.Sandbars
 
         private void ucStageDischarge_Load(object sender, EventArgs e)
         {
-            if (SDCurve == null)
+            if (SDCurve == null || !SDCurve.CoeffA.HasValue)
+            {
+                groupBox1.Visible = false;
+                chtData.Visible = false;
                 return;
+            }
 
             AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
