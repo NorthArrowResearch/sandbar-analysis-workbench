@@ -33,7 +33,7 @@ namespace SandbarWorkbench
             string sSoftwareVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             lnkVersion.Text= string.Format("Workbench Version {0}", sSoftwareVersion);
             lnkVersion.LinkArea = new LinkArea(lnkVersion.Text.Length - sSoftwareVersion.Length, sSoftwareVersion.Length);
-            lnkVersion.Links[0].LinkData = string.Format("{0}//ReleaseNotes/", sWebSiteURL);
+            lnkVersion.Links[0].LinkData = string.Format("{0}/release_notes/", sWebSiteURL);
             lnkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             
             lnkLicense.Text = "GNU General Public License";
