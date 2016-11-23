@@ -10,7 +10,7 @@ namespace SandbarWorkbench.Sandbars
 {
     public class SandbarSite : AuditTrail
     {
-        private const string GDAWSLink = "http://waterdata.usgs.gov/ks/nwis/inventory/?site_no={0:00000000}";
+        private const string GDAWSLink = "http://waterdata.usgs.gov/usa/nwis/uv?{0:00000000}";
 
         public long SiteID { get; internal set; }
         public string SiteCode { get; internal set; }
