@@ -171,6 +171,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap NA_Logo_120_60_Google_OAuth {
+            get {
+                object obj = ResourceManager.GetObject("NA_Logo_120_60_Google_OAuth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewDatabase {
             get {
                 object obj = ResourceManager.GetObject("NewDatabase", resourceCulture);
@@ -257,11 +267,21 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap USGS_logo {
+            get {
+                object obj = ResourceManager.GetObject("USGS_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://gcmrc.northarrowresearch.com.
         /// </summary>
-        internal static string WebsiteURL {
+        internal static string WebSiteURL {
             get {
-                return ResourceManager.GetString("WebsiteURL", resourceCulture);
+                return ResourceManager.GetString("WebSiteURL", resourceCulture);
             }
         }
     }

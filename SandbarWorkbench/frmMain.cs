@@ -105,7 +105,7 @@ namespace SandbarWorkbench
 
         private void sandbarWorkbenchOnlineHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Resources.WebsiteURL);
+            System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Resources.WebSiteURL);
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
