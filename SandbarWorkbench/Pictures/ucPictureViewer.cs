@@ -50,7 +50,7 @@ namespace SandbarWorkbench.Pictures
                         pic.SizeMode = PictureBoxSizeMode.AutoSize;
                         flwPanel.Controls.Add(pic);
                         pic.Tag = picInfo;
-                        tTip.SetToolTip(pic, picInfo.SiteCodeFormatted);
+                        tTip.SetToolTip(pic, picInfo.Caption);
                         pic.DoubleClick += this.PictureDoubleClicked;
                     }
                 }
