@@ -10,3 +10,5 @@ packages/
 master_database_credentials.xml
 
 *.pfx
+
+publish/
