@@ -100,31 +100,31 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void FilterItems(object sender, EventArgs e)
         {
-            BindingList<RemoteCamera> lFilteredItems = RemoteCameras;
+            SortableBindingList<RemoteCamera> lFilteredItems = RemoteCameras;
 
             if (chkRiverMile.Checked)
             {
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => (ss.RiverMile >= (double)valDownstream.Value && ss.RiverMile <= (double)valUpstream.Value)).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => (ss.RiverMile >= (double)valDownstream.Value && ss.RiverMile <= (double)valUpstream.Value)).ToList<RemoteCamera>());
             }
 
             if (!string.IsNullOrEmpty(txtTitle.Text))
             {
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.SiteName.ToLower().Contains(txtTitle.Text.ToLower())).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.SiteName.ToLower().Contains(txtTitle.Text.ToLower())).ToList<RemoteCamera>());
             }
 
             if (rdoCLeft.Checked)
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.CameraRiverBankID == 2).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.CameraRiverBankID == 2).ToList<RemoteCamera>());
             else if (rdoCRight.Checked)
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.CameraRiverBankID == 1).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.CameraRiverBankID == 1).ToList<RemoteCamera>());
 
             if (rdoTLeft.Checked)
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 2).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 2).ToList<RemoteCamera>());
             else if (rdoTRight.Checked)
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 1).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => ss.TargetRiverBankID == 1).ToList<RemoteCamera>());
 
             if (chkActive.Checked)
             {
-                lFilteredItems = new BindingList<RemoteCamera>(lFilteredItems.Where(ss => !string.IsNullOrEmpty(ss.BeginDigitalRecord) && ss.EndDigitalRecord.ToLower().Contains("active")).ToList<RemoteCamera>());
+                lFilteredItems = new SortableBindingList<RemoteCamera>(lFilteredItems.Where(ss => !string.IsNullOrEmpty(ss.BeginDigitalRecord) && ss.EndDigitalRecord.ToLower().Contains("active")).ToList<RemoteCamera>());
             }
 
             grdData.DataSource = lFilteredItems;

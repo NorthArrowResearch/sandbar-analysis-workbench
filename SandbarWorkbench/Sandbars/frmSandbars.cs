@@ -88,16 +88,16 @@ namespace SandbarWorkbench.Sandbars
 
         private void FilterItems(object sender, EventArgs e)
         {
-            BindingList<SandbarSite> lFilteredItems = SandbarSites;
+            SortableBindingList<SandbarSite> lFilteredItems = SandbarSites;
 
             if (chkRiverMile.Checked)
             {
-                lFilteredItems = new BindingList<SandbarSite>(lFilteredItems.Where(ss => (ss.RiverMile <= (double)valUpstream.Value && ss.RiverMile >= (double)valDownstream.Value)).ToList<SandbarSite>());
+                lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => (ss.RiverMile <= (double)valUpstream.Value && ss.RiverMile >= (double)valDownstream.Value)).ToList<SandbarSite>());
             }
 
             if (!string.IsNullOrEmpty(txtTitle.Text))
             {
-                lFilteredItems = new BindingList<SandbarSite>(lFilteredItems.Where(ss => ss.Title.ToLower().Contains(txtTitle.Text.ToLower())).ToList<SandbarSite>());
+                lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => ss.Title.ToLower().Contains(txtTitle.Text.ToLower())).ToList<SandbarSite>());
             }
 
             grdData.DataSource = lFilteredItems;
