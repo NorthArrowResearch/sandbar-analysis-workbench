@@ -131,9 +131,10 @@ namespace SandbarWorkbench
             // Add the key word for each view type here and then the full namespace of the associated view form.
             // Each form needs a default constructor with no arguments.
             Dictionary<string, string> dViewTypes = new Dictionary<string, string>();
-            dViewTypes["sandbar"] = "SandbarWorkbench.Sandbars.frmSandbars";
+            dViewTypes["sandbar sites"] = "SandbarWorkbench.Sandbars.frmSandbars";
             dViewTypes["cameras"] = "SandbarWorkbench.RemoteCameras.frmRemoteCameras";
             dViewTypes["picture"] = "SandbarWorkbench.Pictures.frmPictureViewer";
+            dViewTypes["analysis"] = "SandbarWorkbench.ModelRuns.frmModelRuns";
 
             try
             {

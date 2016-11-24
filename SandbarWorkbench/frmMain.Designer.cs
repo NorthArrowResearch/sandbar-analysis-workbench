@@ -41,6 +41,7 @@
             this.viewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteCamerasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.remoteCameraPictureViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sandbarAnalysisResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,6 +147,7 @@
             this.viewsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.remoteCamerasToolStripMenuItem,
             this.remoteCameraPictureViewerToolStripMenuItem,
+            this.sandbarAnalysisResultsToolStripMenuItem,
             this.sandbarSitesToolStripMenuItem,
             this.toolStripSeparator3});
             this.viewsToolStripMenuItem.Name = "viewsToolStripMenuItem";
@@ -162,11 +164,19 @@
             // 
             // remoteCameraPictureViewerToolStripMenuItem
             // 
-            this.remoteCameraPictureViewerToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.camera_lens;
+            this.remoteCameraPictureViewerToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.pictures21;
             this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
             this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
             this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
+            // 
+            // sandbarAnalysisResultsToolStripMenuItem
+            // 
+            this.sandbarAnalysisResultsToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.crp_elevation;
+            this.sandbarAnalysisResultsToolStripMenuItem.Name = "sandbarAnalysisResultsToolStripMenuItem";
+            this.sandbarAnalysisResultsToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.sandbarAnalysisResultsToolStripMenuItem.Text = "Sandbar Analysis Results";
+            this.sandbarAnalysisResultsToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // sandbarSitesToolStripMenuItem
             // 
@@ -374,6 +384,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem createNewDatabaseToolStripMenuItem;
         public System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripMenuItem sandbarAnalysisResultsToolStripMenuItem;
     }
 }
 
