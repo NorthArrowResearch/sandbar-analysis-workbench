@@ -12,3 +12,5 @@ master_database_credentials.xml
 *.pfx
 
 publish/
+
+SandbarWorkbench/SQLite.Interop.dll
