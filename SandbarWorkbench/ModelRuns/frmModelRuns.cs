@@ -108,7 +108,7 @@ namespace SandbarWorkbench.ModelRuns
             bool bAllowBrowse = false;
             if (grdData.SelectedRows.Count == 1 && grdData.SelectedRows[0].DataBoundItem is ModelRunLocal)
                 bAllowBrowse = ((ModelRunLocal)grdData.SelectedRows[0].DataBoundItem).IsLocalRun;
-            browseLocalModelRunResultsToolStripMenuItem.Enabled = bAllowBrowse;
+            browseLocalModelRunResultsToolStripMenuItem.Enabled= bAllowBrowse;
 
             editModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
             deleteModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count > 0;
