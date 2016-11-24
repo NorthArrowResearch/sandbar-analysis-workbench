@@ -11,12 +11,17 @@ namespace SandbarWorkbench.ModelRuns
     {
         public long MasterID { get; internal set; }
         public bool Sync { get; internal set; }
+        public System.IO.DirectoryInfo AnalysisFolder { get; internal set; }
 
-        public ModelRunLocal(long nID, long nMasterID, string sTitle, bool bSync, string sRemarks, long nRunTypeID, string sInstallation, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
+        public ModelRunLocal(long nID, long nMasterID, string sTitle, bool bSync, string sRemarks, long nRunTypeID, string sInstallation, string sAnalysisFolder, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
                 : base(nID, sTitle, sRemarks, nRunTypeID, sInstallation, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy, dtRunOn, sRunBy)
         {
             MasterID = nMasterID;
             Sync = bSync;
+
+            AnalysisFolder = null;
+            if (!string.IsNullOrEmpty(sAnalysisFolder) && System.IO.Directory.Exists(sAnalysisFolder))
+                AnalysisFolder = new System.IO.DirectoryInfo(sAnalysisFolder);
         }
 
         public void Update(ModelRunMaster masterRun, ref SQLiteTransaction dbTrans)
@@ -56,10 +61,6 @@ namespace SandbarWorkbench.ModelRuns
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
-                    string sRemarks = string.Empty;
-                    if (!dbRead.IsDBNull(dbRead.GetOrdinal("Remarks")))
-                        sRemarks = dbRead.GetString(dbRead.GetOrdinal("Remarks"));
-
                     long nMasterID = 0;
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("MasterRunID")))
                         nMasterID = dbRead.GetInt64(dbRead.GetOrdinal("MasterRunID"));
@@ -71,9 +72,10 @@ namespace SandbarWorkbench.ModelRuns
                         , nMasterID
                         , dbRead.GetString(dbRead.GetOrdinal("Title"))
                         , dbRead.GetBoolean(dbRead.GetOrdinal("Sync"))
-                        , sRemarks
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
                         , dbRead.GetInt64(dbRead.GetOrdinal("RunTypeID"))
                         , dbRead.GetString(dbRead.GetOrdinal("InstallationGuid"))
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AnalysisFolder")
                         , dbRead.GetDateTime(dbRead.GetOrdinal("AddedOn"))
                         , dbRead.GetString(dbRead.GetOrdinal("AddedBy"))
                         , dbRead.GetDateTime(dbRead.GetOrdinal("UpdatedOn"))
@@ -128,7 +130,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
             Int64 nLocalRunID = (Int64)dbCom.ExecuteScalar();
 
-            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), masterRun.AddedOn
+            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), string.Empty,  masterRun.AddedOn
                 , masterRun.AddedBy, masterRun.UpdatedOn, masterRun.UpdatedBy, masterRun.RunOn, masterRun.RunBy);
 
             // Now insert all the child records for this model run

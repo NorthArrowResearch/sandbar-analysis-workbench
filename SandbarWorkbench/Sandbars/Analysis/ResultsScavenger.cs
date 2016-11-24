@@ -58,13 +58,14 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
                 try
                 {
-                    SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO ModelRuns (Title, Remarks, RunTypeID, InputXML, AddedBy, UpdatedBy, InstallationGuid, RunBy)" +
-                        " VALUES (@Title, @Remarks, @RunTypeID, @InputXML, @EditedBy, @EditedBy, @InstallationGuid, @EditedBy)", dbTrans.Connection, dbTrans);
+                    SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO ModelRuns (Title, Remarks, RunTypeID, InputXML, AnalysisFolder, AddedBy, UpdatedBy, InstallationGuid, RunBy)" +
+                        " VALUES (@Title, @Remarks, @RunTypeID, @InputXML, @AnalysisFolder, @EditedBy, @EditedBy, @InstallationGuid, @EditedBy)", dbTrans.Connection, dbTrans);
 
                     dbCom.Parameters.AddWithValue("Title", sTitle);
                     dbCom.Parameters.AddWithValue("RunTypeID", SandbarWorkbench.Properties.Settings.Default.RunTypeID_UserGenerated);
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
                     dbCom.Parameters.AddWithValue("InstallationGuid", SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString());
+                    dbCom.Parameters.AddWithValue("AnalysisFolder", fiInputs.DirectoryName);
 
                     if (string.IsNullOrEmpty(sRemarks))
                         dbCom.Parameters.Add("Remarks", System.Data.DbType.String).Value = DBNull.Value;

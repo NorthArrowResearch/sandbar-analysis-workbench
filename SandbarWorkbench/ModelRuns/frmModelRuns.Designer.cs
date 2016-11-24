@@ -31,23 +31,28 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModelRuns));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdoLocalRuns = new System.Windows.Forms.RadioButton();
+            this.rdoAllRuns = new System.Windows.Forms.RadioButton();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdoAllRuns = new System.Windows.Forms.RadioButton();
-            this.rdoLocalRuns = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
+            this.deleteModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.browseLocalModelRunResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
+            this.cmsGridView.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -69,55 +74,6 @@
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 0;
             // 
-            // grdData
-            // 
-            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdData.Location = new System.Drawing.Point(152, 138);
-            this.grdData.Name = "grdData";
-            this.grdData.Size = new System.Drawing.Size(240, 150);
-            this.grdData.TabIndex = 0;
-            this.grdData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.grdData_CellPainting);
-            // 
-            // cmsGridView
-            // 
-            this.cmsGridView.Name = "cmsGridView";
-            this.cmsGridView.Size = new System.Drawing.Size(61, 4);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rdoLocalRuns);
-            this.groupBox1.Controls.Add(this.rdoAllRuns);
-            this.groupBox1.Location = new System.Drawing.Point(12, 100);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(224, 75);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Location";
-            // 
-            // rdoAllRuns
-            // 
-            this.rdoAllRuns.AutoSize = true;
-            this.rdoAllRuns.Checked = true;
-            this.rdoAllRuns.Location = new System.Drawing.Point(18, 19);
-            this.rdoAllRuns.Name = "rdoAllRuns";
-            this.rdoAllRuns.Size = new System.Drawing.Size(180, 17);
-            this.rdoAllRuns.TabIndex = 0;
-            this.rdoAllRuns.TabStop = true;
-            this.rdoAllRuns.Text = "All runs synched to this computer";
-            this.rdoAllRuns.UseVisualStyleBackColor = true;
-            // 
-            // rdoLocalRuns
-            // 
-            this.rdoLocalRuns.AutoSize = true;
-            this.rdoLocalRuns.Location = new System.Drawing.Point(18, 43);
-            this.rdoLocalRuns.Name = "rdoLocalRuns";
-            this.rdoLocalRuns.Size = new System.Drawing.Size(181, 17);
-            this.rdoLocalRuns.TabIndex = 1;
-            this.rdoLocalRuns.TabStop = true;
-            this.rdoLocalRuns.Text = "Runs performed on this computer";
-            this.rdoLocalRuns.UseVisualStyleBackColor = true;
-            this.rdoLocalRuns.CheckedChanged += new System.EventHandler(this.FilterItems);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dtTo);
@@ -131,14 +87,19 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Run Date";
             // 
-            // label1
+            // dtTo
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "From";
+            this.dtTo.Location = new System.Drawing.Point(53, 49);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(160, 20);
+            this.dtTo.TabIndex = 3;
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.Location = new System.Drawing.Point(53, 20);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(160, 20);
+            this.dtFrom.TabIndex = 2;
             // 
             // label2
             // 
@@ -149,19 +110,98 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "To";
             // 
-            // dtFrom
+            // label1
             // 
-            this.dtFrom.Location = new System.Drawing.Point(53, 20);
-            this.dtFrom.Name = "dtFrom";
-            this.dtFrom.Size = new System.Drawing.Size(160, 20);
-            this.dtFrom.TabIndex = 2;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "From";
             // 
-            // dtTo
+            // groupBox1
             // 
-            this.dtTo.Location = new System.Drawing.Point(53, 49);
-            this.dtTo.Name = "dtTo";
-            this.dtTo.Size = new System.Drawing.Size(160, 20);
-            this.dtTo.TabIndex = 3;
+            this.groupBox1.Controls.Add(this.rdoLocalRuns);
+            this.groupBox1.Controls.Add(this.rdoAllRuns);
+            this.groupBox1.Location = new System.Drawing.Point(12, 100);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(224, 75);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Location";
+            // 
+            // rdoLocalRuns
+            // 
+            this.rdoLocalRuns.AutoSize = true;
+            this.rdoLocalRuns.Location = new System.Drawing.Point(18, 43);
+            this.rdoLocalRuns.Name = "rdoLocalRuns";
+            this.rdoLocalRuns.Size = new System.Drawing.Size(181, 17);
+            this.rdoLocalRuns.TabIndex = 1;
+            this.rdoLocalRuns.TabStop = true;
+            this.rdoLocalRuns.Text = "Runs performed on this computer";
+            this.rdoLocalRuns.UseVisualStyleBackColor = true;
+            this.rdoLocalRuns.CheckedChanged += new System.EventHandler(this.FilterItems);
+            // 
+            // rdoAllRuns
+            // 
+            this.rdoAllRuns.AutoSize = true;
+            this.rdoAllRuns.Checked = true;
+            this.rdoAllRuns.Location = new System.Drawing.Point(18, 19);
+            this.rdoAllRuns.Name = "rdoAllRuns";
+            this.rdoAllRuns.Size = new System.Drawing.Size(180, 17);
+            this.rdoAllRuns.TabIndex = 0;
+            this.rdoAllRuns.TabStop = true;
+            this.rdoAllRuns.Text = "All runs synched to this computer";
+            this.rdoAllRuns.UseVisualStyleBackColor = true;
+            // 
+            // grdData
+            // 
+            this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdData.Location = new System.Drawing.Point(152, 138);
+            this.grdData.Name = "grdData";
+            this.grdData.Size = new System.Drawing.Size(240, 150);
+            this.grdData.TabIndex = 0;
+            this.grdData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.grdData_CellPainting);
+            this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
+            // 
+            // cmsGridView
+            // 
+            this.cmsGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.browseLocalModelRunResultsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.editModelRunToolStripMenuItem,
+            this.deleteModelRunToolStripMenuItem});
+            this.cmsGridView.Name = "cmsGridView";
+            this.cmsGridView.Size = new System.Drawing.Size(254, 98);
+            // 
+            // deleteModelRunToolStripMenuItem
+            // 
+            this.deleteModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteModelRunToolStripMenuItem.Name = "deleteModelRunToolStripMenuItem";
+            this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
+            this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
+            // 
+            // editModelRunToolStripMenuItem
+            // 
+            this.editModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editModelRunToolStripMenuItem.Name = "editModelRunToolStripMenuItem";
+            this.editModelRunToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.editModelRunToolStripMenuItem.Text = "Edit Model Run...";
+            this.editModelRunToolStripMenuItem.Click += new System.EventHandler(this.editModelRunToolStripMenuItem_Click);
+            // 
+            // browseLocalModelRunResultsToolStripMenuItem
+            // 
+            this.browseLocalModelRunResultsToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.browseLocalModelRunResultsToolStripMenuItem.Name = "browseLocalModelRunResultsToolStripMenuItem";
+            this.browseLocalModelRunResultsToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.browseLocalModelRunResultsToolStripMenuItem.Text = "Browse Local Model Run Results...";
+            this.browseLocalModelRunResultsToolStripMenuItem.Click += new System.EventHandler(this.browseLocalModelRunResultsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(250, 6);
             // 
             // frmModelRuns
             // 
@@ -177,11 +217,12 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
+            this.cmsGridView.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -199,5 +240,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rdoLocalRuns;
         private System.Windows.Forms.RadioButton rdoAllRuns;
+        private System.Windows.Forms.ToolStripMenuItem editModelRunToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteModelRunToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem browseLocalModelRunResultsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

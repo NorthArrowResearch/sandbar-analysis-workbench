@@ -58,8 +58,6 @@ namespace SandbarWorkbench.ModelRuns
 
 
             FilterItems(null, null);
-
-
         }
 
         public void LoadData(long nSelectID = 0)
@@ -97,26 +95,54 @@ namespace SandbarWorkbench.ModelRuns
 
             if (rdoLocalRuns.Checked)
                 lFilteredItems = new SortableBindingList<ModelRunLocal>(lFilteredItems.Where(mr => mr.IsLocalRun).ToList<ModelRunLocal>());
-            
+
             grdData.DataSource = lFilteredItems;
+            UpdateGridViewCMS();
         }
 
         private void UpdateGridViewCMS()
         {
-            bool bActiveSelection = grdData.SelectedRows.Count > 0;
+            // Browsing is only allowed when there is one LOCAL model run selected
+            bool bAllowBrowse = false;
+            if (grdData.SelectedRows.Count == 1 && grdData.SelectedRows[0].DataBoundItem is ModelRunLocal)
+                bAllowBrowse = ((ModelRunLocal)grdData.SelectedRows[0].DataBoundItem).IsLocalRun;
+            browseLocalModelRunResultsToolStripMenuItem.Enabled= bAllowBrowse;
 
-            //viewPropertiesToolStripMenuItem.Enabled = bActiveSelection;
-            //editPropertiesToolStripMenuItem.Enabled = bActiveSelection;
-            //deleteSelectedToolStripMenuItem.Enabled = bActiveSelection;
-            //browseTopoFolderToolStripMenuItem.Enabled = bActiveSelection;
+            editModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
+            deleteModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count > 0;
         }
 
         private void grdData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex>=0 && grdData.Rows[e.RowIndex].DataBoundItem is ModelRunLocal)
+            if (e.RowIndex >= 0 && grdData.Rows[e.RowIndex].DataBoundItem is ModelRunLocal)
             {
                 ModelRunLocal run = grdData.Rows[e.RowIndex].DataBoundItem as ModelRunLocal;
-                grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor =  run.IsLocalRun ? Color.Blue : Color.DarkGray;
+                grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = run.IsLocalRun ? Color.Blue : Color.DarkGray;
+            }
+        }
+
+        private void editModelRunToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteModelRunToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grdData_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateGridViewCMS();
+        }
+
+        private void browseLocalModelRunResultsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows[0].DataBoundItem is ModelRunLocal)
+            {
+                ModelRunLocal mr = grdData.SelectedRows[0].DataBoundItem as ModelRunLocal;
+                if (mr.AnalysisFolder is System.IO.DirectoryInfo && mr.AnalysisFolder.Exists)
+                    System.Diagnostics.Process.Start(mr.AnalysisFolder.FullName);
             }
         }
     }
