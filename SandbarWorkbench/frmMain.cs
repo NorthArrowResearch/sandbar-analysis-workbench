@@ -69,7 +69,7 @@ namespace SandbarWorkbench
             foreach (ToolStripMenuItem mnu in arrtMenus)
                 foreach (ToolStripMenuItem subItem in mnu.DropDownItems.OfType<ToolStripMenuItem>())
                     subItem.Enabled = bActiveDatabase;
-            
+
             closeDatabaseToolStripMenuItem.Enabled = bActiveDatabase;
             databaseInformationToolStripMenuItem.Enabled = bActiveDatabase;
             tssDatabasePath.Text = DBCon.DatabasePath;
@@ -251,15 +251,7 @@ namespace SandbarWorkbench
 
         private void CloseDBMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                this.MdiChildren.ToList<Form>().ForEach(x => x.Close());
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandling.NARException.HandleException(ex);
-            }
-
+            CloseMDIChildren();
             DBCon.CloseDatabase();
             UpdateMenuItemStatus();
         }
@@ -275,6 +267,7 @@ namespace SandbarWorkbench
             try
             {
                 frmSynchronize frmSync = new frmSynchronize();
+                frmSync.Owner = this;
                 if (frmSync.ShowDialog() == DialogResult.OK)
                 {
                     foreach (Form frm in this.MdiChildren)
@@ -463,6 +456,11 @@ namespace SandbarWorkbench
                     ExceptionHandling.NARException.HandleException(ex);
                 }
             }
+        }
+
+        public void CloseMDIChildren()
+        {
+            this.MdiChildren.ToList<Form>().ForEach(x => x.Close());
         }
     }
 }

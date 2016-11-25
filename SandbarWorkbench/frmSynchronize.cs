@@ -47,6 +47,9 @@ namespace SandbarWorkbench
                 return;
             }
 
+            // Close all MDI children (easier than refreshing them!)
+           ((frmMain)this.Owner).CloseMDIChildren();
+
             grpProgress.Visible = true;
             this.Height += VariableHeight;
             this.MinimumSize = new Size(this.Width, this.Height);
