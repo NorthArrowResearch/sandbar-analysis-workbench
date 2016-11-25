@@ -46,6 +46,9 @@
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
+            this.grpAnalysisType = new System.Windows.Forms.GroupBox();
+            this.rdoIncremental = new System.Windows.Forms.RadioButton();
+            this.rdoBinned = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
@@ -61,6 +64,7 @@
             this.splitContainer_Horiz.Panel1.SuspendLayout();
             this.splitContainer_Horiz.Panel2.SuspendLayout();
             this.splitContainer_Horiz.SuspendLayout();
+            this.grpAnalysisType.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer_Vert
@@ -72,6 +76,9 @@
             // 
             // splitContainer_Vert.Panel1
             // 
+            this.splitContainer_Vert.Panel1.Controls.Add(this.grpAnalysisType);
+            this.splitContainer_Vert.Panel1.Controls.Add(this.chkVolume);
+            this.splitContainer_Vert.Panel1.Controls.Add(this.chkArea);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpVolume);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpArea);
             this.splitContainer_Vert.Panel1.Controls.Add(this.groupBox1);
@@ -86,8 +93,7 @@
             // grpVolume
             // 
             this.grpVolume.Controls.Add(this.chkVolSectionTypes);
-            this.grpVolume.Controls.Add(this.chkVolume);
-            this.grpVolume.Location = new System.Drawing.Point(5, 189);
+            this.grpVolume.Location = new System.Drawing.Point(5, 272);
             this.grpVolume.Name = "grpVolume";
             this.grpVolume.Size = new System.Drawing.Size(200, 85);
             this.grpVolume.TabIndex = 2;
@@ -107,7 +113,7 @@
             // chkVolume
             // 
             this.chkVolume.AutoSize = true;
-            this.chkVolume.Location = new System.Drawing.Point(11, -1);
+            this.chkVolume.Location = new System.Drawing.Point(17, 268);
             this.chkVolume.Name = "chkVolume";
             this.chkVolume.Size = new System.Drawing.Size(61, 17);
             this.chkVolume.TabIndex = 0;
@@ -117,8 +123,7 @@
             // grpArea
             // 
             this.grpArea.Controls.Add(this.chkAreaSectionTypes);
-            this.grpArea.Controls.Add(this.chkArea);
-            this.grpArea.Location = new System.Drawing.Point(5, 97);
+            this.grpArea.Location = new System.Drawing.Point(5, 175);
             this.grpArea.Name = "grpArea";
             this.grpArea.Size = new System.Drawing.Size(200, 85);
             this.grpArea.TabIndex = 1;
@@ -138,7 +143,7 @@
             // chkArea
             // 
             this.chkArea.AutoSize = true;
-            this.chkArea.Location = new System.Drawing.Point(11, -1);
+            this.chkArea.Location = new System.Drawing.Point(17, 170);
             this.chkArea.Name = "chkArea";
             this.chkArea.Size = new System.Drawing.Size(48, 17);
             this.chkArea.TabIndex = 0;
@@ -151,7 +156,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.valDisLower);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(5, 6);
+            this.groupBox1.Location = new System.Drawing.Point(5, 81);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 85);
             this.groupBox1.TabIndex = 0;
@@ -268,6 +273,39 @@
             this.splitContainer_Horiz.SplitterDistance = 499;
             this.splitContainer_Horiz.TabIndex = 1;
             // 
+            // grpAnalysisType
+            // 
+            this.grpAnalysisType.Controls.Add(this.rdoBinned);
+            this.grpAnalysisType.Controls.Add(this.rdoIncremental);
+            this.grpAnalysisType.Location = new System.Drawing.Point(5, 6);
+            this.grpAnalysisType.Name = "grpAnalysisType";
+            this.grpAnalysisType.Size = new System.Drawing.Size(200, 69);
+            this.grpAnalysisType.TabIndex = 3;
+            this.grpAnalysisType.TabStop = false;
+            this.grpAnalysisType.Text = "Analysis Type";
+            // 
+            // rdoIncremental
+            // 
+            this.rdoIncremental.AutoSize = true;
+            this.rdoIncremental.Checked = true;
+            this.rdoIncremental.Location = new System.Drawing.Point(11, 20);
+            this.rdoIncremental.Name = "rdoIncremental";
+            this.rdoIncremental.Size = new System.Drawing.Size(80, 17);
+            this.rdoIncremental.TabIndex = 0;
+            this.rdoIncremental.TabStop = true;
+            this.rdoIncremental.Text = "Incremental";
+            this.rdoIncremental.UseVisualStyleBackColor = true;
+            // 
+            // rdoBinned
+            // 
+            this.rdoBinned.AutoSize = true;
+            this.rdoBinned.Location = new System.Drawing.Point(11, 44);
+            this.rdoBinned.Name = "rdoBinned";
+            this.rdoBinned.Size = new System.Drawing.Size(58, 17);
+            this.rdoBinned.TabIndex = 1;
+            this.rdoBinned.Text = "Binned";
+            this.rdoBinned.UseVisualStyleBackColor = true;
+            // 
             // ucAreaVolumeAnalyses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,13 +315,12 @@
             this.Size = new System.Drawing.Size(885, 679);
             this.Load += new System.EventHandler(this.ucAreaVolumeAnalyses_Load);
             this.splitContainer_Vert.Panel1.ResumeLayout(false);
+            this.splitContainer_Vert.Panel1.PerformLayout();
             this.splitContainer_Vert.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).EndInit();
             this.splitContainer_Vert.ResumeLayout(false);
             this.grpVolume.ResumeLayout(false);
-            this.grpVolume.PerformLayout();
             this.grpArea.ResumeLayout(false);
-            this.grpArea.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
@@ -294,6 +331,8 @@
             this.splitContainer_Horiz.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Horiz)).EndInit();
             this.splitContainer_Horiz.ResumeLayout(false);
+            this.grpAnalysisType.ResumeLayout(false);
+            this.grpAnalysisType.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -315,5 +354,8 @@
         private System.Windows.Forms.SplitContainer splitContainer_Horiz;
         private System.Windows.Forms.CheckedListBox chkVolSectionTypes;
         private System.Windows.Forms.CheckedListBox chkAreaSectionTypes;
+        private System.Windows.Forms.GroupBox grpAnalysisType;
+        private System.Windows.Forms.RadioButton rdoBinned;
+        private System.Windows.Forms.RadioButton rdoIncremental;
     }
 }
