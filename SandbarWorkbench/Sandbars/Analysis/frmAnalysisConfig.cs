@@ -11,11 +11,14 @@ using System.Xml;
 using System.Data.SQLite;
 using System.Diagnostics;
 
+
 namespace SandbarWorkbench.Sandbars.Analysis
 {
     public partial class frmAnalysisConfig : Form
     {
         private List<SandbarSite> SitesToProcess { get; set; }
+        StringBuilder outputStringBuilder = new StringBuilder();
+        StringBuilder errorStringBuilder = new StringBuilder();
 
         public frmAnalysisConfig(List<SandbarSite> lSites)
         {
@@ -167,8 +170,15 @@ namespace SandbarWorkbench.Sandbars.Analysis
             {
                 System.IO.FileInfo fiInputs = GenerateInputXML(out fiBinned, out fiIncremental, out fiLog);
 
+                var outputFrm = new frmRunOutput();
+                outputFrm.Show(this); // if you need non-modal window
+                outputFrm.AppendOutput("Starting Process..", Color.Blue);
+                outputFrm.AppendOutput("This is what an Error looks like", Color.Red);
+
                 try
                 {
+
+
                     //string sSetup = "SET OSGEO4W_ROOT=C:\\OSGeo4W64&" +
                     //    @"call C:\OSGeo4W64\bin\o4w_env.bat&" +
                     //    @"set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin&" +
@@ -181,18 +191,38 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>(); // sSetup.Split('&').toList<string>();
                     lCommands.Insert(0, "echo off");
                     lCommands.Add("echo off");
-                    lCommands.Add(string.Format("python {0} {1}", @"D:\Code\sandbar-analysis\sandbar-analysis\main.py", fiInputs.FullName));
+                    lCommands.Add(string.Format("python {0} {1}", @"c:\users\matt\PycharmProjects\delay\main.py", fiInputs.FullName));
                     lCommands.Add("exit");
 
                     ProcessStartInfo psi = new ProcessStartInfo("cmd.exe");
                     psi.UseShellExecute = false;
+                    psi.CreateNoWindow = true;
                     psi.RedirectStandardInput = true;
-                    psi.RedirectStandardOutput = false;
-                    psi.RedirectStandardError = false;
+                    psi.RedirectStandardOutput = true;
+                    psi.RedirectStandardError = true;
+                   
+                    psi.WindowStyle = ProcessWindowStyle.Hidden;
 
                     System.Diagnostics.Process proc = new Process();
                     proc.StartInfo = psi;
+                    proc.EnableRaisingEvents = false;
+                    proc.OutputDataReceived += (innerSender, eventArgs) =>
+                    {
+                        outputFrm.AppendOutput(eventArgs.Data, Color.Black);
+                        outputStringBuilder.AppendLine(eventArgs.Data);
+                        Console.WriteLine("StdOut::: " + eventArgs.Data);
+                    };
+                    proc.ErrorDataReceived += (innerSender, eventArgs) =>
+                    {
+                        outputFrm.AppendOutput(eventArgs.Data, Color.Red);
+                        errorStringBuilder.AppendLine(eventArgs.Data);
+                        Console.WriteLine("StdErr::: " + eventArgs.Data);
+                    };
+
                     proc.Start();
+                    proc.BeginOutputReadLine();
+                    proc.BeginErrorReadLine();
+
 
                     int cmdIndex = 0;
                     while (!proc.HasExited)
@@ -205,17 +235,17 @@ namespace SandbarWorkbench.Sandbars.Analysis
                                 Debug.Print(sCmd);
                                 proc.StandardInput.WriteLine(sCmd);
                             }
+                            cmdIndex++;
                         }
-                        cmdIndex++;
+                        Application.DoEvents();
                     }
 
                     //System.IO.StreamReader stdErr = proc.StandardError;
                     //string sError = proc.StandardError.ReadToEnd();
                     //string output = proc.StandardOutput.ReadToEnd();
                     //Console.Write(output);
-
-                    proc.WaitForExit();
-
+ 
+                    outputFrm.CloseWithOk("Completed Successfully");
 
                     if (fiIncremental.Exists || fiBinned.Exists)
                     {
@@ -237,6 +267,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 }
                 catch (Exception ex)
                 {
+                    outputFrm.CloseWithOk("Caught Exception");
                     ExceptionHandling.NARException.HandleException(ex);
                     this.DialogResult = DialogResult.None;
                 }

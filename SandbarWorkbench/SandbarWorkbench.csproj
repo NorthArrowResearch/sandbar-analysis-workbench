@@ -187,6 +187,12 @@
     </Compile>
     <Compile Include="RemoteCameras\RemoteCameraBase.cs" />
     <Compile Include="Sandbars\Analysis\ResultsScavenger.cs" />
+    <Compile Include="Sandbars\Analysis\frmRunOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sandbars\Analysis\frmRunOutput.Designer.cs">
+      <DependentUpon>frmRunOutput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\frmSurveyProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -376,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\Analysis\frmAnalysisConfig.resx">
       <DependentUpon>frmAnalysisConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\Analysis\frmRunOutput.resx">
+      <DependentUpon>frmRunOutput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\Analysis\ucSurveyDatePicker.resx">
       <DependentUpon>ucSurveyDatePicker.cs</DependentUpon>
