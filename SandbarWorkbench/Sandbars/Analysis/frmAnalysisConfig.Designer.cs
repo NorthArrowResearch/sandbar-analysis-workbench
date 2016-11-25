@@ -69,9 +69,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.cmdBrowseMainPy = new System.Windows.Forms.Button();
-            this.txtMainPy = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -501,36 +498,6 @@
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 0;
             this.label11.Text = "Title";
-            // 
-            // button1
-            // 
-            this.cmdBrowseMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdBrowseMainPy.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseMainPy.Location = new System.Drawing.Point(553, 113);
-            this.cmdBrowseMainPy.Name = "button1";
-            this.cmdBrowseMainPy.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseMainPy.TabIndex = 21;
-            this.cmdBrowseMainPy.UseVisualStyleBackColor = true;
-            this.cmdBrowseMainPy.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox1
-            // 
-            this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMainPy.Location = new System.Drawing.Point(142, 114);
-            this.txtMainPy.Name = "textBox1";
-            this.txtMainPy.ReadOnly = true;
-            this.txtMainPy.Size = new System.Drawing.Size(405, 20);
-            this.txtMainPy.TabIndex = 20;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 118);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(127, 13);
-            this.label13.TabIndex = 19;
-            this.label13.Text = "Sandbar analysis Main.py";
             // 
             // frmAnalysisConfig
             // 
