@@ -57,7 +57,7 @@ namespace SandbarWorkbench.ModelRuns
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM ModelRuns", dbCon);
+                SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM ModelRuns ORDER BY RunOn DESC", dbCon);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
