@@ -192,13 +192,14 @@ namespace SandbarWorkbench.ModelRuns
             System.Diagnostics.Debug.Print("Updating LocalRunID {0} with with MasterID {1}", ID, MasterID);
 
             SQLiteCommand dbCom = new SQLiteCommand("UPDATE ModelRuns SET Title = @Title, Sync = @Sync, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, MasterRunID = @MasterRunID WHERE LocalRunID = @LocalRunID", dbTrans.Connection, dbTrans);
-            dbCom.Parameters.AddWithValue("@Title", sTitle);
+            dbCom.Parameters.AddWithValue("LocalRunID", ID);
+            dbCom.Parameters.AddWithValue("Title", sTitle);
             dbCom.Parameters.AddWithValue("Sync", bSync);
             DBHelpers.SQLiteHelpers.AddStringParameterN(ref dbCom, sRemarks, "Remarks");
             dbCom.Parameters.AddWithValue("UpdatedOn", DateTime.Now);
             dbCom.Parameters.AddWithValue("UpdatedBy", Environment.UserName);
 
-            SQLiteParameter pMasterRunID = dbCom.Parameters.Add("Sync", System.Data.DbType.Boolean);
+            SQLiteParameter pMasterRunID = dbCom.Parameters.Add("MasterRunID", System.Data.DbType.Boolean);
             if (bSync)
                 pMasterRunID.Value = MasterID;
             else

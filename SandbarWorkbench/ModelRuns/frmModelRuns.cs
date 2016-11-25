@@ -125,7 +125,13 @@ namespace SandbarWorkbench.ModelRuns
 
         private void editModelRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (grdData.SelectedRows.Count == 1 && grdData.SelectedRows[0].DataBoundItem is ModelRunLocal)
+            {
+                ModelRunLocal selRun = (ModelRunLocal)grdData.SelectedRows[0].DataBoundItem;
+                frmModelRunProperties frm = new frmModelRunProperties(ref selRun);
+                if (frm.ShowDialog() == DialogResult.OK)
+                    LoadData(selRun.ID);
+            }
         }
 
         /// <summary>

@@ -45,7 +45,7 @@
             this.cmdCancel.Location = new System.Drawing.Point(391, 184);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 0;
+            this.cmdCancel.TabIndex = 6;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -55,7 +55,7 @@
             this.cmdOK.Location = new System.Drawing.Point(310, 184);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 1;
+            this.cmdOK.TabIndex = 5;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -66,7 +66,7 @@
             this.label1.Location = new System.Drawing.Point(13, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Title";
             // 
             // txtTitle
@@ -75,7 +75,7 @@
             this.txtTitle.MaxLength = 50;
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(391, 20);
-            this.txtTitle.TabIndex = 3;
+            this.txtTitle.TabIndex = 1;
             // 
             // label2
             // 
@@ -83,7 +83,7 @@
             this.label2.Location = new System.Drawing.Point(4, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Remarks";
             // 
             // txtRemarks
@@ -93,15 +93,15 @@
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Size = new System.Drawing.Size(391, 104);
-            this.txtRemarks.TabIndex = 5;
+            this.txtRemarks.TabIndex = 3;
             // 
-            // checkBox1
+            // chkSync
             // 
             this.chkSync.AutoSize = true;
             this.chkSync.Location = new System.Drawing.Point(75, 159);
-            this.chkSync.Name = "checkBox1";
+            this.chkSync.Name = "chkSync";
             this.chkSync.Size = new System.Drawing.Size(242, 17);
-            this.chkSync.TabIndex = 6;
+            this.chkSync.TabIndex = 4;
             this.chkSync.Text = "Synchronize model results to central database";
             this.chkSync.UseVisualStyleBackColor = true;
             // 

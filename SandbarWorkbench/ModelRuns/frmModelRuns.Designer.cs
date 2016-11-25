@@ -41,10 +41,10 @@
             this.rdoAllRuns = new System.Windows.Forms.RadioButton();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseLocalModelRunResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.editModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -163,6 +163,7 @@
             this.grdData.TabIndex = 0;
             this.grdData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.grdData_CellPainting);
             this.grdData.SelectionChanged += new System.EventHandler(this.grdData_SelectionChanged);
+            this.grdData.DoubleClick += new System.EventHandler(this.editModelRunToolStripMenuItem_Click);
             // 
             // cmsGridView
             // 
@@ -172,23 +173,7 @@
             this.editModelRunToolStripMenuItem,
             this.deleteModelRunToolStripMenuItem});
             this.cmsGridView.Name = "cmsGridView";
-            this.cmsGridView.Size = new System.Drawing.Size(254, 98);
-            // 
-            // deleteModelRunToolStripMenuItem
-            // 
-            this.deleteModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
-            this.deleteModelRunToolStripMenuItem.Name = "deleteModelRunToolStripMenuItem";
-            this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
-            this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
-            // 
-            // editModelRunToolStripMenuItem
-            // 
-            this.editModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.editModelRunToolStripMenuItem.Name = "editModelRunToolStripMenuItem";
-            this.editModelRunToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.editModelRunToolStripMenuItem.Text = "Edit Model Run...";
-            this.editModelRunToolStripMenuItem.Click += new System.EventHandler(this.editModelRunToolStripMenuItem_Click);
+            this.cmsGridView.Size = new System.Drawing.Size(254, 76);
             // 
             // browseLocalModelRunResultsToolStripMenuItem
             // 
@@ -202,6 +187,22 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(250, 6);
+            // 
+            // editModelRunToolStripMenuItem
+            // 
+            this.editModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
+            this.editModelRunToolStripMenuItem.Name = "editModelRunToolStripMenuItem";
+            this.editModelRunToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.editModelRunToolStripMenuItem.Text = "Edit Model Run...";
+            this.editModelRunToolStripMenuItem.Click += new System.EventHandler(this.editModelRunToolStripMenuItem_Click);
+            // 
+            // deleteModelRunToolStripMenuItem
+            // 
+            this.deleteModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
+            this.deleteModelRunToolStripMenuItem.Name = "deleteModelRunToolStripMenuItem";
+            this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
+            this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
             // 
             // frmModelRuns
             // 

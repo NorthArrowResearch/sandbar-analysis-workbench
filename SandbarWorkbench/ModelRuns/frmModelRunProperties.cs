@@ -23,6 +23,13 @@ namespace SandbarWorkbench.ModelRuns
             ModelRun = ModelRunLocal.LoadSingle(nModelRunID);
         }
 
+        public frmModelRunProperties(ref ModelRunLocal aRun)
+        {
+            InitializeComponent();
+
+            ModelRun = aRun;
+        }
+
         private void frmModelRunProperties_Load(object sender, EventArgs e)
         {
             txtTitle.Text = ModelRun.Title;
@@ -43,7 +50,7 @@ namespace SandbarWorkbench.ModelRuns
             using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 conLocal.Open();
-                using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringLocal))
+                using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
                 {
                     conMaster.Open();
 
@@ -56,25 +63,32 @@ namespace SandbarWorkbench.ModelRuns
                         // ModelRun object itself, which can then be used to update the master DB
                         ModelRun.Update(ref transLocal, txtTitle.Text, txtRemarks.Text, chkSync.Checked);
 
-                        // Model run does not exist on master but now needs to sync. INSERT to master
-                        if (ModelRun.MasterID == 0 && !ModelRun.Sync && chkSync.Checked)
-                            ModelRunMaster.Insert(ModelRun, ref transMaster, ref transLocal);
-
-                        // Model run exists on master. UPDATE master
-                        if (ModelRun.MasterID > 0 && ModelRun.Sync && chkSync.Checked)
+                        if (ModelRun.MasterID > 0)
                         {
-                            MySqlCommand comMaster = new MySqlCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @EditedBy WHERE MasterRunID = @MasterRunID", transMaster.Connection, transMaster);
-                            comMaster.Parameters.AddWithValue("MasterRunID", ModelRun.MasterID);
-                            comMaster.Parameters.AddWithValue("title", ModelRun.Title);
-                            comMaster.Parameters.AddWithValue("EditedBy", Environment.UserName);
-                            comMaster.Parameters.AddWithValue("UpdatedOn", ModelRun.UpdatedOn);
-                            DBHelpers.MySQLHelpers.AddStringParameterN(ref comMaster, ref txtRemarks, "Remarks");
-                            comMaster.ExecuteNonQuery();
+                            if (chkSync.Checked)
+                            {
+                                // Model run exists on master. UPDATE master
+                                MySqlCommand comMaster = new MySqlCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @EditedBy WHERE MasterRunID = @MasterRunID", transMaster.Connection, transMaster);
+                                comMaster.Parameters.AddWithValue("MasterRunID", ModelRun.MasterID);
+                                comMaster.Parameters.AddWithValue("title", ModelRun.Title);
+                                comMaster.Parameters.AddWithValue("EditedBy", Environment.UserName);
+                                comMaster.Parameters.AddWithValue("UpdatedOn", ModelRun.UpdatedOn);
+                                DBHelpers.MySQLHelpers.AddStringParameterN(ref comMaster, ref txtRemarks, "Remarks");
+                                comMaster.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                // Model Run exists on master but now set to not sync // DELETE on master
+                                ModelRunMaster.Delete(ModelRun.MasterID, ref transMaster);
+                            }
                         }
-
-                        // Model Run exists on master but now set to not sync // DELETE on master
-                        if (ModelRun.MasterID > 0 && ModelRun.Sync && !chkSync.Checked)
-                            ModelRunMaster.Delete(ModelRun.MasterID, ref transMaster);
+                        else
+                        {
+                            if (chkSync.Checked)
+                            {     // Model run does not exist on master but now needs to sync. INSERT to master
+                                ModelRun.MasterID = ModelRunMaster.Insert(ModelRun, ref transMaster, ref transLocal).ID;
+                            }
+                        }
 
                         transLocal.Commit();
                         transMaster.Commit();
