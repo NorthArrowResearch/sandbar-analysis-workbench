@@ -83,6 +83,35 @@ namespace SandbarWorkbench.DBHelpers
             return lookupVersion;
         }
 
+        /// <summary>
+        /// Safely add a string parameter to a SQLite command. Adds empty strings as NULL
+        /// </summary>
+        /// <param name="dbCom">Insert or update SQL command</param>
+        /// <param name="txt">textbox containing string to be inserted</param>
+        /// <param name="sParameterName">Name of parameter to create</param>
+        /// <returns></returns>
+        public static SQLiteParameter AddStringParameterN(ref SQLiteCommand dbCom, ref System.Windows.Forms.TextBox txt, string sParameterName)
+        {
+            return AddStringParameterN(ref dbCom, txt.Text, sParameterName);
+        }
 
+        public static SQLiteParameter AddStringParameterN(ref SQLiteCommand dbCom, string sStringValue, string sParameterName)
+        { 
+            System.Diagnostics.Debug.Assert(dbCom.CommandText.ToLower().Contains("insert") || dbCom.CommandText.ToLower().Contains("update"), "SQL command must be an INSERT or UPDATE command");
+            System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(sParameterName), "The parameter name cannot be empty.");
+            System.Diagnostics.Debug.Assert(!dbCom.Parameters.Contains(sParameterName), "The SQL command already contains a parameter with this name.");
+            
+            string sValue = sStringValue.Trim();
+            SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.String);
+            if (string.IsNullOrEmpty(sValue))
+                p.Value = DBNull.Value;
+            else
+            {
+                p.Value = sValue;
+                p.Size = sValue.Length;
+            }
+
+            return p;
+        }
     }
 }
