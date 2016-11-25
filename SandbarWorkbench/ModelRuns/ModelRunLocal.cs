@@ -50,14 +50,23 @@ namespace SandbarWorkbench.ModelRuns
             UpdatedBy = masterRun.UpdatedBy;
         }
 
-        public static Dictionary<long, ModelRunLocal> Load()
+        public static Dictionary<long, ModelRunLocal> Load(long nLocalModelRunID = 0)
         {
             Dictionary<long, ModelRunLocal> dRuns = new Dictionary<long, ModelRunLocal>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM ModelRuns ORDER BY RunOn DESC", dbCon);
+                SQLiteCommand dbCom = null;
+
+                if (nLocalModelRunID > 0)
+                {
+                    dbCom = new SQLiteCommand("SELECT * FROM ModelRuns WHERE LocalRunID = @LocalRunID ORDER BY RunOn DESC", dbCon);
+                    dbCom.Parameters.AddWithValue("LocalRunID", nLocalModelRunID);
+                }
+                else
+                    dbCom = new SQLiteCommand("SELECT * FROM ModelRuns ORDER BY RunOn DESC", dbCon);
+
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
@@ -87,6 +96,12 @@ namespace SandbarWorkbench.ModelRuns
             }
 
             return dRuns;
+        }
+
+        public static ModelRunLocal LoadSingle(long nLocalModelRunID)
+        {
+            Dictionary<long, ModelRunLocal> dRuns = Load();
+            return dRuns[nLocalModelRunID];
         }
 
         public static void Delete(long nMasterID, ref SQLiteTransaction dbTrans)
@@ -124,13 +139,13 @@ namespace SandbarWorkbench.ModelRuns
             }
             else
                 dbCom.Parameters.AddWithValue("Remarks", masterRun.Remarks);
-            
+
             dbCom.ExecuteNonQuery();
 
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
             Int64 nLocalRunID = (Int64)dbCom.ExecuteScalar();
 
-            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), string.Empty,  masterRun.AddedOn
+            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), string.Empty, masterRun.AddedOn
                 , masterRun.AddedBy, masterRun.UpdatedOn, masterRun.UpdatedBy, masterRun.RunOn, masterRun.RunBy);
 
             // Now insert all the child records for this model run
