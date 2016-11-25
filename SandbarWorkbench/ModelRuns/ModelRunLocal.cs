@@ -160,5 +160,42 @@ namespace SandbarWorkbench.ModelRuns
 
             return theRun;
         }
+
+        /// <summary>
+        /// Update run on the local DB
+        /// </summary>
+        /// <param name="dbTrans"></param>
+        /// <param name="sTitle"></param>
+        /// <param name="sRemarks"></param>
+        /// <param name="bSync"></param>
+        /// <remarks>This version of the update is called by the workbench user interface forms
+        /// to save changes made through the UI to the local DB. Note that this method should
+        /// be accompanied by similar updates to the master DB - especially based on whether the
+        /// local run is still to be synced!</remarks>
+        public void Update(ref SQLiteTransaction dbTrans, string sTitle, string sRemarks, bool bSync)
+        {
+            System.Diagnostics.Debug.Print("Updating LocalRunID {0} with with MasterID {1}", ID, MasterID);
+
+            SQLiteCommand dbCom = new SQLiteCommand("UPDATE ModelRuns SET Title = @Title, Sync = @Sync, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy, MasterRunID = @MasterRunID WHERE LocalRunID = @LocalRunID", dbTrans.Connection, dbTrans);
+            dbCom.Parameters.AddWithValue("@Title", sTitle);
+            dbCom.Parameters.AddWithValue("Sync", bSync);
+            DBHelpers.SQLiteHelpers.AddStringParameterN(ref dbCom, sRemarks, "Remarks");
+            dbCom.Parameters.AddWithValue("UpdatedOn", DateTime.Now);
+            dbCom.Parameters.AddWithValue("UpdatedBy", Environment.UserName);
+
+            SQLiteParameter pMasterRunID = dbCom.Parameters.Add("Sync", System.Data.DbType.Boolean);
+            if (bSync)
+                pMasterRunID.Value = MasterID;
+            else
+                pMasterRunID.Value = DBNull.Value;
+
+            dbCom.ExecuteNonQuery();
+
+            Title = sTitle;
+            Remarks = sRemarks;
+            Sync = bSync;
+            UpdatedOn = DateTime.Now;
+            UpdatedBy = UpdatedBy;
+        }
     }
 }
