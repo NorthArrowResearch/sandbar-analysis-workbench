@@ -121,5 +121,8 @@ set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis</Value>
     <Setting Name="RunTypeID_UserGenerated" Type="System.Int64" Scope="Application">
       <Value Profile="(Default)">12</Value>
     </Setting>
+    <Setting Name="SandbarAnalysisMainPy" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Code\sandbar-analysis\sandbar-analysis\main.py</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

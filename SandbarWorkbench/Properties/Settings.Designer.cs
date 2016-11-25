@@ -450,5 +450,17 @@ set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis")]
                 return ((long)(this["RunTypeID_UserGenerated"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Code\\sandbar-analysis\\sandbar-analysis\\main.py")]
+        public string SandbarAnalysisMainPy {
+            get {
+                return ((string)(this["SandbarAnalysisMainPy"]));
+            }
+            set {
+                this["SandbarAnalysisMainPy"] = value;
+            }
+        }
     }
 }

@@ -65,6 +65,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.cmdBrowseMainPy = new System.Windows.Forms.Button();
+            this.txtMainPy = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,7 +80,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 139);
+            this.label1.Location = new System.Drawing.Point(13, 113);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 1;
@@ -86,7 +89,7 @@
             // lstSites
             // 
             this.lstSites.FormattingEnabled = true;
-            this.lstSites.Location = new System.Drawing.Point(16, 156);
+            this.lstSites.Location = new System.Drawing.Point(16, 130);
             this.lstSites.Name = "lstSites";
             this.lstSites.Size = new System.Drawing.Size(177, 173);
             this.lstSites.TabIndex = 2;
@@ -99,7 +102,7 @@
             this.groupBox1.Controls.Add(this.ucAnalysisTo);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.ucAnalysisFrom);
-            this.groupBox1.Location = new System.Drawing.Point(199, 156);
+            this.groupBox1.Location = new System.Drawing.Point(199, 130);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(401, 83);
             this.groupBox1.TabIndex = 3;
@@ -150,7 +153,7 @@
             this.groupBox2.Controls.Add(this.ucMinimumTo);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.ucMinimumFrom);
-            this.groupBox2.Location = new System.Drawing.Point(200, 245);
+            this.groupBox2.Location = new System.Drawing.Point(200, 219);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(400, 83);
             this.groupBox2.TabIndex = 4;
@@ -203,7 +206,7 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.valInputCellSize);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(16, 335);
+            this.groupBox3.Location = new System.Drawing.Point(16, 309);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(584, 90);
             this.groupBox3.TabIndex = 5;
@@ -268,6 +271,9 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.cmdBrowseMainPy);
+            this.groupBox4.Controls.Add(this.txtMainPy);
+            this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.cmdBrowseResults);
             this.groupBox4.Controls.Add(this.txtResults);
             this.groupBox4.Controls.Add(this.label10);
@@ -277,9 +283,9 @@
             this.groupBox4.Controls.Add(this.cmdBrowseInputs);
             this.groupBox4.Controls.Add(this.txtInputs);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Location = new System.Drawing.Point(16, 431);
+            this.groupBox4.Location = new System.Drawing.Point(16, 405);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(584, 118);
+            this.groupBox4.Size = new System.Drawing.Size(584, 151);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Files and Folders";
@@ -299,16 +305,16 @@
             // 
             this.txtResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResults.Location = new System.Drawing.Point(126, 83);
+            this.txtResults.Location = new System.Drawing.Point(142, 83);
             this.txtResults.Name = "txtResults";
             this.txtResults.ReadOnly = true;
-            this.txtResults.Size = new System.Drawing.Size(421, 20);
+            this.txtResults.Size = new System.Drawing.Size(405, 20);
             this.txtResults.TabIndex = 17;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 87);
+            this.label10.Location = new System.Drawing.Point(38, 87);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(98, 13);
             this.label10.TabIndex = 16;
@@ -329,16 +335,16 @@
             // 
             this.txtCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCompExtents.Location = new System.Drawing.Point(126, 53);
+            this.txtCompExtents.Location = new System.Drawing.Point(142, 53);
             this.txtCompExtents.Name = "txtCompExtents";
             this.txtCompExtents.ReadOnly = true;
-            this.txtCompExtents.Size = new System.Drawing.Size(421, 20);
+            this.txtCompExtents.Size = new System.Drawing.Size(405, 20);
             this.txtCompExtents.TabIndex = 14;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 57);
+            this.label9.Location = new System.Drawing.Point(33, 57);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(103, 13);
             this.label9.TabIndex = 13;
@@ -359,16 +365,16 @@
             // 
             this.txtInputs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInputs.Location = new System.Drawing.Point(126, 23);
+            this.txtInputs.Location = new System.Drawing.Point(142, 23);
             this.txtInputs.Name = "txtInputs";
             this.txtInputs.ReadOnly = true;
-            this.txtInputs.Size = new System.Drawing.Size(421, 20);
+            this.txtInputs.Size = new System.Drawing.Size(405, 20);
             this.txtInputs.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 27);
+            this.label8.Location = new System.Drawing.Point(57, 27);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 13);
             this.label8.TabIndex = 0;
@@ -417,20 +423,21 @@
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Location = new System.Drawing.Point(16, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(584, 124);
+            this.groupBox5.Size = new System.Drawing.Size(584, 95);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Model Run Description";
             // 
             // txtRemarks
             // 
-            this.txtRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRemarks.Location = new System.Drawing.Point(60, 49);
             this.txtRemarks.MaxLength = 1000;
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.Size = new System.Drawing.Size(514, 69);
+            this.txtRemarks.Size = new System.Drawing.Size(514, 40);
             this.txtRemarks.TabIndex = 3;
             // 
             // label12
@@ -460,6 +467,36 @@
             this.label11.Size = new System.Drawing.Size(27, 13);
             this.label11.TabIndex = 0;
             this.label11.Text = "Title";
+            // 
+            // button1
+            // 
+            this.cmdBrowseMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdBrowseMainPy.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdBrowseMainPy.Location = new System.Drawing.Point(553, 113);
+            this.cmdBrowseMainPy.Name = "button1";
+            this.cmdBrowseMainPy.Size = new System.Drawing.Size(23, 23);
+            this.cmdBrowseMainPy.TabIndex = 21;
+            this.cmdBrowseMainPy.UseVisualStyleBackColor = true;
+            this.cmdBrowseMainPy.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMainPy.Location = new System.Drawing.Point(142, 114);
+            this.txtMainPy.Name = "textBox1";
+            this.txtMainPy.ReadOnly = true;
+            this.txtMainPy.Size = new System.Drawing.Size(405, 20);
+            this.txtMainPy.TabIndex = 20;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 118);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(127, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "Sandbar analysis Main.py";
             // 
             // frmAnalysisConfig
             // 
@@ -538,5 +575,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button cmdBrowseMainPy;
+        private System.Windows.Forms.TextBox txtMainPy;
+        private System.Windows.Forms.Label label13;
     }
 }

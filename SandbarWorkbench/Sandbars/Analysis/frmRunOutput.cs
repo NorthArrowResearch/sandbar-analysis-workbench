@@ -41,7 +41,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         public void CloseWithOk(string txt)
         {
-            MessageBox.Show(txt);
+            MessageBox.Show(txt, "Process Completed Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

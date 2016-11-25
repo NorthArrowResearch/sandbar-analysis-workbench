@@ -56,6 +56,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             IOHelpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, ref txtInputs);
             IOHelpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults, ref txtResults);
             IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile, ref txtCompExtents);
+            IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy, ref txtMainPy);
         }
 
         public void CellSizeChanged(object sender, EventArgs e)
@@ -151,6 +152,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
             if (!IOHelpers.IOHelpers.ValidateFileTextbox("computational extents shapefile", ref txtCompExtents, cmdBrowseCompExtents))
                 return false;
 
+            if (!IOHelpers.IOHelpers.ValidateFileTextbox("sandbar analysis Main.py python file", ref txtMainPy, cmdBrowseMainPy))
+                return false;
+
             return true;
         }
 
@@ -177,21 +181,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
                 try
                 {
-
-
-                    //string sSetup = "SET OSGEO4W_ROOT=C:\\OSGeo4W64&" +
-                    //    @"call C:\OSGeo4W64\bin\o4w_env.bat&" +
-                    //    @"set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin&" +
-                    //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python;&" +
-                    //    @"set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages&" +
-                    //    @"set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis&" +
-                    ////    @"python D:\Code\sandbar-analysis\sandbar-analysis\experiments\print_test.py&"+
-                    ////    "exit";
-
                     List<string> lCommands = SandbarWorkbench.Properties.Settings.Default.PythonConfig.Split('\n').ToList<string>(); // sSetup.Split('&').toList<string>();
                     lCommands.Insert(0, "echo off");
                     lCommands.Add("echo off");
-                    lCommands.Add(string.Format("python {0} {1}", @"c:\users\matt\PycharmProjects\delay\main.py", fiInputs.FullName));
+                    lCommands.Add(string.Format("python {0} {1}", txtMainPy.Text, fiInputs.FullName));
                     lCommands.Add("exit");
 
                     ProcessStartInfo psi = new ProcessStartInfo("cmd.exe");
@@ -200,7 +193,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     psi.RedirectStandardInput = true;
                     psi.RedirectStandardOutput = true;
                     psi.RedirectStandardError = true;
-                   
+
                     psi.WindowStyle = ProcessWindowStyle.Hidden;
 
                     System.Diagnostics.Process proc = new Process();
@@ -240,21 +233,18 @@ namespace SandbarWorkbench.Sandbars.Analysis
                         Application.DoEvents();
                     }
 
-                    //System.IO.StreamReader stdErr = proc.StandardError;
-                    //string sError = proc.StandardError.ReadToEnd();
-                    //string output = proc.StandardOutput.ReadToEnd();
-                    //Console.Write(output);
- 
-                    outputFrm.CloseWithOk("Completed Successfully");
-
+                    string sMessage = string.Empty;
                     if (fiIncremental.Exists || fiBinned.Exists)
                     {
                         ResultsScavenger scav = new ResultsScavenger(DBCon.ConnectionStringLocal);
                         scav.Run(txtTitle.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned);
 
-                        MessageBox.Show(string.Format("Model Run ID {0} inserted into the local database with {1} incremental and {2} binned analysis results.", scav.ModelRunID, scav.IncrementalResults, scav.BinnedResults));
-
+                        sMessage = string.Format("Model Run ID {0} inserted into the local database with {1} incremental and {2} binned analysis results.", scav.ModelRunID, scav.IncrementalResults, scav.BinnedResults);
                     }
+                    else
+                        sMessage = "The process completed but one or both of the incremental and binned result files were not found.";
+
+                    outputFrm.CloseWithOk(sMessage);
 
                     if (proc.ExitCode != 0)
                     {
@@ -573,6 +563,11 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     dResult[dbRead.GetInt64(dbRead.GetOrdinal("ItemID"))] = dbRead.GetString(dbRead.GetOrdinal("Title"));
             }
             return dResult;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IOHelpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
         }
     }
 }

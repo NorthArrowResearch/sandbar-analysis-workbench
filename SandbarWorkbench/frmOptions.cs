@@ -78,6 +78,7 @@ namespace SandbarWorkbench
             IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.GDALWarp, ref txtGDALWarp);
             valIncrement.Value = SandbarWorkbench.Properties.Settings.Default.ElevationIncrement;
             valBenchmark.Value = SandbarWorkbench.Properties.Settings.Default.BenchmarkStage;
+            txtMainPy.Text = SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy;
 
             // Error Logging
             if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
@@ -138,6 +139,7 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.SpatialReference = txtSpatialReference.Text;
             SandbarWorkbench.Properties.Settings.Default.ElevationIncrement = valIncrement.Value;
             SandbarWorkbench.Properties.Settings.Default.BenchmarkStage = valBenchmark.Value;
+            SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy = txtMainPy.Text;
 
             // Date Display Formats
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
@@ -221,6 +223,11 @@ namespace SandbarWorkbench
         private void cmdBrowseGDALWarp_Click(object sender, EventArgs e)
         {
             IOHelpers.IOHelpers.BrowseFillTextBoxFile("GDAL Warp", "Executable Files (*.exe)|*.exe", ref txtGDALWarp, true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IOHelpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
         }
     }
 }
