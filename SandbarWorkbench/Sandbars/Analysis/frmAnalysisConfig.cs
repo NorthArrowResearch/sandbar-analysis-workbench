@@ -250,7 +250,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     if (fiIncremental.Exists || fiBinned.Exists)
                     {
                         ResultsScavenger scav = new ResultsScavenger(DBCon.ConnectionStringLocal);
-                        scav.Run(txtInputs.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned);
+                        scav.Run(txtTitle.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned);
 
                         MessageBox.Show(string.Format("Model Run ID {0} inserted into the local database with {1} incremental and {2} binned analysis results.", scav.ModelRunID, scav.IncrementalResults, scav.BinnedResults));
 
