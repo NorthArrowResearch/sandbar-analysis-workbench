@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.ModelRuns
 {
@@ -106,7 +108,7 @@ namespace SandbarWorkbench.ModelRuns
             bool bAllowBrowse = false;
             if (grdData.SelectedRows.Count == 1 && grdData.SelectedRows[0].DataBoundItem is ModelRunLocal)
                 bAllowBrowse = ((ModelRunLocal)grdData.SelectedRows[0].DataBoundItem).IsLocalRun;
-            browseLocalModelRunResultsToolStripMenuItem.Enabled= bAllowBrowse;
+            browseLocalModelRunResultsToolStripMenuItem.Enabled = bAllowBrowse;
 
             editModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
             deleteModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count > 0;
@@ -126,9 +128,82 @@ namespace SandbarWorkbench.ModelRuns
 
         }
 
+        /// <summary>
+        /// Deletes one or more selected model runs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>This method attempts to delete the selected model runs on the local AND master database.
+        /// Deleting the run on the master database is only attempted if the run possesses a master ID. Either
+        /// it originated on a different computer or its a local run that has been synced. Both types of delete
+        /// operations are performed in transactions and aborted if either experiences a problem.</remarks>
         private void deleteModelRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string sCount = string.Empty;
+            string sPlural = string.Empty;
 
+            if (grdData.SelectedRows.Count > 1)
+            {
+                sCount = string.Format(" {0}", grdData.SelectedRows.Count);
+                sPlural = "s";
+            }
+            if (MessageBox.Show(string.Format("Are you sure that you want to delete the{0} selected model run{1}?" +
+                " This action is permanent and cannot be undone. Only the database records will be deleted. No model result files will be deleted during this process." +
+                " Any local model runs will also be deleted on the master database, while model runs from other computers will only be deleted locally.", sCount, sPlural),
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                {
+                    conLocal.Open();
+                    SQLiteTransaction transLocal = conLocal.BeginTransaction();
+                    SQLiteCommand comLocal = new SQLiteCommand("DELETE FROM ModelRuns WHERE LocalRunID = @LocalRunID", transLocal.Connection, transLocal);
+                    SQLiteParameter pLocal = comLocal.Parameters.Add("LocalRunID", DbType.Int64);
+
+                    using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    {
+                        conMaster.Open();
+                        MySqlTransaction transMaster = conMaster.BeginTransaction();
+                        MySqlCommand comMaster = new MySqlCommand("DELETE FROM ModelRuns WHERE MasterRunID = @MasterRunID", transMaster.Connection, transMaster);
+                        MySqlParameter pMaster = comMaster.Parameters.Add("MasterRunID", MySqlDbType.Int64);
+
+                        try
+                        {
+                            foreach (DataGridViewRow dgvr in grdData.SelectedRows)
+                            {
+                                // Always delete the copy of the model run on lcoal
+                                ModelRunLocal mr = dgvr.DataBoundItem as ModelRunLocal;
+                                pLocal.Value = mr.ID;
+                                comLocal.ExecuteNonQuery();
+
+                                // Only local runs that have been synced should be deleted on master
+                                if (mr.IsLocalRun && mr.MasterID > 0)
+                                {
+                                    pMaster.Value = mr.MasterID;
+                                    comMaster.ExecuteNonQuery();
+                                }
+                            }
+
+                            transLocal.Commit();
+                            transMaster.Commit();
+
+                            LoadData();
+                        }
+                        catch (Exception ex)
+                        {
+                            transLocal.Rollback();
+                            transMaster.Rollback();
+                            ExceptionHandling.NARException.HandleException(ex);
+                        }
+                        finally
+                        {
+                            Cursor.Current = Cursors.Default;
+                        }
+
+                    }
+                }
+            }
         }
 
         private void grdData_SelectionChanged(object sender, EventArgs e)

@@ -156,6 +156,12 @@
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
     <Compile Include="IOHelpers\IOHelpers.cs" />
+    <Compile Include="ModelRuns\frmModelRunProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelRuns\frmModelRunProperties.Designer.cs">
+      <DependentUpon>frmModelRunProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelRuns\frmModelRuns.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSynchronize.resx">
       <DependentUpon>frmSynchronize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModelRuns\frmModelRunProperties.resx">
+      <DependentUpon>frmModelRunProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModelRuns\frmModelRuns.resx">
       <DependentUpon>frmModelRuns.cs</DependentUpon>

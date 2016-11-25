@@ -191,6 +191,7 @@
             // 
             this.groupBox1.Controls.Add(this.checkBox3);
             this.groupBox1.Controls.Add(this.checkBox4);
+            this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(12, 255);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(227, 69);
@@ -228,6 +229,7 @@
             // 
             this.grpTimeSeries.Controls.Add(this.checkBox2);
             this.grpTimeSeries.Controls.Add(this.checkBox1);
+            this.grpTimeSeries.Enabled = false;
             this.grpTimeSeries.Location = new System.Drawing.Point(12, 180);
             this.grpTimeSeries.Name = "grpTimeSeries";
             this.grpTimeSeries.Size = new System.Drawing.Size(227, 69);
