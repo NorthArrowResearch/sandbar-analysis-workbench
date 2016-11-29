@@ -62,6 +62,7 @@
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.cmdGDAWS = new System.Windows.Forms.Button();
             this.cmdPhotos = new System.Windows.Forms.Button();
+            this.cmdHelp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -378,6 +379,16 @@
             this.cmdPhotos.UseVisualStyleBackColor = true;
             this.cmdPhotos.Click += new System.EventHandler(this.cmdPhotos_Click);
             // 
+            // cmdHelp
+            // 
+            this.cmdHelp.Location = new System.Drawing.Point(12, 637);
+            this.cmdHelp.Name = "cmdHelp";
+            this.cmdHelp.Size = new System.Drawing.Size(75, 23);
+            this.cmdHelp.TabIndex = 11;
+            this.cmdHelp.Text = "Help";
+            this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
+            // 
             // frmSandbarProperties
             // 
             this.AcceptButton = this.cmdCancel;
@@ -385,6 +396,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(594, 672);
+            this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.cmdPhotos);
             this.Controls.Add(this.cmdGDAWS);
             this.Controls.Add(this.cmdBrowse);
@@ -453,5 +465,6 @@
         private System.Windows.Forms.Button cmdBrowse;
         private System.Windows.Forms.Button cmdGDAWS;
         private System.Windows.Forms.Button cmdPhotos;
+        private System.Windows.Forms.Button cmdHelp;
     }
 }

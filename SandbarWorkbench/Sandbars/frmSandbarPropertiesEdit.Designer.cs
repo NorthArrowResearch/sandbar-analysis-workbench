@@ -87,6 +87,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.cmdHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEddySize)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -770,6 +771,16 @@
             this.txtRemarks.Size = new System.Drawing.Size(489, 377);
             this.txtRemarks.TabIndex = 0;
             // 
+            // cmdHelp
+            // 
+            this.cmdHelp.Location = new System.Drawing.Point(12, 427);
+            this.cmdHelp.Name = "cmdHelp";
+            this.cmdHelp.Size = new System.Drawing.Size(75, 23);
+            this.cmdHelp.TabIndex = 2;
+            this.cmdHelp.Text = "Help";
+            this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
+            // 
             // frmSandbarPropertiesEdit
             // 
             this.AcceptButton = this.cmdOK;
@@ -777,6 +788,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(527, 462);
+            this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
@@ -873,5 +885,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox txtRemarks;
+        private System.Windows.Forms.Button cmdHelp;
     }
 }

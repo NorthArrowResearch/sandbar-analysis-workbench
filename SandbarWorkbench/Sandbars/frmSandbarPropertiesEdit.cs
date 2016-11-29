@@ -213,5 +213,10 @@ namespace SandbarWorkbench.Sandbars
 
             return true;
         }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp(this.Name);
+        }
     }
 }

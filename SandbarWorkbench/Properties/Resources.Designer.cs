@@ -188,6 +188,51 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/remote_cameras/remote_camera_properties.
+        /// </summary>
+        internal static string Help_frmRemoteCameraPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmRemoteCameraPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/remote_cameras/main_remote_cameras_grid.
+        /// </summary>
+        internal static string Help_frmRemoteCameras {
+            get {
+                return ResourceManager.GetString("Help_frmRemoteCameras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbars/sandbar_properties.
+        /// </summary>
+        internal static string Help_frmSandbarProperties {
+            get {
+                return ResourceManager.GetString("Help_frmSandbarProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbars/sandbar_properties.
+        /// </summary>
+        internal static string Help_frmSandbarPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmSandbarPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbars/main_sandbar_grid.
+        /// </summary>
+        internal static string Help_frmSandbars {
+            get {
+                return ResourceManager.GetString("Help_frmSandbars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap NA_Logo_120_60_Google_OAuth {

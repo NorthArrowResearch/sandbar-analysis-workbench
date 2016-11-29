@@ -202,4 +202,13 @@
   <data name="Help_frmDatabaseInfo" xml:space="preserve">
     <value>online_help/file_menu/database_info</value>
   </data>
+  <data name="Help_frmSandbarProperties" xml:space="preserve">
+    <value>online_help/sandbars/sandbar_properties</value>
+  </data>
+  <data name="Help_frmSandbarPropertiesEdit" xml:space="preserve">
+    <value>online_help/sandbars/sandbar_properties</value>
+  </data>
+  <data name="Help_frmSandbars" xml:space="preserve">
+    <value>online_help/sandbars/main_sandbar_grid</value>
+  </data>
 </root>
