@@ -32,14 +32,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdBasic = new System.Windows.Forms.DataGridView();
+            this.colProperty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grdVersionHistory = new System.Windows.Forms.DataGridView();
             this.colDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colVersion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
-            this.colProperty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmdHelp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdBasic)).BeginInit();
@@ -87,6 +88,20 @@
             this.grdBasic.RowHeadersVisible = false;
             this.grdBasic.Size = new System.Drawing.Size(349, 290);
             this.grdBasic.TabIndex = 0;
+            // 
+            // colProperty
+            // 
+            this.colProperty.HeaderText = "Property";
+            this.colProperty.Name = "colProperty";
+            this.colProperty.ReadOnly = true;
+            // 
+            // colValue
+            // 
+            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colValue.HeaderText = "Value";
+            this.colValue.Name = "colValue";
+            this.colValue.ReadOnly = true;
+            this.colValue.Width = 59;
             // 
             // tabPage2
             // 
@@ -145,25 +160,22 @@
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // colProperty
+            // cmdHelp
             // 
-            this.colProperty.HeaderText = "Property";
-            this.colProperty.Name = "colProperty";
-            this.colProperty.ReadOnly = true;
-            // 
-            // colValue
-            // 
-            this.colValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colValue.HeaderText = "Value";
-            this.colValue.Name = "colValue";
-            this.colValue.ReadOnly = true;
-            this.colValue.Width = 59;
+            this.cmdHelp.Location = new System.Drawing.Point(12, 340);
+            this.cmdHelp.Name = "cmdHelp";
+            this.cmdHelp.Size = new System.Drawing.Size(75, 23);
+            this.cmdHelp.TabIndex = 2;
+            this.cmdHelp.Text = "Help";
+            this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
             // frmDatabaseInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(387, 375);
+            this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -192,5 +204,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn colProperty;
         private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
+        private System.Windows.Forms.Button cmdHelp;
     }
 }

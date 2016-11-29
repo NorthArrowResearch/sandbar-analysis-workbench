@@ -179,6 +179,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/file_menu/database_info.
+        /// </summary>
+        internal static string Help_frmDatabaseInfo {
+            get {
+                return ResourceManager.GetString("Help_frmDatabaseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap NA_Logo_120_60_Google_OAuth {
