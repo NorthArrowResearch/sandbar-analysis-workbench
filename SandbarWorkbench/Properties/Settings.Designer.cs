@@ -157,7 +157,7 @@ namespace SandbarWorkbench.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("nar")]
+        [global::System.Configuration.DefaultSettingValueAttribute("workbench_user")]
         public string MasterUser {
             get {
                 return ((string)(this["MasterUser"]));
