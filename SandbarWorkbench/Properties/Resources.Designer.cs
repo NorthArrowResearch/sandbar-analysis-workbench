@@ -188,6 +188,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/pictures/picture_viewer.
+        /// </summary>
+        internal static string Help_frmPictureViewer {
+            get {
+                return ResourceManager.GetString("Help_frmPictureViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to online_help/remote_cameras/remote_camera_properties.
         /// </summary>
         internal static string Help_frmRemoteCameraPropertiesEdit {
