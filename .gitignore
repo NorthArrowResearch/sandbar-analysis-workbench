@@ -10,6 +10,8 @@ packages/
 # Master database credentials file for developers
 master_database_credentials.xml
 
+*.csproj.user
+
 *.pfx
 
 publish/
