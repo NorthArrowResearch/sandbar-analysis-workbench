@@ -12,9 +12,18 @@ namespace SandbarWorkbench.Pictures
 {
     public partial class ucThumbail : UserControl
     {
+        private BackgroundWorker bgw;
+
+        private PictureInfo picInfo { get; set; }
+        private string SiteCode { get; set; }
+        private string BestPhotoTime { get; set; }
+
         public ucThumbail()
         {
             InitializeComponent();
+            bgw = new BackgroundWorker();
+            bgw.DoWork += backgroundWorker1_DoWork;
+            bgw.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
 
         public void UpdateThumbnail(string sSiteCode, string sBestPhotoTime)
@@ -26,22 +35,33 @@ namespace SandbarWorkbench.Pictures
 
             if (!string.IsNullOrEmpty(sSiteCode))
             {
-                try
+                SiteCode = sSiteCode;
+                BestPhotoTime = sBestPhotoTime;
+                bgw.RunWorkerAsync();
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            picInfo = PictureInfo.GetPictureInfo(SiteCode, BestPhotoTime);
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                if (picInfo is Pictures.PictureInfo)
                 {
-                    Pictures.PictureInfo picInfo = Pictures.PictureInfo.GetPictureInfo(sSiteCode, sBestPhotoTime);
-                    if (picInfo is Pictures.PictureInfo)
-                    {
-                        picThumbnail.ImageLocation = picInfo.SmallestImagePath;
-                        picThumbnail.Visible = true;
-                        picThumbnail.Tag = picInfo;
-                        lblCaption.Text = System.IO.Path.GetFileNameWithoutExtension(picThumbnail.ImageLocation);
-                        lblCaption.Visible = true;
-                    }
+                    picThumbnail.ImageLocation = picInfo.SmallestImagePath;
+                    picThumbnail.Visible = true;
+                    picThumbnail.Tag = picInfo;
+                    lblCaption.Text = System.IO.Path.GetFileNameWithoutExtension(picThumbnail.ImageLocation);
+                    lblCaption.Visible = true;
                 }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.Print(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.Message);
             }
         }
 
