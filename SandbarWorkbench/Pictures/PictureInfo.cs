@@ -183,19 +183,11 @@ namespace SandbarWorkbench.Pictures
                 Nullable<long> nClosestDifference = new Nullable<long>();
 
                 string sSearch = string.Format("*{0}", FileSuffix);
-
-                System.Diagnostics.Debug.Print(DateTime.Now.ToString());
-
-
-                System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
-                string[] sTemp = System.IO.Directory.GetFiles(sFolder, sSearch);
-                long elapsed = sw.ElapsedMilliseconds; // or sw.ElapsedTicks
-                System.Diagnostics.Debug.Print(elapsed.ToString());
-
-                sw.Reset();
-                sw.Start();
-                foreach (string sFilePath in sTemp)
+                string[] arrFilePaths = System.IO.Directory.GetFiles(sFolder, sSearch, System.IO.SearchOption.TopDirectoryOnly);
+                int nSearch = 0;
+                while (nSearch < nBlockSize && nSearch < arrFilePaths.Length)
                 {
+                    string sFilePath = arrFilePaths[nSearch];
                     Match theMatch = Regex.Match(System.IO.Path.GetFileNameWithoutExtension(sFilePath), "_([0-9]{8})_([0-9]{4})");
                     if (theMatch is Match && theMatch.Groups.Count == 3)
                     {
@@ -229,10 +221,9 @@ namespace SandbarWorkbench.Pictures
                             }
                         }
                     }
+                    nSearch++;
                 }
-                long nWatch = sw.ElapsedMilliseconds;
-                System.Diagnostics.Debug.Print("For Each Time: {0}", nWatch / 1000.0);
-
+         
                 if (!string.IsNullOrEmpty(sClosestFile))
                 {
                     fiResult = new System.IO.FileInfo(sClosestFile);
