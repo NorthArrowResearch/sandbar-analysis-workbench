@@ -44,7 +44,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
             if (SurveyDates == null)
                 return;
 
-            cboYear.Items.AddRange(SurveyDates.Select(x => x.Year as object).Distinct<object>().ToArray());
+            cboYear.Items.Clear();
+            List<int> lYears = SurveyDates.Select(x => x.Year).Distinct<int>().ToList<int>();
+            lYears.Sort((s1, s2) => s2.CompareTo(s1));
+            cboYear.Items.AddRange(lYears.Cast<object>().ToArray<object>());
 
             // Default select either the earliest or latest survey depending on if this is a "from" or "to" usage
             if (cboYear.Items.Count > 0)
