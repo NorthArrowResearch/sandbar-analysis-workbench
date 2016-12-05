@@ -71,10 +71,10 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.imgThumbnails = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.cmdPictures = new System.Windows.Forms.Button();
-            this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
             this.grpRemarks = new System.Windows.Forms.GroupBox();
             this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.cmdPictures = new System.Windows.Forms.Button();
+            this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -224,8 +224,13 @@
             // 
             this.valRiverMile.DecimalPlaces = 2;
             this.valRiverMile.Location = new System.Drawing.Point(58, 6);
+            this.valRiverMile.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.valRiverMile.Minimum = new decimal(new int[] {
-            10,
+            100,
             0,
             0,
             -2147483648});
@@ -504,24 +509,6 @@
             this.splitContainer1.SplitterDistance = 510;
             this.splitContainer1.TabIndex = 11;
             // 
-            // cmdPictures
-            // 
-            this.cmdPictures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdPictures.Location = new System.Drawing.Point(170, 569);
-            this.cmdPictures.Name = "cmdPictures";
-            this.cmdPictures.Size = new System.Drawing.Size(147, 23);
-            this.cmdPictures.TabIndex = 12;
-            this.cmdPictures.Text = "Show Pictures >>>";
-            this.cmdPictures.UseVisualStyleBackColor = true;
-            this.cmdPictures.Click += new System.EventHandler(this.cmdPictures_Click);
-            // 
-            // ucPictureViewer
-            // 
-            this.ucPictureViewer.Location = new System.Drawing.Point(19, 19);
-            this.ucPictureViewer.Name = "ucPictureViewer";
-            this.ucPictureViewer.Size = new System.Drawing.Size(66, 115);
-            this.ucPictureViewer.TabIndex = 0;
-            // 
             // grpRemarks
             // 
             this.grpRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -542,6 +529,24 @@
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Size = new System.Drawing.Size(480, 49);
             this.txtRemarks.TabIndex = 0;
+            // 
+            // cmdPictures
+            // 
+            this.cmdPictures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdPictures.Location = new System.Drawing.Point(170, 569);
+            this.cmdPictures.Name = "cmdPictures";
+            this.cmdPictures.Size = new System.Drawing.Size(147, 23);
+            this.cmdPictures.TabIndex = 12;
+            this.cmdPictures.Text = "Show Pictures >>>";
+            this.cmdPictures.UseVisualStyleBackColor = true;
+            this.cmdPictures.Click += new System.EventHandler(this.cmdPictures_Click);
+            // 
+            // ucPictureViewer
+            // 
+            this.ucPictureViewer.Location = new System.Drawing.Point(19, 19);
+            this.ucPictureViewer.Name = "ucPictureViewer";
+            this.ucPictureViewer.Size = new System.Drawing.Size(66, 115);
+            this.ucPictureViewer.TabIndex = 0;
             // 
             // frmRemoteCameraPropertiesEdit
             // 
