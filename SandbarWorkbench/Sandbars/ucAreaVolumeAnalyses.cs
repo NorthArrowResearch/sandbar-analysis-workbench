@@ -182,7 +182,20 @@ namespace SandbarWorkbench.Sandbars
             }
 
             System.Diagnostics.Debug.Print("Loading {0} for section {1} - {2}", ModelResultData[nModelID].Title, sectionTypeItem, sTypeName);
-            Series theSeries = chtData.Series.Add(string.Format("{0} - {1} - {2}", ModelResultData[nModelID].Title, sectionTypeItem.Text, sTypeName));
+
+            string sSeriesName;
+            int nIndex = 0;
+            do
+            {
+                sSeriesName = string.Format("{0} - {1} - {2}", ModelResultData[nModelID].Title, sectionTypeItem.Text, sTypeName);
+                if (nIndex > 0)
+                    sSeriesName = string.Format("{0} ({1})", sSeriesName, nIndex);
+
+                nIndex++;
+
+            } while (chtData.Series.FindByName(sSeriesName) is Series);
+
+            Series theSeries = chtData.Series.Add(sSeriesName);
             theSeries.ChartType = SeriesChartType.Line;
             theSeries.BorderWidth = 2;
             theSeries.MarkerSize = 10;
