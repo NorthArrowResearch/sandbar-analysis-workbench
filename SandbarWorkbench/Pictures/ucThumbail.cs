@@ -33,11 +33,14 @@ namespace SandbarWorkbench.Pictures
             picThumbnail.Tag = null;
             lblCaption.Visible = false;
 
-            if (!string.IsNullOrEmpty(sSiteCode))
+            if (!bgw.IsBusy)
             {
-                SiteCode = sSiteCode;
-                BestPhotoTime = sBestPhotoTime;
-                bgw.RunWorkerAsync();
+                if (!string.IsNullOrEmpty(sSiteCode))
+                {
+                    SiteCode = sSiteCode;
+                    BestPhotoTime = sBestPhotoTime;
+                    bgw.RunWorkerAsync();
+                }
             }
         }
 
