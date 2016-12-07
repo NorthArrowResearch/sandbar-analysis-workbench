@@ -49,7 +49,7 @@ namespace SandbarWorkbench.Sandbars
                 cmdPhotos.Enabled = m_Site.BestPhoto is Pictures.PictureInfo;
 
                 if (m_Site.BestPhoto == null)
-                   tabControl1.TabPages.Remove(tabPhoto);
+                    tabControl1.TabPages.Remove(tabPhoto);
 
                 // Attempt to load a Google map of the site
                 if (m_Site.Latitude.HasValue && m_Site.Longitude.HasValue)
@@ -86,8 +86,8 @@ namespace SandbarWorkbench.Sandbars
             var auditTrailProvider = new SandbarSurvey.MyTypeDescriptionProvider<AuditTrail>();
             System.ComponentModel.TypeDescriptor.AddProvider((new SandbarSurvey.MyTypeDescriptionProvider<AuditTrail>()), typeof(Sandbars.SandbarSurvey));
 
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Survey Date", "SurveyDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Trip Date", "TripDate", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Survey Date", "SurveyDate", true, true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Trip Date", "TripDate", true, true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Eddy Count", "EddyCount", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdSurveys, "Channel Survey", "HasChannelStr", true);
             Helpers.DataGridViewHelpers.AddDataGridViewAuditColumns(ref grdSurveys);
@@ -345,7 +345,7 @@ namespace SandbarWorkbench.Sandbars
         private void picBestPhoto_DoubleClick(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(picBestPhoto.ImageLocation) && System.IO.File.Exists(picBestPhoto.ImageLocation))
-                System.Diagnostics.Process.Start(picBestPhoto.ImageLocation);              
+                System.Diagnostics.Process.Start(picBestPhoto.ImageLocation);
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)
@@ -369,7 +369,7 @@ namespace SandbarWorkbench.Sandbars
 
         private void grdSurveys_SelectionChanged(object sender, EventArgs e)
         {
-           bool bSelectedSurvey = grdSurveys.SelectedRows.Count > 0;
+            bool bSelectedSurvey = grdSurveys.SelectedRows.Count > 0;
             editSurveyToolStripMenuItem.Enabled = bSelectedSurvey;
             deleteSurveyToolStripMenuItem.Enabled = bSelectedSurvey;
             viewSurveyPropertiesToolStripMenuItem.Enabled = bSelectedSurvey;

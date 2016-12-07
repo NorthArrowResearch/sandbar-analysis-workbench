@@ -22,10 +22,11 @@ namespace SandbarWorkbench.Helpers
             dg.Dock = eDock;
             dg.AutoGenerateColumns = bAutoGenerateCols;
         }
-        public static void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, string sFormat = "", DataGridViewAutoSizeColumnMode eAutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DataGridViewContentAlignment eAlignment = DataGridViewContentAlignment.MiddleLeft)
+        public static void AddDataGridViewTextColumn(ref DataGridView dg, string sHeaderText, string sDataPropertyMember, bool bVisible, bool bReadyOnly = true, string sFormat = "", DataGridViewAutoSizeColumnMode eAutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DataGridViewContentAlignment eAlignment = DataGridViewContentAlignment.MiddleLeft)
         {
             var aCol = new DataGridViewTextBoxColumn();
             aCol.Visible = bVisible;
+            aCol.ReadOnly = bReadyOnly;
             aCol.HeaderText = sHeaderText;
             aCol.DataPropertyName = sDataPropertyMember;
             aCol.AutoSizeMode = eAutoSizeMode;
@@ -62,9 +63,9 @@ namespace SandbarWorkbench.Helpers
 
         public static void AddDataGridViewAuditColumns(ref DataGridView dg)
         {
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Added On", "Audit_AddedOn", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Added On", "Audit_AddedOn", true, true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Added By", "Audit_AddedBy", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Updated On", "Audit_UpdatedOn", true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Updated On", "Audit_UpdatedOn", true, true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Updated By", "Audit_UpdatedBy", true);
         }
     }
