@@ -523,6 +523,7 @@
             // 
             // txtRemarks
             // 
+            this.txtRemarks.AcceptsReturn = true;
             this.txtRemarks.Location = new System.Drawing.Point(7, 19);
             this.txtRemarks.MaxLength = 1000;
             this.txtRemarks.Multiline = true;

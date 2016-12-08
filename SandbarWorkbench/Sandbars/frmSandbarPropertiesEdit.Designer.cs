@@ -763,6 +763,7 @@
             // 
             // txtRemarks
             // 
+            this.txtRemarks.AcceptsReturn = true;
             this.txtRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtRemarks.Location = new System.Drawing.Point(3, 3);
             this.txtRemarks.MaxLength = 1000;

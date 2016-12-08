@@ -52,6 +52,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtMainPy = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.valBenchmark = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
             this.valIncrement = new System.Windows.Forms.NumericUpDown();
@@ -85,9 +88,6 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.txtPython = new System.Windows.Forms.TextBox();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtMainPy = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -362,6 +362,36 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.button1.Location = new System.Drawing.Point(517, 171);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 18;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtMainPy
+            // 
+            this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMainPy.Location = new System.Drawing.Point(176, 172);
+            this.txtMainPy.Name = "txtMainPy";
+            this.txtMainPy.ReadOnly = true;
+            this.txtMainPy.Size = new System.Drawing.Size(335, 20);
+            this.txtMainPy.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(39, 176);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(128, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Sandbar Analysis Main.py";
             // 
             // valBenchmark
             // 
@@ -697,6 +727,7 @@
             // 
             // txtPython
             // 
+            this.txtPython.AcceptsReturn = true;
             this.txtPython.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtPython.Location = new System.Drawing.Point(3, 3);
             this.txtPython.Multiline = true;
@@ -713,36 +744,6 @@
             this.cmdHelp.TabIndex = 2;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.button1.Location = new System.Drawing.Point(517, 171);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 18;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtMainPy
-            // 
-            this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMainPy.Location = new System.Drawing.Point(176, 172);
-            this.txtMainPy.Name = "txtMainPy";
-            this.txtMainPy.ReadOnly = true;
-            this.txtMainPy.Size = new System.Drawing.Size(335, 20);
-            this.txtMainPy.TabIndex = 17;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(39, 176);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(128, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "Sandbar Analysis Main.py";
             // 
             // frmOptions
             // 
