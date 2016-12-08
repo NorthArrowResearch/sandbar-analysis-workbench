@@ -323,7 +323,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             XmlNode nodOutputs = xmlDoc.CreateElement("Outputs");
             nodTopLevel.AppendChild(nodOutputs);
 
-            string sAnalysisFolder = System.IO.Path.Combine(txtResults.Text, string.Format("ModelRun_{0:yyyyMMdd_hhmmss}", DateTime.Now));
+            string sAnalysisFolder = System.IO.Path.Combine(txtResults.Text, string.Format("ModelRun_{0:yyyyMMdd_HHmmss}", DateTime.Now));
 
             string sLogFile = System.IO.Path.Combine(sAnalysisFolder, "log.xml");
             fiLog = new System.IO.FileInfo(sLogFile);
