@@ -178,6 +178,20 @@ namespace SandbarWorkbench.Sandbars
                             dbCom.ExecuteNonQuery();
                             MasterDatabaseChanged();
                         }
+                        catch (MySqlException ex)
+                        {
+                            if (ex.Message.ToLower().Contains("foreign key"))
+                            {
+                                if (ex.Message.Contains("FK_RemoteCameras_SiteID"))
+                                {
+                                    MessageBox.Show("This sandbar site is referenced by one or more remote camera locations and cannot be deleted. Edit the relevant remote camera location(s) and disassociate them from this sandbar site before attempting to delete this item.", "Delete Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                    throw;
+                            }
+                            else
+                                throw;
+                        }
                         catch (Exception ex)
                         {
                             ExceptionHandling.NARException.HandleException(ex);
