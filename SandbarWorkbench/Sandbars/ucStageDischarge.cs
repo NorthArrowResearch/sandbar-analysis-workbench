@@ -63,6 +63,10 @@ namespace SandbarWorkbench.Sandbars
             theSeries.ChartType = SeriesChartType.Line;
             theSeries.IsVisibleInLegend = false;
 
+            Title chtTitle = chtData.Titles.Add(string.Format("Stage Discharge Curve for Site {0}", SDCurve.SiteName));
+            chtTitle.Font = new Font(chtTitle.Font, FontStyle.Bold);
+            chtData.Titles.Add(string.Format("Elevation = {0} + ({1} * Q) + ({2} * Q^2)", SDCurve.CoeffA, SDCurve.CoeffB, SDCurve.CoeffC));
+            
             Nullable<double> fMinStage = new Nullable<double>();
             Nullable<double> fStage;
             if (SDCurve.HasAllValues)

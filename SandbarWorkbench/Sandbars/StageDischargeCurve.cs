@@ -8,6 +8,7 @@ namespace SandbarWorkbench.Sandbars
 {
     public class StageDischargeCurve
     {
+        public string SiteName { get; internal set; }
         public Nullable<double> CoeffA { get; internal set; }
         public Nullable<double> CoeffB { get; internal set; }
         public Nullable<double> CoeffC { get; internal set; }
@@ -26,8 +27,9 @@ namespace SandbarWorkbench.Sandbars
             return fResult;
         }
 
-        public StageDischargeCurve(Nullable<double> fCoeffA, Nullable<double> fCoeffB, Nullable<double> fCoeffC)
+        public StageDischargeCurve(string sSiteName, Nullable<double> fCoeffA, Nullable<double> fCoeffB, Nullable<double> fCoeffC)
         {
+            SiteName = sSiteName;
             CoeffA = fCoeffA;
             CoeffB = fCoeffB;
             CoeffC = fCoeffC;

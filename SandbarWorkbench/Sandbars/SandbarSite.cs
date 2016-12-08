@@ -152,7 +152,7 @@ namespace SandbarWorkbench.Sandbars
             RemoteCameraID = nRemoteCameraID;
             RemoteCameraSiteCode = sRemoteCameraSiteCode;
             BestPhotoTime = sBestPhotoTime;
-            SDCurve = new StageDischargeCurve(fStageDischargeA, fStageDischargeB, fStageDischargeC);
+            SDCurve = new StageDischargeCurve(SiteCode5, fStageDischargeA, fStageDischargeB, fStageDischargeC);
             Northing = fNorthing;
             Easting = fEasting;
             Latitude = fLatitude;
