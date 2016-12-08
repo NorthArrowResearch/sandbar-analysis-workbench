@@ -176,8 +176,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
                 var outputFrm = new frmRunOutput();
                 outputFrm.Show(this); // if you need non-modal window
-                outputFrm.AppendOutput("Starting Process..", Color.Blue);
-                outputFrm.AppendOutput("This is what an Error looks like", Color.Red);
 
                 try
                 {
