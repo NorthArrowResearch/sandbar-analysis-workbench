@@ -53,6 +53,7 @@ namespace SandbarWorkbench.Sandbars
             ConfigureAnalysesDataGridView();
             ModelRuns = ModelRun.Load(DBCon.ConnectionStringLocal);
             grdAnalyses.DataSource = ModelRuns;
+            grdAnalyses.ContextMenuStrip = cmsResults;
 
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
@@ -306,6 +307,22 @@ namespace SandbarWorkbench.Sandbars
         private void Discharge_ValueChanged(object sender, EventArgs e)
         {
             UpdateChart(null, null);
+        }
+
+        private void ExportResults(object sender, EventArgs e)
+        {
+            SandbarWorkbench.Sandbars.Analysis.ResultsExporter exp = new Sandbars.Analysis.ResultsExporter(DBCon.ConnectionStringLocal);
+            Sandbars.Analysis.ResultsExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? Sandbars.Analysis.ResultsExporter.ModelResultTypes.Incremental : Sandbars.Analysis.ResultsExporter.ModelResultTypes.Binned;
+
+            try
+            {
+                long nModelID = ((ModelRun)grdAnalyses.SelectedRows[0].DataBoundItem).RunID;
+                exp.Run(nModelID, eType, true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
         }
     }
 }

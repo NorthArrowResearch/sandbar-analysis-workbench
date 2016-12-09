@@ -28,16 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucAreaVolumeAnalyses));
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
+            this.grpAnalysisType = new System.Windows.Forms.GroupBox();
+            this.rdoBinned = new System.Windows.Forms.RadioButton();
+            this.rdoIncremental = new System.Windows.Forms.RadioButton();
+            this.chkVolume = new System.Windows.Forms.CheckBox();
+            this.chkArea = new System.Windows.Forms.CheckBox();
             this.grpVolume = new System.Windows.Forms.GroupBox();
             this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.chkVolume = new System.Windows.Forms.CheckBox();
             this.grpArea = new System.Windows.Forms.GroupBox();
             this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.chkArea = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.valDisUpper = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,13 +51,14 @@
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
-            this.grpAnalysisType = new System.Windows.Forms.GroupBox();
-            this.rdoIncremental = new System.Windows.Forms.RadioButton();
-            this.rdoBinned = new System.Windows.Forms.RadioButton();
+            this.cmsResults = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportIncrementalResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportBinnedResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
             this.splitContainer_Vert.SuspendLayout();
+            this.grpAnalysisType.SuspendLayout();
             this.grpVolume.SuspendLayout();
             this.grpArea.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,7 +70,7 @@
             this.splitContainer_Horiz.Panel1.SuspendLayout();
             this.splitContainer_Horiz.Panel2.SuspendLayout();
             this.splitContainer_Horiz.SuspendLayout();
-            this.grpAnalysisType.SuspendLayout();
+            this.cmsResults.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer_Vert
@@ -90,6 +96,59 @@
             this.splitContainer_Vert.SplitterDistance = 210;
             this.splitContainer_Vert.TabIndex = 0;
             // 
+            // grpAnalysisType
+            // 
+            this.grpAnalysisType.Controls.Add(this.rdoBinned);
+            this.grpAnalysisType.Controls.Add(this.rdoIncremental);
+            this.grpAnalysisType.Location = new System.Drawing.Point(5, 6);
+            this.grpAnalysisType.Name = "grpAnalysisType";
+            this.grpAnalysisType.Size = new System.Drawing.Size(200, 69);
+            this.grpAnalysisType.TabIndex = 3;
+            this.grpAnalysisType.TabStop = false;
+            this.grpAnalysisType.Text = "Analysis Type";
+            // 
+            // rdoBinned
+            // 
+            this.rdoBinned.AutoSize = true;
+            this.rdoBinned.Location = new System.Drawing.Point(11, 44);
+            this.rdoBinned.Name = "rdoBinned";
+            this.rdoBinned.Size = new System.Drawing.Size(58, 17);
+            this.rdoBinned.TabIndex = 1;
+            this.rdoBinned.Text = "Binned";
+            this.rdoBinned.UseVisualStyleBackColor = true;
+            // 
+            // rdoIncremental
+            // 
+            this.rdoIncremental.AutoSize = true;
+            this.rdoIncremental.Checked = true;
+            this.rdoIncremental.Location = new System.Drawing.Point(11, 20);
+            this.rdoIncremental.Name = "rdoIncremental";
+            this.rdoIncremental.Size = new System.Drawing.Size(80, 17);
+            this.rdoIncremental.TabIndex = 0;
+            this.rdoIncremental.TabStop = true;
+            this.rdoIncremental.Text = "Incremental";
+            this.rdoIncremental.UseVisualStyleBackColor = true;
+            // 
+            // chkVolume
+            // 
+            this.chkVolume.AutoSize = true;
+            this.chkVolume.Location = new System.Drawing.Point(17, 268);
+            this.chkVolume.Name = "chkVolume";
+            this.chkVolume.Size = new System.Drawing.Size(61, 17);
+            this.chkVolume.TabIndex = 0;
+            this.chkVolume.Text = "Volume";
+            this.chkVolume.UseVisualStyleBackColor = true;
+            // 
+            // chkArea
+            // 
+            this.chkArea.AutoSize = true;
+            this.chkArea.Location = new System.Drawing.Point(17, 170);
+            this.chkArea.Name = "chkArea";
+            this.chkArea.Size = new System.Drawing.Size(48, 17);
+            this.chkArea.TabIndex = 0;
+            this.chkArea.Text = "Area";
+            this.chkArea.UseVisualStyleBackColor = true;
+            // 
             // grpVolume
             // 
             this.grpVolume.Controls.Add(this.chkVolSectionTypes);
@@ -110,16 +169,6 @@
             this.chkVolSectionTypes.TabIndex = 2;
             this.chkVolSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
             // 
-            // chkVolume
-            // 
-            this.chkVolume.AutoSize = true;
-            this.chkVolume.Location = new System.Drawing.Point(17, 268);
-            this.chkVolume.Name = "chkVolume";
-            this.chkVolume.Size = new System.Drawing.Size(61, 17);
-            this.chkVolume.TabIndex = 0;
-            this.chkVolume.Text = "Volume";
-            this.chkVolume.UseVisualStyleBackColor = true;
-            // 
             // grpArea
             // 
             this.grpArea.Controls.Add(this.chkAreaSectionTypes);
@@ -139,16 +188,6 @@
             this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 49);
             this.chkAreaSectionTypes.TabIndex = 1;
             this.chkAreaSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
-            // 
-            // chkArea
-            // 
-            this.chkArea.AutoSize = true;
-            this.chkArea.Location = new System.Drawing.Point(17, 170);
-            this.chkArea.Name = "chkArea";
-            this.chkArea.Size = new System.Drawing.Size(48, 17);
-            this.chkArea.TabIndex = 0;
-            this.chkArea.Text = "Area";
-            this.chkArea.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -273,38 +312,29 @@
             this.splitContainer_Horiz.SplitterDistance = 499;
             this.splitContainer_Horiz.TabIndex = 1;
             // 
-            // grpAnalysisType
+            // cmsResults
             // 
-            this.grpAnalysisType.Controls.Add(this.rdoBinned);
-            this.grpAnalysisType.Controls.Add(this.rdoIncremental);
-            this.grpAnalysisType.Location = new System.Drawing.Point(5, 6);
-            this.grpAnalysisType.Name = "grpAnalysisType";
-            this.grpAnalysisType.Size = new System.Drawing.Size(200, 69);
-            this.grpAnalysisType.TabIndex = 3;
-            this.grpAnalysisType.TabStop = false;
-            this.grpAnalysisType.Text = "Analysis Type";
+            this.cmsResults.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportIncrementalResultsToolStripMenuItem,
+            this.exportBinnedResultsToolStripMenuItem});
+            this.cmsResults.Name = "cmsResults";
+            this.cmsResults.Size = new System.Drawing.Size(223, 70);
             // 
-            // rdoIncremental
+            // exportIncrementalResultsToolStripMenuItem
             // 
-            this.rdoIncremental.AutoSize = true;
-            this.rdoIncremental.Checked = true;
-            this.rdoIncremental.Location = new System.Drawing.Point(11, 20);
-            this.rdoIncremental.Name = "rdoIncremental";
-            this.rdoIncremental.Size = new System.Drawing.Size(80, 17);
-            this.rdoIncremental.TabIndex = 0;
-            this.rdoIncremental.TabStop = true;
-            this.rdoIncremental.Text = "Incremental";
-            this.rdoIncremental.UseVisualStyleBackColor = true;
+            this.exportIncrementalResultsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportIncrementalResultsToolStripMenuItem.Image")));
+            this.exportIncrementalResultsToolStripMenuItem.Name = "exportIncrementalResultsToolStripMenuItem";
+            this.exportIncrementalResultsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.exportIncrementalResultsToolStripMenuItem.Text = "Export Incremental Results...";
+            this.exportIncrementalResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
             // 
-            // rdoBinned
+            // exportBinnedResultsToolStripMenuItem
             // 
-            this.rdoBinned.AutoSize = true;
-            this.rdoBinned.Location = new System.Drawing.Point(11, 44);
-            this.rdoBinned.Name = "rdoBinned";
-            this.rdoBinned.Size = new System.Drawing.Size(58, 17);
-            this.rdoBinned.TabIndex = 1;
-            this.rdoBinned.Text = "Binned";
-            this.rdoBinned.UseVisualStyleBackColor = true;
+            this.exportBinnedResultsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("exportBinnedResultsToolStripMenuItem.Image")));
+            this.exportBinnedResultsToolStripMenuItem.Name = "exportBinnedResultsToolStripMenuItem";
+            this.exportBinnedResultsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.exportBinnedResultsToolStripMenuItem.Text = "Export Binned Results...";
+            this.exportBinnedResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
             // 
             // ucAreaVolumeAnalyses
             // 
@@ -319,6 +349,8 @@
             this.splitContainer_Vert.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).EndInit();
             this.splitContainer_Vert.ResumeLayout(false);
+            this.grpAnalysisType.ResumeLayout(false);
+            this.grpAnalysisType.PerformLayout();
             this.grpVolume.ResumeLayout(false);
             this.grpArea.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -331,8 +363,7 @@
             this.splitContainer_Horiz.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Horiz)).EndInit();
             this.splitContainer_Horiz.ResumeLayout(false);
-            this.grpAnalysisType.ResumeLayout(false);
-            this.grpAnalysisType.PerformLayout();
+            this.cmsResults.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -357,5 +388,8 @@
         private System.Windows.Forms.GroupBox grpAnalysisType;
         private System.Windows.Forms.RadioButton rdoBinned;
         private System.Windows.Forms.RadioButton rdoIncremental;
+        private System.Windows.Forms.ContextMenuStrip cmsResults;
+        private System.Windows.Forms.ToolStripMenuItem exportIncrementalResultsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToolStripMenuItem;
     }
 }
