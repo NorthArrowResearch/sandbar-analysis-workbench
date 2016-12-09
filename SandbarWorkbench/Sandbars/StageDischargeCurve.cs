@@ -34,5 +34,16 @@ namespace SandbarWorkbench.Sandbars
             CoeffB = fCoeffB;
             CoeffC = fCoeffC;
         }
+
+        public string CurveAsCSV(double fMinDischarge, double fMaxDischarge, double fDischargeIncrement)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("stage,discharge");
+
+            for (double fDischarge  = fMinDischarge; fDischarge <= fMaxDischarge;fDischarge+=fDischargeIncrement)
+                sb.AppendLine(string.Format("{0},{1}", fDischarge, Stage(fDischarge).Value));
+
+            return sb.ToString();
+        }
     }
 }

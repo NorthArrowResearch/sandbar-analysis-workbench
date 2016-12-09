@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.valDischarge = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmdExport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmdExport);
             this.groupBox1.Controls.Add(this.txtStage);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.valDischarge);
@@ -145,6 +147,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Discharge (cfs)";
             // 
+            // cmdExport
+            // 
+            this.cmdExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdExport.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.cmdExport.Location = new System.Drawing.Point(604, 17);
+            this.cmdExport.Name = "cmdExport";
+            this.cmdExport.Size = new System.Drawing.Size(23, 23);
+            this.cmdExport.TabIndex = 4;
+            this.cmdExport.UseVisualStyleBackColor = true;
+            this.cmdExport.Click += new System.EventHandler(this.cmdExport_Click);
+            // 
             // ucStageDischarge
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -173,5 +186,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown valDischarge;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button cmdExport;
     }
 }

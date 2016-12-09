@@ -114,5 +114,25 @@ namespace SandbarWorkbench.Sandbars
                     txtStage.Text = fStage.Value.ToString("#,##0.00");
             }
         }
+
+        private void cmdExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog frm = new SaveFileDialog();
+            frm.Title = "Export Stage Discharge Curve";
+            frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
+            frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
+            frm.FileName = string.Format("{0}_stage_discharge", SDCurve.SiteName);
+
+            frm.AddExtension = true;
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(frm.FileName, SDCurve.CurveAsCSV(8000,45000,500));
+                if (System.IO.File.Exists(frm.FileName))
+                {
+                    System.Diagnostics.Process.Start(frm.FileName);
+                }
+            }
+        }
     }
 }
