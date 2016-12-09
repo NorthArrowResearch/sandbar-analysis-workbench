@@ -82,7 +82,8 @@ namespace SandbarWorkbench.Helpers
             frm.Title = sFormTitle;
             frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
             frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
-            frm.FileName = sDefaultFileName;
+            frm.FileName = System.IO.Path.GetInvalidFileNameChars().Aggregate(sDefaultFileName, (current, c) => current.Replace(c.ToString(), string.Empty));
+
             frm.AddExtension = true;
 
             if (frm.ShowDialog() == DialogResult.OK)

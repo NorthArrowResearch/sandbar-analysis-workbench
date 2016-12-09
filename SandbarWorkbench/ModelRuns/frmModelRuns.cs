@@ -111,6 +111,8 @@ namespace SandbarWorkbench.ModelRuns
             browseLocalModelRunResultsToolStripMenuItem.Enabled = bAllowBrowse;
 
             editModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
+            exportIncrementalResultsToCSVToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
+            exportBinnedResultsToCSVToolStripMenuItem.Enabled = grdData.SelectedRows.Count == 1;
             deleteModelRunToolStripMenuItem.Enabled = grdData.SelectedRows.Count > 0;
         }
 
@@ -119,7 +121,7 @@ namespace SandbarWorkbench.ModelRuns
             if (e.RowIndex >= 0 && grdData.Rows[e.RowIndex].DataBoundItem is ModelRunLocal)
             {
                 ModelRunLocal run = grdData.Rows[e.RowIndex].DataBoundItem as ModelRunLocal;
-                grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = run.IsLocalRun ? Color.Blue : Color.DarkGray;
+                grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = run.IsLocalRun ? Color.Blue : Color.DarkGray;
             }
         }
 
@@ -224,6 +226,22 @@ namespace SandbarWorkbench.ModelRuns
                 ModelRunLocal mr = grdData.SelectedRows[0].DataBoundItem as ModelRunLocal;
                 if (mr.AnalysisFolder is System.IO.DirectoryInfo && mr.AnalysisFolder.Exists)
                     System.Diagnostics.Process.Start(mr.AnalysisFolder.FullName);
+            }
+        }
+
+        private void ExportResultsCSV(object sender, EventArgs e)
+        {
+            SandbarWorkbench.Sandbars.Analysis.ResultsExporter exp = new Sandbars.Analysis.ResultsExporter(DBCon.ConnectionStringLocal);
+            Sandbars.Analysis.ResultsExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? Sandbars.Analysis.ResultsExporter.ModelResultTypes.Incremental : Sandbars.Analysis.ResultsExporter.ModelResultTypes.Binned;
+
+            try
+            {
+                long nModelID = ((ModelRunLocal)grdData.SelectedRows[0].DataBoundItem).ID;
+                exp.Run(nModelID, eType, true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
             }
         }
     }

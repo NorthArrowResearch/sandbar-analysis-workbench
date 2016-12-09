@@ -379,5 +379,17 @@ namespace SandbarWorkbench.Sandbars
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Helpers.DataGridViewHelpers.ExportToCSV(ref grdSurveys, "Export Surveys", string.Format("{0}_sandbar_surveys", m_Site.SiteCode5), true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
     }
 }

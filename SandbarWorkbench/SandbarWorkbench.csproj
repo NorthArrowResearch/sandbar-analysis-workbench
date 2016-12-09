@@ -193,6 +193,7 @@
       <DependentUpon>ucThumbail.cs</DependentUpon>
     </Compile>
     <Compile Include="RemoteCameras\RemoteCameraBase.cs" />
+    <Compile Include="Sandbars\Analysis\ResultsExporter.cs" />
     <Compile Include="Sandbars\Analysis\ResultsScavenger.cs" />
     <Compile Include="Sandbars\Analysis\frmRunOutput.cs">
       <SubType>Form</SubType>

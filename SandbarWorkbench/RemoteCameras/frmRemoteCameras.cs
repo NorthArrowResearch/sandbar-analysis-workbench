@@ -267,5 +267,17 @@ namespace SandbarWorkbench.RemoteCameras
                 System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
             }
         }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, "Export Remote Camera Locations", "remote_cameras", true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
     }
 }

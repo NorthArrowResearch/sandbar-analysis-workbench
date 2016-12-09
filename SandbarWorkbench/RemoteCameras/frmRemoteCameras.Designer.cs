@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRemoteCameras));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             this.chkActive = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rdoTRight = new System.Windows.Forms.RadioButton();
@@ -57,7 +58,7 @@
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -104,6 +105,13 @@
             this.splitContainer1.Size = new System.Drawing.Size(745, 555);
             this.splitContainer1.SplitterDistance = 249;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // ucThumbail
+            // 
+            this.ucThumbail.Location = new System.Drawing.Point(8, 300);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 187);
+            this.ucThumbail.TabIndex = 6;
             // 
             // chkActive
             // 
@@ -307,12 +315,13 @@
             this.cmsGridView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewPropertiesToolStripMenuItem,
             this.browseTopoFolderToolStripMenuItem,
+            this.exportToCSVToolStripMenuItem,
             this.toolStripSeparator2,
             this.addNewToolStripMenuItem,
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedToolStripMenuItem});
             this.cmsGridView.Name = "cmsSite";
-            this.cmsGridView.Size = new System.Drawing.Size(188, 142);
+            this.cmsGridView.Size = new System.Drawing.Size(188, 164);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -358,12 +367,13 @@
             this.deleteSelectedToolStripMenuItem.Text = "Delete Selected...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
             // 
-            // ucThumbail
+            // exportToCSVToolStripMenuItem
             // 
-            this.ucThumbail.Location = new System.Drawing.Point(8, 300);
-            this.ucThumbail.Name = "ucThumbail";
-            this.ucThumbail.Size = new System.Drawing.Size(227, 187);
-            this.ucThumbail.TabIndex = 6;
+            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.exportToCSVToolStripMenuItem.Text = "Export to CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // frmRemoteCameras
             // 
@@ -429,5 +439,6 @@
         private System.Windows.Forms.ToolStripMenuItem editPropertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
         private Pictures.ucThumbail ucThumbail;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
     }
 }

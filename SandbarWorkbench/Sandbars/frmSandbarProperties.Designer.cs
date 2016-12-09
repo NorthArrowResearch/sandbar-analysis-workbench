@@ -63,6 +63,7 @@
             this.cmdGDAWS = new System.Windows.Forms.Button();
             this.cmdPhotos = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -197,12 +198,13 @@
             // 
             this.cmsSurveys.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewSurveyPropertiesToolStripMenuItem,
+            this.exportToCSVToolStripMenuItem,
             this.toolStripSeparator1,
             this.addSurveyToolStripMenuItem,
             this.editSurveyToolStripMenuItem,
             this.deleteSurveyToolStripMenuItem});
             this.cmsSurveys.Name = "cmsSurveys";
-            this.cmsSurveys.Size = new System.Drawing.Size(194, 98);
+            this.cmsSurveys.Size = new System.Drawing.Size(194, 142);
             // 
             // viewSurveyPropertiesToolStripMenuItem
             // 
@@ -390,6 +392,14 @@
             this.cmdHelp.UseVisualStyleBackColor = true;
             this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.exportToCSVToolStripMenuItem.Text = "Export To CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
+            // 
             // frmSandbarProperties
             // 
             this.AcceptButton = this.cmdCancel;
@@ -467,5 +477,6 @@
         private System.Windows.Forms.Button cmdGDAWS;
         private System.Windows.Forms.Button cmdPhotos;
         private System.Windows.Forms.Button cmdHelp;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
     }
 }
