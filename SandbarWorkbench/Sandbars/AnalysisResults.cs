@@ -35,14 +35,15 @@ namespace SandbarWorkbench.Sandbars
     {
         public long SurveyID { get; internal set; }
         public DateTime SurveyDate { get; internal set; }
-        public Dictionary<double, Values> Elevations { get; internal set; }
+        public Dictionary<double, Values> IncrementalResults { get; internal set; }
+        public Dictionary<long, Values> BinnedResults { get; internal set; }
 
         public SurveyResults(long nSurveyID, DateTime dtSurveyDate)
         {
             SurveyID = nSurveyID;
             SurveyDate = dtSurveyDate;
-            Elevations = new Dictionary<double, Values>();
-
+            IncrementalResults = new Dictionary<double, Values>();
+            BinnedResults = new Dictionary<long, Values>();
         }
     }
 
@@ -78,8 +79,30 @@ namespace SandbarWorkbench.Sandbars
 
                     double fElevation = dbRead.GetDouble(dbRead.GetOrdinal("Elevation"));
                     //System.Diagnostics.Debug.Assert(!dResults[nSurveyID][nSectionTypeID].Elevations.ContainsKey(fElevation), "There should only be one value per elevation");
-                    SectionTypes[nSectionTypeID].Surveys[nSurveyID].Elevations[fElevation] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
+                    SectionTypes[nSectionTypeID].Surveys[nSurveyID].IncrementalResults[fElevation] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
                 }
+                dbRead.Close();
+
+                dbCom = new SQLiteCommand("SELECT * FROM vwBinnedResults WHERE (SiteID = @SiteID) AND (RunID = @ModelID)", dbCon);
+                dbCom.Parameters.AddWithValue("@SiteID", SiteID);
+                dbCom.Parameters.AddWithValue("@ModelID", ModelID);
+
+                dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    long nSectionTypeID = dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID"));
+                    if (!SectionTypes.ContainsKey(nSectionTypeID))
+                        SectionTypes[nSectionTypeID] = new SectionTypeResults(nSectionTypeID);
+
+                    long nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
+                    if (!SectionTypes[nSectionTypeID].Surveys.ContainsKey(nSurveyID))
+                        SectionTypes[nSectionTypeID].Surveys[nSurveyID] = new SurveyResults(nSurveyID, dbRead.GetDateTime(dbRead.GetOrdinal("SurveyDate")));
+
+                    long nBinID = dbRead.GetInt64(dbRead.GetOrdinal("BinID"));
+                    //System.Diagnostics.Debug.Assert(!dResults[nSurveyID][nSectionTypeID].Elevations.ContainsKey(fElevation), "There should only be one value per elevation");
+                    SectionTypes[nSectionTypeID].Surveys[nSurveyID].BinnedResults[nBinID] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
+                }
+                dbRead.Close();
             }
         }
     }

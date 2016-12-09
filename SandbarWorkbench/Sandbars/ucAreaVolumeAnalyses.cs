@@ -207,13 +207,13 @@ namespace SandbarWorkbench.Sandbars
             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
             {
                 // See if this model result contains the section type
-                foreach (double fElevation in aSurvey.Elevations.Keys)
+                foreach (double fElevation in aSurvey.IncrementalResults.Keys)
                 {
                     if (fElevation >= fLowerElev)
                     {
-                        double displayValue = aSurvey.Elevations[fElevation].Area;
+                        double displayValue = aSurvey.IncrementalResults[fElevation].Area;
                         if (eType == AreaVolType.Volume)
-                            displayValue = aSurvey.Elevations[fElevation].Vol;
+                            displayValue = aSurvey.IncrementalResults[fElevation].Vol;
 
                         // System.Diagnostics.Debug.Print("{0},{1},{2}", nModelID, aSurvey.SurveyID, displayValue);
                         theSeries.Points.AddXY(aSurvey.SurveyDate, displayValue);
