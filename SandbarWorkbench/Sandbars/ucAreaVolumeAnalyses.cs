@@ -311,8 +311,8 @@ namespace SandbarWorkbench.Sandbars
 
         private void ExportResults(object sender, EventArgs e)
         {
-            SandbarWorkbench.Sandbars.Analysis.ResultsExporter exp = new Sandbars.Analysis.ResultsExporter(DBCon.ConnectionStringLocal);
-            Sandbars.Analysis.ResultsExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? Sandbars.Analysis.ResultsExporter.ModelResultTypes.Incremental : Sandbars.Analysis.ResultsExporter.ModelResultTypes.Binned;
+            SandbarWorkbench.DBHelpers.DataExporter exp = new SandbarWorkbench.DBHelpers.DataExporter(DBCon.ConnectionStringLocal);
+            SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsIncremental : SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsBinned;
 
             try
             {

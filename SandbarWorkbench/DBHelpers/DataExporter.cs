@@ -7,14 +7,14 @@ using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Data;
 
-namespace SandbarWorkbench.Sandbars.Analysis
+namespace SandbarWorkbench.DBHelpers
 {
-    class ResultsExporter
+    public class DataExporter
     {
         public enum ModelResultTypes
         {
-            Incremental,
-            Binned
+            ResultsIncremental,
+            ResultsBinned
         }
 
         private string SQLQuery(ModelResultTypes eType)
@@ -23,7 +23,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             switch (eType)
             {
-                case ModelResultTypes.Incremental:
+                case ModelResultTypes.ResultsIncremental:
 
                     sSQL = "Select " +
                         "S.SiteID AS SiteID" +
@@ -47,7 +47,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     " WHERE MR.RunID = @RunID";
                     break;
 
-                case ModelResultTypes.Binned:
+                case ModelResultTypes.ResultsBinned:
                     sSQL = "Select " +
                         "S.SiteID AS SiteID " +
                         ", SN.SiteCode5 AS SiteCode " +
@@ -83,7 +83,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         public string DB { get; internal set; }
 
-        public ResultsExporter(string sDBCon)
+        public DataExporter(string sDBCon)
         {
             DB = sDBCon;
         }
@@ -92,10 +92,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
         {
 
             SaveFileDialog frm = new SaveFileDialog();
-            frm.Title = string.Format("Export {0} Model Results", eType == ModelResultTypes.Incremental ? "Incremental" : "Binned");
+            frm.Title = string.Format("Export {0} Model Results", eType == ModelResultTypes.ResultsIncremental ? "Incremental" : "Binned");
             frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
             frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
-            frm.FileName = string.Format("results_{0}", eType == ModelResultTypes.Incremental ? "Incremental" : "Binned");
+            frm.FileName = string.Format("results_{0}", eType == ModelResultTypes.ResultsIncremental ? "Incremental" : "Binned");
 
             frm.AddExtension = true;
 
@@ -132,5 +132,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             return sb.ToString();
         }
+
     }
 }
