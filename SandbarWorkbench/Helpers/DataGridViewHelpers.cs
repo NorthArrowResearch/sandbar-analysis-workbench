@@ -68,6 +68,54 @@ namespace SandbarWorkbench.Helpers
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Updated On", "Audit_UpdatedOn", true, true, SandbarWorkbench.Properties.Resources.DataGridViewDateFormat);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref dg, "Updated By", "Audit_UpdatedBy", true);
         }
+
+        /// <summary>
+        /// Open file save dialog and write the contents of a data gridview to CSV file.
+        /// </summary>
+        /// <param name="grdData">Gridview with data. Empty/null cells will be represented as empty strings</param>
+        /// <param name="sFormTitle">Title to show on the save file dialog</param>
+        /// <param name="sDefaultFileName">Default file name (without extension)</param>
+        /// <param name="bOpenFileWhenDone">Whether or not to open the file when done using the default software for CSV</param>
+        public static void ExportToCSV(ref DataGridView grdData, string sFormTitle, string sDefaultFileName, bool bOpenFileWhenDone = false)
+        {
+            SaveFileDialog frm = new SaveFileDialog();
+            frm.Title = sFormTitle;
+            frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
+            frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
+            frm.FileName = sDefaultFileName;
+            frm.AddExtension = true;
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(frm.FileName, ExportToString(ref grdData));
+                if (bOpenFileWhenDone && System.IO.File.Exists(frm.FileName))
+                {
+                    System.Diagnostics.Process.Start(frm.FileName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create a comma separated string with one line per data gridview row
+        /// </summary>
+        /// <param name="grdData">Data gridview with data to export</param>
+        /// <returns>This seems to handle NoData values by inserted empty strings.</returns>
+        public static string ExportToString(ref DataGridView grdData)
+        {
+            var sb = new StringBuilder();
+
+            // Write the headers first
+            var headers = grdData.Columns.Cast<DataGridViewColumn>();
+            sb.AppendLine(string.Join(",", headers.Select(column => column.HeaderText.Replace(",", "").Trim()).ToArray()));
+
+            foreach (DataGridViewRow row in grdData.Rows)
+            {
+                var cells = row.Cells.Cast<DataGridViewCell>();
+                sb.AppendLine(string.Join(",", cells.Select(cell => cell.Value).ToArray()));
+            }
+
+            return sb.ToString();
+        }
     }
 
     #region Child Property Helpers

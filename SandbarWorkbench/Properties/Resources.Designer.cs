@@ -171,6 +171,16 @@ namespace SandbarWorkbench.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap export {
+            get {
+                object obj = ResourceManager.GetObject("export", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Help {
             get {
                 object obj = ResourceManager.GetObject("Help", resourceCulture);
@@ -184,33 +194,6 @@ namespace SandbarWorkbench.Properties {
         internal static string Help_frmDatabaseInfo {
             get {
                 return ResourceManager.GetString("Help_frmDatabaseInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to online_help/pictures/picture_viewer.
-        /// </summary>
-        internal static string Help_frmPictureViewer {
-            get {
-                return ResourceManager.GetString("Help_frmPictureViewer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to online_help/remote_cameras/remote_camera_properties.
-        /// </summary>
-        internal static string Help_frmRemoteCameraPropertiesEdit {
-            get {
-                return ResourceManager.GetString("Help_frmRemoteCameraPropertiesEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to online_help/remote_cameras/main_remote_cameras_grid.
-        /// </summary>
-        internal static string Help_frmRemoteCameras {
-            get {
-                return ResourceManager.GetString("Help_frmRemoteCameras", resourceCulture);
             }
         }
         

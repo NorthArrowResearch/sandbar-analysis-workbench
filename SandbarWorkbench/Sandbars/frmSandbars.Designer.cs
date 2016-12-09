@@ -60,6 +60,7 @@
             this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseTopoFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -410,12 +411,13 @@
             this.cmsSite.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewPropertiesToolStripMenuItem,
             this.browseTopoFolderToolStripMenuItem,
+            this.exportToCSVToolStripMenuItem,
             this.toolStripSeparator2,
             this.addNewSandbarToolStripMenuItem,
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedSandbarToolStripMenuItem});
             this.cmsSite.Name = "cmsSite";
-            this.cmsSite.Size = new System.Drawing.Size(210, 120);
+            this.cmsSite.Size = new System.Drawing.Size(210, 142);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -431,6 +433,14 @@
             this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.browseTopoFolderToolStripMenuItem.Text = "Browse Topo Folder...";
             this.browseTopoFolderToolStripMenuItem.Click += new System.EventHandler(this.browseTopoFolderToolStripMenuItem_Click);
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.exportToCSVToolStripMenuItem.Text = "Export to CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -534,5 +544,6 @@
         private System.Windows.Forms.ToolStripButton toolAdd;
         private System.Windows.Forms.ToolStripButton toolEdit;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
     }
 }

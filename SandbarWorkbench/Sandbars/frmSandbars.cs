@@ -334,5 +334,17 @@ namespace SandbarWorkbench.Sandbars
                 }
             }
         }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, "Export Sandbar Sites", "sandbar_sites", true);
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
     }
 }
