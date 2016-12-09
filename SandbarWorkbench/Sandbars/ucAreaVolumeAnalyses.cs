@@ -23,6 +23,7 @@ namespace SandbarWorkbench.Sandbars
         private BindingList<ModelRun> ModelRuns;
 
         private Dictionary<long, ModelResults> ModelResultData;
+        private Dictionary<long, AnalysisBin> AnalysisBins;
 
         private List<string> SelectedAnalyses
         {
@@ -54,6 +55,9 @@ namespace SandbarWorkbench.Sandbars
             ModelRuns = ModelRun.Load(DBCon.ConnectionStringLocal);
             grdAnalyses.DataSource = ModelRuns;
             grdAnalyses.ContextMenuStrip = cmsResults;
+
+            // One time load of the analysis bin definitions
+            AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
 
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
@@ -101,76 +105,158 @@ namespace SandbarWorkbench.Sandbars
             chtData.Series.Clear();
             chtData.Titles.Clear();
 
-            Nullable<double> fLowerElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
-            Nullable<double> fUpperElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
-
             if (ModelResultData == null)
                 return;
 
-            if (fLowerElev.HasValue)
+            try
             {
-                Title theTitle = new Title(string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value));
-                theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
-                chtData.Titles.Add(theTitle);
+                UpdateIncrementalChartArea();
+                UpdateBinnedChartArea();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
 
-                double fMinY1 = -1;
-                double fMaxY1 = -1;
+        private void UpdateIncrementalChartArea()
+        {
+            Nullable<double> fLowerElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
+            Nullable<double> fUpperElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
 
-                double fMinY2 = -1;
-                double fMaxY2 = -1;
+            if (!fLowerElev.HasValue)
+            {
+                return;
+            }
 
-                foreach (long nModelID in ModelResultData.Keys)
+            Title theTitle = new Title(string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value));
+            theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
+            chtData.Titles.Add(theTitle);
+
+            double fMinY1 = -1;
+            double fMaxY1 = -1;
+
+            double fMinY2 = -1;
+            double fMaxY2 = -1;
+
+            foreach (long nModelID in ModelResultData.Keys)
+            {
+                foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                 {
+                    if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
+                        AddIncrementResultToChart(sectionTypeItem, nModelID, AreaVolType.Area, fLowerElev.Value, ref fMinY1, ref fMaxY1);
+                }
+
+                foreach (ListItem sectionTypeItem in chkVolSectionTypes.CheckedItems)
+                {
+                    if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
+                        AddIncrementResultToChart(sectionTypeItem, nModelID, AreaVolType.Volume, fLowerElev.Value, ref fMinY2, ref fMaxY2);
+                }
+
+                double fInterval, fAxisMin, fAxisMax = 0;
+
+                // First axis for Area
+                formatAxis(fMinY1, fMaxY1, out fInterval, out fAxisMin, out fAxisMax);
+                chtData.ChartAreas[0].AxisY.Interval = fInterval;
+                chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
+                chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
+                chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
+                chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+                chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
+                chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
+                chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
+                chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
+                chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
+                chtData.ChartAreas[0].AxisY.Enabled = chkAreaSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
+                chtData.ChartAreas[0].AxisY.IsStartedFromZero = false;
+
+                // Second Y axis for volume
+                formatAxis(fMinY2, fMaxY2, out fInterval, out fAxisMin, out fAxisMax);
+                chtData.ChartAreas[0].AxisY2.Interval = fInterval;
+                chtData.ChartAreas[0].AxisY2.Minimum = fAxisMin;
+                chtData.ChartAreas[0].AxisY2.Maximum = fAxisMax;
+                chtData.ChartAreas[0].AxisY2.MajorGrid.Interval = fInterval;
+                chtData.ChartAreas[0].AxisY2.MajorGrid.LineColor = Color.LightGray;
+
+                chtData.ChartAreas[0].AxisY2.MinorGrid.Enabled = true;
+                chtData.ChartAreas[0].AxisY2.MinorGrid.Interval = fInterval / 2;
+                chtData.ChartAreas[0].AxisY2.MinorGrid.LineColor = Color.GhostWhite;
+                chtData.ChartAreas[0].AxisY2.MinorTickMark.Enabled = true;
+                chtData.ChartAreas[0].AxisY2.MinorTickMark.LineColor = Color.LightGray;
+                chtData.ChartAreas[0].AxisY2.Enabled = chkVolSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
+                chtData.ChartAreas[0].AxisY2.IsStartedFromZero = false;
+
+            }
+        }
+
+        private void UpdateBinnedChartArea()
+        {
+            if (chtData.ChartAreas.Count == 1)
+                chtData.ChartAreas.Add("Binned");
+
+            ChartArea binArea = chtData.ChartAreas["Binned"];
+            binArea.AxisY.Title = "Sandbar Area (m²)";
+
+            binArea.AxisX.LabelStyle.Format = "yyyy";
+            binArea.AxisX.IntervalType = DateTimeIntervalType.Years;
+            binArea.AxisX.Interval = 1;
+            binArea.AxisX.Title = "Date";
+
+
+            // Stacked bar charts require lots of series. But we don't want them
+            // all in the legend. So keep this counter and don't display any more
+            // series once this counter matches the number of bins.
+            int nLegendSeries = 0;
+
+            foreach (long nModelID in ModelResultData.Keys)
+            {
+                foreach (AnalysisBin bin in AnalysisBins.Values)
+                {
+                    Series binSeries = chtData.Series.Add(string.Format("{0}_{1}", nModelID, bin.Title));
+                    binSeries.LegendText = bin.Title;
+                    binSeries.ChartType = SeriesChartType.StackedColumn;
+                    binSeries.ChartArea = binArea.Name;
+                    binSeries.Color = bin.DisplayColor;
+                    //binSeries.BorderColor = Color.White;
+                    //binSeries.BorderWidth = 1;
+                    binSeries.IsVisibleInLegend = nLegendSeries < AnalysisBins.Count;
+
+                    nLegendSeries += binSeries.IsVisibleInLegend ? 1 : 0;
+
+                    Dictionary<long, double> fValues = new Dictionary<long, double>(); // surveyID to sum of values in this bin
+                    List<DateTime> lSurveyDates = new List<DateTime>();
+                    binSeries.CustomProperties = string.Format("StackedGroupName={0}", nModelID); //PointWidth=.6
+
                     foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
                     {
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                            AddModelResultToChart(sectionTypeItem, nModelID, AreaVolType.Area, fLowerElev.Value, ref fMinY1, ref fMaxY1);
+                        {
+                            foreach (SurveyResults surveyRes in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
+                            {
+                                foreach (long valueBinID in surveyRes.BinnedResults.Keys)
+                                {
+                                    if (!fValues.ContainsKey(surveyRes.SurveyID))
+                                    {
+                                        lSurveyDates.Add(surveyRes.SurveyDate);
+                                        fValues.Add(surveyRes.SurveyID, 0);
+                                    }
+
+                                    fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Area;
+                                }
+                            }
+                        }
+
+                        //System.Diagnostics.Debug.Assert(lSurveyDates.Count == fValues.Count);
+                        //binSeries.Points.DataBindXY(lSurveyDates, fValues.Values);
                     }
-
-                    foreach (ListItem sectionTypeItem in chkVolSectionTypes.CheckedItems)
-                    {
-                        if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                            AddModelResultToChart(sectionTypeItem, nModelID, AreaVolType.Volume, fLowerElev.Value, ref fMinY2, ref fMaxY2);
-                    }
-
-                    double fInterval, fAxisMin, fAxisMax = 0;
-
-                    // First axis for Area
-                    formatAxis(fMinY1, fMaxY1, out fInterval, out fAxisMin, out fAxisMax);
-                    chtData.ChartAreas[0].AxisY.Interval = fInterval;
-                    chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
-                    chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
-                    chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
-                    chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-
-                    chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
-                    chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
-                    chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
-                    chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
-                    chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
-                    chtData.ChartAreas[0].AxisY.Enabled = chkAreaSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
-                    chtData.ChartAreas[0].AxisY.IsStartedFromZero = false;
-
-                    // Second Y axis for volume
-                    formatAxis(fMinY2, fMaxY2, out fInterval, out fAxisMin, out fAxisMax);
-                    chtData.ChartAreas[0].AxisY2.Interval = fInterval;
-                    chtData.ChartAreas[0].AxisY2.Minimum = fAxisMin;
-                    chtData.ChartAreas[0].AxisY2.Maximum = fAxisMax;
-                    chtData.ChartAreas[0].AxisY2.MajorGrid.Interval = fInterval;
-                    chtData.ChartAreas[0].AxisY2.MajorGrid.LineColor = Color.LightGray;
-
-                    chtData.ChartAreas[0].AxisY2.MinorGrid.Enabled = true;
-                    chtData.ChartAreas[0].AxisY2.MinorGrid.Interval = fInterval / 2;
-                    chtData.ChartAreas[0].AxisY2.MinorGrid.LineColor = Color.GhostWhite;
-                    chtData.ChartAreas[0].AxisY2.MinorTickMark.Enabled = true;
-                    chtData.ChartAreas[0].AxisY2.MinorTickMark.LineColor = Color.LightGray;
-                    chtData.ChartAreas[0].AxisY2.Enabled = chkVolSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
-                    chtData.ChartAreas[0].AxisY2.IsStartedFromZero = false;
+                    binSeries.Points.DataBindY(fValues.Values);
+                    System.Diagnostics.Debug.Print(fValues.Count.ToString());
                 }
             }
         }
 
-        private void AddModelResultToChart(ListItem sectionTypeItem, long nModelID, AreaVolType eType, double fLowerElev, ref double fMinY, ref double fMaxY)
+        private void AddIncrementResultToChart(ListItem sectionTypeItem, long nModelID, AreaVolType eType, double fLowerElev, ref double fMinY, ref double fMaxY)
         {
             AxisType eAxis = AxisType.Primary;
             string sTypeName = "AREA";

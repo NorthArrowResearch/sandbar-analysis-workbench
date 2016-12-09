@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Drawing;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -14,18 +15,20 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> LowerDischarge { get; internal set; }
         public Nullable<double> UpperDischarge { get; internal set; }
         public bool IsActive { get; internal set; }
+        public Color DisplayColor { get; internal set; }
         public DateTime AddedOn { get; internal set; }
         public string AddedBy { get; internal set; }
         public DateTime UpdatedOn { get; internal set; }
         public string UpdatedBy { get; internal set; }
 
-        public AnalysisBin(long nBinID, string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
+        public AnalysisBin(long nBinID, string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, Color colDisplay, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
         {
             BinID = nBinID;
             Title = sTitle;
             LowerDischarge = fLD;
             UpperDischarge = fUD;
             IsActive = bIsActive;
+            DisplayColor = colDisplay;
             AddedOn = dtAddedOn;
             AddedBy = sAddedBy;
             UpdatedOn = dtUpdatedOn;
@@ -51,12 +54,22 @@ namespace SandbarWorkbench.Sandbars
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("UpperDischarge")))
                         fUD = dbRead.GetDouble(dbRead.GetOrdinal("UpperDischarge"));
 
+                    Color displayColor = new Color();
+                    if (!dbRead.IsDBNull(dbRead.GetOrdinal("DisplayColor")))
+                    {
+                        string sHexColor = dbRead.GetString(dbRead.GetOrdinal("DisplayColor"));
+                        if (!sHexColor.StartsWith("#"))
+                            sHexColor = "#" + sHexColor;
+                        displayColor = System.Drawing.ColorTranslator.FromHtml(sHexColor);
+                    }
+
                     dResult[dbRead.GetInt64(dbRead.GetOrdinal("BinID"))] = new AnalysisBin(
                         dbRead.GetInt64(dbRead.GetOrdinal("BinID"))
                         , dbRead.GetString(dbRead.GetOrdinal("Title"))
                         , fLD
                         , fUD
                         , dbRead.GetBoolean(dbRead.GetOrdinal("IsActive"))
+                        , displayColor
                         , dbRead.GetDateTime(dbRead.GetOrdinal("AddedOn"))
                         , dbRead.GetString(dbRead.GetOrdinal("AddedBy"))
                         , dbRead.GetDateTime(dbRead.GetOrdinal("UpdatedOn"))
