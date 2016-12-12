@@ -63,26 +63,52 @@ namespace SandbarWorkbench.Sandbars
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
             CheckedListItem.LoadComboWithListItems(ref chkVolSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
 
-            chtData.ChartAreas[0].AxisX.Title = "Date";
-            chtData.ChartAreas[0].AxisY.Title = "Sandbar Area (m²)";
-            chtData.ChartAreas[0].AxisY2.Title = "Sandbar Volume (m³)";
+            chtData.ChartAreas.Clear();
 
-            chtData.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy";
-            chtData.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Years;
-            chtData.ChartAreas[0].AxisX.Interval = 1;
+            ChartArea chtArea = chtData.ChartAreas.Add("area");
+            chtArea.AxisY.Title = "Sandbar Area (m²)";
 
-            chtData.ChartAreas[0].AxisX.MajorGrid.IntervalType = DateTimeIntervalType.Years;
-            chtData.ChartAreas[0].AxisX.MajorGrid.Interval = 1;
-            chtData.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+            ChartArea chtVolume = chtData.ChartAreas.Add("volume");
+            chtVolume.AxisY.Title = "Sandbar Volume(m³)";
 
-            chtData.ChartAreas[0].AxisX.MinorGrid.Enabled = true;
-            chtData.ChartAreas[0].AxisX.MinorGrid.IntervalType = DateTimeIntervalType.Months;
-            chtData.ChartAreas[0].AxisX.MinorGrid.Interval = 6;
-            chtData.ChartAreas[0].AxisX.MinorGrid.LineColor = Color.GhostWhite;
-            chtData.ChartAreas[0].AxisX.MinorTickMark.Enabled = true;
-            chtData.ChartAreas[0].AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Months;
-            chtData.ChartAreas[0].AxisX.MinorTickMark.Interval = 6;
-            chtData.ChartAreas[0].AxisX.MinorTickMark.LineColor = Color.LightGray;
+            ChartTypeChanging(null, null);
+        }
+
+        private void ChartTypeChanging(object sender, EventArgs e)
+        {
+            chtData.Series.Clear();
+
+            grpDischarge.Enabled = rdoIncremental.Checked;
+
+            ConfigureXAxis(chtData.ChartAreas[0]);
+            ConfigureXAxis(chtData.ChartAreas[1]);
+
+            UpdateCharts(null, null);
+        }
+
+        private void ConfigureXAxis(ChartArea chtArea)
+        {
+            chtArea.AxisX.Title = rdoIncremental.Checked ? "Date" : "Survey";
+
+            if (rdoIncremental.Checked)
+            {
+                chtArea.AxisX.LabelStyle.Format = "yyyy";
+                chtArea.AxisX.IntervalType = DateTimeIntervalType.Years;
+                chtArea.AxisX.Interval = 1;
+
+                chtArea.AxisX.MajorGrid.IntervalType = DateTimeIntervalType.Years;
+                chtArea.AxisX.MajorGrid.Interval = 1;
+                chtArea.AxisX.MajorGrid.LineColor = Color.LightGray;
+
+                chtArea.AxisX.MinorGrid.Enabled = true;
+                chtArea.AxisX.MinorGrid.IntervalType = DateTimeIntervalType.Months;
+                chtArea.AxisX.MinorGrid.Interval = 6;
+                chtArea.AxisX.MinorGrid.LineColor = Color.GhostWhite;
+                chtArea.AxisX.MinorTickMark.Enabled = true;
+                chtArea.AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Months;
+                chtArea.AxisX.MinorTickMark.Interval = 6;
+                chtArea.AxisX.MinorTickMark.LineColor = Color.LightGray;
+            }
         }
 
         private void ConfigureAnalysesDataGridView()
@@ -100,7 +126,7 @@ namespace SandbarWorkbench.Sandbars
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdAnalyses, "Run By", "AddedBy", true);
         }
 
-        private void UpdateChart(object sender, EventArgs e)
+        private void UpdateCharts(object sender, EventArgs e)
         {
             chtData.Series.Clear();
             chtData.Titles.Clear();
@@ -110,8 +136,27 @@ namespace SandbarWorkbench.Sandbars
 
             try
             {
-                UpdateIncrementalChartArea();
-                UpdateBinnedChartArea();
+                chtData.ChartAreas[0].Visible = chkAreaSectionTypes.CheckedItems.Count > 0;
+                chtData.ChartAreas[1].Visible = chkVolSectionTypes.CheckedItems.Count > 0;
+
+                if (rdoIncremental.Checked)
+                {
+                    if (chkAreaSectionTypes.CheckedItems.Count > 0)
+                        UpdateIncrementalChart(AreaVolType.Area, chkAreaSectionTypes.CheckedItems);
+
+                    if (chkVolSectionTypes.CheckedItems.Count > 0)
+                        UpdateIncrementalChart(AreaVolType.Volume, chkVolSectionTypes.CheckedItems);
+                }
+                else
+                {
+                    int nBinsOnDisplay = 0;
+
+                    if (chkAreaSectionTypes.CheckedItems.Count > 0)
+                        UpdateBinnedChartArea(AreaVolType.Area, ref nBinsOnDisplay);
+
+                    if (chkVolSectionTypes.CheckedItems.Count > 0)
+                        UpdateBinnedChartArea(AreaVolType.Volume, ref nBinsOnDisplay);
+                }
             }
             catch (Exception ex)
             {
@@ -119,7 +164,7 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
-        private void UpdateIncrementalChartArea()
+        private void UpdateIncrementalChart(AreaVolType eType, CheckedListBox.CheckedItemCollection chkItems)
         {
             Nullable<double> fLowerElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
             Nullable<double> fUpperElev = SandbarSite.SDCurve.Stage((double)valDisLower.Value);
@@ -133,96 +178,61 @@ namespace SandbarWorkbench.Sandbars
             theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
             chtData.Titles.Add(theTitle);
 
-            double fMinY1 = -1;
-            double fMaxY1 = -1;
-
-            double fMinY2 = -1;
-            double fMaxY2 = -1;
+            double fMinY = -1;
+            double fMaxY = -1;
 
             foreach (long nModelID in ModelResultData.Keys)
             {
-                foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
+                foreach (ListItem sectionTypeItem in chkItems)
                 {
                     if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                        AddIncrementResultToChart(sectionTypeItem, nModelID, AreaVolType.Area, fLowerElev.Value, ref fMinY1, ref fMaxY1);
+                        AddIncrementResultToChart(sectionTypeItem, nModelID, eType, fLowerElev.Value, ref fMinY, ref fMaxY);
                 }
-
-                foreach (ListItem sectionTypeItem in chkVolSectionTypes.CheckedItems)
-                {
-                    if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
-                        AddIncrementResultToChart(sectionTypeItem, nModelID, AreaVolType.Volume, fLowerElev.Value, ref fMinY2, ref fMaxY2);
-                }
-
-                double fInterval, fAxisMin, fAxisMax = 0;
-
-                // First axis for Area
-                formatAxis(fMinY1, fMaxY1, out fInterval, out fAxisMin, out fAxisMax);
-                chtData.ChartAreas[0].AxisY.Interval = fInterval;
-                chtData.ChartAreas[0].AxisY.Minimum = fAxisMin;
-                chtData.ChartAreas[0].AxisY.Maximum = fAxisMax;
-                chtData.ChartAreas[0].AxisY.MajorGrid.Interval = fInterval;
-                chtData.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-
-                chtData.ChartAreas[0].AxisY.MinorGrid.Enabled = true;
-                chtData.ChartAreas[0].AxisY.MinorGrid.Interval = fInterval / 2;
-                chtData.ChartAreas[0].AxisY.MinorGrid.LineColor = Color.GhostWhite;
-                chtData.ChartAreas[0].AxisY.MinorTickMark.Enabled = true;
-                chtData.ChartAreas[0].AxisY.MinorTickMark.LineColor = Color.LightGray;
-                chtData.ChartAreas[0].AxisY.Enabled = chkAreaSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
-                chtData.ChartAreas[0].AxisY.IsStartedFromZero = false;
-
-                // Second Y axis for volume
-                formatAxis(fMinY2, fMaxY2, out fInterval, out fAxisMin, out fAxisMax);
-                chtData.ChartAreas[0].AxisY2.Interval = fInterval;
-                chtData.ChartAreas[0].AxisY2.Minimum = fAxisMin;
-                chtData.ChartAreas[0].AxisY2.Maximum = fAxisMax;
-                chtData.ChartAreas[0].AxisY2.MajorGrid.Interval = fInterval;
-                chtData.ChartAreas[0].AxisY2.MajorGrid.LineColor = Color.LightGray;
-
-                chtData.ChartAreas[0].AxisY2.MinorGrid.Enabled = true;
-                chtData.ChartAreas[0].AxisY2.MinorGrid.Interval = fInterval / 2;
-                chtData.ChartAreas[0].AxisY2.MinorGrid.LineColor = Color.GhostWhite;
-                chtData.ChartAreas[0].AxisY2.MinorTickMark.Enabled = true;
-                chtData.ChartAreas[0].AxisY2.MinorTickMark.LineColor = Color.LightGray;
-                chtData.ChartAreas[0].AxisY2.Enabled = chkVolSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
-                chtData.ChartAreas[0].AxisY2.IsStartedFromZero = false;
-
             }
+
+            double fRange = fMaxY - fMinY;
+            double fExponent = (int)Math.Log10(fRange);
+            double fMagnitude = Math.Pow(10, fExponent);
+            double fInterval = fMagnitude / 10;
+
+            //using (Axis yAxis = chtData.ChartAreas[eType == AreaVolType.Area ? 0 : 1].AxisY)
+            //{
+            //    yAxis.Minimum = Math.Floor(fMinY / fInterval) * fInterval;
+            //    yAxis.Maximum = Math.Ceiling(fMaxY / fInterval) * fInterval;
+            //    yAxis.MajorGrid.Interval = fInterval * 2;
+
+            //    yAxis.MajorGrid.LineColor = Color.LightGray;
+
+            //    yAxis.MinorGrid.Enabled = true;
+            //    yAxis.MinorGrid.Interval = fInterval / 2;
+            //    yAxis.MinorGrid.LineColor = Color.GhostWhite;
+            //    yAxis.MinorTickMark.Enabled = true;
+            //    yAxis.MinorTickMark.LineColor = Color.LightGray;
+            //    yAxis.Enabled = chkAreaSectionTypes.CheckedItems.Count > 0 ? AxisEnabled.True : AxisEnabled.False;
+            //    yAxis.IsStartedFromZero = false;
+            //}
         }
 
-        private void UpdateBinnedChartArea()
+        private void UpdateBinnedChartArea(AreaVolType eType, ref int nBinsOnDisplay)
         {
-            if (chtData.ChartAreas.Count == 1)
-                chtData.ChartAreas.Add("Binned");
-
-            ChartArea binArea = chtData.ChartAreas["Binned"];
-            binArea.AxisY.Title = "Sandbar Area (m²)";
-
-            binArea.AxisX.LabelStyle.Format = "yyyy";
-            binArea.AxisX.IntervalType = DateTimeIntervalType.Years;
-            binArea.AxisX.Interval = 1;
-            binArea.AxisX.Title = "Date";
-
-
             // Stacked bar charts require lots of series. But we don't want them
             // all in the legend. So keep this counter and don't display any more
             // series once this counter matches the number of bins.
-            int nLegendSeries = 0;
-
+            
             foreach (long nModelID in ModelResultData.Keys)
             {
                 foreach (AnalysisBin bin in AnalysisBins.Values)
                 {
-                    Series binSeries = chtData.Series.Add(string.Format("{0}_{1}", nModelID, bin.Title));
+                    Series binSeries = chtData.Series.Add(string.Format("{0}_{1}_{2}", nModelID, bin.Title,eType.ToString()));
                     binSeries.LegendText = bin.Title;
                     binSeries.ChartType = SeriesChartType.StackedColumn;
-                    binSeries.ChartArea = binArea.Name;
+                    binSeries.ChartArea = chtData.ChartAreas[eType == AreaVolType.Area ? 0 : 1].Name;
                     binSeries.Color = bin.DisplayColor;
                     //binSeries.BorderColor = Color.White;
                     //binSeries.BorderWidth = 1;
-                    binSeries.IsVisibleInLegend = nLegendSeries < AnalysisBins.Count;
+                    binSeries.IsVisibleInLegend = nBinsOnDisplay < AnalysisBins.Count;
 
-                    nLegendSeries += binSeries.IsVisibleInLegend ? 1 : 0;
+                    nBinsOnDisplay += binSeries.IsVisibleInLegend ? 1 : 0;
 
                     Dictionary<long, double> fValues = new Dictionary<long, double>(); // surveyID to sum of values in this bin
                     List<DateTime> lSurveyDates = new List<DateTime>();
@@ -242,7 +252,10 @@ namespace SandbarWorkbench.Sandbars
                                         fValues.Add(surveyRes.SurveyID, 0);
                                     }
 
-                                    fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Area;
+                                    if (eType == AreaVolType.Area)
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Area;
+                                    else
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Vol;
                                 }
                             }
                         }
@@ -258,12 +271,10 @@ namespace SandbarWorkbench.Sandbars
 
         private void AddIncrementResultToChart(ListItem sectionTypeItem, long nModelID, AreaVolType eType, double fLowerElev, ref double fMinY, ref double fMaxY)
         {
-            AxisType eAxis = AxisType.Primary;
             string sTypeName = "AREA";
             MarkerStyle eMarker = MarkerStyle.Circle;
             if (eType == AreaVolType.Volume)
             {
-                eAxis = AxisType.Secondary;
                 sTypeName = "VOLUME";
                 eMarker = MarkerStyle.Square;
             }
@@ -283,12 +294,12 @@ namespace SandbarWorkbench.Sandbars
             } while (chtData.Series.FindByName(sSeriesName) is Series);
 
             Series theSeries = chtData.Series.Add(sSeriesName);
+            theSeries.ChartArea = chtData.ChartAreas[eType == AreaVolType.Area ? 0 : 1].Name;
             theSeries.ChartType = SeriesChartType.Line;
             theSeries.BorderWidth = 2;
             theSeries.MarkerSize = 10;
             theSeries.BorderDashStyle = ChartDashStyle.Dash;
             theSeries.MarkerStyle = eMarker;
-            theSeries.YAxisType = eAxis;
 
             foreach (SurveyResults aSurvey in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
             {
@@ -319,7 +330,7 @@ namespace SandbarWorkbench.Sandbars
             fOldMax = Math.Max(fOldMax, fNewValue);
         }
 
-        private void formatAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
+        private void ConfigureYAxis(double fMin, double fMax, out double fInterval, out double fAxisMin, out double fAxisMax)
         {
             double fRange = fMax - fMin;
             double fExponent = (int)Math.Log10(fRange);
@@ -343,7 +354,7 @@ namespace SandbarWorkbench.Sandbars
         /// </remarks>
         private void SectionTypes_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            this.BeginInvoke((MethodInvoker)(() => UpdateChart(null, null)));
+            this.BeginInvoke((MethodInvoker)(() => UpdateCharts(null, null)));
         }
 
         private void grdAnalyses_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -373,7 +384,7 @@ namespace SandbarWorkbench.Sandbars
                 }
             }
 
-            UpdateChart(null, null);
+            UpdateCharts(null, null);
         }
 
         /// <summary>
@@ -392,7 +403,7 @@ namespace SandbarWorkbench.Sandbars
 
         private void Discharge_ValueChanged(object sender, EventArgs e)
         {
-            UpdateChart(null, null);
+            UpdateCharts(null, null);
         }
 
         private void ExportResults(object sender, EventArgs e)

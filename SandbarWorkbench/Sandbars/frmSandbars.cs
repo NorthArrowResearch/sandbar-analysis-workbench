@@ -115,7 +115,15 @@ namespace SandbarWorkbench.Sandbars
             {
                 SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
                 frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
-                frm.ShowDialog();
+
+                try
+                {
+                    frm.ShowDialog();
+                }
+                catch(Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
+                }
             }
         }
 

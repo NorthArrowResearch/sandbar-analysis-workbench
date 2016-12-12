@@ -29,21 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucAreaVolumeAnalyses));
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
             this.grpAnalysisType = new System.Windows.Forms.GroupBox();
             this.rdoBinned = new System.Windows.Forms.RadioButton();
             this.rdoIncremental = new System.Windows.Forms.RadioButton();
-            this.chkVolume = new System.Windows.Forms.CheckBox();
-            this.chkArea = new System.Windows.Forms.CheckBox();
             this.grpVolume = new System.Windows.Forms.GroupBox();
             this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
             this.grpArea = new System.Windows.Forms.GroupBox();
             this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpDischarge = new System.Windows.Forms.GroupBox();
             this.valDisUpper = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.valDisLower = new System.Windows.Forms.NumericUpDown();
@@ -61,7 +59,7 @@
             this.grpAnalysisType.SuspendLayout();
             this.grpVolume.SuspendLayout();
             this.grpArea.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpDischarge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
@@ -83,11 +81,9 @@
             // splitContainer_Vert.Panel1
             // 
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpAnalysisType);
-            this.splitContainer_Vert.Panel1.Controls.Add(this.chkVolume);
-            this.splitContainer_Vert.Panel1.Controls.Add(this.chkArea);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpVolume);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpArea);
-            this.splitContainer_Vert.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainer_Vert.Panel1.Controls.Add(this.grpDischarge);
             // 
             // splitContainer_Vert.Panel2
             // 
@@ -128,36 +124,17 @@
             this.rdoIncremental.TabStop = true;
             this.rdoIncremental.Text = "Incremental";
             this.rdoIncremental.UseVisualStyleBackColor = true;
-            // 
-            // chkVolume
-            // 
-            this.chkVolume.AutoSize = true;
-            this.chkVolume.Location = new System.Drawing.Point(17, 268);
-            this.chkVolume.Name = "chkVolume";
-            this.chkVolume.Size = new System.Drawing.Size(61, 17);
-            this.chkVolume.TabIndex = 0;
-            this.chkVolume.Text = "Volume";
-            this.chkVolume.UseVisualStyleBackColor = true;
-            // 
-            // chkArea
-            // 
-            this.chkArea.AutoSize = true;
-            this.chkArea.Location = new System.Drawing.Point(17, 170);
-            this.chkArea.Name = "chkArea";
-            this.chkArea.Size = new System.Drawing.Size(48, 17);
-            this.chkArea.TabIndex = 0;
-            this.chkArea.Text = "Area";
-            this.chkArea.UseVisualStyleBackColor = true;
+            this.rdoIncremental.CheckedChanged += new System.EventHandler(this.ChartTypeChanging);
             // 
             // grpVolume
             // 
             this.grpVolume.Controls.Add(this.chkVolSectionTypes);
-            this.grpVolume.Location = new System.Drawing.Point(5, 272);
+            this.grpVolume.Location = new System.Drawing.Point(5, 291);
             this.grpVolume.Name = "grpVolume";
-            this.grpVolume.Size = new System.Drawing.Size(200, 85);
+            this.grpVolume.Size = new System.Drawing.Size(200, 110);
             this.grpVolume.TabIndex = 2;
             this.grpVolume.TabStop = false;
-            this.grpVolume.Text = "                      ";
+            this.grpVolume.Text = "Volume";
             // 
             // chkVolSectionTypes
             // 
@@ -165,7 +142,7 @@
             this.chkVolSectionTypes.FormattingEnabled = true;
             this.chkVolSectionTypes.Location = new System.Drawing.Point(25, 22);
             this.chkVolSectionTypes.Name = "chkVolSectionTypes";
-            this.chkVolSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkVolSectionTypes.Size = new System.Drawing.Size(169, 79);
             this.chkVolSectionTypes.TabIndex = 2;
             this.chkVolSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
             // 
@@ -174,10 +151,10 @@
             this.grpArea.Controls.Add(this.chkAreaSectionTypes);
             this.grpArea.Location = new System.Drawing.Point(5, 175);
             this.grpArea.Name = "grpArea";
-            this.grpArea.Size = new System.Drawing.Size(200, 85);
+            this.grpArea.Size = new System.Drawing.Size(200, 110);
             this.grpArea.TabIndex = 1;
             this.grpArea.TabStop = false;
-            this.grpArea.Text = "               ";
+            this.grpArea.Text = "Area";
             // 
             // chkAreaSectionTypes
             // 
@@ -185,22 +162,22 @@
             this.chkAreaSectionTypes.FormattingEnabled = true;
             this.chkAreaSectionTypes.Location = new System.Drawing.Point(25, 22);
             this.chkAreaSectionTypes.Name = "chkAreaSectionTypes";
-            this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 49);
+            this.chkAreaSectionTypes.Size = new System.Drawing.Size(169, 79);
             this.chkAreaSectionTypes.TabIndex = 1;
             this.chkAreaSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
             // 
-            // groupBox1
+            // grpDischarge
             // 
-            this.groupBox1.Controls.Add(this.valDisUpper);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.valDisLower);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(5, 81);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 85);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Discharge";
+            this.grpDischarge.Controls.Add(this.valDisUpper);
+            this.grpDischarge.Controls.Add(this.label2);
+            this.grpDischarge.Controls.Add(this.valDisLower);
+            this.grpDischarge.Controls.Add(this.label1);
+            this.grpDischarge.Location = new System.Drawing.Point(5, 81);
+            this.grpDischarge.Name = "grpDischarge";
+            this.grpDischarge.Size = new System.Drawing.Size(200, 85);
+            this.grpDischarge.TabIndex = 0;
+            this.grpDischarge.TabStop = false;
+            this.grpDischarge.Text = "Discharge";
             // 
             // valDisUpper
             // 
@@ -268,17 +245,17 @@
             // 
             // chtData
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea2);
             this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chtData.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chtData.Legends.Add(legend2);
             this.chtData.Location = new System.Drawing.Point(0, 0);
             this.chtData.Name = "chtData";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chtData.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chtData.Series.Add(series2);
             this.chtData.Size = new System.Drawing.Size(671, 499);
             this.chtData.TabIndex = 0;
             this.chtData.Text = "chart1";
@@ -318,7 +295,7 @@
             this.exportIncrementalResultsToolStripMenuItem,
             this.exportBinnedResultsToolStripMenuItem});
             this.cmsResults.Name = "cmsResults";
-            this.cmsResults.Size = new System.Drawing.Size(223, 70);
+            this.cmsResults.Size = new System.Drawing.Size(223, 48);
             // 
             // exportIncrementalResultsToolStripMenuItem
             // 
@@ -345,7 +322,6 @@
             this.Size = new System.Drawing.Size(885, 679);
             this.Load += new System.EventHandler(this.ucAreaVolumeAnalyses_Load);
             this.splitContainer_Vert.Panel1.ResumeLayout(false);
-            this.splitContainer_Vert.Panel1.PerformLayout();
             this.splitContainer_Vert.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).EndInit();
             this.splitContainer_Vert.ResumeLayout(false);
@@ -353,8 +329,8 @@
             this.grpAnalysisType.PerformLayout();
             this.grpVolume.ResumeLayout(false);
             this.grpArea.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpDischarge.ResumeLayout(false);
+            this.grpDischarge.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
@@ -372,10 +348,8 @@
 
         private System.Windows.Forms.SplitContainer splitContainer_Vert;
         private System.Windows.Forms.GroupBox grpVolume;
-        private System.Windows.Forms.CheckBox chkVolume;
         private System.Windows.Forms.GroupBox grpArea;
-        private System.Windows.Forms.CheckBox chkArea;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpDischarge;
         private System.Windows.Forms.NumericUpDown valDisUpper;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown valDisLower;
