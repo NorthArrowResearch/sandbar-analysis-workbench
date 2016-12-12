@@ -158,10 +158,10 @@ namespace SandbarWorkbench.Sandbars
                     int nBinsOnDisplay = 0;
 
                     if (chkAreaSectionTypes.CheckedItems.Count > 0)
-                        UpdateBinnedChartArea(AreaVolType.Area, ref nBinsOnDisplay);
+                        UpdateBinnedChartArea(AreaVolType.Area, chkAreaSectionTypes.CheckedItems, ref nBinsOnDisplay);
 
                     if (chkVolSectionTypes.CheckedItems.Count > 0)
-                        UpdateBinnedChartArea(AreaVolType.Volume, ref nBinsOnDisplay);
+                        UpdateBinnedChartArea(AreaVolType.Volume, chkVolSectionTypes.CheckedItems, ref nBinsOnDisplay);
                 }
 
 
@@ -222,7 +222,7 @@ namespace SandbarWorkbench.Sandbars
             //}
         }
 
-        private void UpdateBinnedChartArea(AreaVolType eType, ref int nBinsOnDisplay)
+        private void UpdateBinnedChartArea(AreaVolType eType, CheckedListBox.CheckedItemCollection chkItems, ref int nBinsOnDisplay)
         {
             // Stacked bar charts require lots of series. But we don't want them
             // all in the legend. So keep this counter and don't display any more
@@ -247,31 +247,33 @@ namespace SandbarWorkbench.Sandbars
                     List<DateTime> lSurveyDates = new List<DateTime>();
                     binSeries.CustomProperties = string.Format("StackedGroupName={0}", nModelID); //PointWidth=.6
 
-                    foreach (ListItem sectionTypeItem in chkAreaSectionTypes.CheckedItems)
+                    foreach (ListItem sectionTypeItem in chkItems)
                     {
                         if (ModelResultData[nModelID].SectionTypes.ContainsKey(sectionTypeItem.Value))
                         {
                             foreach (SurveyResults surveyRes in ModelResultData[nModelID].SectionTypes[sectionTypeItem.Value].Surveys.Values)
                             {
-                                foreach (long valueBinID in surveyRes.BinnedResults.Keys)
+                                if (!fValues.ContainsKey(surveyRes.SurveyID))
                                 {
-                                    if (!fValues.ContainsKey(surveyRes.SurveyID))
-                                    {
-                                        lSurveyDates.Add(surveyRes.SurveyDate);
-                                        fValues.Add(surveyRes.SurveyID, 0);
-                                    }
-
-                                    if (eType == AreaVolType.Area)
-                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Area;
-                                    else
-                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[valueBinID].Vol;
+                                    lSurveyDates.Add(surveyRes.SurveyDate);
+                                    fValues.Add(surveyRes.SurveyID, 0);
                                 }
+
+                                if (surveyRes.BinnedResults.ContainsKey(bin.BinID))
+                                {
+                                    if (eType == AreaVolType.Area)
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.BinID].Area;
+                                    else
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.BinID].Vol;
+                                }
+
                             }
                         }
 
                         //System.Diagnostics.Debug.Assert(lSurveyDates.Count == fValues.Count);
                         //binSeries.Points.DataBindXY(lSurveyDates, fValues.Values);
                     }
+
                     binSeries.Points.DataBindY(fValues.Values);
                     System.Diagnostics.Debug.Print(fValues.Count.ToString());
                 }
