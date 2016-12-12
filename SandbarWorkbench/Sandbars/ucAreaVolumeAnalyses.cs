@@ -139,8 +139,12 @@ namespace SandbarWorkbench.Sandbars
                 chtData.ChartAreas[0].Visible = chkAreaSectionTypes.CheckedItems.Count > 0;
                 chtData.ChartAreas[1].Visible = chkVolSectionTypes.CheckedItems.Count > 0;
 
+                string sTitle = string.Empty;
+
                 if (rdoIncremental.Checked)
                 {
+                    sTitle = string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value);
+
                     if (chkAreaSectionTypes.CheckedItems.Count > 0)
                         UpdateIncrementalChart(AreaVolType.Area, chkAreaSectionTypes.CheckedItems);
 
@@ -149,6 +153,8 @@ namespace SandbarWorkbench.Sandbars
                 }
                 else
                 {
+                    sTitle = string.Format("Binned Sandbar Metrics", valDisLower.Value, valDisUpper.Value);
+
                     int nBinsOnDisplay = 0;
 
                     if (chkAreaSectionTypes.CheckedItems.Count > 0)
@@ -157,6 +163,12 @@ namespace SandbarWorkbench.Sandbars
                     if (chkVolSectionTypes.CheckedItems.Count > 0)
                         UpdateBinnedChartArea(AreaVolType.Volume, ref nBinsOnDisplay);
                 }
+
+
+                Title theTitle = new Title(sTitle);
+                theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
+                chtData.Titles.Add(theTitle);
+
             }
             catch (Exception ex)
             {
@@ -174,9 +186,6 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
-            Title theTitle = new Title(string.Format("Sandbar Metrics Between Stage Elevations Associated with Discharges of {0:#,##0} and {1:#,##0} cfs (ft³/s)", valDisLower.Value, valDisUpper.Value));
-            theTitle.Font = new System.Drawing.Font("Arial", 14, FontStyle.Bold);
-            chtData.Titles.Add(theTitle);
 
             double fMinY = -1;
             double fMaxY = -1;
@@ -218,12 +227,12 @@ namespace SandbarWorkbench.Sandbars
             // Stacked bar charts require lots of series. But we don't want them
             // all in the legend. So keep this counter and don't display any more
             // series once this counter matches the number of bins.
-            
+
             foreach (long nModelID in ModelResultData.Keys)
             {
                 foreach (AnalysisBin bin in AnalysisBins.Values)
                 {
-                    Series binSeries = chtData.Series.Add(string.Format("{0}_{1}_{2}", nModelID, bin.Title,eType.ToString()));
+                    Series binSeries = chtData.Series.Add(string.Format("{0}_{1}_{2}", nModelID, bin.Title, eType.ToString()));
                     binSeries.LegendText = bin.Title;
                     binSeries.ChartType = SeriesChartType.StackedColumn;
                     binSeries.ChartArea = chtData.ChartAreas[eType == AreaVolType.Area ? 0 : 1].Name;
