@@ -224,6 +224,13 @@ namespace SandbarWorkbench.Sandbars
             //}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eType"></param>
+        /// <param name="chkItems"></param>
+        /// <param name="nBinsOnDisplay"></param>
+        /// <remarks>http://support2.dundas.com/Default.aspx?article=1405</remarks>
         private void UpdateBinnedChartArea(AreaVolType eType, CheckedListBox.CheckedItemCollection chkItems, ref int nBinsOnDisplay)
         {
             // Stacked bar charts require lots of series. But we don't want them
