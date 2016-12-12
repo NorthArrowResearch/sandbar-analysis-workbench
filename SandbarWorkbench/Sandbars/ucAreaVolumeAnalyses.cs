@@ -58,6 +58,8 @@ namespace SandbarWorkbench.Sandbars
 
             // One time load of the analysis bin definitions
             AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
+            //CheckedListItem.LoadComboWithListItems(ref chkBins, DBCon.ConnectionStringLocal, "SELECT BinID, Title FROM AnalysisBins ORDER BY LowerElevation", true);
+            chkBins.Items.AddRange(AnalysisBins.Values.ToArray<AnalysisBin>());
 
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
@@ -230,7 +232,7 @@ namespace SandbarWorkbench.Sandbars
 
             foreach (long nModelID in ModelResultData.Keys)
             {
-                foreach (AnalysisBin bin in AnalysisBins.Values)
+                foreach (AnalysisBin bin in chkBins.CheckedItems)
                 {
                     Series binSeries = chtData.Series.Add(string.Format("{0}_{1}_{2}", nModelID, bin.Title, eType.ToString()));
                     binSeries.LegendText = bin.Title;

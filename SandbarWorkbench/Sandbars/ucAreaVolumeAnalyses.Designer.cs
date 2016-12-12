@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucAreaVolumeAnalyses));
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
             this.grpAnalysisType = new System.Windows.Forms.GroupBox();
@@ -52,6 +52,7 @@
             this.cmsResults = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportIncrementalResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportBinnedResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkBins = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
@@ -94,11 +95,12 @@
             // 
             // grpAnalysisType
             // 
+            this.grpAnalysisType.Controls.Add(this.chkBins);
             this.grpAnalysisType.Controls.Add(this.rdoBinned);
             this.grpAnalysisType.Controls.Add(this.rdoIncremental);
             this.grpAnalysisType.Location = new System.Drawing.Point(5, 6);
             this.grpAnalysisType.Name = "grpAnalysisType";
-            this.grpAnalysisType.Size = new System.Drawing.Size(200, 69);
+            this.grpAnalysisType.Size = new System.Drawing.Size(200, 156);
             this.grpAnalysisType.TabIndex = 3;
             this.grpAnalysisType.TabStop = false;
             this.grpAnalysisType.Text = "Analysis Type";
@@ -129,7 +131,7 @@
             // grpVolume
             // 
             this.grpVolume.Controls.Add(this.chkVolSectionTypes);
-            this.grpVolume.Location = new System.Drawing.Point(5, 291);
+            this.grpVolume.Location = new System.Drawing.Point(5, 378);
             this.grpVolume.Name = "grpVolume";
             this.grpVolume.Size = new System.Drawing.Size(200, 110);
             this.grpVolume.TabIndex = 2;
@@ -149,7 +151,7 @@
             // grpArea
             // 
             this.grpArea.Controls.Add(this.chkAreaSectionTypes);
-            this.grpArea.Location = new System.Drawing.Point(5, 175);
+            this.grpArea.Location = new System.Drawing.Point(5, 262);
             this.grpArea.Name = "grpArea";
             this.grpArea.Size = new System.Drawing.Size(200, 110);
             this.grpArea.TabIndex = 1;
@@ -172,7 +174,7 @@
             this.grpDischarge.Controls.Add(this.label2);
             this.grpDischarge.Controls.Add(this.valDisLower);
             this.grpDischarge.Controls.Add(this.label1);
-            this.grpDischarge.Location = new System.Drawing.Point(5, 81);
+            this.grpDischarge.Location = new System.Drawing.Point(5, 168);
             this.grpDischarge.Name = "grpDischarge";
             this.grpDischarge.Size = new System.Drawing.Size(200, 85);
             this.grpDischarge.TabIndex = 0;
@@ -245,17 +247,17 @@
             // 
             // chtData
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea2);
+            chartArea3.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea3);
             this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chtData.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.chtData.Legends.Add(legend3);
             this.chtData.Location = new System.Drawing.Point(0, 0);
             this.chtData.Name = "chtData";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chtData.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chtData.Series.Add(series3);
             this.chtData.Size = new System.Drawing.Size(671, 499);
             this.chtData.TabIndex = 0;
             this.chtData.Text = "chart1";
@@ -313,6 +315,16 @@
             this.exportBinnedResultsToolStripMenuItem.Text = "Export Binned Results...";
             this.exportBinnedResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
             // 
+            // chkBins
+            // 
+            this.chkBins.CheckOnClick = true;
+            this.chkBins.FormattingEnabled = true;
+            this.chkBins.Location = new System.Drawing.Point(25, 68);
+            this.chkBins.Name = "chkBins";
+            this.chkBins.Size = new System.Drawing.Size(169, 79);
+            this.chkBins.TabIndex = 2;
+            this.chkBins.SelectedIndexChanged += new System.EventHandler(this.UpdateCharts);
+            // 
             // ucAreaVolumeAnalyses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,5 +377,6 @@
         private System.Windows.Forms.ContextMenuStrip cmsResults;
         private System.Windows.Forms.ToolStripMenuItem exportIncrementalResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToolStripMenuItem;
+        private System.Windows.Forms.CheckedListBox chkBins;
     }
 }

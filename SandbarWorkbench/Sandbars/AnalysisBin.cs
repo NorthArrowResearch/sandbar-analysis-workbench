@@ -21,6 +21,11 @@ namespace SandbarWorkbench.Sandbars
         public DateTime UpdatedOn { get; internal set; }
         public string UpdatedBy { get; internal set; }
 
+        public override string ToString()
+        {
+            return Title;
+        }
+
         public AnalysisBin(long nBinID, string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, Color colDisplay, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
         {
             BinID = nBinID;
