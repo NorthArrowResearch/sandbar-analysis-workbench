@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucAreaVolumeAnalyses));
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
             this.grpAnalysisType = new System.Windows.Forms.GroupBox();
@@ -41,11 +41,10 @@
             this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
             this.grpArea = new System.Windows.Forms.GroupBox();
             this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.grpDischarge = new System.Windows.Forms.GroupBox();
             this.valDisUpper = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblUpperDischarge = new System.Windows.Forms.Label();
             this.valDisLower = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblLowerdischarge = new System.Windows.Forms.Label();
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
@@ -60,7 +59,6 @@
             this.grpAnalysisType.SuspendLayout();
             this.grpVolume.SuspendLayout();
             this.grpArea.SuspendLayout();
-            this.grpDischarge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
@@ -84,7 +82,6 @@
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpAnalysisType);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpVolume);
             this.splitContainer_Vert.Panel1.Controls.Add(this.grpArea);
-            this.splitContainer_Vert.Panel1.Controls.Add(this.grpDischarge);
             // 
             // splitContainer_Vert.Panel2
             // 
@@ -95,12 +92,16 @@
             // 
             // grpAnalysisType
             // 
+            this.grpAnalysisType.Controls.Add(this.valDisUpper);
+            this.grpAnalysisType.Controls.Add(this.lblUpperDischarge);
             this.grpAnalysisType.Controls.Add(this.chkBins);
             this.grpAnalysisType.Controls.Add(this.rdoBinned);
+            this.grpAnalysisType.Controls.Add(this.valDisLower);
+            this.grpAnalysisType.Controls.Add(this.lblLowerdischarge);
             this.grpAnalysisType.Controls.Add(this.rdoIncremental);
             this.grpAnalysisType.Location = new System.Drawing.Point(5, 6);
             this.grpAnalysisType.Name = "grpAnalysisType";
-            this.grpAnalysisType.Size = new System.Drawing.Size(200, 156);
+            this.grpAnalysisType.Size = new System.Drawing.Size(200, 200);
             this.grpAnalysisType.TabIndex = 3;
             this.grpAnalysisType.TabStop = false;
             this.grpAnalysisType.Text = "Analysis Type";
@@ -108,10 +109,10 @@
             // rdoBinned
             // 
             this.rdoBinned.AutoSize = true;
-            this.rdoBinned.Location = new System.Drawing.Point(11, 44);
+            this.rdoBinned.Location = new System.Drawing.Point(11, 102);
             this.rdoBinned.Name = "rdoBinned";
             this.rdoBinned.Size = new System.Drawing.Size(58, 17);
-            this.rdoBinned.TabIndex = 1;
+            this.rdoBinned.TabIndex = 5;
             this.rdoBinned.Text = "Binned";
             this.rdoBinned.UseVisualStyleBackColor = true;
             // 
@@ -131,10 +132,10 @@
             // grpVolume
             // 
             this.grpVolume.Controls.Add(this.chkVolSectionTypes);
-            this.grpVolume.Location = new System.Drawing.Point(5, 378);
+            this.grpVolume.Location = new System.Drawing.Point(5, 328);
             this.grpVolume.Name = "grpVolume";
             this.grpVolume.Size = new System.Drawing.Size(200, 110);
-            this.grpVolume.TabIndex = 2;
+            this.grpVolume.TabIndex = 1;
             this.grpVolume.TabStop = false;
             this.grpVolume.Text = "Volume";
             // 
@@ -151,10 +152,10 @@
             // grpArea
             // 
             this.grpArea.Controls.Add(this.chkAreaSectionTypes);
-            this.grpArea.Location = new System.Drawing.Point(5, 262);
+            this.grpArea.Location = new System.Drawing.Point(5, 212);
             this.grpArea.Name = "grpArea";
             this.grpArea.Size = new System.Drawing.Size(200, 110);
-            this.grpArea.TabIndex = 1;
+            this.grpArea.TabIndex = 0;
             this.grpArea.TabStop = false;
             this.grpArea.Text = "Area";
             // 
@@ -168,19 +169,6 @@
             this.chkAreaSectionTypes.TabIndex = 1;
             this.chkAreaSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
             // 
-            // grpDischarge
-            // 
-            this.grpDischarge.Controls.Add(this.valDisUpper);
-            this.grpDischarge.Controls.Add(this.label2);
-            this.grpDischarge.Controls.Add(this.valDisLower);
-            this.grpDischarge.Controls.Add(this.label1);
-            this.grpDischarge.Location = new System.Drawing.Point(5, 168);
-            this.grpDischarge.Name = "grpDischarge";
-            this.grpDischarge.Size = new System.Drawing.Size(200, 85);
-            this.grpDischarge.TabIndex = 0;
-            this.grpDischarge.TabStop = false;
-            this.grpDischarge.Text = "Discharge";
-            // 
             // valDisUpper
             // 
             this.valDisUpper.Increment = new decimal(new int[] {
@@ -188,15 +176,15 @@
             0,
             0,
             0});
-            this.valDisUpper.Location = new System.Drawing.Point(74, 47);
+            this.valDisUpper.Location = new System.Drawing.Point(116, 69);
             this.valDisUpper.Maximum = new decimal(new int[] {
             60000,
             0,
             0,
             0});
             this.valDisUpper.Name = "valDisUpper";
-            this.valDisUpper.Size = new System.Drawing.Size(120, 20);
-            this.valDisUpper.TabIndex = 3;
+            this.valDisUpper.Size = new System.Drawing.Size(78, 20);
+            this.valDisUpper.TabIndex = 4;
             this.valDisUpper.Value = new decimal(new int[] {
             60000,
             0,
@@ -204,14 +192,14 @@
             0});
             this.valDisUpper.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
             // 
-            // label2
+            // lblUpperDischarge
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Upper";
+            this.lblUpperDischarge.AutoSize = true;
+            this.lblUpperDischarge.Location = new System.Drawing.Point(27, 73);
+            this.lblUpperDischarge.Name = "lblUpperDischarge";
+            this.lblUpperDischarge.Size = new System.Drawing.Size(85, 13);
+            this.lblUpperDischarge.TabIndex = 3;
+            this.lblUpperDischarge.Text = "Upper discharge";
             // 
             // valDisLower
             // 
@@ -220,15 +208,15 @@
             0,
             0,
             0});
-            this.valDisLower.Location = new System.Drawing.Point(74, 19);
+            this.valDisLower.Location = new System.Drawing.Point(116, 43);
             this.valDisLower.Maximum = new decimal(new int[] {
             50000,
             0,
             0,
             0});
             this.valDisLower.Name = "valDisLower";
-            this.valDisLower.Size = new System.Drawing.Size(120, 20);
-            this.valDisLower.TabIndex = 1;
+            this.valDisLower.Size = new System.Drawing.Size(78, 20);
+            this.valDisLower.TabIndex = 2;
             this.valDisLower.Value = new decimal(new int[] {
             8000,
             0,
@@ -236,28 +224,28 @@
             0});
             this.valDisLower.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
             // 
-            // label1
+            // lblLowerdischarge
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Lower";
+            this.lblLowerdischarge.AutoSize = true;
+            this.lblLowerdischarge.Location = new System.Drawing.Point(27, 47);
+            this.lblLowerdischarge.Name = "lblLowerdischarge";
+            this.lblLowerdischarge.Size = new System.Drawing.Size(85, 13);
+            this.lblLowerdischarge.TabIndex = 1;
+            this.lblLowerdischarge.Text = "Lower discharge";
             // 
             // chtData
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea1);
             this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chtData.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chtData.Legends.Add(legend1);
             this.chtData.Location = new System.Drawing.Point(0, 0);
             this.chtData.Name = "chtData";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chtData.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chtData.Series.Add(series1);
             this.chtData.Size = new System.Drawing.Size(671, 499);
             this.chtData.TabIndex = 0;
             this.chtData.Text = "chart1";
@@ -319,10 +307,10 @@
             // 
             this.chkBins.CheckOnClick = true;
             this.chkBins.FormattingEnabled = true;
-            this.chkBins.Location = new System.Drawing.Point(25, 68);
+            this.chkBins.Location = new System.Drawing.Point(25, 126);
             this.chkBins.Name = "chkBins";
-            this.chkBins.Size = new System.Drawing.Size(169, 79);
-            this.chkBins.TabIndex = 2;
+            this.chkBins.Size = new System.Drawing.Size(169, 64);
+            this.chkBins.TabIndex = 6;
             this.chkBins.SelectedIndexChanged += new System.EventHandler(this.UpdateCharts);
             // 
             // ucAreaVolumeAnalyses
@@ -341,8 +329,6 @@
             this.grpAnalysisType.PerformLayout();
             this.grpVolume.ResumeLayout(false);
             this.grpArea.ResumeLayout(false);
-            this.grpDischarge.ResumeLayout(false);
-            this.grpDischarge.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
@@ -361,11 +347,10 @@
         private System.Windows.Forms.SplitContainer splitContainer_Vert;
         private System.Windows.Forms.GroupBox grpVolume;
         private System.Windows.Forms.GroupBox grpArea;
-        private System.Windows.Forms.GroupBox grpDischarge;
         private System.Windows.Forms.NumericUpDown valDisUpper;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUpperDischarge;
         private System.Windows.Forms.NumericUpDown valDisLower;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblLowerdischarge;
         private System.Windows.Forms.DataGridView grdAnalyses;
         private System.Windows.Forms.DataVisualization.Charting.Chart chtData;
         private System.Windows.Forms.SplitContainer splitContainer_Horiz;

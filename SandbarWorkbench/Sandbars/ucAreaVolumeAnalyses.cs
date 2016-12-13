@@ -80,7 +80,12 @@ namespace SandbarWorkbench.Sandbars
         {
             chtData.Series.Clear();
 
-            grpDischarge.Enabled = rdoIncremental.Checked;
+            lblLowerdischarge.Enabled = rdoIncremental.Checked;
+            lblUpperDischarge.Enabled = rdoIncremental.Checked;
+            valDisLower.Enabled = rdoIncremental.Checked;
+            valDisUpper.Enabled = rdoIncremental.Checked;
+
+            chkBins.Enabled = rdoBinned.Checked;
 
             ConfigureXAxis(chtData.ChartAreas[0]);
             ConfigureXAxis(chtData.ChartAreas[1]);
@@ -110,6 +115,11 @@ namespace SandbarWorkbench.Sandbars
                 chtArea.AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Months;
                 chtArea.AxisX.MinorTickMark.Interval = 6;
                 chtArea.AxisX.MinorTickMark.LineColor = Color.LightGray;
+            }
+            else
+            {
+                chtArea.AxisX.IntervalType = DateTimeIntervalType.Number;
+                chtArea.AxisX.Interval = 1;
             }
         }
 
@@ -285,6 +295,12 @@ namespace SandbarWorkbench.Sandbars
 
                     binSeries.Points.DataBindY(fValues.Values);
                     System.Diagnostics.Debug.Print(fValues.Count.ToString());
+
+                    System.Diagnostics.Debug.Assert(lSurveyDates.Count == binSeries.Points.Count);
+                    for (int i = 0; i < lSurveyDates.Count;i++)
+                    {
+                        binSeries.Points[i].AxisLabel = lSurveyDates[i].ToString("d-MMM-yyy");
+                    }
                 }
             }
         }
