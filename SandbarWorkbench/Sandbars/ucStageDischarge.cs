@@ -13,7 +13,7 @@ namespace SandbarWorkbench.Sandbars
 {
     public partial class ucStageDischarge : UserControl
     {
-        public StageDischargeCurve SDCurve { get; internal set; }
+        public StageDischarge.SDCurve SDCurve { get; internal set; }
         public Dictionary<long, AnalysisBin> AnalysisBins { get; internal set; }
 
         public ucStageDischarge()
@@ -55,7 +55,7 @@ namespace SandbarWorkbench.Sandbars
 
         private void LoadStageDischargeCurve()
         {
-            if (!(SDCurve is StageDischargeCurve))
+            if (!(SDCurve is StageDischarge.SDCurve))
                 return;
 
             chtData.Series.Clear();
@@ -66,7 +66,7 @@ namespace SandbarWorkbench.Sandbars
             Title chtTitle = chtData.Titles.Add(string.Format("Stage Discharge Curve for Site {0}", SDCurve.SiteName));
             chtTitle.Font = new Font(chtTitle.Font, FontStyle.Bold);
             chtData.Titles.Add(string.Format("Elevation = {0} + ({1} * Q) + ({2} * Q^2)", SDCurve.CoeffA, SDCurve.CoeffB, SDCurve.CoeffC));
-            
+
             Nullable<double> fMinStage = new Nullable<double>();
             Nullable<double> fStage;
             if (SDCurve.HasAllValues)
@@ -103,11 +103,34 @@ namespace SandbarWorkbench.Sandbars
                     }
                 }
             }
+
+            LoadStageDischargeValues();
+        }
+
+        private void LoadStageDischargeValues()
+        {
+            if (this.SDCurve.LoadStageDischargeValues() > 0)
+            {
+                Series seriesSV = new Series("Sample Values");
+                chtData.Series.Insert(0, seriesSV); // This ensures that the sample points get displayed at the bottom of the Z order.
+                seriesSV.IsVisibleInLegend = false;
+                seriesSV.ChartType = SeriesChartType.Point;
+                seriesSV.Color = Color.DarkGray;
+                seriesSV.MarkerStyle = MarkerStyle.Circle;
+                seriesSV.BorderWidth = 2;
+                seriesSV.MarkerSize = 10;
+
+                foreach (StageDischarge.SDValue aSample in SDCurve.StageDischargeSamples.Values)
+                {
+                    int nPoint = seriesSV.Points.AddXY(aSample.Flow, aSample.ElevationSP);
+                    seriesSV.Points[nPoint].ToolTip = aSample.ToolTip;
+                }
+            }
         }
 
         private void valDischarge_ValueChanged(object sender, EventArgs e)
         {
-            if (SDCurve is StageDischargeCurve)
+            if (SDCurve is StageDischarge.SDCurve)
             {
                 Nullable<double> fStage = SDCurve.Stage((double)valDischarge.Value);
                 if (fStage.HasValue)
@@ -127,7 +150,7 @@ namespace SandbarWorkbench.Sandbars
 
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                System.IO.File.WriteAllText(frm.FileName, SDCurve.CurveAsCSV(8000,45000,500));
+                System.IO.File.WriteAllText(frm.FileName, SDCurve.CurveAsCSV(8000, 45000, 500));
                 if (System.IO.File.Exists(frm.FileName))
                 {
                     System.Diagnostics.Process.Start(frm.FileName);

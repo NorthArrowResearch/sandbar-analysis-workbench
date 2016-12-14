@@ -35,7 +35,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> ExpansionRatio8k { get; internal set; }
         public Nullable<double> ExpansionRatio45k { get; internal set; }
         public Nullable<double> StageChange8k45k { get; internal set; }
-        public StageDischargeCurve SDCurve { get; internal set; }
+        public StageDischarge.SDCurve SDCurve { get; internal set; }
         public SortableBindingList<SandbarSurvey> Surveys { get; set; }
         public int SurveyCount { get { return Surveys.Count; } }
 
@@ -152,7 +152,7 @@ namespace SandbarWorkbench.Sandbars
             RemoteCameraID = nRemoteCameraID;
             RemoteCameraSiteCode = sRemoteCameraSiteCode;
             BestPhotoTime = sBestPhotoTime;
-            SDCurve = new StageDischargeCurve(SiteCode5, fStageDischargeA, fStageDischargeB, fStageDischargeC);
+            SDCurve = new StageDischarge.SDCurve(SiteID, SiteCode5, fStageDischargeA, fStageDischargeB, fStageDischargeC);
             Northing = fNorthing;
             Easting = fEasting;
             Latitude = fLatitude;

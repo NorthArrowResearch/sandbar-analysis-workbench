@@ -308,7 +308,8 @@
     <Compile Include="Sandbars\SandbarSite.cs" />
     <Compile Include="Sandbars\SandbarSurvey.cs" />
     <Compile Include="Sandbars\SandbarSurveyBase.cs" />
-    <Compile Include="Sandbars\StageDischargeCurve.cs" />
+    <Compile Include="Sandbars\StageDischarge\SDValue.cs" />
+    <Compile Include="Sandbars\StageDischarge\StageDischargeCurve.cs" />
     <Compile Include="Sandbars\ucAreaVolumeAnalyses.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -57,6 +57,14 @@ namespace SandbarWorkbench.DBHelpers
                 return (DateTime) dbRead[sColumnName];
         }
 
+        public static Nullable<DateTime> GetSafeValueNDT(ref SQLiteDataReader dbRead, string sColumnName)
+        {
+            Nullable<DateTime> dtValue = new Nullable<DateTime>();
+            if (!dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
+                dtValue = dbRead.GetDateTime(dbRead.GetOrdinal(sColumnName));
+            return dtValue;
+        }
+
         public static string GetSafeValueStr(ref SQLiteDataReader dbRead, string sColumnName)
         {
             if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
