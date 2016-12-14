@@ -43,12 +43,29 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         {
             get
             {
-                string sToolTip = string.Empty;
-
+                StringBuilder sb = new StringBuilder();
+                
                 if (SampleDate.HasValue)
-                    sToolTip += SampleDate.Value.ToString("dd-MMM-yyy");
+                   sb.AppendLine (SampleDate.Value.ToString("dd-MMM-yyy"));
 
-                return sToolTip;
+                if (!string.IsNullOrEmpty(SampleCode))
+                    sb.AppendLine(string.Format("Code: {0}", SampleCode));
+
+                if (ElevationLocal.HasValue)
+                    sb.AppendLine(string.Format("Local elev: {0}", ElevationLocal));
+
+                sb.AppendLine(string.Format("SP elev: {0}", ElevationSP));
+
+                if (SampleCount.HasValue)
+                    sb.AppendLine(string.Format("Count: {0}", SampleCount));
+
+                sb.AppendLine(string.Format("Flow: {0}", Flow));
+                sb.AppendLine(string.Format("Flow ms⁻¹: {0}", FlowMS));
+
+                if (!string.IsNullOrEmpty(Comments))
+                    sb.AppendLine(Comments);
+
+                return sb.ToString();
             }
         }
 
