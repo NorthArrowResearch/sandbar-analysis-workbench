@@ -13,8 +13,8 @@ namespace SandbarWorkbench.ModelRuns
         public bool Sync { get; internal set; }
         public System.IO.DirectoryInfo AnalysisFolder { get; internal set; }
 
-        public ModelRunLocal(long nID, long nMasterID, string sTitle, bool bSync, string sRemarks, long nRunTypeID, string sInstallation, string sAnalysisFolder, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
-                : base(nID, sTitle, sRemarks, nRunTypeID, sInstallation, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy, dtRunOn, sRunBy)
+        public ModelRunLocal(long nID, long nMasterID, string sTitle, bool bSync, string sRemarks, long nRunTypeID, bool bPublished, string sInstallation, string sAnalysisFolder, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
+                : base(nID, sTitle, sRemarks, nRunTypeID, bPublished, sInstallation, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy, dtRunOn, sRunBy)
         {
             MasterID = nMasterID;
             Sync = bSync;
@@ -83,6 +83,7 @@ namespace SandbarWorkbench.ModelRuns
                         , dbRead.GetBoolean(dbRead.GetOrdinal("Sync"))
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
                         , dbRead.GetInt64(dbRead.GetOrdinal("RunTypeID"))
+                        , dbRead.GetBoolean(dbRead.GetOrdinal("Published"))
                         , dbRead.GetString(dbRead.GetOrdinal("InstallationGuid"))
                         , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AnalysisFolder")
                         , dbRead.GetDateTime(dbRead.GetOrdinal("AddedOn"))
@@ -145,7 +146,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom = new SQLiteCommand("SELECT last_insert_rowid()", dbTrans.Connection, dbTrans);
             Int64 nLocalRunID = (Int64)dbCom.ExecuteScalar();
 
-            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Installation.ToString(), string.Empty, masterRun.AddedOn
+            ModelRunLocal theRun = new ModelRunLocal(nLocalRunID, masterRun.ID, masterRun.Title, true, masterRun.Remarks, masterRun.RunTypeID, masterRun.Published, masterRun.Installation.ToString(), string.Empty, masterRun.AddedOn
                 , masterRun.AddedBy, masterRun.UpdatedOn, masterRun.UpdatedBy, masterRun.RunOn, masterRun.RunBy);
 
             // Now insert all the child records for this model run

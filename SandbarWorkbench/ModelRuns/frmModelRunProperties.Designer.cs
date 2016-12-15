@@ -37,25 +37,28 @@
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.chkSync = new System.Windows.Forms.CheckBox();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.chkPublished = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cmdCancel
             // 
+            this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(391, 184);
+            this.cmdCancel.Location = new System.Drawing.Point(391, 213);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 6;
+            this.cmdCancel.TabIndex = 7;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
             // cmdOK
             // 
+            this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(310, 184);
+            this.cmdOK.Location = new System.Drawing.Point(310, 213);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 5;
+            this.cmdOK.TabIndex = 6;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -107,12 +110,23 @@
             // 
             // cmdHelp
             // 
-            this.cmdHelp.Location = new System.Drawing.Point(16, 184);
+            this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdHelp.Location = new System.Drawing.Point(16, 213);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
-            this.cmdHelp.TabIndex = 7;
+            this.cmdHelp.TabIndex = 8;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
+            // 
+            // chkPublished
+            // 
+            this.chkPublished.AutoSize = true;
+            this.chkPublished.Location = new System.Drawing.Point(75, 182);
+            this.chkPublished.Name = "chkPublished";
+            this.chkPublished.Size = new System.Drawing.Size(237, 17);
+            this.chkPublished.TabIndex = 5;
+            this.chkPublished.Text = "Published official run used for public web site";
+            this.chkPublished.UseVisualStyleBackColor = true;
             // 
             // frmModelRunProperties
             // 
@@ -120,7 +134,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(478, 219);
+            this.ClientSize = new System.Drawing.Size(478, 248);
+            this.Controls.Add(this.chkPublished);
             this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.chkSync);
             this.Controls.Add(this.txtRemarks);
@@ -151,5 +166,6 @@
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.CheckBox chkSync;
         private System.Windows.Forms.Button cmdHelp;
+        private System.Windows.Forms.CheckBox chkPublished;
     }
 }

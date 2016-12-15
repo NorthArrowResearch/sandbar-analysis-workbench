@@ -9,8 +9,8 @@ namespace SandbarWorkbench.ModelRuns
 {
     public class ModelRunMaster : ModelRunBase
     {
-        public ModelRunMaster(long nMasterID, string sTitle, string sRemarks, long nRunTypeID, string sInstallation, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
-                : base(nMasterID, sTitle, sRemarks, nRunTypeID, sInstallation, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy, dtRunOn, sRunBy)
+        public ModelRunMaster(long nMasterID, string sTitle, string sRemarks, long nRunTypeID, bool bPublished, string sInstallation, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy, DateTime dtRunOn, string sRunBy)
+                : base(nMasterID, sTitle, sRemarks, nRunTypeID, bPublished, sInstallation, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy, dtRunOn, sRunBy)
         {
 
         }
@@ -37,6 +37,7 @@ namespace SandbarWorkbench.ModelRuns
                         , dbRead.GetString(dbRead.GetOrdinal("Title"))
                         , sRemarks
                         , dbRead.GetInt64(dbRead.GetOrdinal("RunTypeID"))
+                        , dbRead.GetBoolean(dbRead.GetOrdinal("Published"))
                         , dbRead.GetString(dbRead.GetOrdinal("InstallationGuid"))
                         , dbRead.GetDateTime(dbRead.GetOrdinal("AddedOn"))
                         , dbRead.GetString(dbRead.GetOrdinal("AddedBy"))
@@ -116,7 +117,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.ExecuteNonQuery();
             long nMasterRunID = dbCom.LastInsertedId;
 
-            ModelRunMaster theRun = new ModelRunMaster(nMasterRunID, localRun.Title, localRun.Remarks, localRun.RunTypeID, localRun.Installation.ToString(), localRun.AddedOn
+            ModelRunMaster theRun = new ModelRunMaster(nMasterRunID, localRun.Title, localRun.Remarks, localRun.RunTypeID, localRun.Published, localRun.Installation.ToString(), localRun.AddedOn
                 , localRun.AddedBy, localRun.UpdatedOn, localRun.UpdatedBy, localRun.RunOn, localRun.RunBy);
 
             // Update the local run with the new MasterID
