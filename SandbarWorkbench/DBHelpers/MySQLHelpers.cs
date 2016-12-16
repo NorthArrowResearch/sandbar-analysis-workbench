@@ -97,6 +97,24 @@ namespace SandbarWorkbench.DBHelpers
             p.Value = ctrl.Checked;
         }
 
+        public static void AddNParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, ref DateTimePicker dt, string sParameterName)
+        {
+            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.DateTime);
+            if (ctrl.Checked)
+                p.Value = dt.Value;
+            else
+                p.Value = DBNull.Value;
+        }
+
+        public static void AddNParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, ref NumericUpDown val, string sParameterName)
+        {
+            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.DateTime);
+            if (ctrl.Checked)
+                p.Value = val.Value;
+            else
+                p.Value = DBNull.Value;
+        }
+
         /// <summary>
         /// Safely add a string parameter to a SQLite command. Adds empty strings as NULL
         /// </summary>

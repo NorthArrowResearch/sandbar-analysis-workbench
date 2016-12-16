@@ -308,6 +308,12 @@
     <Compile Include="Sandbars\SandbarSite.cs" />
     <Compile Include="Sandbars\SandbarSurvey.cs" />
     <Compile Include="Sandbars\SandbarSurveyBase.cs" />
+    <Compile Include="Sandbars\StageDischarge\frmSDSample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sandbars\StageDischarge\frmSDSample.Designer.cs">
+      <DependentUpon>frmSDSample.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\StageDischarge\SDValue.cs" />
     <Compile Include="Sandbars\StageDischarge\StageDischargeCurve.cs" />
     <Compile Include="Sandbars\ucAreaVolumeAnalyses.cs">
@@ -412,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\frmSurveyProperties.resx">
       <DependentUpon>frmSurveyProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\StageDischarge\frmSDSample.resx">
+      <DependentUpon>frmSDSample.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucAreaVolumeAnalyses.resx">
       <DependentUpon>ucAreaVolumeAnalyses.cs</DependentUpon>

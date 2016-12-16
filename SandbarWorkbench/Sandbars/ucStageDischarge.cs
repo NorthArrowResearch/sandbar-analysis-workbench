@@ -30,8 +30,13 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
+       
             AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
+
+            cboSamples.DataSource = SDCurve.StageDischargeSamples;
+            cboSamples.ValueMember = "SampleID";
+            cboSamples.DisplayMember = "Title";
 
             chtData.ChartAreas[0].AxisX.Title = "Discharge (cfs)";
             chtData.ChartAreas[0].AxisX.LabelStyle.Format = "#,##0";
@@ -120,7 +125,7 @@ namespace SandbarWorkbench.Sandbars
                 seriesSV.BorderWidth = 2;
                 seriesSV.MarkerSize = 10;
 
-                foreach (StageDischarge.SDValue aSample in SDCurve.StageDischargeSamples.Values)
+                foreach (StageDischarge.SDValue aSample in SDCurve.StageDischargeSamples)
                 {
                     int nPoint = seriesSV.Points.AddXY(aSample.Flow, aSample.ElevationSP);
                     seriesSV.Points[nPoint].ToolTip = aSample.ToolTip;

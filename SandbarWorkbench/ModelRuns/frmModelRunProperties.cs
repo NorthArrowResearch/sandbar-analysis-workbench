@@ -16,11 +16,17 @@ namespace SandbarWorkbench.ModelRuns
     {
         private ModelRunLocal ModelRun { get; set; }
 
+        // Track whether this model run is the official published model run
+        // when the form first opens. This is used to decide whether a confirm
+        // message is needed on OK.
+        private bool InitialPublishState { get; set; }
+
         public frmModelRunProperties(long nModelRunID)
         {
             InitializeComponent();
 
             ModelRun = ModelRunLocal.LoadSingle(nModelRunID);
+            InitialPublishState = ModelRun.Published;
         }
 
         public frmModelRunProperties(ref ModelRunLocal aRun)
@@ -35,10 +41,61 @@ namespace SandbarWorkbench.ModelRuns
             txtTitle.Text = ModelRun.Title;
             txtRemarks.Text = ModelRun.Remarks;
             chkSync.Checked = ModelRun.Sync;
+            chkPublished.Checked = ModelRun.Published;
+            UpdateCheckBoxes(null, null);
+        }
+
+        private DialogResult ConfirmPublish()
+        {
+            DialogResult eResult = MessageBox.Show("Please confirm that you want to make this the one and only model run that is used to populate the Sandbar Analysis web site data tables and plots?",
+                 "Confirmation Required", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+            if (eResult == DialogResult.Cancel)
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
+
+            return eResult;
+        }
+
+        /// <summary>
+        /// Published state has changed. Confirm with the user that they want to do this. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <remarks>Saying "no" should uncheck the checkbox. Clicking "Cancel"
+        /// should close the form, cancelling the whole operation.</remarks>
+        private void chkPublished_Changed(object sender, EventArgs e)
+        {
+            if (chkPublished.Checked)
+            {
+                if (ConfirmPublish() != DialogResult.Yes)
+                    chkPublished.Checked = false;
+            }
+
+            UpdateCheckBoxes(sender, e);
+        }
+
+        private void UpdateCheckBoxes(object sender, EventArgs e)
+        {
+
+            // The publish is only available for synced model runs
+            chkPublished.Enabled = chkSync.Checked;
+
+            // The sync can only be changed if the model run is not the official run
+            chkSync.Enabled = !chkPublished.Checked;
         }
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
+            // If the model run was not originally selected as the official
+            // published run but is now, then reconfirm with the user.
+            if (!InitialPublishState && chkPublished.Checked)
+            {
+                if (ConfirmPublish() != DialogResult.Yes)
+                    return;
+            }
+
             if (!ValidateForm())
             {
                 this.DialogResult = DialogResult.None;

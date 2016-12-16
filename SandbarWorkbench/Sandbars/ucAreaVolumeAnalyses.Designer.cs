@@ -35,32 +35,33 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucAreaVolumeAnalyses));
             this.splitContainer_Vert = new System.Windows.Forms.SplitContainer();
             this.grpAnalysisType = new System.Windows.Forms.GroupBox();
+            this.valDisUpper = new System.Windows.Forms.NumericUpDown();
+            this.lblUpperDischarge = new System.Windows.Forms.Label();
+            this.chkBins = new System.Windows.Forms.CheckedListBox();
             this.rdoBinned = new System.Windows.Forms.RadioButton();
+            this.valDisLower = new System.Windows.Forms.NumericUpDown();
+            this.lblLowerdischarge = new System.Windows.Forms.Label();
             this.rdoIncremental = new System.Windows.Forms.RadioButton();
             this.grpVolume = new System.Windows.Forms.GroupBox();
             this.chkVolSectionTypes = new System.Windows.Forms.CheckedListBox();
             this.grpArea = new System.Windows.Forms.GroupBox();
             this.chkAreaSectionTypes = new System.Windows.Forms.CheckedListBox();
-            this.valDisUpper = new System.Windows.Forms.NumericUpDown();
-            this.lblUpperDischarge = new System.Windows.Forms.Label();
-            this.valDisLower = new System.Windows.Forms.NumericUpDown();
-            this.lblLowerdischarge = new System.Windows.Forms.Label();
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
             this.cmsResults = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportIncrementalResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportBinnedResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkBins = new System.Windows.Forms.CheckedListBox();
+            this.browseAnalysisFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
             this.splitContainer_Vert.SuspendLayout();
             this.grpAnalysisType.SuspendLayout();
-            this.grpVolume.SuspendLayout();
-            this.grpArea.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).BeginInit();
+            this.grpVolume.SuspendLayout();
+            this.grpArea.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAnalyses)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Horiz)).BeginInit();
@@ -106,6 +107,48 @@
             this.grpAnalysisType.TabStop = false;
             this.grpAnalysisType.Text = "Analysis Type";
             // 
+            // valDisUpper
+            // 
+            this.valDisUpper.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.valDisUpper.Location = new System.Drawing.Point(116, 69);
+            this.valDisUpper.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.valDisUpper.Name = "valDisUpper";
+            this.valDisUpper.Size = new System.Drawing.Size(78, 20);
+            this.valDisUpper.TabIndex = 4;
+            this.valDisUpper.Value = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.valDisUpper.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
+            // 
+            // lblUpperDischarge
+            // 
+            this.lblUpperDischarge.AutoSize = true;
+            this.lblUpperDischarge.Location = new System.Drawing.Point(27, 73);
+            this.lblUpperDischarge.Name = "lblUpperDischarge";
+            this.lblUpperDischarge.Size = new System.Drawing.Size(85, 13);
+            this.lblUpperDischarge.TabIndex = 3;
+            this.lblUpperDischarge.Text = "Upper discharge";
+            // 
+            // chkBins
+            // 
+            this.chkBins.CheckOnClick = true;
+            this.chkBins.FormattingEnabled = true;
+            this.chkBins.Location = new System.Drawing.Point(25, 126);
+            this.chkBins.Name = "chkBins";
+            this.chkBins.Size = new System.Drawing.Size(169, 64);
+            this.chkBins.TabIndex = 6;
+            this.chkBins.SelectedIndexChanged += new System.EventHandler(this.UpdateCharts);
+            // 
             // rdoBinned
             // 
             this.rdoBinned.AutoSize = true;
@@ -115,6 +158,38 @@
             this.rdoBinned.TabIndex = 5;
             this.rdoBinned.Text = "Binned";
             this.rdoBinned.UseVisualStyleBackColor = true;
+            // 
+            // valDisLower
+            // 
+            this.valDisLower.Increment = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.valDisLower.Location = new System.Drawing.Point(116, 43);
+            this.valDisLower.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.valDisLower.Name = "valDisLower";
+            this.valDisLower.Size = new System.Drawing.Size(78, 20);
+            this.valDisLower.TabIndex = 2;
+            this.valDisLower.Value = new decimal(new int[] {
+            8000,
+            0,
+            0,
+            0});
+            this.valDisLower.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
+            // 
+            // lblLowerdischarge
+            // 
+            this.lblLowerdischarge.AutoSize = true;
+            this.lblLowerdischarge.Location = new System.Drawing.Point(27, 47);
+            this.lblLowerdischarge.Name = "lblLowerdischarge";
+            this.lblLowerdischarge.Size = new System.Drawing.Size(85, 13);
+            this.lblLowerdischarge.TabIndex = 1;
+            this.lblLowerdischarge.Text = "Lower discharge";
             // 
             // rdoIncremental
             // 
@@ -169,70 +244,6 @@
             this.chkAreaSectionTypes.TabIndex = 1;
             this.chkAreaSectionTypes.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.SectionTypes_ItemCheck);
             // 
-            // valDisUpper
-            // 
-            this.valDisUpper.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.valDisUpper.Location = new System.Drawing.Point(116, 69);
-            this.valDisUpper.Maximum = new decimal(new int[] {
-            60000,
-            0,
-            0,
-            0});
-            this.valDisUpper.Name = "valDisUpper";
-            this.valDisUpper.Size = new System.Drawing.Size(78, 20);
-            this.valDisUpper.TabIndex = 4;
-            this.valDisUpper.Value = new decimal(new int[] {
-            60000,
-            0,
-            0,
-            0});
-            this.valDisUpper.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
-            // 
-            // lblUpperDischarge
-            // 
-            this.lblUpperDischarge.AutoSize = true;
-            this.lblUpperDischarge.Location = new System.Drawing.Point(27, 73);
-            this.lblUpperDischarge.Name = "lblUpperDischarge";
-            this.lblUpperDischarge.Size = new System.Drawing.Size(85, 13);
-            this.lblUpperDischarge.TabIndex = 3;
-            this.lblUpperDischarge.Text = "Upper discharge";
-            // 
-            // valDisLower
-            // 
-            this.valDisLower.Increment = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.valDisLower.Location = new System.Drawing.Point(116, 43);
-            this.valDisLower.Maximum = new decimal(new int[] {
-            50000,
-            0,
-            0,
-            0});
-            this.valDisLower.Name = "valDisLower";
-            this.valDisLower.Size = new System.Drawing.Size(78, 20);
-            this.valDisLower.TabIndex = 2;
-            this.valDisLower.Value = new decimal(new int[] {
-            8000,
-            0,
-            0,
-            0});
-            this.valDisLower.ValueChanged += new System.EventHandler(this.Discharge_ValueChanged);
-            // 
-            // lblLowerdischarge
-            // 
-            this.lblLowerdischarge.AutoSize = true;
-            this.lblLowerdischarge.Location = new System.Drawing.Point(27, 47);
-            this.lblLowerdischarge.Name = "lblLowerdischarge";
-            this.lblLowerdischarge.Size = new System.Drawing.Size(85, 13);
-            this.lblLowerdischarge.TabIndex = 1;
-            this.lblLowerdischarge.Text = "Lower discharge";
-            // 
             // chtData
             // 
             chartArea1.Name = "ChartArea1";
@@ -282,10 +293,11 @@
             // cmsResults
             // 
             this.cmsResults.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.browseAnalysisFolderToolStripMenuItem,
             this.exportIncrementalResultsToolStripMenuItem,
             this.exportBinnedResultsToolStripMenuItem});
             this.cmsResults.Name = "cmsResults";
-            this.cmsResults.Size = new System.Drawing.Size(223, 48);
+            this.cmsResults.Size = new System.Drawing.Size(223, 92);
             // 
             // exportIncrementalResultsToolStripMenuItem
             // 
@@ -303,15 +315,11 @@
             this.exportBinnedResultsToolStripMenuItem.Text = "Export Binned Results...";
             this.exportBinnedResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
             // 
-            // chkBins
+            // browseAnalysisFolderToolStripMenuItem
             // 
-            this.chkBins.CheckOnClick = true;
-            this.chkBins.FormattingEnabled = true;
-            this.chkBins.Location = new System.Drawing.Point(25, 126);
-            this.chkBins.Name = "chkBins";
-            this.chkBins.Size = new System.Drawing.Size(169, 64);
-            this.chkBins.TabIndex = 6;
-            this.chkBins.SelectedIndexChanged += new System.EventHandler(this.UpdateCharts);
+            this.browseAnalysisFolderToolStripMenuItem.Name = "browseAnalysisFolderToolStripMenuItem";
+            this.browseAnalysisFolderToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.browseAnalysisFolderToolStripMenuItem.Text = "Browse Analysis Folder...";
             // 
             // ucAreaVolumeAnalyses
             // 
@@ -327,10 +335,10 @@
             this.splitContainer_Vert.ResumeLayout(false);
             this.grpAnalysisType.ResumeLayout(false);
             this.grpAnalysisType.PerformLayout();
-            this.grpVolume.ResumeLayout(false);
-            this.grpArea.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.valDisUpper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valDisLower)).EndInit();
+            this.grpVolume.ResumeLayout(false);
+            this.grpArea.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdAnalyses)).EndInit();
             this.splitContainer_Horiz.Panel1.ResumeLayout(false);
@@ -363,5 +371,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportIncrementalResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToolStripMenuItem;
         private System.Windows.Forms.CheckedListBox chkBins;
+        private System.Windows.Forms.ToolStripMenuItem browseAnalysisFolderToolStripMenuItem;
     }
 }

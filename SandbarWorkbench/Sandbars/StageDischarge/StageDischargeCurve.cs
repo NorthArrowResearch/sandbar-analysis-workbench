@@ -14,7 +14,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         public Nullable<double> CoeffB { get; internal set; }
         public Nullable<double> CoeffC { get; internal set; }
 
-        public Dictionary<long, SDValue> StageDischargeSamples { get; internal set; }
+        public SortableBindingList<SDValue> StageDischargeSamples { get; internal set; }
 
         public bool HasAllValues
         {

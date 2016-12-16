@@ -66,7 +66,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 17);
+            this.label1.Location = new System.Drawing.Point(42, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 0;
@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 56);
+            this.label2.Location = new System.Drawing.Point(20, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 2;
@@ -107,6 +107,7 @@
             this.chkSync.TabIndex = 4;
             this.chkSync.Text = "Synchronize model results to central database";
             this.chkSync.UseVisualStyleBackColor = true;
+            this.chkSync.CheckedChanged += new System.EventHandler(this.UpdateCheckBoxes);
             // 
             // cmdHelp
             // 
@@ -127,6 +128,7 @@
             this.chkPublished.TabIndex = 5;
             this.chkPublished.Text = "Published official run used for public web site";
             this.chkPublished.UseVisualStyleBackColor = true;
+            this.chkPublished.CheckedChanged += new System.EventHandler(this.chkPublished_Changed);
             // 
             // frmModelRunProperties
             // 

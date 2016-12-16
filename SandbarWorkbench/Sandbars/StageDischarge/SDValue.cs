@@ -21,6 +21,11 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         public double FlowMS { get; internal set; }
         public string Comments { get; internal set; }
 
+        public string Title
+        {
+            get { return ToolTip; }
+        }
+
         public SDValue(long nSampleID, long nSiteID, Nullable<DateTime> dtSampleDate, string sSampleTime, string sSampleCode,
             Nullable<double> fLocalElev, double fSPElevation, Nullable<long> nSampleCount, double fFlow, double fFlowMS, string sComments,
             DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
@@ -39,14 +44,19 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             Comments = sComments;
         }
 
+        public override string ToString()
+        {
+            return ToolTip;
+        }
+
         public string ToolTip
         {
             get
             {
                 StringBuilder sb = new StringBuilder();
-                
+
                 if (SampleDate.HasValue)
-                   sb.AppendLine (SampleDate.Value.ToString("dd-MMM-yyy"));
+                    sb.AppendLine(SampleDate.Value.ToString("dd-MMM-yyy"));
 
                 if (!string.IsNullOrEmpty(SampleCode))
                     sb.AppendLine(string.Format("Code: {0}", SampleCode));
@@ -69,9 +79,9 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             }
         }
 
-        public static Dictionary<long, SDValue> Load(long nSiteID)
+        public static SortableBindingList<SDValue> Load(long nSiteID)
         {
-            Dictionary<long, SDValue> dValues = new Dictionary<long, SDValue>();
+            SortableBindingList<SDValue> dValues = new SortableBindingList<SDValue>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
@@ -83,7 +93,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                 {
                     long nSampleID = dbRead.GetInt64(dbRead.GetOrdinal("SampleID"));
 
-                    dValues[nSampleID] = new SDValue(nSampleID, nSiteID,
+                    dValues.Add(new SDValue(nSampleID, nSiteID,
                         DBHelpers.SQLiteHelpers.GetSafeValueNDT(ref dbRead, "SampleDate"),
                         DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleTime"),
                         DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleCode"),
@@ -96,7 +106,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                         DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "AddedOn"),
                         DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AddedBy"),
                         DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "UpdatedOn"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "UpdatedBy"));
+                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "UpdatedBy")));
                 }
             }
 

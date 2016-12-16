@@ -14,15 +14,17 @@ namespace SandbarWorkbench.Sandbars
         public string Title { get; internal set; }
         public long RunTypeID { get; internal set; }
         public string RunType { get; internal set; }
+        public System.IO.DirectoryInfo AnalysisFolder { get; internal set; }
         public DateTime AddedOn { get; internal set; }
         public string AddedBy { get; internal set; }
 
-        public ModelRun(long nRunID, string sTitle, long nRunTypeID, string sRunType, DateTime dAddedOn, string sAddedBy)
+        public ModelRun(long nRunID, string sTitle, long nRunTypeID, string sRunType, string sAnalysisFolder, DateTime dAddedOn, string sAddedBy)
         {
             RunID = nRunID;
             Title = sTitle;
             RunTypeID = nRunTypeID;
             RunType = sRunType;
+            AnalysisFolder = new System.IO.DirectoryInfo(sAnalysisFolder);
             AddedOn = dAddedOn;
             AddedBy = sAddedBy;
         }
@@ -35,7 +37,7 @@ namespace SandbarWorkbench.Sandbars
             {
                 dbCon.Open();
 
-                string sSQL = "SELECT M.LocalRunID, M.Title, M.RunTypeID, L.Title AS RunType, M.AddedOn, M.AddedBy FROM ModelRuns M INNER JOIN LookupListItems L ON (M.RunTypeID = L.ItemID) ORDER BY M.AddedOn DESC";
+                string sSQL = "SELECT M.LocalRunID, M.Title, M.RunTypeID, L.Title AS RunType, M.AnalysisFolder, M.AddedOn, M.AddedBy FROM ModelRuns M INNER JOIN LookupListItems L ON (M.RunTypeID = L.ItemID) ORDER BY M.AddedOn DESC";
                 SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbCon);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
@@ -45,6 +47,7 @@ namespace SandbarWorkbench.Sandbars
                         , (string)dbRead["Title"]
                         , (long)dbRead["RunTypeID"]
                         , (string)dbRead["RunType"]
+                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AnalysisFolder")
                         , (DateTime)dbRead["AddedOn"]
                         , (string)dbRead["AddedBy"]
                         ));
