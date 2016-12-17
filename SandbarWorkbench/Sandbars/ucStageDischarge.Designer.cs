@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -56,17 +56,17 @@
             // 
             // chtData
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chtData.ChartAreas.Add(chartArea2);
+            chartArea6.Name = "ChartArea1";
+            this.chtData.ChartAreas.Add(chartArea6);
             this.chtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chtData.Legends.Add(legend2);
+            legend6.Name = "Legend1";
+            this.chtData.Legends.Add(legend6);
             this.chtData.Location = new System.Drawing.Point(3, 58);
             this.chtData.Name = "chtData";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chtData.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chtData.Series.Add(series6);
             this.chtData.Size = new System.Drawing.Size(633, 490);
             this.chtData.TabIndex = 0;
             this.chtData.Text = "chtData";
@@ -192,6 +192,7 @@
             this.cboSamples.Name = "cboSamples";
             this.cboSamples.Size = new System.Drawing.Size(131, 21);
             this.cboSamples.TabIndex = 0;
+            this.cboSamples.SelectedIndexChanged += new System.EventHandler(this.cboSamples_SelectedIndexChanged);
             // 
             // cmdAdd
             // 
@@ -202,6 +203,7 @@
             this.cmdAdd.Size = new System.Drawing.Size(23, 23);
             this.cmdAdd.TabIndex = 3;
             this.cmdAdd.UseVisualStyleBackColor = true;
+            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
             // 
             // cmdEdit
             // 
@@ -212,6 +214,7 @@
             this.cmdEdit.Size = new System.Drawing.Size(23, 23);
             this.cmdEdit.TabIndex = 4;
             this.cmdEdit.UseVisualStyleBackColor = true;
+            this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
             // 
             // cmdDelete
             // 
@@ -222,6 +225,7 @@
             this.cmdDelete.Size = new System.Drawing.Size(23, 23);
             this.cmdDelete.TabIndex = 0;
             this.cmdDelete.UseVisualStyleBackColor = true;
+            this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
             // 
             // cmdExportSamples
             // 

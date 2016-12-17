@@ -30,7 +30,7 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
-       
+
             AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
 
@@ -64,9 +64,8 @@ namespace SandbarWorkbench.Sandbars
                 return;
 
             chtData.Series.Clear();
-            Series theSeries = chtData.Series.Add("Stage Discharge");
+            Series theSeries = chtData.Series.Add("Stage Discharge Curve");
             theSeries.ChartType = SeriesChartType.Line;
-            theSeries.IsVisibleInLegend = false;
 
             Title chtTitle = chtData.Titles.Add(string.Format("Stage Discharge Curve for Site {0}", SDCurve.SiteName));
             chtTitle.Font = new Font(chtTitle.Font, FontStyle.Bold);
@@ -90,7 +89,6 @@ namespace SandbarWorkbench.Sandbars
                 chtData.ChartAreas[0].AxisY.Minimum = Math.Floor(fMinStage.Value / 10.0) * 10;
 
                 Series BinSeries = chtData.Series.Add("Analysis Bin Discharges");
-                BinSeries.IsVisibleInLegend = false;
                 BinSeries.ChartType = SeriesChartType.Point;
                 BinSeries.BorderWidth = 2;
                 BinSeries.MarkerSize = 10;
@@ -116,9 +114,8 @@ namespace SandbarWorkbench.Sandbars
         {
             if (this.SDCurve.LoadStageDischargeValues() > 0)
             {
-                Series seriesSV = new Series("Sample Values");
+                Series seriesSV = new Series("Samples");
                 chtData.Series.Insert(0, seriesSV); // This ensures that the sample points get displayed at the bottom of the Z order.
-                seriesSV.IsVisibleInLegend = false;
                 seriesSV.ChartType = SeriesChartType.Point;
                 seriesSV.Color = Color.DarkGray;
                 seriesSV.MarkerStyle = MarkerStyle.Circle;
@@ -159,6 +156,103 @@ namespace SandbarWorkbench.Sandbars
                 if (System.IO.File.Exists(frm.FileName))
                 {
                     System.Diagnostics.Process.Start(frm.FileName);
+                }
+            }
+        }
+
+        private void cboSamples_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sSelectedSample = "Selected Sample";
+
+            Series selSampleSeries = chtData.Series.FindByName(sSelectedSample);
+            if (selSampleSeries == null)
+            {
+                selSampleSeries = new Series(sSelectedSample);
+                chtData.Series.Insert(0, selSampleSeries);
+                selSampleSeries.ChartType = SeriesChartType.Point;
+                selSampleSeries.Color = Color.Red;
+                selSampleSeries.MarkerStyle = MarkerStyle.Square;
+                selSampleSeries.BorderWidth = 2;
+                selSampleSeries.MarkerSize = 15;
+            }
+
+            selSampleSeries.Points.Clear();
+            if (cboSamples.SelectedItem is StageDischarge.SDValue)
+            {
+                StageDischarge.SDValue sdValue = (StageDischarge.SDValue)cboSamples.SelectedItem;
+                int ptIndex = selSampleSeries.Points.AddXY(sdValue.Flow, sdValue.ElevationSP);
+                selSampleSeries.Points[ptIndex].ToolTip = sdValue.ToolTip;
+            }
+        }
+
+        private void cmdAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                StageDischarge.frmSDSample frm = new StageDischarge.frmSDSample(SDCurve.SiteID);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    LoadStageDischargeValues();
+
+                    for (int i = 0; i < cboSamples.Items.Count; i++)
+                    {
+                        if (((StageDischarge.SDValue)cboSamples.Items[i]).SampleID == frm.ID)
+                        {
+                            cboSamples.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        private void cmdEdit_Click(object sender, EventArgs e)
+        {
+            if (cboSamples.SelectedItem is StageDischarge.SDValue)
+            {
+                try
+                {
+                    StageDischarge.frmSDSample frm = new StageDischarge.frmSDSample((StageDischarge.SDValue)cboSamples.SelectedItem);
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadStageDischargeValues();
+
+                        for (int i = 0; i < cboSamples.Items.Count; i++)
+                        {
+                            if (((StageDischarge.SDValue)cboSamples.Items[i]).SampleID == frm.ID)
+                            {
+                                cboSamples.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
+                }
+            }
+
+        }
+
+        private void cmdDelete_Click(object sender, EventArgs e)
+        {
+            if (cboSamples.SelectedItem is StageDischarge.SDValue)
+            {
+                try
+                {
+                    long nSampleID = ((StageDischarge.SDValue)cboSamples.SelectedItem).SampleID;
+
+                    // TODO: delete master
+                    // TODO: delete local
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandling.NARException.HandleException(ex);
                 }
             }
         }

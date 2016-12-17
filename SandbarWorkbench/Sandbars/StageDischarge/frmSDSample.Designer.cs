@@ -195,6 +195,7 @@
             this.chkSampleCount.TabIndex = 10;
             this.chkSampleCount.Text = "Sample count";
             this.chkSampleCount.UseVisualStyleBackColor = true;
+            this.chkSampleCount.CheckedChanged += new System.EventHandler(this.UpdateControls);
             // 
             // valSampleCount
             // 
@@ -308,6 +309,7 @@
             this.chkLocalElevation.TabIndex = 6;
             this.chkLocalElevation.Text = "Local elevation";
             this.chkLocalElevation.UseVisualStyleBackColor = true;
+            this.chkLocalElevation.CheckedChanged += new System.EventHandler(this.UpdateControls);
             // 
             // chkSampleDate
             // 
@@ -318,6 +320,7 @@
             this.chkSampleDate.TabIndex = 2;
             this.chkSampleDate.Text = "Date";
             this.chkSampleDate.UseVisualStyleBackColor = true;
+            this.chkSampleDate.CheckedChanged += new System.EventHandler(this.UpdateControls);
             // 
             // frmSDSample
             // 

@@ -15,21 +15,27 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
     {
         public long ID { get; internal set; }
         public SDValue sdValue { get; internal set; }
+        public long SiteID { get; internal set; }
 
         public frmSDSample(SDValue aValue)
         {
             InitializeComponent();
             sdValue = aValue;
+            SiteID = sdValue.SiteID;
+        }
+
+        public frmSDSample(long nSiteID)
+        {
+            InitializeComponent();
+            sdValue = null;
+            SiteID = nSiteID;
         }
 
         private void frmSDSample_Load(object sender, EventArgs e)
         {
-            long nSiteID = 0;
-
             if (sdValue is SDValue)
             {
                 ID = sdValue.SampleID;
-                nSiteID = sdValue.SiteID;
                 cboSite.Enabled = false;
 
                 chkSampleDate.Checked = sdValue.SampleDate.HasValue;
@@ -54,9 +60,19 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                 txtComments.Text = sdValue.Comments;
             }
 
-            ListItem.LoadComboWithListItems(ref cboSite, DBCon.ConnectionStringLocal, "SELECT SiteCode5 || ' - ' || Title FROM SandbarSites ORDER BY SiteCode5", nSiteID);
+            // Load all the sites into the combo box, but lock it if there is not site selected so that user can select their own.
+            ListItem.LoadComboWithListItems(ref cboSite, DBCon.ConnectionStringLocal, "SELECT SiteID, SiteCode5 || ' - ' || Title FROM SandbarSites ORDER BY SiteCode5", SiteID);
+            cboSite.Enabled = SiteID == 0;
+
+            UpdateControls(null, null);
         }
 
+        private void UpdateControls(object sender, EventArgs e)
+        {
+            dtSampleDate.Enabled = chkSampleDate.Checked;
+            valLocalElevation.Enabled = chkLocalElevation.Checked;
+            valSampleCount.Enabled = chkSampleCount.Checked;
+        }
 
         private bool ValidateForm()
         {
