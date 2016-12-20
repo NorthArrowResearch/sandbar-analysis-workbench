@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.Sandbars.StageDischarge
 {
@@ -130,6 +131,45 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             }
 
             return dValues;
+        }
+
+        /// <summary>
+        /// Deletes a stage discharge sample on both local and master
+        /// </summary>
+        /// <param name="nSampleID">The primary key, unique identifier of the sample</param>
+        public static void Delete(long nSampleID)
+        {
+            using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+            {
+                conMaster.Open();
+                MySqlTransaction transMaster = conMaster.BeginTransaction();
+
+                using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                {
+                    conLocal.Open();
+                    SQLiteTransaction transLocal = conLocal.BeginTransaction();
+
+                    try
+                    {
+                        MySqlCommand comMaster = new MySqlCommand("DELETE FROM StageDischarges WHERE SampleID = @SampleID", transMaster.Connection, transMaster);
+                        comMaster.Parameters.AddWithValue("SampleID", nSampleID);
+                        comMaster.ExecuteNonQuery();
+
+                        SQLiteCommand comLocal = new SQLiteCommand(comMaster.CommandText, transLocal.Connection, transLocal);
+                        comLocal.Parameters.AddWithValue("SampleID", nSampleID);
+                        comLocal.ExecuteNonQuery();
+
+                        transMaster.Commit();
+                        transLocal.Commit();
+                    }
+                    catch(Exception ex)
+                    {
+                        transLocal.Rollback();
+                        transMaster.Rollback();
+                        throw;
+                    }
+                }
+            }
         }
     }
 }

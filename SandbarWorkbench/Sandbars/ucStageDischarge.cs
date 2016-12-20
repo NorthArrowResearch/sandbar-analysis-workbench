@@ -270,15 +270,21 @@ namespace SandbarWorkbench.Sandbars
             {
                 try
                 {
-                    long nSampleID = ((StageDischarge.SDValue)cboSamples.SelectedItem).SampleID;
+                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
 
-                    // TODO: delete master
-                    // TODO: delete local
+                    StageDischarge.SDValue.Delete(((StageDischarge.SDValue)cboSamples.SelectedItem).SampleID);
+                    LoadStageDischargeValues();
+                    cboSamples.DataSource = SDCurve.StageDischargeSamples;
                 }
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
                 }
+                finally
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.Default;
+                }
+
             }
         }
 
