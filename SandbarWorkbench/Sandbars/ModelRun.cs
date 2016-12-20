@@ -24,7 +24,12 @@ namespace SandbarWorkbench.Sandbars
             Title = sTitle;
             RunTypeID = nRunTypeID;
             RunType = sRunType;
-            AnalysisFolder = new System.IO.DirectoryInfo(sAnalysisFolder);
+
+            if (!string.IsNullOrEmpty(sAnalysisFolder))
+                AnalysisFolder = new System.IO.DirectoryInfo(sAnalysisFolder);
+            else
+                AnalysisFolder = null;
+
             AddedOn = dAddedOn;
             AddedBy = sAddedBy;
         }
