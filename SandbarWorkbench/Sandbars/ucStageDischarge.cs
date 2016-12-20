@@ -268,6 +268,13 @@ namespace SandbarWorkbench.Sandbars
         {
             if (cboSamples.SelectedItem is StageDischarge.SDValue)
             {
+
+                if (MessageBox.Show("Are you sure that you want to delete the selected stage discharge sample? This action is permanent and cannot be undone!",
+                    "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) ==  DialogResult.No)
+                {
+                    return;
+                }
+
                 try
                 {
                     System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
