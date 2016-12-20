@@ -152,25 +152,50 @@ namespace SandbarWorkbench.ModelRuns
             // Now insert all the child records for this model run
             using (MySql.Data.MySqlClient.MySqlConnection conMaster = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
             {
-                // Prepare the local command to insert child records
-                dbCom = new SQLiteCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@RunID, @SectionID, @Elevation, @Area, @Volume)", dbTrans.Connection, dbTrans);
-                dbCom.Parameters.AddWithValue("RunID", theRun.ID);
-                SQLiteParameter pSectionID = dbCom.Parameters.Add("SectionID", System.Data.DbType.Int64);
-                SQLiteParameter pElevation = dbCom.Parameters.Add("Elevation", System.Data.DbType.Double);
-                SQLiteParameter pArea = dbCom.Parameters.Add("Area", System.Data.DbType.Double);
-                SQLiteParameter pVolume = dbCom.Parameters.Add("Volume", System.Data.DbType.Double);
-
-                conMaster.Open();
-                MySql.Data.MySqlClient.MySqlCommand comMaster = new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM ModelResultsIncremental WHERE RunID = @RunID", conMaster);
-                comMaster.Parameters.AddWithValue("RunID", masterRun.ID);
-                MySql.Data.MySqlClient.MySqlDataReader readMaster = comMaster.ExecuteReader();
-                while (readMaster.Read())
+                // Prepare the local command to insert child INCREMENTAL records
+                using (dbCom = new SQLiteCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@RunID, @SectionID, @Elevation, @Area, @Volume)", dbTrans.Connection, dbTrans))
                 {
-                    pSectionID.Value = readMaster.GetInt64("SectionID");
-                    pElevation.Value = readMaster.GetDouble("Elevation");
-                    pArea.Value = readMaster.GetDouble("Area");
-                    pVolume.Value = readMaster.GetDouble("Volume");
-                    dbCom.ExecuteNonQuery();
+                    dbCom.Parameters.AddWithValue("RunID", theRun.ID);
+                    SQLiteParameter pSectionID = dbCom.Parameters.Add("SectionID", System.Data.DbType.Int64);
+                    SQLiteParameter pElevation = dbCom.Parameters.Add("Elevation", System.Data.DbType.Double);
+                    SQLiteParameter pArea = dbCom.Parameters.Add("Area", System.Data.DbType.Double);
+                    SQLiteParameter pVolume = dbCom.Parameters.Add("Volume", System.Data.DbType.Double);
+
+                    conMaster.Open();
+                    MySql.Data.MySqlClient.MySqlCommand comMaster = new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM ModelResultsIncremental WHERE RunID = @RunID", conMaster);
+                    comMaster.Parameters.AddWithValue("RunID", masterRun.ID);
+                    MySql.Data.MySqlClient.MySqlDataReader readMaster = comMaster.ExecuteReader();
+                    while (readMaster.Read())
+                    {
+                        pSectionID.Value = readMaster.GetInt64("SectionID");
+                        pElevation.Value = readMaster.GetDouble("Elevation");
+                        pArea.Value = readMaster.GetDouble("Area");
+                        pVolume.Value = readMaster.GetDouble("Volume");
+                        dbCom.ExecuteNonQuery();
+                    }
+                }
+
+                // Prepare the local command to insert child BINNED records
+                using (dbCom = new SQLiteCommand("INSERT INTO ModelResultsBinned (RunID, SectionID, BinID, Area, Volume) VALUES (@RunID, @SectionID, @BinID, @Area, @Volume)", dbTrans.Connection, dbTrans))
+                {
+                    dbCom.Parameters.AddWithValue("RunID", theRun.ID);
+                    SQLiteParameter pSectionID = dbCom.Parameters.Add("SectionID", System.Data.DbType.Int64);
+                    SQLiteParameter pElevation = dbCom.Parameters.Add("BinID", System.Data.DbType.Int64);
+                    SQLiteParameter pArea = dbCom.Parameters.Add("Area", System.Data.DbType.Double);
+                    SQLiteParameter pVolume = dbCom.Parameters.Add("Volume", System.Data.DbType.Double);
+
+                    conMaster.Open();
+                    MySql.Data.MySqlClient.MySqlCommand comMaster = new MySql.Data.MySqlClient.MySqlCommand("SELECT * FROM ModelResultsBinned WHERE RunID = @RunID", conMaster);
+                    comMaster.Parameters.AddWithValue("RunID", masterRun.ID);
+                    MySql.Data.MySqlClient.MySqlDataReader readMaster = comMaster.ExecuteReader();
+                    while (readMaster.Read())
+                    {
+                        pSectionID.Value = readMaster.GetInt64("SectionID");
+                        pElevation.Value = readMaster.GetDouble("BinID");
+                        pArea.Value = readMaster.GetDouble("Area");
+                        pVolume.Value = readMaster.GetDouble("Volume");
+                        dbCom.ExecuteNonQuery();
+                    }
                 }
             }
 
