@@ -158,5 +158,17 @@ namespace SandbarWorkbench.DataGridViews
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        private void exportTableToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, string.Format("Export {0}", this.TypeInfo.Noun), this.TypeInfo.Noun.Replace(" ", "_") , true);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
     }
 }
