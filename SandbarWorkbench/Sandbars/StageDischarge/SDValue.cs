@@ -79,6 +79,25 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             }
         }
 
+        public string ToCSV()
+        {
+            string sValue = (SampleDate.HasValue ? SampleDate.Value.ToString("yyyy-MM-dd") : "");
+            sValue += "," + SampleTime;
+            sValue += "," + SampleCode;
+            sValue += "," + (ElevationLocal.HasValue ? ElevationLocal.Value.ToString() : "");
+            sValue += "," + ElevationSP;
+            sValue += "," + (SampleCount.HasValue ? SampleCount.Value.ToString() : "");
+            sValue += "," + Flow.ToString();
+            sValue += "," + FlowMS.ToString();
+            sValue += "," + Comments.Replace(",", "");
+            return sValue;
+        }
+
+        public static string CSVHeaderRow()
+        {
+            return "Sample Date,Sample Time,Sample Code,Local Elevation, SP Elevation, Sample Count, Flow, Flow MS, Comments";
+        }
+
         public static SortableBindingList<SDValue> Load(long nSiteID)
         {
             SortableBindingList<SDValue> dValues = new SortableBindingList<SDValue>();

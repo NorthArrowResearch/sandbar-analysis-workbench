@@ -146,7 +146,7 @@ namespace SandbarWorkbench.Sandbars
             frm.Title = "Export Stage Discharge Curve";
             frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
             frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
-            frm.FileName = string.Format("{0}_stage_discharge", SDCurve.SiteName);
+            frm.FileName = string.Format("{0}_stage_discharge_curve", SDCurve.SiteName);
 
             frm.AddExtension = true;
 
@@ -253,6 +253,26 @@ namespace SandbarWorkbench.Sandbars
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
+                }
+            }
+        }
+
+        private void cmdExportSamples_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog frm = new SaveFileDialog();
+            frm.Title = "Export Stage Discharge Samples";
+            frm.Filter = "Comma Separated Value Files (*.csv)|*.csv";
+            frm.InitialDirectory = System.IO.Path.GetDirectoryName(DBCon.DatabasePath);
+            frm.FileName = string.Format("{0}_stage_discharge_samples", SDCurve.SiteName);
+
+            frm.AddExtension = true;
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.File.WriteAllText(frm.FileName, SDCurve.SamplesAsCSV());
+                if (System.IO.File.Exists(frm.FileName))
+                {
+                    System.Diagnostics.Process.Start(frm.FileName);
                 }
             }
         }

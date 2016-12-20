@@ -53,6 +53,20 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             return sb.ToString();
         }
 
+        public string SamplesAsCSV()
+        {
+            if (StageDischargeSamples == null)
+                LoadStageDischargeValues();
+                            
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(SDValue.CSVHeaderRow());
+
+            foreach (SDValue aValue in this.StageDischargeSamples)
+                sb.AppendLine(aValue.ToCSV());
+
+            return sb.ToString();
+        }
+
         public int LoadStageDischargeValues()
         {
             StageDischargeSamples = SDValue.Load(this.SiteID);
