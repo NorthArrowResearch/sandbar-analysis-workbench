@@ -197,7 +197,13 @@ namespace SandbarWorkbench.Sandbars
                 StageDischarge.frmSDSample frm = new StageDischarge.frmSDSample(SDCurve.SiteID);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
+                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+
+                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                    sync.SynchronizeLookupTables();
+
                     LoadStageDischargeValues();
+                    cboSamples.DataSource = SDCurve.StageDischargeSamples;
 
                     for (int i = 0; i < cboSamples.Items.Count; i++)
                     {
@@ -213,6 +219,10 @@ namespace SandbarWorkbench.Sandbars
             {
                 ExceptionHandling.NARException.HandleException(ex);
             }
+            finally
+            {
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
+            }
         }
 
         private void cmdEdit_Click(object sender, EventArgs e)
@@ -224,7 +234,13 @@ namespace SandbarWorkbench.Sandbars
                     StageDischarge.frmSDSample frm = new StageDischarge.frmSDSample((StageDischarge.SDValue)cboSamples.SelectedItem);
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+
+                        DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
+                        sync.SynchronizeLookupTables();
+
                         LoadStageDischargeValues();
+                        cboSamples.DataSource = SDCurve.StageDischargeSamples;
 
                         for (int i = 0; i < cboSamples.Items.Count; i++)
                         {
@@ -239,6 +255,10 @@ namespace SandbarWorkbench.Sandbars
                 catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
+                }
+                finally
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
                 }
             }
 

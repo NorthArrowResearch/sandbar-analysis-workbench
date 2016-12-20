@@ -43,6 +43,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     dtSampleDate.Value = sdValue.SampleDate.Value;
 
                 txtSampleTime.Text = sdValue.SampleTime;
+                txtSampleCode.Text = sdValue.SampleCode;
 
                 chkLocalElevation.Checked = sdValue.ElevationLocal.HasValue;
                 if (sdValue.ElevationLocal.HasValue)
@@ -134,25 +135,24 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
 
                 try
                 {
-                    string sSQL = string.Empty;
                     MySqlCommand dbCom = new MySqlCommand(string.Empty, dbTrans.Connection, dbTrans);
                     if (sdValue is SDValue)
                     {
-                        sSQL = "UPDATE StageDischarges SET SiteID = @SiteID, SampleDate = @SampleDate, SampleTime=@SampleTime, SampleCode =@SampleCode" +
+                        dbCom.CommandText = "UPDATE StageDischarges SET SiteID = @SiteID, SampleDate = @SampleDate, SampleTime=@SampleTime, SampleCode =@SampleCode" +
                            ", ElevationLocal = @ElevationLocal, ElevationSP=@ElevationSP, SampleCount=@SampleCount, Flow=@Flow, FlowMS=@FlowMS, Comments =@Comments" +
                            ", UpdatedBy=@EditedBy WHERE SampleID=@SampleID";
                         dbCom.Parameters.AddWithValue("SampleID", sdValue.SampleID);
                     }
                     else
                     {
-                        sSQL = "INSERT INTO StageDischarges (SiteID, SampleDate, SampleTime, SampleCode, ElevationLocal, ElevationSP, SampleCount, Flow, FlowMS, Comments, AddedBy, UpdatedBy)" +
+                        dbCom.CommandText = "INSERT INTO StageDischarges (SiteID, SampleDate, SampleTime, SampleCode, ElevationLocal, ElevationSP, SampleCount, Flow, FlowMS, Comments, AddedBy, UpdatedBy)" +
                          " VALUES (@SiteID, @SampleDate, @SampleTime, @SampleCode, @ElevationLocal, @ElevationSP, @SampleCount, @Flow, @FlowMS, @Comments, @EditedBy, @EditedBy)";
                     }
-                    dbCom.CommandText = sSQL;
 
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboSite, "SiteID");
                     DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkSampleDate, ref dtSampleDate, "SampleDate");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSampleTime, "SampleTime");
+                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSampleCode, "SampleCode");
                     DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkLocalElevation, ref valLocalElevation, "ElevationLocal");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valSPElevation, "ElevationSP");
                     DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkSampleCount, ref valSampleCount, "SampleCount");

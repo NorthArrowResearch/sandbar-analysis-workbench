@@ -49,6 +49,8 @@
             this.txtComments = new System.Windows.Forms.TextBox();
             this.chkLocalElevation = new System.Windows.Forms.CheckBox();
             this.chkSampleDate = new System.Windows.Forms.CheckBox();
+            this.txtSampleCode = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.valLocalElevation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSPElevation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSampleCount)).BeginInit();
@@ -60,10 +62,10 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(297, 356);
+            this.cmdCancel.Location = new System.Drawing.Point(297, 376);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
-            this.cmdCancel.TabIndex = 19;
+            this.cmdCancel.TabIndex = 21;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
             // 
@@ -71,10 +73,10 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(216, 356);
+            this.cmdOK.Location = new System.Drawing.Point(216, 376);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
-            this.cmdOK.TabIndex = 18;
+            this.cmdOK.TabIndex = 20;
             this.cmdOK.Text = "Save";
             this.cmdOK.UseVisualStyleBackColor = true;
             this.cmdOK.Click += new System.EventHandler(this.cmdOK_Click);
@@ -82,10 +84,10 @@
             // cmdHelp
             // 
             this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdHelp.Location = new System.Drawing.Point(12, 356);
+            this.cmdHelp.Location = new System.Drawing.Point(12, 376);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
-            this.cmdHelp.TabIndex = 20;
+            this.cmdHelp.TabIndex = 22;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             // 
@@ -109,7 +111,7 @@
             // 
             // dtSampleDate
             // 
-            this.dtSampleDate.Location = new System.Drawing.Point(116, 42);
+            this.dtSampleDate.Location = new System.Drawing.Point(116, 41);
             this.dtSampleDate.Name = "dtSampleDate";
             this.dtSampleDate.Size = new System.Drawing.Size(255, 20);
             this.dtSampleDate.TabIndex = 3;
@@ -117,7 +119,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(83, 75);
+            this.label3.Location = new System.Drawing.Point(83, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 4;
@@ -125,7 +127,7 @@
             // 
             // txtSampleTime
             // 
-            this.txtSampleTime.Location = new System.Drawing.Point(116, 71);
+            this.txtSampleTime.Location = new System.Drawing.Point(116, 69);
             this.txtSampleTime.MaxLength = 50;
             this.txtSampleTime.Name = "txtSampleTime";
             this.txtSampleTime.Size = new System.Drawing.Size(255, 20);
@@ -134,7 +136,7 @@
             // valLocalElevation
             // 
             this.valLocalElevation.DecimalPlaces = 3;
-            this.valLocalElevation.Location = new System.Drawing.Point(116, 100);
+            this.valLocalElevation.Location = new System.Drawing.Point(116, 125);
             this.valLocalElevation.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -147,7 +149,7 @@
             0});
             this.valLocalElevation.Name = "valLocalElevation";
             this.valLocalElevation.Size = new System.Drawing.Size(120, 20);
-            this.valLocalElevation.TabIndex = 7;
+            this.valLocalElevation.TabIndex = 9;
             this.valLocalElevation.Value = new decimal(new int[] {
             1,
             0,
@@ -157,7 +159,7 @@
             // valSPElevation
             // 
             this.valSPElevation.DecimalPlaces = 3;
-            this.valSPElevation.Location = new System.Drawing.Point(116, 129);
+            this.valSPElevation.Location = new System.Drawing.Point(116, 153);
             this.valSPElevation.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -170,7 +172,7 @@
             0});
             this.valSPElevation.Name = "valSPElevation";
             this.valSPElevation.Size = new System.Drawing.Size(120, 20);
-            this.valSPElevation.TabIndex = 9;
+            this.valSPElevation.TabIndex = 11;
             this.valSPElevation.Value = new decimal(new int[] {
             100,
             0,
@@ -180,26 +182,26 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 133);
+            this.label5.Location = new System.Drawing.Point(29, 157);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
-            this.label5.TabIndex = 8;
+            this.label5.TabIndex = 10;
             this.label5.Text = "SP elevation (m)";
             // 
             // chkSampleCount
             // 
             this.chkSampleCount.AutoSize = true;
-            this.chkSampleCount.Location = new System.Drawing.Point(22, 160);
+            this.chkSampleCount.Location = new System.Drawing.Point(22, 183);
             this.chkSampleCount.Name = "chkSampleCount";
             this.chkSampleCount.Size = new System.Drawing.Size(91, 17);
-            this.chkSampleCount.TabIndex = 10;
+            this.chkSampleCount.TabIndex = 12;
             this.chkSampleCount.Text = "Sample count";
             this.chkSampleCount.UseVisualStyleBackColor = true;
             this.chkSampleCount.CheckedChanged += new System.EventHandler(this.UpdateControls);
             // 
             // valSampleCount
             // 
-            this.valSampleCount.Location = new System.Drawing.Point(116, 158);
+            this.valSampleCount.Location = new System.Drawing.Point(116, 181);
             this.valSampleCount.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -212,7 +214,7 @@
             0});
             this.valSampleCount.Name = "valSampleCount";
             this.valSampleCount.Size = new System.Drawing.Size(120, 20);
-            this.valSampleCount.TabIndex = 11;
+            this.valSampleCount.TabIndex = 13;
             this.valSampleCount.Value = new decimal(new int[] {
             1,
             0,
@@ -222,15 +224,15 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(61, 191);
+            this.label6.Location = new System.Drawing.Point(61, 213);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 12;
+            this.label6.TabIndex = 14;
             this.label6.Text = "Flow (cfs)";
             // 
             // valFlow
             // 
-            this.valFlow.Location = new System.Drawing.Point(116, 187);
+            this.valFlow.Location = new System.Drawing.Point(116, 209);
             this.valFlow.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -243,7 +245,7 @@
             0});
             this.valFlow.Name = "valFlow";
             this.valFlow.Size = new System.Drawing.Size(120, 20);
-            this.valFlow.TabIndex = 13;
+            this.valFlow.TabIndex = 15;
             this.valFlow.Value = new decimal(new int[] {
             1000,
             0,
@@ -253,16 +255,16 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(62, 220);
+            this.label7.Location = new System.Drawing.Point(62, 241);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 14;
+            this.label7.TabIndex = 16;
             this.label7.Text = "Flow (ms)";
             // 
             // valFlowMS
             // 
             this.valFlowMS.DecimalPlaces = 3;
-            this.valFlowMS.Location = new System.Drawing.Point(116, 216);
+            this.valFlowMS.Location = new System.Drawing.Point(116, 237);
             this.valFlowMS.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -275,7 +277,7 @@
             0});
             this.valFlowMS.Name = "valFlowMS";
             this.valFlowMS.Size = new System.Drawing.Size(120, 20);
-            this.valFlowMS.TabIndex = 15;
+            this.valFlowMS.TabIndex = 17;
             this.valFlowMS.Value = new decimal(new int[] {
             10,
             0,
@@ -285,28 +287,28 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(57, 245);
+            this.label8.Location = new System.Drawing.Point(57, 265);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 13);
-            this.label8.TabIndex = 16;
+            this.label8.TabIndex = 18;
             this.label8.Text = "Comments";
             // 
             // txtComments
             // 
-            this.txtComments.Location = new System.Drawing.Point(116, 245);
+            this.txtComments.Location = new System.Drawing.Point(116, 265);
             this.txtComments.MaxLength = 255;
             this.txtComments.Multiline = true;
             this.txtComments.Name = "txtComments";
             this.txtComments.Size = new System.Drawing.Size(255, 99);
-            this.txtComments.TabIndex = 17;
+            this.txtComments.TabIndex = 19;
             // 
             // chkLocalElevation
             // 
             this.chkLocalElevation.AutoSize = true;
-            this.chkLocalElevation.Location = new System.Drawing.Point(15, 102);
+            this.chkLocalElevation.Location = new System.Drawing.Point(15, 127);
             this.chkLocalElevation.Name = "chkLocalElevation";
             this.chkLocalElevation.Size = new System.Drawing.Size(98, 17);
-            this.chkLocalElevation.TabIndex = 6;
+            this.chkLocalElevation.TabIndex = 8;
             this.chkLocalElevation.Text = "Local elevation";
             this.chkLocalElevation.UseVisualStyleBackColor = true;
             this.chkLocalElevation.CheckedChanged += new System.EventHandler(this.UpdateControls);
@@ -314,7 +316,7 @@
             // chkSampleDate
             // 
             this.chkSampleDate.AutoSize = true;
-            this.chkSampleDate.Location = new System.Drawing.Point(64, 44);
+            this.chkSampleDate.Location = new System.Drawing.Point(64, 43);
             this.chkSampleDate.Name = "chkSampleDate";
             this.chkSampleDate.Size = new System.Drawing.Size(49, 17);
             this.chkSampleDate.TabIndex = 2;
@@ -322,13 +324,32 @@
             this.chkSampleDate.UseVisualStyleBackColor = true;
             this.chkSampleDate.CheckedChanged += new System.EventHandler(this.UpdateControls);
             // 
+            // txtSampleCode
+            // 
+            this.txtSampleCode.Location = new System.Drawing.Point(116, 97);
+            this.txtSampleCode.MaxLength = 50;
+            this.txtSampleCode.Name = "txtSampleCode";
+            this.txtSampleCode.Size = new System.Drawing.Size(255, 20);
+            this.txtSampleCode.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(81, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Code";
+            // 
             // frmSDSample
             // 
             this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(384, 391);
+            this.ClientSize = new System.Drawing.Size(384, 411);
+            this.Controls.Add(this.txtSampleCode);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.chkSampleDate);
             this.Controls.Add(this.chkLocalElevation);
             this.Controls.Add(this.txtComments);
@@ -389,5 +410,7 @@
         private System.Windows.Forms.TextBox txtComments;
         private System.Windows.Forms.CheckBox chkLocalElevation;
         private System.Windows.Forms.CheckBox chkSampleDate;
+        private System.Windows.Forms.TextBox txtSampleCode;
+        private System.Windows.Forms.Label label2;
     }
 }
