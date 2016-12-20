@@ -13,6 +13,11 @@ namespace SandbarWorkbench.Sandbars
 {
     public partial class frmSandbarPropertiesEdit : Form
     {
+        // These are the exponents to adjust the stage discharge values for display. 3 equates to 10^3.
+        // Note that the negative value of this exponent should be then used for saving values to DB.
+        private const int StageDischarge_B_Adjustment = 3;
+        private const int StageDischarge_C_Adjustment = 9;
+
         public string conMaster { get; internal set; }
         public long ID { get; internal set; }
 
@@ -68,8 +73,8 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "ExpansionRatio45k", ref valExpansion45k);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageChange8k45k", ref valStageChange845k);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeA", ref valStageChangeA);
-                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeB", ref valStageChangeB);
-                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeC", ref valStageChangeC);
+                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeB", ref valStageChangeB, StageDischarge_B_Adjustment);
+                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeC", ref valStageChangeC, StageDischarge_C_Adjustment);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "PrimaryGDAWS", ref txtPrimaryGDAWS);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "SecondaryGDAWS", ref txtSecondaryGDAWS);
 
@@ -141,8 +146,8 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtCampsite, "CampsiteSurveyRecord");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboRemoteCameras, "RemoteCameraID");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeA, "StageDischargeA");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeB, "StageDischargeB");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeC, "StageDischargeC");
+                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeB, "StageDischargeB", -1 * StageDischarge_B_Adjustment);
+                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeC, "StageDischargeC", -1 * StageDischarge_C_Adjustment);
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valNorthing, "Northing");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valEasting, "Easting");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valLatitude, "Latitude");

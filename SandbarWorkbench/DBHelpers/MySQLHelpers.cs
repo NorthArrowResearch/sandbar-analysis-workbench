@@ -39,7 +39,7 @@ namespace SandbarWorkbench.DBHelpers
                 txt.Text = dbRead.GetString(sColumnName);
         }
 
-        public static void FillNumericUpDown(ref MySqlDataReader dbRead, string sColumnName, ref NumericUpDown val)
+        public static void FillNumericUpDown(ref MySqlDataReader dbRead, string sColumnName, ref NumericUpDown val, int nExponent = 0)
         {
             if (!dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
             {
@@ -47,11 +47,19 @@ namespace SandbarWorkbench.DBHelpers
                 {
                     case "Int64":
                     case "int":
-                        val.Value = (decimal)dbRead.GetInt64(sColumnName);
+                        decimal fRawIntValue = (decimal)dbRead.GetInt64(sColumnName);
+                        if (nExponent != 0)
+                            val.Value = fRawIntValue * (decimal)Math.Pow(10, nExponent);
+                        else
+                            val.Value = fRawIntValue;
                         break;
 
                     case "double":
-                        val.Value = (decimal)dbRead.GetDouble(sColumnName);
+                        decimal fRawValue = (decimal)dbRead.GetDouble(sColumnName);
+                        if (nExponent != 0)
+                            val.Value = fRawValue * (decimal)Math.Pow(10, nExponent);
+                        else
+                            val.Value = fRawValue;
                         break;
 
                     default:
@@ -73,9 +81,12 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
-        public static void AddParameter(ref MySqlCommand dbCom, ref NumericUpDown ctrl, string sParameterName)
+        public static void AddParameter(ref MySqlCommand dbCom, ref NumericUpDown ctrl, string sParameterName, int nExponent = 0)
         {
-            dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value);
+            if (nExponent == 0)
+                dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value);
+            else
+                dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value * (decimal)Math.Pow(10, nExponent));
         }
 
         public static void AddParameter(ref MySqlCommand dbCom, ref ComboBox ctrl, string sParameterName)

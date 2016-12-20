@@ -556,14 +556,19 @@
             // valStageChangeC
             // 
             this.valStageChangeC.DecimalPlaces = 6;
+            this.valStageChangeC.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            262144});
             this.valStageChangeC.Location = new System.Drawing.Point(73, 80);
             this.valStageChangeC.Maximum = new decimal(new int[] {
-            10000,
+            0,
             0,
             0,
             0});
             this.valStageChangeC.Minimum = new decimal(new int[] {
-            10000,
+            10,
             0,
             0,
             -2147483648});
@@ -574,11 +579,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(54, 84);
+            this.label13.Location = new System.Drawing.Point(13, 84);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(14, 13);
+            this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 4;
-            this.label13.Text = "C";
+            this.label13.Text = "C (x10^-9)";
             // 
             // valStageChangeA
             // 
@@ -601,20 +606,25 @@
             // valStageChangeB
             // 
             this.valStageChangeB.DecimalPlaces = 6;
+            this.valStageChangeB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            262144});
             this.valStageChangeB.Location = new System.Drawing.Point(73, 51);
             this.valStageChangeB.Maximum = new decimal(new int[] {
-            10000,
+            1,
             0,
             0,
             0});
-            this.valStageChangeB.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
             this.valStageChangeB.Name = "valStageChangeB";
             this.valStageChangeB.Size = new System.Drawing.Size(95, 20);
             this.valStageChangeB.TabIndex = 3;
+            this.valStageChangeB.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             // 
             // label11
             // 
@@ -628,11 +638,11 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(54, 55);
+            this.label12.Location = new System.Drawing.Point(13, 55);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(14, 13);
+            this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 2;
-            this.label12.Text = "B";
+            this.label12.Text = "B (x10^-3)";
             // 
             // tabPage3
             // 
