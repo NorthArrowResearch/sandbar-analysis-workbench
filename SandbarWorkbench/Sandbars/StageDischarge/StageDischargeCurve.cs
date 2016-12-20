@@ -45,7 +45,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         public string CurveAsCSV(double fMinDischarge, double fMaxDischarge, double fDischargeIncrement)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("stage,discharge");
+            sb.AppendLine("discharge,stage");
 
             for (double fDischarge  = fMinDischarge; fDischarge <= fMaxDischarge;fDischarge+=fDischargeIncrement)
                 sb.AppendLine(string.Format("{0},{1}", fDischarge, Stage(fDischarge).Value));
