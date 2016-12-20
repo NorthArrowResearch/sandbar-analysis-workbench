@@ -157,7 +157,7 @@
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
     <Compile Include="Helpers\OnlineHelp.cs" />
-    <Compile Include="IOHelpers\IOHelpers.cs" />
+    <Compile Include="Helpers\IOHelpers.cs" />
     <Compile Include="ModelRuns\frmModelRunProperties.cs">
       <SubType>Form</SubType>
     </Compile>

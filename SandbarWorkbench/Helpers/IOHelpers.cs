@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SandbarWorkbench.IOHelpers
+namespace SandbarWorkbench.Helpers
 {
     class IOHelpers
     {
