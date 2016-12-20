@@ -38,7 +38,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolAdd = new System.Windows.Forms.ToolStripButton();
             this.toolEdit = new System.Windows.Forms.ToolStripButton();
-            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -56,6 +55,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sandbarAnalysisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportSandbarListToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsSite = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +65,7 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -180,13 +181,6 @@
             this.toolEdit.Text = "toolStripButton1";
             this.toolEdit.ToolTipText = "Edit the selected sandbar site properties";
             this.toolEdit.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
-            // 
-            // ucThumbail
-            // 
-            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
-            this.ucThumbail.Name = "ucThumbail";
-            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
-            this.ucThumbail.TabIndex = 5;
             // 
             // groupBox1
             // 
@@ -370,7 +364,8 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sandbarAnalysisToolStripMenuItem});
+            this.sandbarAnalysisToolStripMenuItem,
+            this.exportSandbarListToCSVToolStripMenuItem});
             this.toolsToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
             this.toolsToolStripMenuItem.MergeIndex = 2;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -383,9 +378,19 @@
             this.sandbarAnalysisToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.sandbarAnalysisToolStripMenuItem.MergeIndex = 0;
             this.sandbarAnalysisToolStripMenuItem.Name = "sandbarAnalysisToolStripMenuItem";
-            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.sandbarAnalysisToolStripMenuItem.Text = "Sandbar Analysis...";
             this.sandbarAnalysisToolStripMenuItem.Click += new System.EventHandler(this.sandbarAnalysisToolStripMenuItem_Click);
+            // 
+            // exportSandbarListToCSVToolStripMenuItem
+            // 
+            this.exportSandbarListToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportSandbarListToCSVToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
+            this.exportSandbarListToCSVToolStripMenuItem.MergeIndex = 1;
+            this.exportSandbarListToCSVToolStripMenuItem.Name = "exportSandbarListToCSVToolStripMenuItem";
+            this.exportSandbarListToCSVToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.exportSandbarListToCSVToolStripMenuItem.Text = "Export Sandbar List to CSV...";
+            this.exportSandbarListToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // grdData
             // 
@@ -471,6 +476,13 @@
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
+            // ucThumbail
+            // 
+            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
+            this.ucThumbail.TabIndex = 5;
+            // 
             // frmSandbars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -545,5 +557,6 @@
         private System.Windows.Forms.ToolStripButton toolEdit;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportSandbarListToCSVToolStripMenuItem;
     }
 }

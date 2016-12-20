@@ -75,7 +75,7 @@ namespace SandbarWorkbench
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
             txtSpatialReference.Text = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
             txtCompExtents.Text = SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile;
-            IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.GDALWarp, ref txtGDALWarp);
+            Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.GDALWarp, ref txtGDALWarp);
             valIncrement.Value = SandbarWorkbench.Properties.Settings.Default.ElevationIncrement;
             valBenchmark.Value = SandbarWorkbench.Properties.Settings.Default.BenchmarkStage;
             txtMainPy.Text = SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy;
@@ -222,12 +222,12 @@ namespace SandbarWorkbench
 
         private void cmdBrowseGDALWarp_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFile("GDAL Warp", "Executable Files (*.exe)|*.exe", ref txtGDALWarp, true);
+            Helpers.IOHelpers.BrowseFillTextBoxFile("GDAL Warp", "Executable Files (*.exe)|*.exe", ref txtGDALWarp, true);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
+            Helpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
         }
     }
 }

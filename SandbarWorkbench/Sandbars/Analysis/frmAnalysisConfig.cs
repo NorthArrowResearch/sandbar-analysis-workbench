@@ -53,10 +53,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
             valOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
 
             // Files and folders
-            IOHelpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, ref txtInputs);
-            IOHelpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults, ref txtResults);
-            IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile, ref txtCompExtents);
-            IOHelpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy, ref txtMainPy);
+            Helpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, ref txtInputs);
+            Helpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults, ref txtResults);
+            Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile, ref txtCompExtents);
+            Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy, ref txtMainPy);
         }
 
         public void CellSizeChanged(object sender, EventArgs e)
@@ -67,17 +67,17 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void cmdBrowseInputs_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFolder("Input Topo Data", ref txtInputs, false);
+            Helpers.IOHelpers.BrowseFillTextBoxFolder("Input Topo Data", ref txtInputs, false);
         }
 
         private void cmdBrowseCompExtents_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFile("Computational Extents ShapeFile", "ShapeFiles (*.shp)|*.shp", ref txtCompExtents, false);
+            Helpers.IOHelpers.BrowseFillTextBoxFile("Computational Extents ShapeFile", "ShapeFiles (*.shp)|*.shp", ref txtCompExtents, false);
         }
 
         private void cmdBrowseResults_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFolder("Model Results Folder", ref txtInputs, false);
+            Helpers.IOHelpers.BrowseFillTextBoxFolder("Model Results Folder", ref txtInputs, false);
         }
 
         private bool ValidateForm()
@@ -143,16 +143,16 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 }
             }
 
-            if (!IOHelpers.IOHelpers.ValidateFolderTextbox("input topo data", ref txtInputs, cmdBrowseInputs))
+            if (!Helpers.IOHelpers.ValidateFolderTextbox("input topo data", ref txtInputs, cmdBrowseInputs))
                 return false;
 
-            if (!IOHelpers.IOHelpers.ValidateFolderTextbox("model results folder", ref txtResults, cmdBrowseResults))
+            if (!Helpers.IOHelpers.ValidateFolderTextbox("model results folder", ref txtResults, cmdBrowseResults))
                 return false;
 
-            if (!IOHelpers.IOHelpers.ValidateFileTextbox("computational extents shapefile", ref txtCompExtents, cmdBrowseCompExtents))
+            if (!Helpers.IOHelpers.ValidateFileTextbox("computational extents shapefile", ref txtCompExtents, cmdBrowseCompExtents))
                 return false;
 
-            if (!IOHelpers.IOHelpers.ValidateFileTextbox("sandbar analysis Main.py python file", ref txtMainPy, cmdBrowseMainPy))
+            if (!Helpers.IOHelpers.ValidateFileTextbox("sandbar analysis Main.py python file", ref txtMainPy, cmdBrowseMainPy))
                 return false;
 
             return true;
@@ -565,7 +565,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IOHelpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
+            Helpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
         }
     }
 }
