@@ -76,7 +76,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                 if (!string.IsNullOrEmpty(Comments))
                     sb.AppendLine(Comments);
 
-                System.Diagnostics.Debug.Assert(sb.Length > 0, "There should always be at lesat one item in the tooltip, or the format should be adjusted.")
+                System.Diagnostics.Debug.Assert(sb.Length > 0, "There should always be at lesat one item in the tooltip, or the format should be adjusted.");
                 return sb.ToString();
             }
         }
