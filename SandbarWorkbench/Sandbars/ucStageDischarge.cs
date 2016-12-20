@@ -114,8 +114,13 @@ namespace SandbarWorkbench.Sandbars
         {
             if (this.SDCurve.LoadStageDischargeValues() > 0)
             {
-                Series seriesSV = new Series("Samples");
-                chtData.Series.Insert(0, seriesSV); // This ensures that the sample points get displayed at the bottom of the Z order.
+                string sSampleSeries = "Samples";
+                Series seriesSV = chtData.Series.FindByName(sSampleSeries);
+                if (seriesSV == null)
+                {
+                    seriesSV = new Series("Samples");
+                    chtData.Series.Insert(0, seriesSV); // This ensures that the sample points get displayed at the bottom of the Z order.
+                }
                 seriesSV.ChartType = SeriesChartType.Point;
                 seriesSV.Color = Color.DarkGray;
                 seriesSV.MarkerStyle = MarkerStyle.Circle;

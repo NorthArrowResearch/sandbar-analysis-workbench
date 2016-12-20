@@ -137,14 +137,16 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     string sSQL = string.Empty;
                     MySqlCommand dbCom = new MySqlCommand(string.Empty, dbTrans.Connection, dbTrans);
                     if (sdValue is SDValue)
-                        sSQL = "INSERT INTO StageDischarges (SiteID, SampleDate, SampleTime, SampleCode, ElevationLocal, ElevationSP, SampleCount, Flow, FlowMS, Comments, AddedBy, UpdatedBy)" +
-                            " VALUES (@SiteID, @SampleDate, @SampleTime, @SampleCode, @ElevationLocal, @ElevationSP, @SampleCount, @Flow, @FlowMS, @Comments, @EditedBy, @EditedBy)";
-                    else
                     {
                         sSQL = "UPDATE StageDischarges SET SiteID = @SiteID, SampleDate = @SampleDate, SampleTime=@SampleTime, SampleCode =@SampleCode" +
-                            ", ElevationLocal = @ElevationLocal, ElevationSP=@ElevationSP, SampleCount=@SampleCount, Flow=@Flow, FlowMS=@FlowMS, Comments =@Comments" +
-                            ", UpdatedBy=@EditedBy WHERE SampleID=@SampleID";
+                           ", ElevationLocal = @ElevationLocal, ElevationSP=@ElevationSP, SampleCount=@SampleCount, Flow=@Flow, FlowMS=@FlowMS, Comments =@Comments" +
+                           ", UpdatedBy=@EditedBy WHERE SampleID=@SampleID";
                         dbCom.Parameters.AddWithValue("SampleID", sdValue.SampleID);
+                    }
+                    else
+                    {
+                        sSQL = "INSERT INTO StageDischarges (SiteID, SampleDate, SampleTime, SampleCode, ElevationLocal, ElevationSP, SampleCount, Flow, FlowMS, Comments, AddedBy, UpdatedBy)" +
+                         " VALUES (@SiteID, @SampleDate, @SampleTime, @SampleCode, @ElevationLocal, @ElevationSP, @SampleCount, @Flow, @FlowMS, @Comments, @EditedBy, @EditedBy)";
                     }
                     dbCom.CommandText = sSQL;
 
