@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDataGridView));
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportTableToCSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteReachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +44,6 @@
             this.deleteReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTableToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportTableToCSVToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.cmsDataGrid.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -57,6 +57,7 @@
             this.grdData.Name = "grdData";
             this.grdData.Size = new System.Drawing.Size(240, 150);
             this.grdData.TabIndex = 0;
+            this.grdData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdData_CellDoubleClick);
             // 
             // cmsDataGrid
             // 
@@ -68,6 +69,19 @@
             this.deleteReachToolStripMenuItem1});
             this.cmsDataGrid.Name = "cmsDataGrid";
             this.cmsDataGrid.Size = new System.Drawing.Size(186, 98);
+            // 
+            // exportTableToCSVToolStripMenuItem1
+            // 
+            this.exportTableToCSVToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportTableToCSVToolStripMenuItem1.Name = "exportTableToCSVToolStripMenuItem1";
+            this.exportTableToCSVToolStripMenuItem1.Size = new System.Drawing.Size(185, 22);
+            this.exportTableToCSVToolStripMenuItem1.Text = "Export Table to CSV...";
+            this.exportTableToCSVToolStripMenuItem1.Click += new System.EventHandler(this.exportTableToCSVToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // addReachToolStripMenuItem1
             // 
@@ -159,19 +173,6 @@
             this.exportTableToCSVToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.exportTableToCSVToolStripMenuItem.Text = "Export Table to CSV...";
             this.exportTableToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportTableToCSVToolStripMenuItem_Click);
-            // 
-            // exportTableToCSVToolStripMenuItem1
-            // 
-            this.exportTableToCSVToolStripMenuItem1.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.exportTableToCSVToolStripMenuItem1.Name = "exportTableToCSVToolStripMenuItem1";
-            this.exportTableToCSVToolStripMenuItem1.Size = new System.Drawing.Size(185, 22);
-            this.exportTableToCSVToolStripMenuItem1.Text = "Export Table to CSV...";
-            this.exportTableToCSVToolStripMenuItem1.Click += new System.EventHandler(this.exportTableToCSVToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
             // 
             // frmDataGridView
             // 

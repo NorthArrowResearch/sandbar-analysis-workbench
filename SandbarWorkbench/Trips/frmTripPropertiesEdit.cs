@@ -39,7 +39,7 @@ namespace SandbarWorkbench.Trips
                             dtTripDate.Value = dbRead.GetDateTime(dbRead.GetOrdinal("TripDate"));
 
                             if (!dbRead.IsDBNull(dbRead.GetOrdinal("Remarks")))
-                                txtRemarks.Text = dbRead.GetString(dbRead.GetOrdinal("Remarks"));                            
+                                txtRemarks.Text = dbRead.GetString(dbRead.GetOrdinal("Remarks"));
                         }
                         else
                             throw new Exception("Unable to retrieve trip information");
@@ -67,30 +67,8 @@ namespace SandbarWorkbench.Trips
 
             try
             {
-                using (MySql.Data.MySqlClient.MySqlConnection dbCon = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
-                {
-                    dbCon.Open();
-
-                    MySql.Data.MySqlClient.MySqlCommand dbCom = null;
-                    if (ID > 0)
-                    {
-                        dbCom = new MySqlCommand("UPDATE Trips SET TripDate = @TripDate, Remarks = @Remarks, UpdatedBy = @EditedBy WHERE TripID = @TripID", dbCon);
-                        dbCom.Parameters.AddWithValue("TripID", ID);
-                    }
-                    else
-                        dbCom = new MySqlCommand("INSERT INTO Trips (TripDate, Remarks, AddedBy, UpdatedBy) VALUES (@TripDate, @Remarks, @EditedBy, @EditedBy)", dbCon);
-
-                    dbCom.Parameters.AddWithValue("TripDate", dtTripDate.Value);
-
-                    MySqlParameter pRemarks = dbCom.Parameters.Add("Remarks", MySqlDbType.VarChar);
-                    if (string.IsNullOrEmpty(txtRemarks.Text))
-                        pRemarks.Value = DBNull.Value;
-                    else
-                        pRemarks.Value = txtRemarks.Text;
-
-                    dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-                    dbCom.ExecuteNonQuery();
-                }
+                Trips.Trip theItem = new Trip(ID, dtTripDate.Value, txtRemarks.Text);
+                theItem.Save();
             }
             catch (Exception ex)
             {
@@ -98,4 +76,3 @@ namespace SandbarWorkbench.Trips
             }
         }
     }
-}

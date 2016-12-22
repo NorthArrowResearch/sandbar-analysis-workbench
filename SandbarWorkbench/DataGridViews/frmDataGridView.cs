@@ -84,14 +84,18 @@ namespace SandbarWorkbench.DataGridViews
 
         private void AddEdit_Click(object sender, EventArgs e)
         {
+            long ID = 0;
+            if (((ToolStripMenuItem)sender).Name.ToLower().Contains("edit"))
+            {
+                ID = SelectedID;
+            }
+            AddEditItem(ID);
+        }
+
+        private void AddEditItem(long ID)
+        {
             try
             {
-                long ID = 0;
-                if (((ToolStripMenuItem)sender).Name.ToLower().Contains("edit"))
-                {
-                    ID = SelectedID;
-                }
-
                 Form frm = null;
 
                 if (TypeInfo.SelectSQL.ToLower().Contains("reaches"))
@@ -108,31 +112,56 @@ namespace SandbarWorkbench.DataGridViews
 
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    MasterDatabaseChanged(ID);
+                    LoadDataGridView(ID);
                 }
             }
             catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
             }
-
         }
 
         private void Delete_Click(object sender, EventArgs e)
         {
             try
             {
+                long ID = SelectedID;
 
                 if (MessageBox.Show(string.Format("Are you sure that you want to delete the selected {0}? This action is permanent and cannot be undone.", TypeInfo.Noun.ToLower()), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
-                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
                     {
-                        dbCon.Open();
-                        MySqlCommand dbCom = new MySqlCommand(TypeInfo.DeleteSQL, dbCon);
-                        dbCom.Parameters.AddWithValue("ID", SelectedID);
-                        dbCom.ExecuteNonQuery();
-                        MasterDatabaseChanged();
+                        conMaster.Open();
+                        MySqlTransaction transMaster = conMaster.BeginTransaction();
+
+                        using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                        {
+                            dbCon.Open();
+                            SQLiteTransaction transLocal = dbCon.BeginTransaction();
+
+                            try
+                            {
+                                MySqlCommand comMaster = new MySqlCommand(TypeInfo.DeleteSQL, transMaster.Connection, transMaster);
+                                comMaster.Parameters.AddWithValue("TripID", ID);
+                                comMaster.ExecuteNonQuery();
+
+                                SQLiteCommand comLocal = new SQLiteCommand(TypeInfo.DeleteSQL, transLocal.Connection, transLocal);
+                                comLocal.Parameters.AddWithValue("TripID", ID);
+                                comLocal.ExecuteNonQuery();
+
+                                transMaster.Commit();
+                                transLocal.Commit();
+
+                                LoadDataGridView();
+                            }
+                            catch
+                            {
+                                transMaster.Rollback();
+                                transLocal.Rollback();
+                                throw;
+                            }
+                        }
                     }
                 }
             }
@@ -163,11 +192,21 @@ namespace SandbarWorkbench.DataGridViews
         {
             try
             {
-                Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, string.Format("Export {0}", this.TypeInfo.Noun), this.TypeInfo.Noun.Replace(" ", "_") , true);
+                Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, string.Format("Export {0}", this.TypeInfo.Noun), this.TypeInfo.Noun.Replace(" ", "_"), true);
             }
             catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        private void grdData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataRowView drv = (DataRowView)grdData.Rows[e.RowIndex].DataBoundItem;
+                DataRow dr = drv.Row;
+                AddEditItem( (long)dr["ID"]);
             }
         }
     }
