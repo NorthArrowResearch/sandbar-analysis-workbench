@@ -143,11 +143,11 @@ namespace SandbarWorkbench.DataGridViews
                             try
                             {
                                 MySqlCommand comMaster = new MySqlCommand(TypeInfo.DeleteSQL, transMaster.Connection, transMaster);
-                                comMaster.Parameters.AddWithValue("TripID", ID);
+                                comMaster.Parameters.AddWithValue("ID", ID);
                                 comMaster.ExecuteNonQuery();
 
                                 SQLiteCommand comLocal = new SQLiteCommand(TypeInfo.DeleteSQL, transLocal.Connection, transLocal);
-                                comLocal.Parameters.AddWithValue("TripID", ID);
+                                comLocal.Parameters.AddWithValue("ID", ID);
                                 comLocal.ExecuteNonQuery();
 
                                 transMaster.Commit();

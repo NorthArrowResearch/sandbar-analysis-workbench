@@ -154,6 +154,7 @@
     <Compile Include="DBHelpers\DatabaseObject.cs" />
     <Compile Include="DBHelpers\DBVersionManager.cs" />
     <Compile Include="DBHelpers\LookupTableDef.cs" />
+    <Compile Include="DBHelpers\LookupTableItem.cs" />
     <Compile Include="DBHelpers\MySQLHelpers.cs" />
     <Compile Include="DBHelpers\ResultTableDef.cs" />
     <Compile Include="Helpers\OnlineHelp.cs" />

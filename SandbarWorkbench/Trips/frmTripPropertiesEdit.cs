@@ -67,12 +67,21 @@ namespace SandbarWorkbench.Trips
 
             try
             {
+                System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
+
                 Trips.Trip theItem = new Trip(ID, dtTripDate.Value, txtRemarks.Text);
                 theItem.Save();
             }
             catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
+                this.DialogResult = DialogResult.None;
             }
+            finally
+            {
+                System.Windows.Forms.Cursor.Current = Cursors.Default;
+            }
+
         }
     }
+}
