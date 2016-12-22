@@ -344,6 +344,7 @@
       <DependentUpon>frmTripPropertiesEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Trips\Trip.cs" />
+    <Compile Include="Trips\TripCRUD.cs" />
     <EmbeddedResource Include="DataGridViews\frmDataGridView.resx">
       <DependentUpon>frmDataGridView.cs</DependentUpon>
     </EmbeddedResource>

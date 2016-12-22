@@ -68,9 +68,9 @@ namespace SandbarWorkbench.Trips
             try
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-
-                Trips.Trip theItem = new Trip(ID, dtTripDate.Value, txtRemarks.Text);
-                theItem.Save();
+                DBHelpers.DatabaseObject theItem = new Trip(ID, dtTripDate.Value, txtRemarks.Text, DateTime.Now, "", DateTime.Now, "");
+                TripCRUD crud = new TripCRUD();
+               crud.Save(ref theItem);
             }
             catch (Exception ex)
             {

@@ -8,28 +8,26 @@ using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DBHelpers
 {
-    public abstract class LookupTableItem
+    public abstract class CRUDManager
     {
-        public long ID { get; internal set; }
         public string DBTable { get; internal set; }
         public string PrimaryKey { get; internal set; }
 
-        protected string InsertSQL { get; set; }
-        protected string UpdateSQL { get; set; }
-
-        public LookupTableItem(long nID, string sDBTable, string sPrimaryKey, string sInsertSQL, string sUpdateSQL)
+        protected static string InsertSQL { get; set; }
+        protected static string UpdateSQL { get; set; }
+        
+        public CRUDManager(string sDBTable, string sPrimaryKey, string sInsertSQL, string sUpdateSQL)
         {
-            ID = nID;
             DBTable = sDBTable;
             PrimaryKey = sPrimaryKey;
             InsertSQL = sInsertSQL;
             UpdateSQL = sUpdateSQL;
         }
 
-        protected abstract void SaveLocal(ref SQLiteTransaction dbTrans, string sSQL);
-        protected abstract long SaveMaster(ref MySqlTransaction dbTrans);
+        protected abstract void SaveLocal(ref SQLiteTransaction dbTrans, ref DatabaseObject obj, string sSQL);
+        protected abstract long SaveMaster(ref MySqlTransaction dbTrans , ref DatabaseObject obj);
 
-        public void Save()
+        public void Save(ref DatabaseObject obj)
         {
             using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
             {
@@ -45,9 +43,9 @@ namespace SandbarWorkbench.DBHelpers
                     {
                         // Must do the master save first. If this is an insert it
                         // will generate the ID that is then used in the local insert.
-                        string sLocalSQL = ID > 0 ? UpdateSQL : InsertSQL;
-                        SaveMaster(ref transMaster);
-                        SaveLocal(ref transLocal, sLocalSQL);
+                        string sLocalSQL = obj.ID > 0 ? UpdateSQL : InsertSQL;
+                        SaveMaster(ref transMaster, ref obj);
+                        SaveLocal(ref transLocal, ref obj, sLocalSQL);
 
                         transMaster.Commit();
                         transLocal.Commit();
