@@ -13,19 +13,25 @@ namespace SandbarWorkbench.DBHelpers
         public string DBTable { get; internal set; }
         public string PrimaryKey { get; internal set; }
 
-        protected static string InsertSQL { get; set; }
-        protected static string UpdateSQL { get; set; }
-        
-        public CRUDManager(string sDBTable, string sPrimaryKey, string sInsertSQL, string sUpdateSQL)
+        protected string InsertSQL { get; set; }
+        protected string UpdateSQL { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sDBTable">Database Table Name that stores these items</param>
+        /// <param name="sPrimaryKey">Primary key field</param>
+        /// <param name="sFields">List of additional fields. Do not include primary key or Audit fields</param>
+        public CRUDManager(string sDBTable, string sPrimaryKey, string[] sFields)
         {
             DBTable = sDBTable;
             PrimaryKey = sPrimaryKey;
-            InsertSQL = sInsertSQL;
-            UpdateSQL = sUpdateSQL;
+            InsertSQL = string.Format("INSERT INTO {0} ({1}, {2}, AddedBy, UpdatedBy) VALUES (@{1}, @{3}, @EditedBy, @EditedBy)", sDBTable, sPrimaryKey, string.Join(", ", sFields), string.Join(", @", sFields));
+            UpdateSQL = string.Format("UPDATE {0} SET {1}, UpdatedBy = @EditedBy WHERE {2} = @{2}", sDBTable, string.Join(", ", sFields.Select(x => x + " = @" + x)), PrimaryKey);
         }
 
         protected abstract void SaveLocal(ref SQLiteTransaction dbTrans, ref DatabaseObject obj, string sSQL);
-        protected abstract long SaveMaster(ref MySqlTransaction dbTrans , ref DatabaseObject obj);
+        protected abstract long SaveMaster(ref MySqlTransaction dbTrans, ref DatabaseObject obj);
 
         public void Save(ref DatabaseObject obj)
         {
@@ -59,7 +65,7 @@ namespace SandbarWorkbench.DBHelpers
                 }
             }
         }
-        
+
         public void Delete(long nID)
         {
             System.Diagnostics.Debug.Assert(nID > 0, "Should only attempt to delete an item that already has been inserted.");

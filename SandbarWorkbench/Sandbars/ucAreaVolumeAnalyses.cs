@@ -23,7 +23,7 @@ namespace SandbarWorkbench.Sandbars
         private BindingList<ModelRun> ModelRuns;
 
         private Dictionary<long, ModelResults> ModelResultData;
-        private Dictionary<long, AnalysisBin> AnalysisBins;
+        private Dictionary<long, AnalysisBins.AnalysisBin> Bins;
 
         private List<string> SelectedAnalyses
         {
@@ -57,9 +57,9 @@ namespace SandbarWorkbench.Sandbars
             grdAnalyses.ContextMenuStrip = cmsResults;
 
             // One time load of the analysis bin definitions
-            AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
+            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
             //CheckedListItem.LoadComboWithListItems(ref chkBins, DBCon.ConnectionStringLocal, "SELECT BinID, Title FROM AnalysisBins ORDER BY LowerElevation", true);
-            chkBins.Items.AddRange(AnalysisBins.Values.ToArray<AnalysisBin>());
+            chkBins.Items.AddRange(Bins.Values.ToArray<AnalysisBins.AnalysisBin>());
 
             string sSQL = string.Format("SELECT ItemID, Title FROM LookupListItems WHERE ListID = {0}", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             CheckedListItem.LoadComboWithListItems(ref chkAreaSectionTypes, DBCon.ConnectionStringLocal, sSQL, false);
@@ -249,7 +249,7 @@ namespace SandbarWorkbench.Sandbars
 
             foreach (long nModelID in ModelResultData.Keys)
             {
-                foreach (AnalysisBin bin in chkBins.CheckedItems)
+                foreach (AnalysisBins.AnalysisBin bin in chkBins.CheckedItems)
                 {
                     Series binSeries = chtData.Series.Add(string.Format("{0}_{1}_{2}", nModelID, bin.Title, eType.ToString()));
                     binSeries.LegendText = bin.Title;
@@ -258,7 +258,7 @@ namespace SandbarWorkbench.Sandbars
                     binSeries.Color = bin.DisplayColor;
                     //binSeries.BorderColor = Color.White;
                     //binSeries.BorderWidth = 1;
-                    binSeries.IsVisibleInLegend = nBinsOnDisplay < AnalysisBins.Count;
+                    binSeries.IsVisibleInLegend = nBinsOnDisplay < Bins.Count;
 
                     nBinsOnDisplay += binSeries.IsVisibleInLegend ? 1 : 0;
 
@@ -278,12 +278,12 @@ namespace SandbarWorkbench.Sandbars
                                     fValues.Add(surveyRes.SurveyID, 0);
                                 }
 
-                                if (surveyRes.BinnedResults.ContainsKey(bin.BinID))
+                                if (surveyRes.BinnedResults.ContainsKey(bin.ID))
                                 {
                                     if (eType == AreaVolType.Area)
-                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.BinID].Area;
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.ID].Area;
                                     else
-                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.BinID].Vol;
+                                        fValues[surveyRes.SurveyID] += surveyRes.BinnedResults[bin.ID].Vol;
                                 }
 
                             }
@@ -297,7 +297,7 @@ namespace SandbarWorkbench.Sandbars
                     System.Diagnostics.Debug.Print(fValues.Count.ToString());
 
                     System.Diagnostics.Debug.Assert(lSurveyDates.Count == binSeries.Points.Count);
-                    for (int i = 0; i < lSurveyDates.Count;i++)
+                    for (int i = 0; i < lSurveyDates.Count; i++)
                     {
                         binSeries.Points[i].AxisLabel = lSurveyDates[i].ToString("d-MMM-yyy");
                     }

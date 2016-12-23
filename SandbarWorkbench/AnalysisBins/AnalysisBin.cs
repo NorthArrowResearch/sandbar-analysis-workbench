@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Drawing;
 
-namespace SandbarWorkbench.Sandbars
+namespace SandbarWorkbench.AnalysisBins
 {
     public class AnalysisBin : DBHelpers.DatabaseObject
     {
@@ -20,13 +20,24 @@ namespace SandbarWorkbench.Sandbars
             return Title;
         }
 
+        public string DisplayColorHex
+        {
+            get { return "#" + DisplayColor.R.ToString("X2") + DisplayColor.G.ToString("X2") + DisplayColor.B.ToString("X2"); }
+        }
+
         public AnalysisBin(long nBinID, string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, Color colDisplay, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
-            : base (nBinID, sTitle, dtAddedOn, sAddedBy, dtUpdatedOn,sUpdatedBy)
+            : base(nBinID, sTitle, dtAddedOn, sAddedBy, dtUpdatedOn, sUpdatedBy)
         {
             LowerDischarge = fLD;
             UpperDischarge = fUD;
             IsActive = bIsActive;
             DisplayColor = colDisplay;
+        }
+
+        public static AnalysisBin Load(long nBinID)
+        {
+            Dictionary<long, AnalysisBin> dBins = Load(DBCon.ConnectionStringLocal);
+            return dBins[nBinID];
         }
 
         public static Dictionary<long, AnalysisBin> Load(string sDBCon)

@@ -133,6 +133,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisBins\AnalysisBinCRUD.cs" />
+    <Compile Include="AnalysisBins\frmAnalysisBinProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalysisBins\frmAnalysisBinProperties.Designer.cs">
+      <DependentUpon>frmAnalysisBinProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="AuditTrail.cs" />
     <Compile Include="DataGridViews\DataGridViewTypeBase.cs" />
     <Compile Include="DataGridViews\DataGridViewTypeLookupList.cs" />
@@ -273,7 +280,7 @@
       <DependentUpon>frmRemoteCameras.cs</DependentUpon>
     </Compile>
     <Compile Include="RemoteCameras\RemoteCamera.cs" />
-    <Compile Include="Sandbars\AnalysisBin.cs" />
+    <Compile Include="AnalysisBins\AnalysisBin.cs" />
     <Compile Include="Sandbars\AnalysisResults.cs" />
     <Compile Include="Sandbars\Analysis\frmAnalysisConfig.cs">
       <SubType>Form</SubType>
@@ -345,6 +352,9 @@
     </Compile>
     <Compile Include="Trips\Trip.cs" />
     <Compile Include="Trips\TripCRUD.cs" />
+    <EmbeddedResource Include="AnalysisBins\frmAnalysisBinProperties.resx">
+      <DependentUpon>frmAnalysisBinProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DataGridViews\frmDataGridView.resx">
       <DependentUpon>frmDataGridView.cs</DependentUpon>
     </EmbeddedResource>

@@ -14,7 +14,7 @@ namespace SandbarWorkbench.Sandbars
     public partial class ucStageDischarge : UserControl
     {
         public StageDischarge.SDCurve SDCurve { get; internal set; }
-        public Dictionary<long, AnalysisBin> AnalysisBins { get; internal set; }
+        public Dictionary<long, AnalysisBins.AnalysisBin> Bins { get; internal set; }
 
         public ucStageDischarge()
         {
@@ -31,7 +31,7 @@ namespace SandbarWorkbench.Sandbars
             }
 
 
-            AnalysisBins = AnalysisBin.Load(DBCon.ConnectionStringLocal);
+            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
 
             cboSamples.DataSource = SDCurve.StageDischargeSamples;
@@ -95,7 +95,7 @@ namespace SandbarWorkbench.Sandbars
                 BinSeries.MarkerStyle = MarkerStyle.Circle;
                 BinSeries.Color = Color.Red;
 
-                SortedList<double, double> lBins = AnalysisBin.GetActiveBinBoundaries(AnalysisBins.Values);
+                SortedList<double, double> lBins = AnalysisBins.AnalysisBin.GetActiveBinBoundaries(Bins.Values);
                 foreach (double fBin in lBins.Values)
                 {
                     fStage = SDCurve.Stage(fBin);
