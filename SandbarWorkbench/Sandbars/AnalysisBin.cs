@@ -8,18 +8,12 @@ using System.Drawing;
 
 namespace SandbarWorkbench.Sandbars
 {
-    public class AnalysisBin
+    public class AnalysisBin : DBHelpers.DatabaseObject
     {
-        public long BinID { get; internal set; }
-        public string Title { get; internal set; }
         public Nullable<double> LowerDischarge { get; internal set; }
         public Nullable<double> UpperDischarge { get; internal set; }
         public bool IsActive { get; internal set; }
         public Color DisplayColor { get; internal set; }
-        public DateTime AddedOn { get; internal set; }
-        public string AddedBy { get; internal set; }
-        public DateTime UpdatedOn { get; internal set; }
-        public string UpdatedBy { get; internal set; }
 
         public override string ToString()
         {
@@ -27,17 +21,12 @@ namespace SandbarWorkbench.Sandbars
         }
 
         public AnalysisBin(long nBinID, string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, Color colDisplay, DateTime dtAddedOn, string sAddedBy, DateTime dtUpdatedOn, string sUpdatedBy)
+            : base (nBinID, sTitle, dtAddedOn, sAddedBy, dtUpdatedOn,sUpdatedBy)
         {
-            BinID = nBinID;
-            Title = sTitle;
             LowerDischarge = fLD;
             UpperDischarge = fUD;
             IsActive = bIsActive;
             DisplayColor = colDisplay;
-            AddedOn = dtAddedOn;
-            AddedBy = sAddedBy;
-            UpdatedOn = dtUpdatedOn;
-            UpdatedBy = sUpdatedBy;
         }
 
         public static Dictionary<long, AnalysisBin> Load(string sDBCon)
