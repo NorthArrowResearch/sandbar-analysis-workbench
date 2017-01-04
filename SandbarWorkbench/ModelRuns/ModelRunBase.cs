@@ -16,6 +16,14 @@ namespace SandbarWorkbench.ModelRuns
         public string RunBy { get; internal set; }
 
         /// <summary>
+        /// Returns the model run date time in the local time zone.
+        /// </summary>
+        public DateTime RunOnLT
+        {
+            get { return RunOn.ToLocalTime(); }
+        }
+
+        /// <summary>
         /// Returns whether this model run was performed on the local machine or not
         /// </summary>
         public bool IsLocalRun { get { return (Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash); } }

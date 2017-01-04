@@ -31,7 +31,7 @@ namespace SandbarWorkbench.ModelRuns
             grdData.ContextMenuStrip = cmsGridView;
             grdData.Dock = DockStyle.Fill;
 
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Date Run", "RunOn", true);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Date Run", "RunOnLT", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Run By", "RunBy", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Title", "Title", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Local Run", "IsLocalRun", true);
