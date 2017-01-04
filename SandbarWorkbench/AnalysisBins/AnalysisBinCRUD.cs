@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using MySql.Data.MySqlClient;
+using System.Drawing;
 
 namespace SandbarWorkbench.AnalysisBins
 {
@@ -24,7 +25,7 @@ namespace SandbarWorkbench.AnalysisBins
             dbCom.Parameters.AddWithValue("Title", obj.Title);
             dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-            dbCom.Parameters.AddWithValue("DisplayColor", ((AnalysisBin)obj).DisplayColor);
+            dbCom.Parameters.AddWithValue("DisplayColor", ColorTranslator.ToHtml(Color.FromArgb(((AnalysisBin)obj).DisplayColor.ToArgb())));
 
             SQLiteParameter pLowerdischarge = dbCom.Parameters.Add("LowerDischarge", System.Data.DbType.Double);
             if (((AnalysisBin)obj).LowerDischarge.HasValue)
@@ -57,9 +58,9 @@ namespace SandbarWorkbench.AnalysisBins
             }
 
             dbCom.Parameters.AddWithValue("Title", ((AnalysisBin)obj).Title);
-           dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
+            dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-            dbCom.Parameters.AddWithValue("DisplayColor", ((AnalysisBin)obj).DisplayColor);
+            dbCom.Parameters.AddWithValue("DisplayColor", ColorTranslator.ToHtml(Color.FromArgb(((AnalysisBin)obj).DisplayColor.ToArgb())));
 
             MySqlParameter pLowerdischarge = dbCom.Parameters.Add("LowerDischarge", MySqlDbType.Double);
             if (((AnalysisBin)obj).LowerDischarge.HasValue)
@@ -75,7 +76,9 @@ namespace SandbarWorkbench.AnalysisBins
 
             dbCom.ExecuteNonQuery();
 
-            obj.ID = dbCom.LastInsertedId;
+            if (obj.ID == 0)    
+                obj.ID = dbCom.LastInsertedId;
+
             System.Diagnostics.Debug.Assert(obj.ID > 0, "The next code to execute is relying on there being a master ID at this point");
             return obj.ID;
         }
