@@ -77,8 +77,7 @@ namespace SandbarWorkbench.DBHelpers
 
                 // Retrieve the list of lookup tables that should be synced
                 List<LookupTableDef> LookupTables = new List<LookupTableDef>();
-                MySqlCommand dbCom = new MySqlCommand("SELECT TableName FROM TableChangeLog WHERE (Synchronize <> 0) AND (TableTypeID = @TableTypeID) ORDER BY Sequence", conMaster);
-                dbCom.Parameters.AddWithValue("TableTypeID", SandbarWorkbench.Properties.Settings.Default.TableType_LookupTables);
+                MySqlCommand dbCom = new MySqlCommand("SELECT TableName FROM TableChangeLog WHERE (Synchronize <> 0) ORDER BY Sequence", conMaster);
                 MySqlDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                     LookupTables.Add(new LookupTableDef(dbRead.GetString("TableName")));

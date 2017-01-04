@@ -191,15 +191,6 @@ namespace SandbarWorkbench.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
-        public int TableType_LookupTables {
-            get {
-                return ((int)(this["TableType_LookupTables"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data\\corgrids")]
@@ -302,15 +293,6 @@ namespace SandbarWorkbench.Properties {
             }
             set {
                 this["DateFormat_SurveyDates"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("16")]
-        public long TableType_ResultsTables {
-            get {
-                return ((long)(this["TableType_ResultsTables"]));
             }
         }
         

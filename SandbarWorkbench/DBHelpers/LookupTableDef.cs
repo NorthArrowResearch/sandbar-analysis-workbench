@@ -98,6 +98,7 @@ namespace SandbarWorkbench.DBHelpers
 
                         case "varchar":
                         case "tinytext":
+                        case "longtext":
                             theDataType = System.Data.DbType.String;
                             break;
 
