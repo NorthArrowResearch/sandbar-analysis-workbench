@@ -121,7 +121,7 @@ namespace SandbarWorkbench.ModelRuns
             if (e.RowIndex >= 0 && grdData.Rows[e.RowIndex].DataBoundItem is ModelRunLocal)
             {
                 ModelRunLocal run = grdData.Rows[e.RowIndex].DataBoundItem as ModelRunLocal;
-                grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = run.IsLocalRun ? Color.Blue : Color.DarkGray;
+                //grdData.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = run.IsLocalRun ? Color.Blue : Color.DarkGray;
             }
         }
 
