@@ -13,6 +13,22 @@ namespace SandbarWorkbench
         public DateTime UpdatedOn { get; internal set; }
         public string UpdatedBy { get; internal set; }
 
+        /// <summary>
+        /// Get the AddedOn date time in the local time zone.
+        /// </summary>
+        public DateTime AddedOnLT
+        {
+            get { return AddedOn.ToLocalTime(); }
+        }
+
+        /// <summary>
+        /// Get the UpdatedOn time in the local time zone.
+        /// </summary>
+        public DateTime UpdatedOnLT
+        {
+            get { return UpdatedOn.ToLocalTime(); }
+        }
+
         public AuditTrail (DateTime dAddedOn, string sAddedBy, DateTime dUpdatedOn, string sUpdatedBy)
         {
             AddedOn = dAddedOn;

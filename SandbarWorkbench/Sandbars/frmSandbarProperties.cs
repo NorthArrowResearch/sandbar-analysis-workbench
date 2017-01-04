@@ -134,9 +134,9 @@ namespace SandbarWorkbench.Sandbars
             grdData.Rows.Add("Latitude", m_Site.Latitude.HasValue ? m_Site.Latitude.Value.ToString("0.000°") : "");
             grdData.Rows.Add("Longitude", m_Site.Longitude.HasValue ? m_Site.Longitude.Value.ToString("0.000°") : "");
             grdData.Rows.Add("Initial Survey", m_Site.InitialSurvey);
-            grdData.Rows.Add("Added On", m_Site.AddedOn.ToString());
+            grdData.Rows.Add("Added On", m_Site.AddedOnLT);
             grdData.Rows.Add("Added By", m_Site.AddedBy);
-            grdData.Rows.Add("Updated On", m_Site.UpdatedOn);
+            grdData.Rows.Add("Updated On", m_Site.UpdatedOnLT);
             grdData.Rows.Add("Updated By", m_Site.UpdatedBy);
 
             grdData.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
