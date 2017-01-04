@@ -187,7 +187,9 @@ namespace SandbarWorkbench.ExceptionHandling
             {
                 Dictionary<string, object> theInnerException = new Dictionary<string, object>();
                 AddExceptionDetailRows(ref theInnerException, ex.InnerException);
-                row.Add("InnerException", theInnerException);
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                string sInner = serializer.Serialize(theInnerException).Replace("\r\n", "\n");
+                row.Add("InnerException", sInner);
             }
         }
     }
