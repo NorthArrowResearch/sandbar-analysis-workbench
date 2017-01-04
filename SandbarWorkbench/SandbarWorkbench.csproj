@@ -201,6 +201,7 @@
     <Compile Include="Pictures\ucThumbail.Designer.cs">
       <DependentUpon>ucThumbail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reaches\ReachCRUD.cs" />
     <Compile Include="RemoteCameras\RemoteCameraBase.cs" />
     <Compile Include="Sandbars\Analysis\ResultsScavenger.cs" />
     <Compile Include="Sandbars\Analysis\frmRunOutput.cs">

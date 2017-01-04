@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace SandbarWorkbench.Reaches
 {
-    class Reach : DBHelpers.DatabaseObject
+    public class Reach : DBHelpers.DatabaseObject
     {
         public string ReachCode { get; internal set; }
         
@@ -19,7 +19,20 @@ namespace SandbarWorkbench.Reaches
             Title = sTitle;
         }
 
-        public static SortableBindingList<Reach> LoadReaches()
+        public Reach(string sReachCode, string sTitle, string sAddedBy)
+          : base(0, sTitle, DateTime.Now, sAddedBy, DateTime.Now, sAddedBy)
+        {
+            ReachCode = sReachCode;
+            Title = sTitle;
+        }
+
+        public static Reach Load(long nReachID)
+        {
+            SortableBindingList<Reach> lReaches = Load();
+            return lReaches.Where<Reach>(x => x.ID == nReachID).Single<Reach>();
+        }
+
+        public static SortableBindingList<Reach> Load()
         {
             SortableBindingList<Reach> lItems = new SortableBindingList<Reach>();
 
@@ -45,8 +58,6 @@ namespace SandbarWorkbench.Reaches
             }
 
             return lItems;
-
-
         }
     }
 }

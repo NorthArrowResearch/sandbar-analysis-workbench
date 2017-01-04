@@ -13,41 +13,22 @@ namespace SandbarWorkbench.Reaches
 {
     public partial class frmReachPropertiesEdit : Form
     {
-        public long ID { get; internal set; }
-
+        public Reach reach { get; internal set; }
+        
         public frmReachPropertiesEdit(long nReachID = 0)
         {
             InitializeComponent();
-            ID = nReachID;
+
+            if (nReachID > 0)
+                reach = Reach.Load(nReachID);
         }
 
         private void frmReachPropertiesEdit_Load(object sender, EventArgs e)
         {
-            if (ID > 0)
+            if (reach is Reach)
             {
-                try
-                {
-                    Cursor.Current = Cursors.WaitCursor;
-                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
-                    {
-                        dbCon.Open();
-                        MySqlCommand dbCom = new MySqlCommand("SELECT ReachCode, Title FROM Reaches WHERE ReachID = @ReachID", dbCon);
-                        dbCom.Parameters.AddWithValue("ReachID", ID);
-                        MySqlDataReader dbRead = dbCom.ExecuteReader();
-                        dbRead.Read();
-
-                        txtReachCode.Text = dbRead.GetString("ReachCode");
-                        txtReachName.Text = dbRead.GetString("Title");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandling.NARException.HandleException(ex);
-                }
-                finally
-                {
-                    Cursor.Current = Cursors.Default;
-                }
+                txtReachCode.Text = reach.ReachCode;
+                txtReachName.Text = reach.Title;
             }
         }
 
@@ -70,68 +51,33 @@ namespace SandbarWorkbench.Reaches
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            if (!ValidateForm())
             {
-                dbCon.Open();
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                this.DialogResult = DialogResult.None;
+                return;
+            }
 
-                try
+            try
+            {
+                ReachCRUD crud = new ReachCRUD();
+
+                if (reach == null)
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    MySqlCommand dbCom = null;
-                    if (ID < 1)
-                        dbCom = new MySqlCommand("INSERT INTO Reaches (ReachCode, Title, AddedBy, UpdatedBy) VALUES (@ReachCode, @Title, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
-                    else
-                    {
-                        dbCom = new MySqlCommand("UPDATE Reaches SET ReachCode = @ReachCode, Title = @Title, UpdatedBy = @EditedBy WHERE ReachID = @ReachID", dbTrans.Connection, dbTrans);
-                        dbCom.Parameters.AddWithValue("ReachID", ID);
-                    }
-
-                    dbCom.Parameters.AddWithValue("ReachCode", txtReachCode.Text);
-                    dbCom.Parameters.AddWithValue("Title", txtReachName.Text);
-                    dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-                    dbCom.ExecuteNonQuery();
-
-                    if (ID < 1)
-                    {
-                        ID = dbCom.LastInsertedId;
-                    }
-
-                    dbTrans.Commit();
+                    reach = new Reach(txtReachName.Text, txtReachCode.Text, Environment.UserName);
                 }
-                catch (MySqlException exMaster)
+                else
                 {
-                    if (exMaster.Message.ToLower().Contains("duplicate"))
-                    {
-                        string sNoun = string.Empty;
-                        if (exMaster.Message.ToLower().Contains("reachcode"))
-                        {
-                            txtReachCode.Select();
-                            sNoun = "reach code";
-                        }
-                        else if (exMaster.Message.ToLower().Contains("title"))
-                        {
-                            txtReachName.Select();
-                            sNoun = "name";
-                        }
+                    reach.Title = txtReachName.Text;
+                    reach.ReachCode = txtReachCode.Text;
+                }
 
-                        MessageBox.Show(string.Format("Another reach already exists in the master database with this {0}. Each reach must possess a unique {0}.", sNoun), "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.DialogResult = DialogResult.None;
-                    }
-                    else
-                        throw;
-
-                }
-                catch (Exception ex)
-                {
-                    dbTrans.Rollback();
-                    ExceptionHandling.NARException.HandleException(ex);
-                }
-                finally
-                {
-                    Cursor.Current = Cursors.Default;
-                }
+                DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.reach;
+                crud.Save(ref obj);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+                this.DialogResult = DialogResult.None;
             }
         }
     }
