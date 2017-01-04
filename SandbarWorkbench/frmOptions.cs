@@ -38,6 +38,10 @@ namespace SandbarWorkbench
 
             txtInstallationGuid.Text = SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString();
 
+#if DEBUG
+            txtInstallationGuid.ReadOnly = false;
+#endif
+
             txtMasterServer.Text = SandbarWorkbench.Properties.Settings.Default.MasterServer;
             txtMasterDatabase.Text = SandbarWorkbench.Properties.Settings.Default.MasterDatabase;
             txtMasterUserName.Text = SandbarWorkbench.Properties.Settings.Default.MasterUser;
@@ -120,6 +124,38 @@ namespace SandbarWorkbench
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
+            // Only update the installation GUID if in Debug mode
+#if DEBUG
+            if (string.Compare(txtInstallationGuid.Text, SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString(), true) != 0)
+            {
+               switch (MessageBox.Show("Are you sure that you want to change the installation GUID?", "DEVELOPER MODE WARNING", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+                    case DialogResult.Cancel:
+                        this.DialogResult = DialogResult.Cancel;
+                        return;
+
+                    case DialogResult.No:
+                        txtInstallationGuid.Text = SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString();
+                        this.DialogResult = DialogResult.None;
+                        return;
+
+                    case DialogResult.Yes:
+                        try
+                        {
+                            SandbarWorkbench.Properties.Settings.Default.InstallationHash = new Guid(txtInstallationGuid.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Exception Creating Installation GUID. No Changes Saved", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            this.DialogResult = DialogResult.None;
+                            return;
+                        }
+
+                        break;
+                }
+            }
+#endif
+
             SandbarWorkbench.Properties.Settings.Default.StartupView = (int)cboStartupView.SelectedValue;
             SandbarWorkbench.Properties.Settings.Default.LoadLastDatabase = chkLoadLastDatabase.Checked;
 
