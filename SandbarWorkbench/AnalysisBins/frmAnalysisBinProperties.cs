@@ -41,6 +41,15 @@ namespace SandbarWorkbench.AnalysisBins
                 frmColourPicker.SolidColorOnly = true;
                 frmColourPicker.ShowHelp = false;
             }
+            else
+            {
+                // Pick a random known color.
+                // http://stackoverflow.com/questions/5805774/how-to-generate-random-color-names-in-c-sharp
+                Random randomGen = new Random(DateTime.Now.Millisecond);
+                KnownColor[] names = (KnownColor[])Enum.GetValues(typeof(KnownColor));
+                KnownColor randomColorName = names[randomGen.Next(names.Length)];
+                pictureBox1.BackColor = Color.FromKnownColor(randomColorName);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
