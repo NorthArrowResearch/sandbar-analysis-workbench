@@ -21,6 +21,12 @@ namespace SandbarWorkbench.Segments
             DownstreamRiverMile = fDSRM;
         }
 
+        public static Segment Load(long nSegmentID)
+        {
+            SortableBindingList<Segment> lSegments = Load();
+            return lSegments.Where<Segment>(x => x.ID == nSegmentID).Single<Segment>();
+        }
+
         public static SortableBindingList<Segment> Load()
         {
             SortableBindingList<Segment> lItems = new SortableBindingList<Segment>();

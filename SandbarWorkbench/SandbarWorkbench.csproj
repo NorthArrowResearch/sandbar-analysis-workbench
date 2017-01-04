@@ -344,6 +344,7 @@
       <DependentUpon>frmSegmentPropertiesEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Segments\Segment.cs" />
+    <Compile Include="Segments\SegmentCRUD.cs" />
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="Trips\frmTripPropertiesEdit.cs">
       <SubType>Form</SubType>
@@ -441,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucStageDischarge.resx">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Segments\frmSegmentPropertiesEdit.resx">
+      <DependentUpon>frmSegmentPropertiesEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trips\frmTripPropertiesEdit.resx">
       <DependentUpon>frmTripPropertiesEdit.cs</DependentUpon>
