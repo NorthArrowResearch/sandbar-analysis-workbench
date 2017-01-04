@@ -21,6 +21,7 @@ namespace SandbarWorkbench.AnalysisBins
             System.Diagnostics.Debug.Assert(obj.ID > 0, "The object should already have been saved to master which would generate the ID");
             SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue(PrimaryKey, obj.ID);
+            dbCom.Parameters.AddWithValue("Title", obj.Title);
             dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.Parameters.AddWithValue("DisplayColor", ((AnalysisBin)obj).DisplayColor);
@@ -55,7 +56,8 @@ namespace SandbarWorkbench.AnalysisBins
                 dbCom.Parameters.AddWithValue(PrimaryKey, DBNull.Value);
             }
 
-            dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
+            dbCom.Parameters.AddWithValue("Title", ((AnalysisBin)obj).Title);
+           dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.Parameters.AddWithValue("DisplayColor", ((AnalysisBin)obj).DisplayColor);
 

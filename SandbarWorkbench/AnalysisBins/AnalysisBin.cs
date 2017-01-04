@@ -34,6 +34,15 @@ namespace SandbarWorkbench.AnalysisBins
             DisplayColor = colDisplay;
         }
 
+        public AnalysisBin(string sTitle, Nullable<double> fLD, Nullable<double> fUD, bool bIsActive, Color colDisplay, string sAddedBy)
+          : base(0, sTitle, DateTime.Now, sAddedBy, DateTime.Now, sAddedBy)
+        {
+            LowerDischarge = fLD;
+            UpperDischarge = fUD;
+            IsActive = bIsActive;
+            DisplayColor = colDisplay;
+        }
+
         public static AnalysisBin Load(long nBinID)
         {
             Dictionary<long, AnalysisBin> dBins = Load(DBCon.ConnectionStringLocal);

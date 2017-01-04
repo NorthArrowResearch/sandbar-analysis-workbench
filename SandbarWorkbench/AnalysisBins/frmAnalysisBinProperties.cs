@@ -98,12 +98,28 @@ namespace SandbarWorkbench.AnalysisBins
             try
             {
                 AnalysisBinCRUD crud = new AnalysisBinCRUD();
+
+                if (!(bin is AnalysisBin))
+                {
+                    Nullable<double> fLower = new Nullable<double>();
+                    if (chkLower.Checked)
+                        fLower = (double)valLower.Value;
+
+                    Nullable<double> fUpper = new Nullable<double>();
+                    if (chkUpper.Checked)
+                        fUpper = (double)valUpper.Value;
+
+
+                    bin = new AnalysisBin(txtTitle.Text, fLower, fUpper, chkActive.Checked, pictureBox1.BackColor, Environment.UserName);
+                }
+                
                 DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.bin;
                 crud.Save(ref obj);
             }
             catch(Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
+                this.DialogResult = DialogResult.None;
             }
         }
     }
