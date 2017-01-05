@@ -303,6 +303,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench..
+        /// </summary>
+        internal static string SyncRequiredWarning {
+            get {
+                return ResourceManager.GetString("SyncRequiredWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap table {

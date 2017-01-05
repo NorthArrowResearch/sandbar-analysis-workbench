@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -122,6 +123,25 @@ namespace SandbarWorkbench.AnalysisBins
 
                 DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.bin;
                 crud.Save(ref obj);
+            }
+            catch (MySqlException ex)
+            {
+                string sNoun = string.Empty;
+
+                if (ex.Message.ToLower().Contains("ix_analysisbins_title"))
+                {
+                    sNoun = "Analysis Bin Name";
+                    txtTitle.Select();
+                }
+
+                if (!string.IsNullOrEmpty(sNoun))
+                {
+                    string sMessage = string.Format("An analysis bin with this {0} already exists on the master database. Please choose a unique {0}. {1}", sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
+                    string sTitle = string.Format("Duplicate {0}", sNoun);
+
+                    MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.None;
+                }
             }
             catch (Exception ex)
             {

@@ -91,9 +91,7 @@ namespace SandbarWorkbench.Reaches
 
                 if (!string.IsNullOrEmpty(sNoun))
                 {
-                    string sMessage = string.Format("A reach with this {0} already exists on the master database. Please choose a unique {0}." +
-                                  " You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.", sNoun.ToLower());
-
+                    string sMessage = string.Format("A reach with this {0} already exists on the master database. Please choose a unique {0}. {1}", sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
                     string sTitle = string.Format("Duplicate {0}", sNoun);
 
                     MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
