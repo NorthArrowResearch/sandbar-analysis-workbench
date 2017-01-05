@@ -54,7 +54,9 @@ namespace SandbarWorkbench.Trips
 
             dbCom.ExecuteNonQuery();
 
-            obj.ID = dbCom.LastInsertedId;
+            if (obj.ID == 0)
+                obj.ID = dbCom.LastInsertedId;
+
             System.Diagnostics.Debug.Assert(obj.ID > 0, "The next code to execute is relying on there being a master ID at this point");
             return obj.ID;
         }
