@@ -220,4 +220,7 @@
   <data name="Help_frmAnalysisBinProperties" xml:space="preserve">
     <value>online_help/views/segments</value>
   </data>
+  <data name="Help_frmModelRunProperties" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_runs</value>
+  </data>
 </root>

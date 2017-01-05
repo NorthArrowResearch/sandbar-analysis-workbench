@@ -207,6 +207,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_runs.
+        /// </summary>
+        internal static string Help_frmModelRunProperties {
+            get {
+                return ResourceManager.GetString("Help_frmModelRunProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to online_help/sandbars/sandbar_properties.
         /// </summary>
         internal static string Help_frmSandbarProperties {

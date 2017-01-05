@@ -38,6 +38,11 @@ namespace SandbarWorkbench.ModelRuns
 
         private void frmModelRunProperties_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(txtTitle, "Name that identifies the model run. Max 50 characters.");
+            tt.SetToolTip(txtRemarks, "Remarks describing the purpose of the model run and provide relevant background information. Max 1000 characters.");
+            tt.SetToolTip(chkSync, "Check this box to include this model run when synchronizing data between the master and your local copy of the workbench. Only models that are set to synchronize are present on the master database.");
+            tt.SetToolTip(chkPublished, "Check this box to make this the one and only model run that is connected to the public web site showing sandbar analysis results.");
+
             txtTitle.Text = ModelRun.Title;
             txtRemarks.Text = ModelRun.Remarks;
             chkSync.Checked = ModelRun.Sync;
@@ -173,6 +178,11 @@ namespace SandbarWorkbench.ModelRuns
             }
 
             return true;
+        }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
         }
     }
 }

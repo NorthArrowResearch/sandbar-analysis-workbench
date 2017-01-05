@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModelRunProperties));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -38,6 +39,7 @@
             this.chkSync = new System.Windows.Forms.CheckBox();
             this.cmdHelp = new System.Windows.Forms.Button();
             this.chkPublished = new System.Windows.Forms.CheckBox();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -118,6 +120,7 @@
             this.cmdHelp.TabIndex = 8;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
             // chkPublished
             // 
@@ -169,5 +172,6 @@
         private System.Windows.Forms.CheckBox chkSync;
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.CheckBox chkPublished;
+        private System.Windows.Forms.ToolTip tt;
     }
 }
