@@ -27,6 +27,8 @@ namespace SandbarWorkbench.DataGridViews
 
         private void frmReachPropertiesEdit_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(txtName, string.Format("Unique name for the {0}. Max 50 characters.", Noun.ToLower()));
+
             if (ID <1)
             {
                 this.Text = string.Format("Add New {0}", Noun);
