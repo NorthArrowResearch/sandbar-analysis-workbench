@@ -102,6 +102,8 @@ namespace SandbarWorkbench.Segments
                     sNoun = "Segment Code";
                     txtCode.Select();
                 }
+                else
+                    throw;
 
                 if (!string.IsNullOrEmpty(sNoun))
                 {

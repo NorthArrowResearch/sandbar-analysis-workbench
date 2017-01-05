@@ -88,6 +88,8 @@ namespace SandbarWorkbench.Reaches
                     sNoun = "Reach Code";
                     txtReachCode.Select();
                 }
+                else
+                    throw;
 
                 if (!string.IsNullOrEmpty(sNoun))
                 {

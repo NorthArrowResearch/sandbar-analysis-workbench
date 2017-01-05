@@ -72,65 +72,41 @@ namespace SandbarWorkbench.DataGridViews
 
         private void cmdOK_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            if (!ValidateForm())
             {
-                dbCon.Open();
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                this.DialogResult = DialogResult.None;
+                return;
+            }
 
-                try
+            try
+            {
+                ListItemCRUD crud = new ListItemCRUD(ListID);
+                DBHelpers.DatabaseObject obj = new DBHelpers.DatabaseObject(ID, txtName.Text, DateTime.Now,Environment.UserName, DateTime.Now,  Environment.UserName);
+                crud.Save(ref obj);
+            }
+            catch (MySqlException ex)
+            {
+                string sNoun = string.Empty;
+
+                if (ex.Message.ToLower().Contains("ux_lookuplistitems_title"))
                 {
-                    Cursor.Current = Cursors.WaitCursor;
-
-                    MySqlCommand dbCom = null;
-                    if (ID < 1)
-                    {
-                        dbCom = new MySqlCommand("INSERT INTO LookupListItems (ListID, Title, AddedBy, UpdatedBy) VALUES (@ListID, @Title, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
-                        dbCom.Parameters.AddWithValue("ListID", ListID);
-                    }
-                    else
-                    {
-                        dbCom = new MySqlCommand("UPDATE LookupListItems SET Title = @Title, UpdatedBy = @EditedBy WHERE ItemID = @ItemID", dbTrans.Connection, dbTrans);
-                        dbCom.Parameters.AddWithValue("ItemID", ID);
-                    }
-
-                    dbCom.Parameters.AddWithValue("Title", txtName.Text);
-                    dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-                    dbCom.ExecuteNonQuery();
-
-                    if (ID < 1)
-                    {
-                        ID = dbCom.LastInsertedId;
-                    }
-
-                    dbTrans.Commit();
+                    sNoun = "Name";
+                    txtName.Select();
                 }
-                catch (MySqlException exMaster)
+
+                if (!string.IsNullOrEmpty(sNoun))
                 {
-                    if (exMaster.Message.ToLower().Contains("duplicate"))
-                    {
-                        string sNoun = string.Empty;
-                        if (exMaster.Message.ToLower().Contains("title"))
-                        {
-                            txtName.Select();
-                            sNoun = "name";
-                        }
+                    string sMessage = string.Format("A {0} with this {0} already exists on the master database. Please choose a unique {0}. {1}", Noun, sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
+                    string sTitle = string.Format("Duplicate {0}", sNoun);
 
-                        MessageBox.Show(string.Format("Another {0} already exists in the master database with this name. Each reach must possess a unique name.", sNoun), "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.DialogResult = DialogResult.None;
-                    }
-                    else
-                        throw;
-
+                    MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.None;
                 }
-                catch (Exception ex)
-                {
-                    dbTrans.Rollback();
-                    ExceptionHandling.NARException.HandleException(ex);
-                }
-                finally
-                {
-                    Cursor.Current = Cursors.Default;
-                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+                this.DialogResult = DialogResult.None;
             }
         }
     }

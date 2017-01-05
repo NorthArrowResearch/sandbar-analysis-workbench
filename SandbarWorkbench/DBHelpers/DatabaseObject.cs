@@ -24,7 +24,7 @@ namespace SandbarWorkbench.DBHelpers
             UpdatedOn = dtUpdatedOn;
             UpdatedBy = sUpdatedBy;
         }
-
+        
         public override string ToString()
         {
             return Title;

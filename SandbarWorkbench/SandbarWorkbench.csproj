@@ -166,6 +166,7 @@
     <Compile Include="DBHelpers\ResultTableDef.cs" />
     <Compile Include="Helpers\OnlineHelp.cs" />
     <Compile Include="Helpers\IOHelpers.cs" />
+    <Compile Include="ListItemCRUD.cs" />
     <Compile Include="ModelRuns\frmModelRunProperties.cs">
       <SubType>Form</SubType>
     </Compile>
