@@ -46,6 +46,11 @@ namespace SandbarWorkbench.ModelRuns
 
         private void frmModelRuns_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(dtFrom, "The filtered list of model runs is filtered to only those runs that were performed on or after this date");
+            tt.SetToolTip(dtTo, "The filtered list of model runs is filtered to only those runs that were performed on or before this date");
+            tt.SetToolTip(rdoAllRuns, "Choose this option to display all model runs that have results stored in the local database on this computer.");
+            tt.SetToolTip(rdoLocalRuns, "Choose this option to display only the model runs that were actually performed on this local computer");
+
             dtFrom.Value = DateTime.Now.AddDays(-30);
             dtTo.Value = DateTime.Now;
 

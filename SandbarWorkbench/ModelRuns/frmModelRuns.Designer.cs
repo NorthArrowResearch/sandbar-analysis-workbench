@@ -42,11 +42,12 @@
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.browseLocalModelRunResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportIncrementalResultsToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportBinnedResultsToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.editModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportIncrementalResultsToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportBinnedResultsToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -177,7 +178,7 @@
             this.editModelRunToolStripMenuItem,
             this.deleteModelRunToolStripMenuItem});
             this.cmsGridView.Name = "cmsGridView";
-            this.cmsGridView.Size = new System.Drawing.Size(261, 142);
+            this.cmsGridView.Size = new System.Drawing.Size(261, 120);
             // 
             // browseLocalModelRunResultsToolStripMenuItem
             // 
@@ -186,6 +187,22 @@
             this.browseLocalModelRunResultsToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
             this.browseLocalModelRunResultsToolStripMenuItem.Text = "Browse Local Model Run Results...";
             this.browseLocalModelRunResultsToolStripMenuItem.Click += new System.EventHandler(this.browseLocalModelRunResultsToolStripMenuItem_Click);
+            // 
+            // exportIncrementalResultsToCSVToolStripMenuItem
+            // 
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Name = "exportIncrementalResultsToCSVToolStripMenuItem";
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Text = "Export Incremental Results to CSV...";
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
+            // 
+            // exportBinnedResultsToCSVToolStripMenuItem
+            // 
+            this.exportBinnedResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportBinnedResultsToCSVToolStripMenuItem.Name = "exportBinnedResultsToCSVToolStripMenuItem";
+            this.exportBinnedResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.exportBinnedResultsToCSVToolStripMenuItem.Text = "Export Binned Results to CSV...";
+            this.exportBinnedResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
             // 
             // toolStripSeparator1
             // 
@@ -207,22 +224,6 @@
             this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
             this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
             this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
-            // 
-            // exportIncrementalResultsToCSVToolStripMenuItem
-            // 
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Name = "exportIncrementalResultsToCSVToolStripMenuItem";
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Text = "Export Incremental Results to CSV...";
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
-            // 
-            // exportBinnedResultsToCSVToolStripMenuItem
-            // 
-            this.exportBinnedResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.exportBinnedResultsToCSVToolStripMenuItem.Name = "exportBinnedResultsToCSVToolStripMenuItem";
-            this.exportBinnedResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
-            this.exportBinnedResultsToCSVToolStripMenuItem.Text = "Export Binned Results to CSV...";
-            this.exportBinnedResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
             // 
             // frmModelRuns
             // 
@@ -267,5 +268,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exportIncrementalResultsToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tt;
     }
 }
