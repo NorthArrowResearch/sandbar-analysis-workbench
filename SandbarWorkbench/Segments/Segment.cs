@@ -21,6 +21,14 @@ namespace SandbarWorkbench.Segments
             DownstreamRiverMile = fDSRM;
         }
 
+        public Segment(string sSegmentcode, string sTitle, double fUSRM, double fDSRM, string sAddedBy)
+        : base(0, sTitle, DateTime.Now, sAddedBy, DateTime.Now, sAddedBy)
+        {
+            SegmentCode = sSegmentcode;
+            UpstreamRiverMile = fUSRM;
+            DownstreamRiverMile = fDSRM;
+        }
+
         public static Segment Load(long nSegmentID)
         {
             SortableBindingList<Segment> lSegments = Load();

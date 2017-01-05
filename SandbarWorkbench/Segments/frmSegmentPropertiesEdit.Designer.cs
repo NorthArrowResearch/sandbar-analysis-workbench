@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.valDownstream = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.valUpstream = new System.Windows.Forms.NumericUpDown();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -52,13 +52,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
-            // textBox1
+            // txtName
             // 
-            this.textBox1.Location = new System.Drawing.Point(125, 14);
-            this.textBox1.MaxLength = 255;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(305, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtName.Location = new System.Drawing.Point(125, 14);
+            this.txtName.MaxLength = 255;
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(305, 20);
+            this.txtName.TabIndex = 1;
             // 
             // label2
             // 
@@ -69,31 +69,31 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Code";
             // 
-            // textBox2
+            // txtCode
             // 
-            this.textBox2.Location = new System.Drawing.Point(125, 44);
-            this.textBox2.MaxLength = 50;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtCode.Location = new System.Drawing.Point(125, 44);
+            this.txtCode.MaxLength = 50;
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(100, 20);
+            this.txtCode.TabIndex = 3;
             // 
-            // numericUpDown1
+            // valDownstream
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(125, 74);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.valDownstream.DecimalPlaces = 2;
+            this.valDownstream.Location = new System.Drawing.Point(125, 74);
+            this.valDownstream.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.valDownstream.Minimum = new decimal(new int[] {
             20,
             0,
             0,
             -2147483648});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 5;
+            this.valDownstream.Name = "valDownstream";
+            this.valDownstream.Size = new System.Drawing.Size(120, 20);
+            this.valDownstream.TabIndex = 5;
             // 
             // label3
             // 
@@ -113,23 +113,23 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Upstream river mile";
             // 
-            // numericUpDown2
+            // valUpstream
             // 
-            this.numericUpDown2.DecimalPlaces = 2;
-            this.numericUpDown2.Location = new System.Drawing.Point(125, 104);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.valUpstream.DecimalPlaces = 2;
+            this.valUpstream.Location = new System.Drawing.Point(125, 104);
+            this.valUpstream.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.valUpstream.Minimum = new decimal(new int[] {
             20,
             0,
             0,
             -2147483648});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 7;
+            this.valUpstream.Name = "valUpstream";
+            this.valUpstream.Size = new System.Drawing.Size(120, 20);
+            this.valUpstream.TabIndex = 7;
             // 
             // cmdCancel
             // 
@@ -175,19 +175,19 @@
             this.Controls.Add(this.cmdOK);
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.valUpstream);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.valDownstream);
+            this.Controls.Add(this.txtCode);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "frmSegmentPropertiesEdit";
             this.Text = "Segment Properties";
             this.Load += new System.EventHandler(this.frmSegmentPropertiesEdit_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,13 +196,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TextBox txtCode;
+        private System.Windows.Forms.NumericUpDown valDownstream;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown valUpstream;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.Button cmdHelp;

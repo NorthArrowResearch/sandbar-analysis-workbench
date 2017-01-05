@@ -11,7 +11,7 @@ namespace SandbarWorkbench.Segments
     class SegmentCRUD : DBHelpers.CRUDManager
     {
         public SegmentCRUD()
-            : base("Segments", "SegmentID", new string[] { "Title", "SegmentCode, UpstreamRiverMile, DownstreamRiverMile" })
+            : base("Segments", "SegmentID", new string[] { "Title", "SegmentCode", "UpstreamRiverMile", "DownstreamRiverMile" })
         {
 
         }
