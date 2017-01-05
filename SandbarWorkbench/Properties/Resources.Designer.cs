@@ -189,6 +189,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/views/segments.
+        /// </summary>
+        internal static string Help_frmAnalysisBinProperties {
+            get {
+                return ResourceManager.GetString("Help_frmAnalysisBinProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to online_help/file_menu/database_info.
         /// </summary>
         internal static string Help_frmDatabaseInfo {

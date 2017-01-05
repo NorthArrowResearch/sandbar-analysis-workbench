@@ -217,4 +217,7 @@
   <data name="SyncRequiredWarning" xml:space="preserve">
     <value>You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.</value>
   </data>
+  <data name="Help_frmAnalysisBinProperties" xml:space="preserve">
+    <value>online_help/views/segments</value>
+  </data>
 </root>

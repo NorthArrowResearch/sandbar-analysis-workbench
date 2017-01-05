@@ -25,6 +25,14 @@ namespace SandbarWorkbench.AnalysisBins
 
         private void frmAnalysisBinProperties_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(txtTitle, "Unique name for the analysis bin. Max 50 characters.");
+            tt.SetToolTip(chkUpper, "Check this box to include a an upper discharge limit for this analysis bin. Uncheck to disable the upper discharge limit.");
+            tt.SetToolTip(valUpper, "The upper discharge limit for this analysis bin in cubic feet per second. Uncheck the adjacent box for bins that do not have an upper discharge limit.");
+            tt.SetToolTip(chkLower, "Check this box to include a an Lower discharge limit for this analysis bin. Uncheck to disable the Lower discharge limit.");
+            tt.SetToolTip(valLower, "The lower discharge limit for this analysis bin in cubic feet per second. Uncheck the adjacent box for bins that do not have an lower discharge limit.");
+            tt.SetToolTip(pictureBox1, "The color used to display this analysis bin on charts and visualizations. Click this area to pick a different color.");
+            tt.SetToolTip(chkActive, "Check this box to include this analysis bin in future runs of the sandbar analysis script.");
+
             if (bin is AnalysisBin)
             {
                 txtTitle.Text = bin.Title;
@@ -148,6 +156,11 @@ namespace SandbarWorkbench.AnalysisBins
                 ExceptionHandling.NARException.HandleException(ex);
                 this.DialogResult = DialogResult.None;
             }
+        }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
         }
     }
 }
