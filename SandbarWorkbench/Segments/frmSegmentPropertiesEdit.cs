@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,7 +75,7 @@ namespace SandbarWorkbench.Segments
 
                 if (segment == null)
                 {
-                    segment = new Segment(txtName.Text, txtCode.Text, (double)valUpstream.Value, (double)valDownstream.Value, Environment.UserName);
+                    segment = new Segment(txtCode.Text, txtName.Text, (double)valUpstream.Value, (double)valDownstream.Value, Environment.UserName);
                 }
                 else
                 {
@@ -86,6 +87,32 @@ namespace SandbarWorkbench.Segments
 
                 DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.segment;
                 crud.Save(ref obj);
+            }
+            catch (MySqlException ex)
+            {
+                string sNoun = string.Empty;
+
+                if (ex.Message.ToLower().Contains("title_unique"))
+                {
+                    sNoun = "Segment Name";
+                    txtName.Select();
+                }
+                else if (ex.Message.ToLower().Contains("segmentcode_unique"))
+                {
+                    sNoun = "Segment Code";
+                    txtCode.Select();
+                }
+
+                if (!string.IsNullOrEmpty(sNoun))
+                {
+                    string sMessage = string.Format("A segment with this {0} already exists on the master database. Please choose a unique {0}." +
+                                  " You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.", sNoun.ToLower());
+
+                    string sTitle = string.Format("Duplicate {0}", sNoun);
+
+                    MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.None;
+                }
             }
             catch (Exception ex)
             {
