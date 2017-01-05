@@ -14,7 +14,7 @@ namespace SandbarWorkbench.Reaches
     public partial class frmReachPropertiesEdit : Form
     {
         public Reach reach { get; internal set; }
-        
+
         public frmReachPropertiesEdit(long nReachID = 0)
         {
             InitializeComponent();
@@ -63,7 +63,7 @@ namespace SandbarWorkbench.Reaches
 
                 if (reach == null)
                 {
-                    reach = new Reach(txtReachName.Text, txtReachCode.Text, Environment.UserName);
+                    reach = new Reach(txtReachCode.Text, txtReachName.Text, Environment.UserName);
                 }
                 else
                 {
@@ -73,6 +73,32 @@ namespace SandbarWorkbench.Reaches
 
                 DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.reach;
                 crud.Save(ref obj);
+            }
+            catch (MySqlException ex)
+            {
+                string sNoun = string.Empty;
+
+                if (ex.Message.ToLower().Contains("title_unique"))
+                {
+                    sNoun = "Reach Name";
+                    txtReachName.Select();
+                }
+                else if (ex.Message.ToLower().Contains("reachcode_unique"))
+                {
+                    sNoun = "Reach Code";
+                    txtReachCode.Select();
+                }
+
+                if (!string.IsNullOrEmpty(sNoun))
+                {
+                    string sMessage = string.Format("A reach with this {0} already exists on the master database. Please choose a unique {0}." +
+                                  " You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.", sNoun.ToLower());
+
+                    string sTitle = string.Format("Duplicate {0}", sNoun);
+
+                    MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.DialogResult = DialogResult.None;
+                }
             }
             catch (Exception ex)
             {
