@@ -71,9 +71,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
             tt.SetToolTip(valOutputCellSize, "The cell size, in meters of the rasters generated from the raw input CSV text files.");
             tt.SetToolTip(cboInterpolationMethod, "If the input point spacing and the output raster cell size are different then the selected inerpolation method determines how the data are resampled.");
             tt.SetToolTip(txtInputs, "The top level folder containing the input raw point text files. Typically ends with \"corgrids\". Defaults to the setting defined on the Options form.");
-            tt.SetToolTip(txtInputs, "The ShapeFile that contains the computational extent polygons for all sandbar sites.");
-            tt.SetToolTip(txtInputs, "The top level folder where the sandbar analysis results are saved. A separate time-stamped folder will be created inside the specified folder for this individual model run.");
-            tt.SetToolTip(txtInputs, "The location of the sandbar analysis Python main.py script file. This file is not included with the Workbench and needs to be obtained separately. See online help for details.");
+            tt.SetToolTip(txtCompExtents, "The ShapeFile that contains the computational extent polygons for all sandbar sites.");
+            tt.SetToolTip(txtResults, "The top level folder where the sandbar analysis results are saved. A separate time-stamped folder will be created inside the specified folder for this individual model run.");
+            tt.SetToolTip(txtMainPy, "The location of the sandbar analysis Python main.py script file. This file is not included with the Workbench and needs to be obtained separately. See online help for details.");
         }
 
         public void CellSizeChanged(object sender, EventArgs e)
