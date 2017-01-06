@@ -120,5 +120,10 @@ namespace SandbarWorkbench.Segments
                 this.DialogResult = DialogResult.None;
             }
         }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

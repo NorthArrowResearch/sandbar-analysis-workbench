@@ -326,5 +326,10 @@ namespace SandbarWorkbench.RemoteCameras
                 cmdPictures.Text = "Show Pictures >>>";
             }
         }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

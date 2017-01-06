@@ -567,5 +567,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
         {
             Helpers.IOHelpers.BrowseFillTextBoxFile("Sandbar Analysis Main.oy Python File", "Python Scripts (*.py)|*.py", ref txtMainPy, true);
         }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }
