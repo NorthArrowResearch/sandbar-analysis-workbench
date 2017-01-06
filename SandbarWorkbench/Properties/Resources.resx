@@ -223,4 +223,37 @@
   <data name="Help_frmModelRunProperties" xml:space="preserve">
     <value>online_help/sandbar_analysis/model_runs</value>
   </data>
+  <data name="frmRemoteCameraPropertiesEdit" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
+  </data>
+  <data name="Help_frmAnalysisConfig" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_run_config</value>
+  </data>
+  <data name="Help_frmModelRuns" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_runs</value>
+  </data>
+  <data name="Help_frmOptions" xml:space="preserve">
+    <value>online_help/tools_menu/options</value>
+  </data>
+  <data name="Help_frmPictureViewer" xml:space="preserve">
+    <value>online_help/pictures/picture_viewer</value>
+  </data>
+  <data name="Help_frmReachPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/reaches</value>
+  </data>
+  <data name="Help_frmRemoteCameras" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
+  </data>
+  <data name="Help_frmSDSample" xml:space="preserve">
+    <value>online_help/sandbars/sd_sample</value>
+  </data>
+  <data name="Help_frmSegmentPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/segments</value>
+  </data>
+  <data name="Help_frmSynchronize" xml:space="preserve">
+    <value>online_help/tools_menu/synchronize</value>
+  </data>
+  <data name="Help_frmTripPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/trips</value>
+  </data>
 </root>

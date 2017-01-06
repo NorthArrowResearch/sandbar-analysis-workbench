@@ -31,6 +31,8 @@ namespace SandbarWorkbench.Sandbars
             }
 
 
+
+
             Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();
 

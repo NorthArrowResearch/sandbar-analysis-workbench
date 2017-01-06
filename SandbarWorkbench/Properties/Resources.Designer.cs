@@ -179,6 +179,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        /// </summary>
+        internal static string frmRemoteCameraPropertiesEdit {
+            get {
+                return ResourceManager.GetString("frmRemoteCameraPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Help {
@@ -198,6 +207,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_run_config.
+        /// </summary>
+        internal static string Help_frmAnalysisConfig {
+            get {
+                return ResourceManager.GetString("Help_frmAnalysisConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to online_help/file_menu/database_info.
         /// </summary>
         internal static string Help_frmDatabaseInfo {
@@ -212,6 +230,51 @@ namespace SandbarWorkbench.Properties {
         internal static string Help_frmModelRunProperties {
             get {
                 return ResourceManager.GetString("Help_frmModelRunProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_runs.
+        /// </summary>
+        internal static string Help_frmModelRuns {
+            get {
+                return ResourceManager.GetString("Help_frmModelRuns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/tools_menu/options.
+        /// </summary>
+        internal static string Help_frmOptions {
+            get {
+                return ResourceManager.GetString("Help_frmOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/pictures/picture_viewer.
+        /// </summary>
+        internal static string Help_frmPictureViewer {
+            get {
+                return ResourceManager.GetString("Help_frmPictureViewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/views/reaches.
+        /// </summary>
+        internal static string Help_frmReachPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmReachPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        /// </summary>
+        internal static string Help_frmRemoteCameras {
+            get {
+                return ResourceManager.GetString("Help_frmRemoteCameras", resourceCulture);
             }
         }
         
@@ -239,6 +302,42 @@ namespace SandbarWorkbench.Properties {
         internal static string Help_frmSandbars {
             get {
                 return ResourceManager.GetString("Help_frmSandbars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbars/sd_sample.
+        /// </summary>
+        internal static string Help_frmSDSample {
+            get {
+                return ResourceManager.GetString("Help_frmSDSample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/views/segments.
+        /// </summary>
+        internal static string Help_frmSegmentPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmSegmentPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/tools_menu/synchronize.
+        /// </summary>
+        internal static string Help_frmSynchronize {
+            get {
+                return ResourceManager.GetString("Help_frmSynchronize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/views/trips.
+        /// </summary>
+        internal static string Help_frmTripPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmTripPropertiesEdit", resourceCulture);
             }
         }
         
