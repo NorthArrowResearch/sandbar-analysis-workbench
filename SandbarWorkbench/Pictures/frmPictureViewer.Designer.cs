@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPictureViewer));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.button1 = new System.Windows.Forms.Button();
@@ -40,6 +41,7 @@
             this.cboRCSetup = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -227,5 +229,6 @@
         private System.Windows.Forms.RadioButton rdoThumb;
         private ucPictureViewer ucPictureViewer;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip tt;
     }
 }
