@@ -388,6 +388,7 @@
             this.Name = "frmRemoteCameras";
             this.Text = "Remote Camera Locations";
             this.Load += new System.EventHandler(this.frmRemoteCameras_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmRemoteCameras_HelpRequested);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

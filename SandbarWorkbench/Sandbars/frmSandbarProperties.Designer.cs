@@ -424,6 +424,7 @@
             this.Name = "frmSandbarProperties";
             this.Text = "Sandbar Properties";
             this.Load += new System.EventHandler(this.frmSandbarProperties_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSandbarProperties_HelpRequested);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();

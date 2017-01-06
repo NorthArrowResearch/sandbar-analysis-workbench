@@ -345,5 +345,10 @@ namespace SandbarWorkbench.Sandbars
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmSurveyProperties_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

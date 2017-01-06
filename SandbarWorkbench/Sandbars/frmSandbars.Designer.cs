@@ -496,6 +496,7 @@
             this.Text = "Sandbar Sites";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSandbars_FormClosing);
             this.Load += new System.EventHandler(this.frmSandbars_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSandbars_HelpRequested);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

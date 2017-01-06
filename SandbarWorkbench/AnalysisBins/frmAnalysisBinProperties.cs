@@ -162,5 +162,10 @@ namespace SandbarWorkbench.AnalysisBins
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmAnalysisBinProperties_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

@@ -114,5 +114,10 @@ namespace SandbarWorkbench.Reaches
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmReachPropertiesEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

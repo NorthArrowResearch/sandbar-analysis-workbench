@@ -355,5 +355,10 @@ namespace SandbarWorkbench.RemoteCameras
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmRemoteCameraPropertiesEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

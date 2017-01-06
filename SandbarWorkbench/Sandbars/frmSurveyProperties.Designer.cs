@@ -202,6 +202,7 @@
             this.Name = "frmSurveyProperties";
             this.Text = "frmSurveyProperties";
             this.Load += new System.EventHandler(this.frmSurveyProperties_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSurveyProperties_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

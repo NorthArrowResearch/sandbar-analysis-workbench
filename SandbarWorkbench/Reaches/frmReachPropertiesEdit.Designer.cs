@@ -127,6 +127,7 @@
             this.Name = "frmReachPropertiesEdit";
             this.Text = "Reach Properties";
             this.Load += new System.EventHandler(this.frmReachPropertiesEdit_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmReachPropertiesEdit_HelpRequested);
             this.ResumeLayout(false);
             this.PerformLayout();
 

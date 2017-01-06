@@ -249,5 +249,10 @@ namespace SandbarWorkbench.ModelRuns
                 ExceptionHandling.NARException.HandleException(ex);
             }
         }
+
+        private void frmModelRuns_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

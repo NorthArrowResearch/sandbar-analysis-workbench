@@ -287,5 +287,10 @@ namespace SandbarWorkbench.RemoteCameras
                 ExceptionHandling.NARException.HandleException(ex);
             }
         }
+
+        private void frmRemoteCameras_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

@@ -380,6 +380,7 @@
             this.Name = "frmSDSample";
             this.Text = "Stage Discharge Sample";
             this.Load += new System.EventHandler(this.frmSDSample_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSDSample_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.valLocalElevation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSPElevation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSampleCount)).EndInit();

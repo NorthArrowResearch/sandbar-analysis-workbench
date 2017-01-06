@@ -235,6 +235,7 @@
             this.Name = "frmModelRuns";
             this.Text = "frmModelRuns";
             this.Load += new System.EventHandler(this.frmModelRuns_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmModelRuns_HelpRequested);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

@@ -809,6 +809,7 @@
             this.Name = "frmSandbarPropertiesEdit";
             this.Text = "Edit Sandbar Properties";
             this.Load += new System.EventHandler(this.frmSandbarPropertiesEdit_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSandbarPropertiesEdit_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEddySize)).EndInit();
             this.groupBox1.ResumeLayout(false);

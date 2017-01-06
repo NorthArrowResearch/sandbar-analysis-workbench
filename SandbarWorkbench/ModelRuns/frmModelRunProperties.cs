@@ -184,5 +184,10 @@ namespace SandbarWorkbench.ModelRuns
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmModelRunProperties_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

@@ -193,6 +193,7 @@
             this.Name = "frmSynchronize";
             this.Text = "Synchronize Local Database With Master Database";
             this.Load += new System.EventHandler(this.frmSynchronize_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSynchronize_HelpRequested);
             this.grpProgress.ResumeLayout(false);
             this.grpProgress.PerformLayout();
             this.ResumeLayout(false);

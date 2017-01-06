@@ -302,5 +302,10 @@ namespace SandbarWorkbench
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmOptions_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

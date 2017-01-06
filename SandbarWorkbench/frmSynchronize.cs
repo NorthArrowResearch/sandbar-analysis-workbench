@@ -140,5 +140,10 @@ namespace SandbarWorkbench
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmSynchronize_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

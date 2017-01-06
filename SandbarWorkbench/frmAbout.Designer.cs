@@ -143,6 +143,7 @@
             this.Name = "frmAbout";
             this.Text = "frmAbout";
             this.Load += new System.EventHandler(this.frmAbout_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmAbout_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);

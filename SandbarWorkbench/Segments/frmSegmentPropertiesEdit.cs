@@ -130,5 +130,10 @@ namespace SandbarWorkbench.Segments
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmSegmentPropertiesEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

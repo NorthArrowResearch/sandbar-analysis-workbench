@@ -232,6 +232,7 @@
             this.Name = "frmAnalysisBinProperties";
             this.Text = "Analysis Bin Properties";
             this.Load += new System.EventHandler(this.frmAnalysisBinProperties_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmAnalysisBinProperties_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.valLower)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpper)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

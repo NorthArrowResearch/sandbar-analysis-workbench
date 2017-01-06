@@ -129,6 +129,7 @@
             this.Name = "frmTripPropertiesEdit";
             this.Text = "Trip Properties";
             this.Load += new System.EventHandler(this.frmTripPropertiesEdit_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmTripPropertiesEdit_HelpRequested);
             this.ResumeLayout(false);
             this.PerformLayout();
 

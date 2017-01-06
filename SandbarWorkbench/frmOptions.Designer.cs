@@ -761,6 +761,7 @@
             this.Name = "frmOptions";
             this.Text = "frmOptions";
             this.Load += new System.EventHandler(this.frmOptions_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmOptions_HelpRequested);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

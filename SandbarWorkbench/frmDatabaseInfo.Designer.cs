@@ -185,6 +185,7 @@
             this.Name = "frmDatabaseInfo";
             this.Text = "Database Information";
             this.Load += new System.EventHandler(this.frmDatabaseInfo_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmDatabaseInfo_HelpRequested);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdBasic)).EndInit();

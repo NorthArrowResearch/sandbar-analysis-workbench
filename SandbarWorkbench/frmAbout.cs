@@ -71,5 +71,10 @@ namespace SandbarWorkbench
         {
             System.Diagnostics.Process.Start(e.Link.LinkData as string);
         }
+
+        private void frmAbout_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Resources.WebSiteURL);
+        }
     }
 }

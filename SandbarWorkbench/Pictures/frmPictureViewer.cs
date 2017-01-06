@@ -60,5 +60,10 @@ namespace SandbarWorkbench.Pictures
                 System.Diagnostics.Process.Start(SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
             }
         }
+
+        private void frmPictureViewer_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

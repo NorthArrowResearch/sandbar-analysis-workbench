@@ -525,6 +525,7 @@
             this.Name = "frmAnalysisConfig";
             this.Text = "Sandbar Analysis Configuration";
             this.Load += new System.EventHandler(this.frmAnalysisConfig_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmAnalysisConfig_HelpRequested);
             this.grpAnalysisDateRange.ResumeLayout(false);
             this.grpAnalysisDateRange.PerformLayout();
             this.grpMinSurfaceDateRange.ResumeLayout(false);

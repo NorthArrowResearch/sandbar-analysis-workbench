@@ -403,5 +403,10 @@ namespace SandbarWorkbench.Sandbars
                 ExceptionHandling.NARException.HandleException(ex);
             }
         }
+
+        private void frmSandbarProperties_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

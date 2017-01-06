@@ -198,5 +198,10 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmSDSample_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

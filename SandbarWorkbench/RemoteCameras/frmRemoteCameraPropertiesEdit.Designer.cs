@@ -564,6 +564,7 @@
             this.Name = "frmRemoteCameraPropertiesEdit";
             this.Text = "frmRemoteCameraPropertiesEdit";
             this.Load += new System.EventHandler(this.frmRemoteCameraPropertiesEdit_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmRemoteCameraPropertiesEdit_HelpRequested);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).EndInit();

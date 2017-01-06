@@ -189,6 +189,7 @@
             this.Name = "frmSegmentPropertiesEdit";
             this.Text = "Segment Properties";
             this.Load += new System.EventHandler(this.frmSegmentPropertiesEdit_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmSegmentPropertiesEdit_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.valDownstream)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valUpstream)).EndInit();
             this.ResumeLayout(false);

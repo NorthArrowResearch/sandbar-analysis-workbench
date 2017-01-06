@@ -156,6 +156,7 @@
             this.Name = "frmModelRunProperties";
             this.Text = "Model Run Properties";
             this.Load += new System.EventHandler(this.frmModelRunProperties_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.frmModelRunProperties_HelpRequested);
             this.ResumeLayout(false);
             this.PerformLayout();
 

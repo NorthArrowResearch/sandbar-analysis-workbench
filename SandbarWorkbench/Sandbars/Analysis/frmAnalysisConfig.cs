@@ -589,5 +589,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmAnalysisConfig_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

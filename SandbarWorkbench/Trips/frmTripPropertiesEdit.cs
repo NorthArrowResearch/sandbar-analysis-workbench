@@ -91,5 +91,10 @@ namespace SandbarWorkbench.Trips
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmTripPropertiesEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

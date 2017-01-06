@@ -84,5 +84,10 @@ namespace SandbarWorkbench
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmDatabaseInfo_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }

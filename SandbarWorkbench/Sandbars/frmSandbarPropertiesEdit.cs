@@ -254,5 +254,10 @@ namespace SandbarWorkbench.Sandbars
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void frmSandbarPropertiesEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }
