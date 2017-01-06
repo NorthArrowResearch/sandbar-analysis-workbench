@@ -25,6 +25,9 @@ namespace SandbarWorkbench.Reaches
 
         private void frmReachPropertiesEdit_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(txtReachCode, "Unique reach code. Max 10 characters. This is typically of the form #_XXX where # is an integer and XXX is an acronym identifying the reach.");
+            tt.SetToolTip(txtReachName, "Unique reach name. Max 50 characters.");
+
             if (reach is Reach)
             {
                 txtReachCode.Text = reach.ReachCode;
@@ -105,6 +108,11 @@ namespace SandbarWorkbench.Reaches
                 ExceptionHandling.NARException.HandleException(ex);
                 this.DialogResult = DialogResult.None;
             }
+        }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
         }
     }
 }

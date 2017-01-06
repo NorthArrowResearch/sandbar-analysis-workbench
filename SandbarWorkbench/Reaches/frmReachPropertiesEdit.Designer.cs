@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@
             this.cmdHelp = new System.Windows.Forms.Button();
             this.txtReachCode = new System.Windows.Forms.TextBox();
             this.txtReachName = new System.Windows.Forms.TextBox();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -87,6 +89,7 @@
             this.cmdHelp.TabIndex = 6;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
             // txtReachCode
             // 
@@ -138,5 +141,6 @@
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.TextBox txtReachCode;
         private System.Windows.Forms.TextBox txtReachName;
+        private System.Windows.Forms.ToolTip tt;
     }
 }
