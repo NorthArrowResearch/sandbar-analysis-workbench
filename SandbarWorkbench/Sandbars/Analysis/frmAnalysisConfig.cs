@@ -43,6 +43,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void frmAnalysisConfig_Load(object sender, EventArgs e)
         {
+            ConfigureToolTips();
             txtTitle.Text = string.Format("Run by {0} on {1} with {2} site{3}", Environment.UserName, Environment.MachineName, SitesToProcess.Count, SitesToProcess.Count > 1 ? "s" : "");
             lstSites.DataSource = SitesToProcess.Select(x => x.SiteCode5).ToList<string>();
 
@@ -57,6 +58,22 @@ namespace SandbarWorkbench.Sandbars.Analysis
             Helpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults, ref txtResults);
             Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile, ref txtCompExtents);
             Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy, ref txtMainPy);
+        }
+
+        private void ConfigureToolTips()
+        {
+            tt.SetToolTip(txtTitle, "Title for this sandbar analysis model run. Max 50 characters.");
+            tt.SetToolTip(txtRemarks, "Optional, miscellaneous remarks and comments about this sandbar analysis model run. Max 1000 characters.");
+            tt.SetToolTip(lstSites, "The list of sandbar sites that will be included in this model run. To change this list, cancel this form and select a different set on the main list of sandbar sites.");
+            tt.SetToolTip(grpAnalysisDateRange, "The date range for surveys (across all the sites listed) that will be included in the sandbar analysis. The from and to dates are included in the analysis.");
+            tt.SetToolTip(grpMinSurfaceDateRange, "The date range for surveys (across all the sites listed) that will be included in the minimum surface calculation. The from and to dates are included in the analysis.");
+            tt.SetToolTip(valInputCellSize, "The point spacing, in meters, of the points contained in the raw input CSV text files.");
+            tt.SetToolTip(valOutputCellSize, "The cell size, in meters of the rasters generated from the raw input CSV text files.");
+            tt.SetToolTip(cboInterpolationMethod, "If the input point spacing and the output raster cell size are different then the selected inerpolation method determines how the data are resampled.");
+            tt.SetToolTip(txtInputs, "The top level folder containing the input raw point text files. Typically ends with \"corgrids\". Defaults to the setting defined on the Options form.");
+            tt.SetToolTip(txtInputs, "The ShapeFile that contains the computational extent polygons for all sandbar sites.");
+            tt.SetToolTip(txtInputs, "The top level folder where the sandbar analysis results are saved. A separate time-stamped folder will be created inside the specified folder for this individual model run.");
+            tt.SetToolTip(txtInputs, "The location of the sandbar analysis Python main.py script file. This file is not included with the Workbench and needs to be obtained separately. See online help for details.");
         }
 
         public void CellSizeChanged(object sender, EventArgs e)

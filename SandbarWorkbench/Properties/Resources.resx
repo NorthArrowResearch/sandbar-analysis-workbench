@@ -259,4 +259,7 @@
   <data name="Help_frmRemoteCameraPropertiesEdit" xml:space="preserve">
     <value>online_help/remote-cameras/remote_camera_properties</value>
   </data>
+  <data name="Help_frmSurveyProperties" xml:space="preserve">
+    <value>online_help/sandbars/sandbar_surveys</value>
+  </data>
 </root>

@@ -30,8 +30,14 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
-
-
+            tt.SetToolTip(valDischarge, "Specify a discharge (in cubic feet per second) to see the corresponding stage displayed in the adjacent text box and also in the chart below.");
+            tt.SetToolTip(txtStage, "The stage (in meters) that corresponds with the discharge entered in the adjacent box.");
+            tt.SetToolTip(cboSamples, "The stage discharge samples associated with this sandbar site. Use the adjacents to manage these sample values.");
+            tt.SetToolTip(cmdAdd, "Add a stage discharge sample for this sandbar site.");
+            tt.SetToolTip(cmdEdit, "Edit the existing stage discharge sample selected in the adjacent drop down list.");
+            tt.SetToolTip(cmdDelete, "Delete the existing stage discharge sample selected in the adjacent drop down list.");
+            tt.SetToolTip(cmdExport, "Export a comma separated value (CSV) text file representing points along the stage discharge curve at a user-defined interval.");
+            tt.SetToolTip(cmdExportSamples, "Export the stage discharge samples for this sandbar site to a comma separated value (CSV) text file.");
 
             Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
             LoadStageDischargeCurve();

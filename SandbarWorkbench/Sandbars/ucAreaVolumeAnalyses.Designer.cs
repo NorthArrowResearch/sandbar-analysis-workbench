@@ -50,9 +50,10 @@
             this.grdAnalyses = new System.Windows.Forms.DataGridView();
             this.splitContainer_Horiz = new System.Windows.Forms.SplitContainer();
             this.cmsResults = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.browseAnalysisFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportIncrementalResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportBinnedResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.browseAnalysisFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Vert)).BeginInit();
             this.splitContainer_Vert.Panel1.SuspendLayout();
             this.splitContainer_Vert.Panel2.SuspendLayout();
@@ -297,7 +298,13 @@
             this.exportIncrementalResultsToolStripMenuItem,
             this.exportBinnedResultsToolStripMenuItem});
             this.cmsResults.Name = "cmsResults";
-            this.cmsResults.Size = new System.Drawing.Size(223, 92);
+            this.cmsResults.Size = new System.Drawing.Size(223, 70);
+            // 
+            // browseAnalysisFolderToolStripMenuItem
+            // 
+            this.browseAnalysisFolderToolStripMenuItem.Name = "browseAnalysisFolderToolStripMenuItem";
+            this.browseAnalysisFolderToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.browseAnalysisFolderToolStripMenuItem.Text = "Browse Analysis Folder...";
             // 
             // exportIncrementalResultsToolStripMenuItem
             // 
@@ -314,12 +321,6 @@
             this.exportBinnedResultsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.exportBinnedResultsToolStripMenuItem.Text = "Export Binned Results...";
             this.exportBinnedResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
-            // 
-            // browseAnalysisFolderToolStripMenuItem
-            // 
-            this.browseAnalysisFolderToolStripMenuItem.Name = "browseAnalysisFolderToolStripMenuItem";
-            this.browseAnalysisFolderToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.browseAnalysisFolderToolStripMenuItem.Text = "Browse Analysis Folder...";
             // 
             // ucAreaVolumeAnalyses
             // 
@@ -372,5 +373,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToolStripMenuItem;
         private System.Windows.Forms.CheckedListBox chkBins;
         private System.Windows.Forms.ToolStripMenuItem browseAnalysisFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

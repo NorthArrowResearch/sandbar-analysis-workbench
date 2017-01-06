@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSynchronize));
             this.chkLookup = new System.Windows.Forms.CheckBox();
             this.chkResults = new System.Windows.Forms.CheckBox();
@@ -41,6 +42,7 @@
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
             this.bgWorker = new System.ComponentModel.BackgroundWorker();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.grpProgress.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -212,5 +214,6 @@
         private System.Windows.Forms.ProgressBar pgrOverall;
         private System.Windows.Forms.Label label1;
         private System.ComponentModel.BackgroundWorker bgWorker;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

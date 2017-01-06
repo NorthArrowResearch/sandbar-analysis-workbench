@@ -333,6 +333,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to online_help/sandbars/sandbar_surveys.
+        /// </summary>
+        internal static string Help_frmSurveyProperties {
+            get {
+                return ResourceManager.GetString("Help_frmSurveyProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to online_help/tools_menu/synchronize.
         /// </summary>
         internal static string Help_frmSynchronize {

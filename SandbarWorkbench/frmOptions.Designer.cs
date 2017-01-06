@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOptions));
             this.cmdOK = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -75,7 +76,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.cmdTestAWS = new System.Windows.Forms.Button();
-            this.txtStreamName = new System.Windows.Forms.TextBox();
+            this.txtErrorLoggingKey = new System.Windows.Forms.TextBox();
             this.lblStreamName = new System.Windows.Forms.Label();
             this.chkAWSLoggingEnabled = new System.Windows.Forms.CheckBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -88,6 +89,7 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.txtPython = new System.Windows.Forms.TextBox();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -475,11 +477,11 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(11, 147);
+            this.label14.Location = new System.Drawing.Point(55, 147);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(156, 13);
+            this.label14.Size = new System.Drawing.Size(117, 13);
             this.label14.TabIndex = 13;
-            this.label14.Text = "Computational extents shapefile";
+            this.label14.Text = "GDAL warp executable";
             // 
             // cmdBrowseCompExtents
             // 
@@ -590,7 +592,7 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.cmdTestAWS);
-            this.tabPage5.Controls.Add(this.txtStreamName);
+            this.tabPage5.Controls.Add(this.txtErrorLoggingKey);
             this.tabPage5.Controls.Add(this.lblStreamName);
             this.tabPage5.Controls.Add(this.chkAWSLoggingEnabled);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -611,13 +613,13 @@
             this.cmdTestAWS.UseVisualStyleBackColor = true;
             this.cmdTestAWS.Visible = false;
             // 
-            // txtStreamName
+            // txtErrorLoggingKey
             // 
-            this.txtStreamName.Location = new System.Drawing.Point(119, 36);
-            this.txtStreamName.Name = "txtStreamName";
-            this.txtStreamName.ReadOnly = true;
-            this.txtStreamName.Size = new System.Drawing.Size(407, 20);
-            this.txtStreamName.TabIndex = 7;
+            this.txtErrorLoggingKey.Location = new System.Drawing.Point(119, 36);
+            this.txtErrorLoggingKey.Name = "txtErrorLoggingKey";
+            this.txtErrorLoggingKey.ReadOnly = true;
+            this.txtErrorLoggingKey.Size = new System.Drawing.Size(407, 20);
+            this.txtErrorLoggingKey.TabIndex = 7;
             // 
             // lblStreamName
             // 
@@ -817,7 +819,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button cmdTestAWS;
-        private System.Windows.Forms.TextBox txtStreamName;
+        private System.Windows.Forms.TextBox txtErrorLoggingKey;
         private System.Windows.Forms.Label lblStreamName;
         private System.Windows.Forms.CheckBox chkAWSLoggingEnabled;
         private System.Windows.Forms.TextBox txtInstallationGuid;
@@ -847,5 +849,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtMainPy;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

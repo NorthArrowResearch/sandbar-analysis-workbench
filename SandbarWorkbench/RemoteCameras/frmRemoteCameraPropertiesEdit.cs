@@ -38,6 +38,8 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void frmRemoteCameraPropertiesEdit_Load(object sender, EventArgs e)
         {
+            ConfigureTooltips();
+
             long nCameraRiverBank = 0;
             long nTargetRiverBank = 0;
             long nSandbarSite = 0;
@@ -120,6 +122,28 @@ namespace SandbarWorkbench.RemoteCameras
 
             ShowHidePictureViewer(false);
             ucPictureViewer.Dock = DockStyle.Fill;
+        }
+
+        private void ConfigureTooltips()
+        {
+            tt.SetToolTip(valRiverMile, "The river mile at which this remote camera is set up.");
+            tt.SetToolTip(cboCameraRiverBank, "The river bank, left or right, on which this remote camera setup is located.");
+            tt.SetToolTip(cboTargetRiverBank, "The river bank, left or right, at which this remote camera is targeted.");
+            tt.SetToolTip(cboSandbarSite, "The sandbar site associated with this remote camera setup.");
+            tt.SetToolTip(txtSiteName, "The full, verbose, name for the sandbar site. Max 50 characters.");
+            tt.SetToolTip(txtNAUName, "The name by which Northern Arizona University (NAU) refers to this remote camera setup.");
+            tt.SetToolTip(txtSiteCode, "The five digit site code associated with this remote camera setup. Typically four digit river mile followed by L or R for the left or right bank.");
+            tt.SetToolTip(chkCurrentNSPPermit, "Check this box to indicate that the remote camera setup possesses a current National Park Service (NPS) permit");
+            tt.SetToolTip(txtSubject, "The subject at which this remote camera setup is targeted; a sandbar or fan etc.");
+            tt.SetToolTip(txtView, "Description of the view covered by this remote camera setup.");
+            tt.SetToolTip(cboCardType, "The memory card type used by this remote camera setup.");
+            tt.SetToolTip(txtBestPhotoTime, "Time of day when pictures contain the least amount of shadow. Typical format is HHMM using the 24 hour clock.");
+            tt.SetToolTip(chkHavePhotos, "Check this box to indicate that GCMRC possesses photos from this remote camera setup.");
+            tt.SetToolTip(txtBeginFilm, "Date when the analog film record began for this remote camera setup. Leave blank if no film record exists.");
+            tt.SetToolTip(txtEndFilm, "Date when the analog film record ended for this remote camera setup. Leave blank if there is no film record or the film record is ongoing.");
+            tt.SetToolTip(txtBeginDigital, "Date when the digital record began for this remote camera setup. Leave blank if there is no digital record.");
+            tt.SetToolTip(txtEndDigital, "Date when the digital record ended for this remote camera setup. Leave blank if there is no digital record or the digital record is ongoing.");
+            tt.SetToolTip(txtRemarks, "Optional, miscellaneous remarks and comments about this remote camera setup.");
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

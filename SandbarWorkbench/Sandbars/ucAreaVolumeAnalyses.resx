@@ -147,4 +147,7 @@
         5UAnkYj0ftq86z045meIf4j1O/N4byQNhZrYfKEtAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="tt.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>129, 17</value>
+  </metadata>
 </root>

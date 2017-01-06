@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSurveyProperties));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -222,5 +224,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn colSectionType;
         private System.Windows.Forms.DataGridViewComboBoxColumn colInstrumentType;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUncertainty;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

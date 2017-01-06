@@ -75,6 +75,7 @@
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.cmdPictures = new System.Windows.Forms.Button();
             this.ucPictureViewer = new SandbarWorkbench.Pictures.ucPictureViewer();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -629,5 +630,6 @@
         private System.Windows.Forms.Button cmdPictures;
         private System.Windows.Forms.GroupBox grpRemarks;
         private System.Windows.Forms.TextBox txtRemarks;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

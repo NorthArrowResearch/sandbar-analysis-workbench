@@ -52,6 +52,14 @@ namespace SandbarWorkbench.RemoteCameras
             // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
             this.Icon = (Icon)Icon.Clone();
 
+            tt.SetToolTip(chkRiverMile, "Check this box to activate the filtering of remote camera setups by river miles.");
+            tt.SetToolTip(valUpstream, "The most upstream river mile (RM) of remote camera setups shown in the list. RM zero is the dam.");
+            tt.SetToolTip(valUpstream, "The most downstream river mile (RM) of remote camera setups shown in the list. RM zero is the dam.");
+            tt.SetToolTip(txtTitle, "Enter partial or complete remote camera setup name to filter the list on the right. This name matches anywhere in the remote camera name (start, middle or end). Remove all text from this box to clear the name filter.");
+            tt.SetToolTip(groupBox1, "Filter the list of remote camera setups on the right by which river bank the camera is located on.");
+            tt.SetToolTip(groupBox2, "Filter the list of remote camera setups on the right by which river bank the camera is targeted at.");
+            tt.SetToolTip(chkActive, "Filter the list on the right for camera setups that have a non-blank start date and a blank end date for their digital record. i.e. the camera use is ongoing and therefore active.");
+            
             LoadData();
             FilterItems(null, null);
         }

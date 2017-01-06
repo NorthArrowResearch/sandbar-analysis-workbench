@@ -38,15 +38,18 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
             this.tabSurveys = new System.Windows.Forms.TabPage();
             this.grdSurveys = new System.Windows.Forms.DataGridView();
             this.cmsSurveys = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewSurveyPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSurveyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabPhoto = new System.Windows.Forms.TabPage();
             this.picBestPhoto = new System.Windows.Forms.PictureBox();
             this.tabMap = new System.Windows.Forms.TabPage();
@@ -56,14 +59,11 @@
             this.txtRiverMile = new System.Windows.Forms.TextBox();
             this.txtSiteCode = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.cmdBrowse = new System.Windows.Forms.Button();
             this.cmdGDAWS = new System.Windows.Forms.Button();
             this.cmdPhotos = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
-            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucStageDischarge1 = new SandbarWorkbench.Sandbars.ucStageDischarge();
-            this.ucAreaVolumeAnalyses1 = new SandbarWorkbench.Sandbars.ucAreaVolumeAnalyses();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -163,6 +163,14 @@
             this.tabPage2.Text = "Stage Discharge";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // ucStageDischarge1
+            // 
+            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
+            this.ucStageDischarge1.Name = "ucStageDischarge1";
+            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
+            this.ucStageDischarge1.TabIndex = 0;
+            // 
             // tabSurveys
             // 
             this.tabSurveys.Controls.Add(this.grdSurveys);
@@ -196,7 +204,7 @@
             this.editSurveyToolStripMenuItem,
             this.deleteSurveyToolStripMenuItem});
             this.cmsSurveys.Name = "cmsSurveys";
-            this.cmsSurveys.Size = new System.Drawing.Size(194, 142);
+            this.cmsSurveys.Size = new System.Drawing.Size(194, 120);
             // 
             // viewSurveyPropertiesToolStripMenuItem
             // 
@@ -205,6 +213,14 @@
             this.viewSurveyPropertiesToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.viewSurveyPropertiesToolStripMenuItem.Text = "View Survey Properties";
             this.viewSurveyPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewSurveyPropertiesToolStripMenuItem_Click);
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.exportToCSVToolStripMenuItem.Text = "Export To CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -245,6 +261,15 @@
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Area & Volume Analyses";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // ucAreaVolumeAnalyses1
+            // 
+            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
+            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
+            this.ucAreaVolumeAnalyses1.SandbarSite = null;
+            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
+            this.ucAreaVolumeAnalyses1.TabIndex = 0;
             // 
             // tabPhoto
             // 
@@ -375,31 +400,6 @@
             this.cmdHelp.UseVisualStyleBackColor = true;
             this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
-            // exportToCSVToolStripMenuItem
-            // 
-            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
-            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.exportToCSVToolStripMenuItem.Text = "Export To CSV...";
-            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
-            // 
-            // ucStageDischarge1
-            // 
-            this.ucStageDischarge1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucStageDischarge1.Location = new System.Drawing.Point(3, 3);
-            this.ucStageDischarge1.Name = "ucStageDischarge1";
-            this.ucStageDischarge1.Size = new System.Drawing.Size(556, 530);
-            this.ucStageDischarge1.TabIndex = 0;
-            // 
-            // ucAreaVolumeAnalyses1
-            // 
-            this.ucAreaVolumeAnalyses1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucAreaVolumeAnalyses1.Location = new System.Drawing.Point(3, 3);
-            this.ucAreaVolumeAnalyses1.Name = "ucAreaVolumeAnalyses1";
-            this.ucAreaVolumeAnalyses1.SandbarSite = null;
-            this.ucAreaVolumeAnalyses1.Size = new System.Drawing.Size(556, 530);
-            this.ucAreaVolumeAnalyses1.TabIndex = 0;
-            // 
             // frmSandbarProperties
             // 
             this.AcceptButton = this.cmdCancel;
@@ -472,7 +472,7 @@
         private System.Windows.Forms.PictureBox picBestPhoto;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox txtRemarks;
-        private System.Windows.Forms.ToolTip tTip;
+        private System.Windows.Forms.ToolTip tt;
         private System.Windows.Forms.Button cmdBrowse;
         private System.Windows.Forms.Button cmdGDAWS;
         private System.Windows.Forms.Button cmdPhotos;

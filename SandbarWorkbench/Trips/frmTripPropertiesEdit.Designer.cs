@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTripPropertiesEdit));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -36,6 +37,7 @@
             this.dtTripDate = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -141,5 +143,6 @@
         private System.Windows.Forms.DateTimePicker dtTripDate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtRemarks;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

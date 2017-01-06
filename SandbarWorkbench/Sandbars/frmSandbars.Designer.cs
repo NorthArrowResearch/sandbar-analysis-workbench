@@ -38,6 +38,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolAdd = new System.Windows.Forms.ToolStripButton();
             this.toolEdit = new System.Windows.Forms.ToolStripButton();
+            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -65,7 +66,7 @@
             this.addNewSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedSandbarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucThumbail = new SandbarWorkbench.Pictures.ucThumbail();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -181,6 +182,13 @@
             this.toolEdit.Text = "toolStripButton1";
             this.toolEdit.ToolTipText = "Edit the selected sandbar site properties";
             this.toolEdit.Click += new System.EventHandler(this.editPropertiesToolStripMenuItem_Click);
+            // 
+            // ucThumbail
+            // 
+            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
+            this.ucThumbail.Name = "ucThumbail";
+            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
+            this.ucThumbail.TabIndex = 5;
             // 
             // groupBox1
             // 
@@ -476,13 +484,6 @@
             this.deleteSelectedSandbarToolStripMenuItem.Text = "Delete Selected Sandbar...";
             this.deleteSelectedSandbarToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedSandbarToolStripMenuItem_Click);
             // 
-            // ucThumbail
-            // 
-            this.ucThumbail.Location = new System.Drawing.Point(12, 330);
-            this.ucThumbail.Name = "ucThumbail";
-            this.ucThumbail.Size = new System.Drawing.Size(227, 192);
-            this.ucThumbail.TabIndex = 5;
-            // 
             // frmSandbars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,5 +559,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportSandbarListToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

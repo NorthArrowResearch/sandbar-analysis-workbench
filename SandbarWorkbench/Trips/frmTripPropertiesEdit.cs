@@ -24,6 +24,9 @@ namespace SandbarWorkbench.Trips
 
         private void frmTripPropertiesEdit_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(dtTripDate, "Date of departure for this river trip.");
+            tt.SetToolTip(txtRemarks, "Optional, miscellaneous remarks and comments about this river trip. Max 1000 characters.");
+
             if (ID > 0)
             {
                 try

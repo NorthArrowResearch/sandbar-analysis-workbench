@@ -51,6 +51,14 @@ namespace SandbarWorkbench.Sandbars
             if (SandbarSite == null)
                 return;
 
+            tt.SetToolTip(rdoIncremental, "Displays the incremental sandbar analysis that is performed at 10cm vertical increments above the minimum surface.");
+            tt.SetToolTip(rdoBinned, "Displays the binned sandbar analysis that is performed at user-defined vertical slices through the sandbar.");
+            tt.SetToolTip(valDisLower, "The lower discharge, above which sandbar is included in the chart.");
+            tt.SetToolTip(valDisUpper, "The upper discharge, below which sandbar is included in the chart.");
+            tt.SetToolTip(chkBins, "Check the boxes to turn on or off each user-defined elevation bin in the chart.");
+            tt.SetToolTip(chkAreaSectionTypes, "Check the boxes to turn on or off the area results for each section type in the chart.");
+            tt.SetToolTip(chkVolSectionTypes, "Check the boxes to turn on or off the volume results for each section type in the chart.");
+
             ConfigureAnalysesDataGridView();
             ModelRuns = ModelRun.Load(DBCon.ConnectionStringLocal);
             grdAnalyses.DataSource = ModelRuns;

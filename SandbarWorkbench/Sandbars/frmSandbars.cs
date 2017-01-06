@@ -43,6 +43,11 @@ namespace SandbarWorkbench.Sandbars
             // http://stackoverflow.com/questions/888865/problem-with-icon-on-creating-new-maximized-mdi-child-form-in-net
             this.Icon = (Icon)Icon.Clone();
 
+            tt.SetToolTip(chkRiverMile, "Check this box to activate the filtering of sandbar sites by river miles.");
+            tt.SetToolTip(valUpstream, "The most upstream river mile (RM) of sandbar sites shown in the list. RM zero is the Glen Canyon Dam.");
+            tt.SetToolTip(valUpstream, "The most downstream river mile (RM) of sandbar sites shown in the list. RM zero is the Glen Canyon Dam.");
+            tt.SetToolTip(txtTitle, "Enter partial or complete sanbar site name to filter the list on the right. This name matches anywhere in the sandbar site name (start, middle or end). Remove all text from this box to clear the name filter.");
+
             LoadData();
         }
 

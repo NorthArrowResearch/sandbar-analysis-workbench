@@ -28,6 +28,8 @@ namespace SandbarWorkbench
 
         private void frmOptions_Load(object sender, EventArgs e)
         {
+            ConfigureToolTips();
+
             this.Text = string.Format("{0} Options", SandbarWorkbench.Properties.Resources.ApplicationNameLong);
 
             cboStartupView.SelectedValue = SandbarWorkbench.Properties.Settings.Default.StartupView;
@@ -86,7 +88,7 @@ namespace SandbarWorkbench
 
             // Error Logging
             if (AWSCloudWatch.AWSCloudWatchSingleton.HasInstallationGUID)
-                txtStreamName.Text = AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID.ToString();
+                txtErrorLoggingKey.Text = AWSCloudWatch.AWSCloudWatchSingleton.Instance.InstallationGUID.ToString();
 
             chkAWSLoggingEnabled.Checked = SandbarWorkbench.Properties.Settings.Default.AWSLoggingEnabled;
 #if DEBUG
@@ -100,6 +102,36 @@ namespace SandbarWorkbench
 
             // Python
             txtPython.Text = SandbarWorkbench.Properties.Settings.Default.PythonConfig;
+        }
+
+        private void ConfigureToolTips()
+        {
+            tt.SetToolTip(chkLoadLastDatabase, "Check this box to automatically load the last used local database each time the workbench is opened.");
+            tt.SetToolTip(cboStartupView, "Select the type of view that you want to be opened automatically each time that the workbench is opened.");
+            tt.SetToolTip(rdo4Digits, "Select this option if the sandbar site raw topo point CSV files use 4 digit site code folder and file names. e.g. \"003Lcorgrids\".");
+            tt.SetToolTip(rdo5Digits, "Select this option if the sandbar site raw topo point CSV files use 5 digit site code folder and file names. e.g. \"0003Lcorgrids\".");
+            tt.SetToolTip(txtInstallationGuid, "The unique identifier for the workbench on the current computer. Include this unique identifier when reporting issues with the software developers.");
+
+            tt.SetToolTip(txtMasterServer, "URL of the server that hosts the centralized, master database. See online help for more details.");
+            tt.SetToolTip(txtMasterDatabase, "Database schema name on the centralized, master database. See online help for more details.");
+            tt.SetToolTip(txtMasterUserName, "User account that the workbench uses to login to the centralized, master database. See online help for more details.");
+            tt.SetToolTip(txtMasterPassword, "Password that the workbench uses to login to the centralized, master database. See online help for more details.");
+
+            tt.SetToolTip(valDefaultInputCellSize, "Default point spacing, in meters, of the raw sandbar survey text point files. Typically 1m.");
+            tt.SetToolTip(valDefaultOutputCellSize, "Default output cell size, in meters, of the raster GeoTIFFs that will be generated as part of the sandbar analysis.");
+            tt.SetToolTip(cboInterpolation, "Default interpolation method that is used within the sandbar analysis to generate rasters from the raw text point files, if the input and output spatial resolutions are different.");
+            tt.SetToolTip(valIncrement, "Vertical elevation increment, in meters, for the sandbar analysis incremental analysis. Default is 0.1m.");
+            tt.SetToolTip(valBenchmark, "Benchmark discharge, in cubic feet per second, that is used to initiate the incremental sandbar analaysis. Default is 8000 CFS.");
+            tt.SetToolTip(txtCompExtents, "Default full, absolute file path to the ShapeFile that contains the computational boundary polygons for the sandbar analysis.");
+            tt.SetToolTip(txtGDALWarp, "Default full, absolute file path to the GDAL warp executable used within the sandbar analsysis. See online help for more details.");
+            tt.SetToolTip(txtMainPy, "Default full, absolute file path to the sandbar analysis main.py file. See online help for more details.");
+            tt.SetToolTip(txtSpatialReference, "Spatial reference \"well known string\" that defines the coordinate system of the sandbar survey raw text point files.");
+            tt.SetToolTip(chkAWSLoggingEnabled, "Check this box to turn on sharing of error information with software developers.");
+            tt.SetToolTip(txtErrorLoggingKey, "Unique identifier that is used to track workbench errors that occur on this computer. Include this unique identifier when reporting issues with the software developers.");
+            tt.SetToolTip(cboTripDates, "Date time format used for displaying trip dates.");
+            tt.SetToolTip(cboSurveyDates, "Date/time format used for displaying sandbar survey dates.");
+            tt.SetToolTip(cboAuditFieldDates, "Date/time format used for displaying the date and time that records were added and changed in the database.");
+            tt.SetToolTip(txtPython, "Python environment configuration for running the sandbar analysis. See the \"Python Environment\" page of the online help for more details.");
         }
 
         private void LoadDateDisplayCombo(ref ComboBox cbo, string sExistingFormat)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
@@ -51,6 +52,7 @@
             this.chkSampleDate = new System.Windows.Forms.CheckBox();
             this.txtSampleCode = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.valLocalElevation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSPElevation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valSampleCount)).BeginInit();
@@ -413,5 +415,6 @@
         private System.Windows.Forms.CheckBox chkSampleDate;
         private System.Windows.Forms.TextBox txtSampleCode;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

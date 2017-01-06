@@ -33,6 +33,8 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
 
         private void frmSDSample_Load(object sender, EventArgs e)
         {
+            ConfigureToolTips();
+
             if (sdValue is SDValue)
             {
                 ID = sdValue.SampleID;
@@ -66,6 +68,20 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
             cboSite.Enabled = SiteID == 0;
 
             UpdateControls(null, null);
+        }
+
+        private void ConfigureToolTips()
+        {
+            tt.SetToolTip(cboSite, "The sandbar site with which this stage discharge sample is associated.");
+            tt.SetToolTip(chkSampleDate, "Check this box to indicate that this stage discharge sample occurs on a known date. Checking this box requires that a date is provided. Unchecking the box clears any existing sample date value.");
+            tt.SetToolTip(txtSampleTime, "Sample time associated with this stage discharge sample.");
+            tt.SetToolTip(txtSampleCode, "Sample code associated with this stage discharge sample.");
+            tt.SetToolTip(chkLocalElevation, "Check this box to indicate that this stage discharge sample possesses a location elevation value. Checking this box requires that a local elevation is provided. Unchecking the box clears any existing local elevation value.");
+            tt.SetToolTip(valSPElevation, "Stateplane elevation in meters. Stateplane. Arizona Central FIPS 0202.");
+            tt.SetToolTip(chkSampleCount, "Check this box to indicate that the number of samples is known. Checking this box requires that a sample count is provided. Unchecking this box clears any existing sample count value.");
+            tt.SetToolTip(valFlow, "Discharge in cubic feet per second.");
+            tt.SetToolTip(valFlowMS, "Dicharge in meters cubed per second.");
+            tt.SetToolTip(txtComments, "Opiotnal, miscellaneous remarks and comments about this stage discharge sample.");
         }
 
         private void UpdateControls(object sender, EventArgs e)

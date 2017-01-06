@@ -25,6 +25,11 @@ namespace SandbarWorkbench.Segments
 
         private void frmSegmentPropertiesEdit_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(txtName, "Unique name for this river segment. Max 50 characters.");
+            tt.SetToolTip(txtCode, "Unique code that identifies this segment. Typical form is Seg_ followed by a zero padded integer (e.g. Seg_001).");
+            tt.SetToolTip(valDownstream, "Downstream river mile of this river segment. River mile zero is the Glen Canyon Dam.");
+            tt.SetToolTip(valUpstream, "Upstream river mile of this river segment. River mile zero is the Glen Canyon Dam.");
+            
             if (segment is Segment)
             {
                 txtName.Text = segment.Title;

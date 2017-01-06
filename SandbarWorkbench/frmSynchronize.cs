@@ -31,6 +31,11 @@ namespace SandbarWorkbench
 
         private void frmSynchronize_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(chkLookup, "Check this box to synchronize lookup tables between the master and local database.");
+            tt.SetToolTip(chkResults, "Check this box to synchronize sandbar analysis results to and from the master database.");
+            tt.SetToolTip(pgrOverall, "The overall progress for the entire synchronize process.");
+            tt.SetToolTip(pgrTask, "The progress of the individual synchronization task being performed.");
+
             // Hide the progress group box and resize the form. Note the border is fixed until user clicks OK.
             grpProgress.Visible = false;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;

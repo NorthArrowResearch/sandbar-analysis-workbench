@@ -54,11 +54,12 @@
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.browseTopoFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPropertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -321,7 +322,7 @@
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedToolStripMenuItem});
             this.cmsGridView.Name = "cmsSite";
-            this.cmsGridView.Size = new System.Drawing.Size(188, 164);
+            this.cmsGridView.Size = new System.Drawing.Size(188, 142);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -337,6 +338,14 @@
             this.browseTopoFolderToolStripMenuItem.Name = "browseTopoFolderToolStripMenuItem";
             this.browseTopoFolderToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.browseTopoFolderToolStripMenuItem.Text = "Browse Topo Folder...";
+            // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.exportToCSVToolStripMenuItem.Text = "Export to CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -366,14 +375,6 @@
             this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.deleteSelectedToolStripMenuItem.Text = "Delete Selected...";
             this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
-            // 
-            // exportToCSVToolStripMenuItem
-            // 
-            this.exportToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
-            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.exportToCSVToolStripMenuItem.Text = "Export to CSV...";
-            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
             // frmRemoteCameras
             // 
@@ -440,5 +441,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
         private Pictures.ucThumbail ucThumbail;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

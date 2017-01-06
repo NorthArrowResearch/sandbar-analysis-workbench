@@ -30,6 +30,8 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSandbarPropertiesEdit_Load(object sender, EventArgs e)
         {
+            ConfigureToolTips();
+
             long nSiteTypeID = 0;
             long nRiverSideID = 0;
             long nReachID = 0;
@@ -96,6 +98,35 @@ namespace SandbarWorkbench.Sandbars
             ListItem.LoadComboWithListItemsMySQL(ref cboRemoteCameras, conMaster, "SELECT CameraID, SiteName FROM RemoteCameras ORDER BY SiteName", nCameraID);
 
             Cursor.Current = Cursors.Default;
+        }
+
+        private void ConfigureToolTips()
+        {
+            tt.SetToolTip(txtSiteCode5, "Five digit site code. Four numerical digits representing the river mile following by an L for left or R for right bank: ####L or ####R. Max 5 characters.");
+            tt.SetToolTip(valRiverMile, "River mile. Zero represents Glen Canyon Dam.");
+            tt.SetToolTip(cboRiverSide, "Left or right bank where the sandbar site occurs.");
+            tt.SetToolTip(valEddySize, "Size of the eddy at the sandbar site.");
+            tt.SetToolTip(txtTitle, "Full, verbose, title describing the sandbar site. Max 50 characters.");
+            tt.SetToolTip(txtAlternateTitle, "Alternative title used for the sandbar site. Max 50 characters.");
+            tt.SetToolTip(txtHistory, "Brief description of the history of this sandbar site. Max 50 characters.");
+            tt.SetToolTip(txtCampsite, "Campsite record.");
+            tt.SetToolTip(cboSiteType, "Identification of whether this is a monitoring, irregular or backwater sandbar site.");
+            tt.SetToolTip(cboReaches, "Reach in which this sandbar site occurs in.");
+            tt.SetToolTip(cboSegment, "The segment in which this sandbar site occurs.");
+            tt.SetToolTip(cboRemoteCameras, "Remote camera setup that is targeted at this sandbar site.");
+            tt.SetToolTip(valExpansion8k, "Stage discharge expansion ratio at 8,000 cubic feet per second discharge.");
+            tt.SetToolTip(valExpansion45k, "Stage discharge expansion ratio at 45,000 cubic feet per second discharge.");
+            tt.SetToolTip(valStageChangeA, "Stage discharge curve coefficient A.");
+            tt.SetToolTip(valStageChangeB, "Stage discharge curve coefficient B.");
+            tt.SetToolTip(valStageChangeC, "Stage discharge curve coefficient C.");
+            tt.SetToolTip(valStageChange845k, "Elevation change between 8,000 and 45,000 cubic feet per second discharge.");
+            tt.SetToolTip(txtPrimaryGDAWS, "USGS stream gage identification number for the primary gage associated with this sandbar site.");
+            tt.SetToolTip(txtSecondaryGDAWS, "USGS stream gage identification number for the secondary gage associated with this sandbar site.");
+            tt.SetToolTip(valEasting, "Stateplane Arizona Central FIPS 0202 easting coordinate.");
+            tt.SetToolTip(valNorthing, "Stateplane Arizona Central FIPS 0202 northing coordinate.");
+            tt.SetToolTip(valLatitude, "Latitude in decimal degrees.");
+            tt.SetToolTip(valLongitude, "Longitude in decimal degrees");
+            tt.SetToolTip(txtRemarks, "Optional, miscellaneous remarks and comments about this sandbar site.");
         }
 
         private void cmdOK_Click(object sender, EventArgs e)

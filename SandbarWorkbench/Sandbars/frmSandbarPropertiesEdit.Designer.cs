@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSandbarPropertiesEdit));
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOK = new System.Windows.Forms.Button();
@@ -88,6 +89,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.txtRemarks = new System.Windows.Forms.TextBox();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.valRiverMile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valEddySize)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -897,5 +899,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox txtRemarks;
         private System.Windows.Forms.Button cmdHelp;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

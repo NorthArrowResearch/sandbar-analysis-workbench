@@ -34,6 +34,8 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSandbarProperties_Load(object sender, EventArgs e)
         {
+            ConfigureToolTips();
+
             if (m_Site is SandbarSite)
             {
                 txtName.Text = m_Site.Title;
@@ -71,6 +73,16 @@ namespace SandbarWorkbench.Sandbars
 
             // Refresh the CMS for the surveys grid
             grdSurveys_SelectionChanged(null, null);
+        }
+
+        private void ConfigureToolTips()
+        {
+            tt.SetToolTip(txtName, "Full, verbose, site name for this sandbar site.");
+            tt.SetToolTip(txtRiverMile, "River mile at which this sandbar site occurs. Rive mile zero is the Glen Canyon Dam.");
+            tt.SetToolTip(txtSiteCode, "Official site code for this sandbar site");
+            tt.SetToolTip(cmdBrowse, "Open Windows Explore at the corresponding folder location for the raw point CSV files associated with this sandbar site. Requires a valid top level folder to be defined on the Options form.");
+            tt.SetToolTip(cmdGDAWS, "Open the USGS NWIS web page for the stream gage associated with this sandbar site using the default web browser.");
+            tt.SetToolTip(cmdPhotos, "Open the best photo for this sandbar site in the default image viewing software.");
         }
 
         private void ConfigureSurveysGrid()
@@ -321,7 +333,7 @@ namespace SandbarWorkbench.Sandbars
                 Pictures.PictureInfo pic = Pictures.PictureInfo.GetPictureInfo(m_Site.RemoteCameraSiteCode, m_Site.BestPhotoTime);
                 System.IO.FileInfo fiImage = pic.BestImage;
                 picBestPhoto.ImageLocation = fiImage.FullName;
-                tTip.SetToolTip(picBestPhoto, pic.Caption);
+                tt.SetToolTip(picBestPhoto, pic.Caption);
                 if (fiImage is System.IO.FileInfo && fiImage.Exists)
                 {
                     System.Drawing.Image image = System.Drawing.Image.FromFile(fiImage.FullName);

@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnalysisConfig));
             this.label1 = new System.Windows.Forms.Label();
             this.lstSites = new System.Windows.Forms.ListBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpAnalysisDateRange = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ucAnalysisTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.ucAnalysisFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpMinSurfaceDateRange = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.ucMinimumTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label5 = new System.Windows.Forms.Label();
@@ -69,8 +70,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.grpAnalysisDateRange.SuspendLayout();
+            this.grpMinSurfaceDateRange.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valOutputCellSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valInputCellSize)).BeginInit();
@@ -95,20 +97,20 @@
             this.lstSites.Size = new System.Drawing.Size(177, 173);
             this.lstSites.TabIndex = 2;
             // 
-            // groupBox1
+            // grpAnalysisDateRange
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpAnalysisDateRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.ucAnalysisTo);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.ucAnalysisFrom);
-            this.groupBox1.Location = new System.Drawing.Point(199, 130);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(401, 83);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Anaylsis Date Range";
+            this.grpAnalysisDateRange.Controls.Add(this.label3);
+            this.grpAnalysisDateRange.Controls.Add(this.ucAnalysisTo);
+            this.grpAnalysisDateRange.Controls.Add(this.label2);
+            this.grpAnalysisDateRange.Controls.Add(this.ucAnalysisFrom);
+            this.grpAnalysisDateRange.Location = new System.Drawing.Point(199, 130);
+            this.grpAnalysisDateRange.Name = "grpAnalysisDateRange";
+            this.grpAnalysisDateRange.Size = new System.Drawing.Size(401, 83);
+            this.grpAnalysisDateRange.TabIndex = 3;
+            this.grpAnalysisDateRange.TabStop = false;
+            this.grpAnalysisDateRange.Text = "Anaylsis Date Range";
             // 
             // label3
             // 
@@ -146,20 +148,20 @@
             this.ucAnalysisFrom.SurveyDates = null;
             this.ucAnalysisFrom.TabIndex = 2;
             // 
-            // groupBox2
+            // grpMinSurfaceDateRange
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.grpMinSurfaceDateRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.ucMinimumTo);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.ucMinimumFrom);
-            this.groupBox2.Location = new System.Drawing.Point(200, 219);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 83);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Minimum Surface Date Range";
+            this.grpMinSurfaceDateRange.Controls.Add(this.label4);
+            this.grpMinSurfaceDateRange.Controls.Add(this.ucMinimumTo);
+            this.grpMinSurfaceDateRange.Controls.Add(this.label5);
+            this.grpMinSurfaceDateRange.Controls.Add(this.ucMinimumFrom);
+            this.grpMinSurfaceDateRange.Location = new System.Drawing.Point(200, 219);
+            this.grpMinSurfaceDateRange.Name = "grpMinSurfaceDateRange";
+            this.grpMinSurfaceDateRange.Size = new System.Drawing.Size(400, 83);
+            this.grpMinSurfaceDateRange.TabIndex = 4;
+            this.grpMinSurfaceDateRange.TabStop = false;
+            this.grpMinSurfaceDateRange.Text = "Minimum Surface Date Range";
             // 
             // label4
             // 
@@ -514,8 +516,8 @@
             this.Controls.Add(this.cmdCancel);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpMinSurfaceDateRange);
+            this.Controls.Add(this.grpAnalysisDateRange);
             this.Controls.Add(this.lstSites);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -523,10 +525,10 @@
             this.Name = "frmAnalysisConfig";
             this.Text = "Sandbar Analysis Configuration";
             this.Load += new System.EventHandler(this.frmAnalysisConfig_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.grpAnalysisDateRange.ResumeLayout(false);
+            this.grpAnalysisDateRange.PerformLayout();
+            this.grpMinSurfaceDateRange.ResumeLayout(false);
+            this.grpMinSurfaceDateRange.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valOutputCellSize)).EndInit();
@@ -545,11 +547,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lstSites;
         private ucSurveyDatePicker ucAnalysisFrom;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpAnalysisDateRange;
         private System.Windows.Forms.Label label3;
         private ucSurveyDatePicker ucAnalysisTo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpMinSurfaceDateRange;
         private System.Windows.Forms.Label label4;
         private ucSurveyDatePicker ucMinimumTo;
         private System.Windows.Forms.Label label5;
@@ -582,5 +584,6 @@
         private System.Windows.Forms.Button cmdBrowseMainPy;
         private System.Windows.Forms.TextBox txtMainPy;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ToolTip tt;
     }
 }

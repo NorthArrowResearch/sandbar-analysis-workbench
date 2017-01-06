@@ -74,6 +74,12 @@ namespace SandbarWorkbench.Sandbars
 
         private void frmSurveyProperties_Load(object sender, EventArgs e)
         {
+            tt.SetToolTip(cboTrips, "The river trip on which this sandbar survey occurred. See the Trips view to add a missing trip.");
+            tt.SetToolTip(dtSurveyDate, "The date on which this sandbar site survey occurred.");
+            grdData.Columns["colSectionType"].ToolTipText = "Channel, eddy, or eddy type collected as part of this survey.";
+            grdData.Columns["colInstrumentType"].ToolTipText = "Survey instrument type used to collect data in this section.";
+            grdData.Columns["colUncertainty"].ToolTipText = "Elevation uncertainty associated with data collected in this section.";
+
             LoadComboColumnItems("colSectionType", SandbarWorkbench.Properties.Settings.Default.ListID_SectionTypes);
             LoadComboColumnItems("colInstrumentType", SandbarWorkbench.Properties.Settings.Default.ListID_InstrumentTypes);
 
