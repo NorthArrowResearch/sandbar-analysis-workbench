@@ -198,7 +198,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/views/segments.
+        ///   Looks up a localized string similar to online_help/views/analysis_bins/.
         /// </summary>
         internal static string Help_frmAnalysisBinProperties {
             get {
@@ -243,7 +243,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/tools_menu/options.
+        ///   Looks up a localized string similar to online_help/tools_menu/Options/.
         /// </summary>
         internal static string Help_frmOptions {
             get {
@@ -266,6 +266,15 @@ namespace SandbarWorkbench.Properties {
         internal static string Help_frmReachPropertiesEdit {
             get {
                 return ResourceManager.GetString("Help_frmReachPropertiesEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        /// </summary>
+        internal static string Help_frmRemoteCameraPropertiesEdit {
+            get {
+                return ResourceManager.GetString("Help_frmRemoteCameraPropertiesEdit", resourceCulture);
             }
         }
         

@@ -218,7 +218,7 @@
     <value>You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.</value>
   </data>
   <data name="Help_frmAnalysisBinProperties" xml:space="preserve">
-    <value>online_help/views/segments</value>
+    <value>online_help/views/analysis_bins/</value>
   </data>
   <data name="Help_frmModelRunProperties" xml:space="preserve">
     <value>online_help/sandbar_analysis/model_runs</value>
@@ -233,7 +233,7 @@
     <value>online_help/sandbar_analysis/model_runs</value>
   </data>
   <data name="Help_frmOptions" xml:space="preserve">
-    <value>online_help/tools_menu/options</value>
+    <value>online_help/tools_menu/Options/</value>
   </data>
   <data name="Help_frmPictureViewer" xml:space="preserve">
     <value>online_help/pictures/picture_viewer</value>
@@ -255,5 +255,8 @@
   </data>
   <data name="Help_frmTripPropertiesEdit" xml:space="preserve">
     <value>online_help/views/trips</value>
+  </data>
+  <data name="Help_frmRemoteCameraPropertiesEdit" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
   </data>
 </root>
