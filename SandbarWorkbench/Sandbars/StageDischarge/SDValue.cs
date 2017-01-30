@@ -115,19 +115,19 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     long nSampleID = dbRead.GetInt64(dbRead.GetOrdinal("SampleID"));
 
                     dValues.Add(new SDValue(nSampleID, nSiteID,
-                        DBHelpers.SQLiteHelpers.GetSafeValueNDT(ref dbRead, "SampleDate"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleTime"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleCode"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ElevationLocal"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "ElevationSP"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SampleCount"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "Flow"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "FlowMS"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Comments"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "AddedOn"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AddedBy"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueDT(ref dbRead, "UpdatedOn"),
-                        DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "UpdatedBy")));
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueNDT(ref dbRead, "SampleDate"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleTime"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SampleCode"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ElevationLocal"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "ElevationSP"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SampleCount"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "Flow"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueDbl(ref dbRead, "FlowMS"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Comments"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueDT(ref dbRead, "AddedOn"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AddedBy"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueDT(ref dbRead, "UpdatedOn"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "UpdatedBy")));
                 }
             }
 

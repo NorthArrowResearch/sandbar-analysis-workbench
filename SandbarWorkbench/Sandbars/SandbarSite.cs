@@ -200,39 +200,39 @@ namespace SandbarWorkbench.Sandbars
 
                     SandbarSite theSite = new SandbarSite(
                         (long)dbRead["SiteID"]
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteCode")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteCode")
                         , (string)dbRead["SiteCode5"]
                         , (double)dbRead["RiverMile"]
                         , (long)dbRead["RiverSideID"]
                         , (string)dbRead["RiverSide"]
                         , (string)dbRead["Title"]
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AlternateTitle")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AlternateTitle")
                         , (long)dbRead["SiteTypeID"]
                         , (string)dbRead["SiteType"]
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "History")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SecondaryGDAWS")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "ReachID")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Reach")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SegmentID")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Segment")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CampSiteSurveyRecord")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "RemoteCameraID")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CameraSiteCode")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Northing")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Easting")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Latitude")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Longitude")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "InitialSurvey")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "EddySize")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "History")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "PrimaryGDAWS")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SecondaryGDAWS")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "ReachID")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Reach")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "SegmentID")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Segment")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CampSiteSurveyRecord")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "RemoteCameraID")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "CameraSiteCode")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeA")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeB")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageDischargeC")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Northing")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Easting")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Latitude")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "Longitude")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "InitialSurvey")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNInt(ref dbRead, "EddySize")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio8k")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "ExpansionRatio45k")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref dbRead, "StageChange8k45k")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
                         , (DateTime)dbRead["AddedOn"]
                         , (string)dbRead["AddedBy"]
                         , (DateTime)dbRead["UpdatedOn"]

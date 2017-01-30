@@ -71,8 +71,8 @@ namespace SandbarWorkbench.Pictures
                     lResult.Add(new RemoteCameraSetupInfo(
                         dbRead.GetString(dbRead.GetOrdinal("SiteCode"))
                         , dbRead.GetDouble(dbRead.GetOrdinal("RiverMile"))
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteName")
-                        , DBHelpers.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "SiteName")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "BestPhotoTime")
                         ));
                 }
             }
