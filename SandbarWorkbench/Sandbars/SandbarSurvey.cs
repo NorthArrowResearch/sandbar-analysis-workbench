@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Data.SQLite;
+using naru.ui;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -15,7 +16,7 @@ namespace SandbarWorkbench.Sandbars
         public DateTime TripDate { get; internal set; }
         public AuditTrail Audit { get; internal set; }
 
-        public SortableBindingList<SandbarSection> Sections { get; set; }
+        public naru.ui.SortableBindingList<SandbarSection> Sections { get; set; }
         public int SectionCount { get { return Sections.Count; } }
 
         public bool HasChannel { get; internal set; }

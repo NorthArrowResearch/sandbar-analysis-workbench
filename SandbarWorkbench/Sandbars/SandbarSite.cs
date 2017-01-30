@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Data.SQLite;
+using naru.ui;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -36,7 +37,7 @@ namespace SandbarWorkbench.Sandbars
         public Nullable<double> ExpansionRatio45k { get; internal set; }
         public Nullable<double> StageChange8k45k { get; internal set; }
         public StageDischarge.SDCurve SDCurve { get; internal set; }
-        public SortableBindingList<SandbarSurvey> Surveys { get; set; }
+        public naru.ui.SortableBindingList<SandbarSurvey> Surveys { get; set; }
         public int SurveyCount { get { return Surveys.Count; } }
 
         // Best photo time is used to support the thumbnail viewer on the main data grid

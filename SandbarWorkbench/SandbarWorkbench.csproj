@@ -350,7 +350,7 @@
     </Compile>
     <Compile Include="Segments\Segment.cs" />
     <Compile Include="Segments\SegmentCRUD.cs" />
-    <Compile Include="SortableBindingList.cs" />
+    <Compile Include="naru\ui\SortableBindingList.cs" />
     <Compile Include="Trips\frmTripPropertiesEdit.cs">
       <SubType>Form</SubType>
     </Compile>

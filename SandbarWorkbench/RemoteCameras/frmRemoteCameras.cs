@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using naru.ui;
 
 namespace SandbarWorkbench.RemoteCameras
 {
     public partial class frmRemoteCameras : Form
     {
-        SortableBindingList<RemoteCamera> RemoteCameras;
+        naru.ui.SortableBindingList<RemoteCamera> RemoteCameras;
 
         public frmRemoteCameras()
         {
