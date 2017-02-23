@@ -94,7 +94,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
         private void cmdBrowseResults_Click(object sender, EventArgs e)
         {
-            Helpers.IOHelpers.BrowseFillTextBoxFolder("Model Results Folder", ref txtInputs, false);
+            Helpers.IOHelpers.BrowseFillTextBoxFolder("Model Results Folder", ref txtResults, false);
         }
 
         private bool ValidateForm()
