@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
@@ -89,6 +90,8 @@ namespace SandbarWorkbench.ModelRuns
 
         public static ModelRunMaster Insert(ModelRunLocal localRun, ref MySqlTransaction transMaster, ref System.Data.SQLite.SQLiteTransaction transLocal)
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
             System.Diagnostics.Debug.Print("Inserting local installation LocalRunID {0} onto master.", localRun.ID);
 
             System.Diagnostics.Debug.Assert(localRun.Installation == SandbarWorkbench.Properties.Settings.Default.InstallationHash, "Only local runs should be inserted into master");
@@ -132,52 +135,104 @@ namespace SandbarWorkbench.ModelRuns
                 conLocal.Open();
 
                 // Prepare the local command to insert child records
-                using (dbCom = new MySqlCommand("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES (@RunID, @SectionID, @Elevation, @Area, @Volume)", transMaster.Connection, transMaster))
-                {
-                    dbCom.Parameters.AddWithValue("RunID", theRun.ID);
-                    MySqlParameter pSectionID = dbCom.Parameters.Add("SectionID", MySqlDbType.Int64);
-                    MySqlParameter pElevation = dbCom.Parameters.Add("Elevation", MySqlDbType.Double);
-                    MySqlParameter pArea = dbCom.Parameters.Add("Area", MySqlDbType.Double);
-                    MySqlParameter pVolume = dbCom.Parameters.Add("Volume", MySqlDbType.Double);
+                comLocal = new System.Data.SQLite.SQLiteCommand("SELECT * FROM ModelResultsIncremental WHERE RunID = @RunID", conLocal);
+                comLocal.Parameters.AddWithValue("RunID", localRun.ID);
+                System.Data.SQLite.SQLiteDataReader readLocal = comLocal.ExecuteReader();
 
-                    comLocal = new System.Data.SQLite.SQLiteCommand("SELECT * FROM ModelResultsIncremental WHERE RunID = @RunID", conLocal);
-                    comLocal.Parameters.AddWithValue("RunID", localRun.ID);
-                    System.Data.SQLite.SQLiteDataReader readLocal = comLocal.ExecuteReader();
-                    while (readLocal.Read())
+                bool bDone = false;
+                while (!bDone)
+                {
+                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES ");
+
+                    int iCounter = 0;
+                    List<string> Rows = new List<string>();
+                    while (!bDone && iCounter < 1000)
                     {
-                        pSectionID.Value = readLocal.GetInt64(readLocal.GetOrdinal("SectionID"));
-                        pElevation.Value = readLocal.GetDouble(readLocal.GetOrdinal("Elevation"));
-                        pArea.Value = readLocal.GetDouble(readLocal.GetOrdinal("Area"));
-                        pVolume.Value = readLocal.GetDouble(readLocal.GetOrdinal("Volume"));
-                        dbCom.ExecuteNonQuery();
+                        if (readLocal.Read())
+                        {
+                            iCounter++;
+                            Rows.Add(string.Format("({0},{1},{2},{3},{4})",
+                                theRun.ID,
+                                readLocal.GetInt64(readLocal.GetOrdinal("SectionID")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("Elevation")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("Area")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("Volume")))
+                                );
+                        }
+                        else
+                        {
+                            bDone = true;
+                        }
                     }
-                    readLocal.Close();
+                    sCommand.Append(string.Join(",", Rows));
+                    sCommand.Append(";");
+                    if (iCounter > 0)
+                    {
+                        using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), transMaster.Connection, transMaster))
+                        {
+                            myCmd.ExecuteNonQuery();
+                        }
+
+                    }
                 }
+                readLocal.Close();
+
+
+                // NOW DO IT ALL AGAIN
+
+               
 
                 // Prepare the local command to insert child BINNED records
-                using (dbCom = new MySqlCommand("INSERT INTO ModelResultsBinned (RunID, SectionID, BinID, Area, Volume) VALUES (@RunID, @SectionID, @BinID, @Area, @Volume)", transMaster.Connection, transMaster))
+                comLocal = new System.Data.SQLite.SQLiteCommand("SELECT * FROM ModelResultsBinned WHERE RunID = @RunID", conLocal);
+                comLocal.Parameters.AddWithValue("RunID", localRun.ID);
+                readLocal = comLocal.ExecuteReader();
+                bool bDoneBinned = false;
+                while (!bDoneBinned)
                 {
-                    dbCom.Parameters.AddWithValue("RunID", theRun.ID);
-                    MySqlParameter pSectionID = dbCom.Parameters.Add("SectionID", MySqlDbType.Int64);
-                    MySqlParameter pElevation = dbCom.Parameters.Add("BinID", MySqlDbType.Int64);
-                    MySqlParameter pArea = dbCom.Parameters.Add("Area", MySqlDbType.Double);
-                    MySqlParameter pVolume = dbCom.Parameters.Add("Volume", MySqlDbType.Double);
-
-                    comLocal = new System.Data.SQLite.SQLiteCommand("SELECT * FROM ModelResultsBinned WHERE RunID = @RunID", conLocal);
-                    comLocal.Parameters.AddWithValue("RunID", localRun.ID);
-                    System.Data.SQLite.SQLiteDataReader readLocal = comLocal.ExecuteReader();
-                    while (readLocal.Read())
+                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsBinned(RunID, SectionID, BinID, Area, Volume) VALUES ");
+                    int iCounter = 0;
+                    List<string> Rows = new List<string>();
+                    while (!bDoneBinned && iCounter < 1000)
                     {
-                        pSectionID.Value = readLocal.GetInt64(readLocal.GetOrdinal("SectionID"));
-                        pElevation.Value = readLocal.GetDouble(readLocal.GetOrdinal("BinID"));
-                        pArea.Value = readLocal.GetDouble(readLocal.GetOrdinal("Area"));
-                        pVolume.Value = readLocal.GetDouble(readLocal.GetOrdinal("Volume"));
-                        dbCom.ExecuteNonQuery();
+                        if (readLocal.Read())
+                        {
+                            iCounter++;
+                            Rows.Add(string.Format("({0},{1},{2},{3},{4})",
+                                theRun.ID,
+                                readLocal.GetInt64(readLocal.GetOrdinal("SectionID")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("BinID")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("Area")),
+                                readLocal.GetDouble(readLocal.GetOrdinal("Volume")))
+                                );
+                        }
+                        else
+                        {
+                            bDoneBinned = true;
+                        }
                     }
-                    readLocal.Close();
-                }
-            }
+                    sCommand.Append(string.Join(",", Rows));
+                    sCommand.Append(";");
+                    if (iCounter > 0)
+                    {
+                        using (MySqlCommand myCmd = new MySqlCommand(sCommand.ToString(), transMaster.Connection, transMaster))
+                        {
+                            myCmd.ExecuteNonQuery();
+                        }
 
+                    }
+                }
+                readLocal.Close();
+
+            }
+            stopWatch.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Console.WriteLine("RunTime " + elapsedTime);
             return theRun;
         }
     }
