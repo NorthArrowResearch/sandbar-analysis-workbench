@@ -46,8 +46,13 @@ namespace SandbarWorkbench.ModelRuns
             txtTitle.Text = ModelRun.Title;
             txtRemarks.Text = ModelRun.Remarks;
             chkSync.Checked = ModelRun.Sync;
+
+            chkPublished.CheckedChanged -= chkPublished_Changed;
             chkPublished.Checked = ModelRun.Published;
+            chkPublished.CheckedChanged += chkPublished_Changed;
+
             UpdateCheckBoxes(null, null);
+
         }
 
         private DialogResult ConfirmPublish()
