@@ -17,7 +17,7 @@ namespace SandbarWorkbench
         private static readonly object padlock = new object();
         private static System.IO.FileInfo m_fiDatabasePath;
         private const string m_sRootConnectionStringLocal = "Data Source={0};Version=3;Pooling=True;Max Pool Size=100";
-        private const string m_sRootConnectionStringMaster = "server={0};uid={1};pwd={2};database={3};";
+        private const string m_sRootConnectionStringMaster = "server={0};uid={1};pwd={2};database={3};Port={4}";
 
         public static DBCon Instance
         {
@@ -47,7 +47,8 @@ namespace SandbarWorkbench
                         SandbarWorkbench.Properties.Settings.Default.MasterServer,
                         SandbarWorkbench.Properties.Settings.Default.MasterUser,
                         SandbarWorkbench.Properties.Settings.Default.MasterPassword,
-                        SandbarWorkbench.Properties.Settings.Default.MasterDatabase);
+                        SandbarWorkbench.Properties.Settings.Default.MasterDatabase,
+                        SandbarWorkbench.Properties.Settings.Default.MasterPort);
                 }
 
                 //System.Diagnostics.Debug.Print("Master DB Con: {0}", sConString);
@@ -95,9 +96,9 @@ namespace SandbarWorkbench
                         XmlNode nodPassword = nodCredentials.SelectSingleNode("password");
                         if (nodPassword is XmlNode)
                             sPassword = nodPassword.InnerText;
-                        
+
                         if (string.IsNullOrEmpty(sServer) || string.IsNullOrEmpty(sDatabase) ||
-                            string.IsNullOrEmpty(sUserName) || string.IsNullOrEmpty(sPassword) )
+                            string.IsNullOrEmpty(sUserName) || string.IsNullOrEmpty(sPassword))
                         {
                             System.Diagnostics.Debug.Print("One or more empty values in the developer master database credential XML file.");
                         }

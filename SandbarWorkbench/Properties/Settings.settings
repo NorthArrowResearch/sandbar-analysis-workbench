@@ -104,6 +104,15 @@
     <Setting Name="BenchmarkStage" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">8000</Value>
     </Setting>
+    <Setting Name="RunTypeID_UserGenerated" Type="System.Int64" Scope="Application">
+      <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="SandbarAnalysisMainPy" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Code\sandbar-analysis\sandbar-analysis\main.py</Value>
+    </Setting>
+    <Setting Name="MasterPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">3306</Value>
+    </Setting>
     <Setting Name="PythonConfig" Type="System.String" Scope="User">
       <Value Profile="(Default)">set OSGEO4W_ROOT=C:\\OSGeo4W64
 call C:\OSGeo4W64\bin\o4w_env.bat
@@ -111,12 +120,6 @@ set PATH=%PATH%;%OSGEO4W_ROOT%\apps\qgis\bin
 set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\qgis\python
 set PYTHONPATH=%PYTHONPATH%;%OSGEO4W_ROOT%\apps\Python27\Lib\site-packages
 set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis</Value>
-    </Setting>
-    <Setting Name="RunTypeID_UserGenerated" Type="System.Int64" Scope="Application">
-      <Value Profile="(Default)">12</Value>
-    </Setting>
-    <Setting Name="SandbarAnalysisMainPy" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Code\sandbar-analysis\sandbar-analysis\main.py</Value>
     </Setting>
   </Settings>
 </SettingsFile>
