@@ -97,6 +97,13 @@ namespace SandbarWorkbench
                         if (nodPassword is XmlNode)
                             sPassword = nodPassword.InnerText;
 
+                        string sPort = string.Empty;
+                        XmlNode nodPort = nodCredentials.SelectSingleNode("port");
+                        if (nodPort is XmlNode)
+                            sPort = nodPort.InnerText;
+                        else
+                            sPort = SandbarWorkbench.Properties.Settings.Default.MasterPort;
+
                         if (string.IsNullOrEmpty(sServer) || string.IsNullOrEmpty(sDatabase) ||
                             string.IsNullOrEmpty(sUserName) || string.IsNullOrEmpty(sPassword))
                         {
@@ -104,7 +111,7 @@ namespace SandbarWorkbench
                         }
                         else
                         {
-                            sConString = string.Format(m_sRootConnectionStringMaster, sServer, sUserName, sPassword, sDatabase);
+                            sConString = string.Format(m_sRootConnectionStringMaster, sServer, sUserName, sPassword, sDatabase, sPort);
                             bSuccessful = true;
                         }
                     }
