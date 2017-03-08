@@ -272,8 +272,8 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 }
                 catch (Exception ex)
                 {
-                    outputFrm.CloseWithOk("Caught Exception");
-                    ExceptionHandling.NARException.HandleException(ex);
+                    //outputFrm.CloseWithOk("Caught Exception");
+                    ExceptionHandling.NARException.HandleException(ex, false);
                     this.DialogResult = DialogResult.None;
                 }
                 finally
