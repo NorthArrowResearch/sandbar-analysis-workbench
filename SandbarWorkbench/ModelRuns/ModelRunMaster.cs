@@ -142,7 +142,7 @@ namespace SandbarWorkbench.ModelRuns
                 bool bDone = false;
                 while (!bDone)
                 {
-                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume) VALUES ");
+                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsIncremental (RunID, SectionID, Elevation, Area, Volume, SurveyArea, SurveyVol, MinArea, MinVol) VALUES ");
 
                     int iCounter = 0;
                     List<string> Rows = new List<string>();
@@ -151,12 +151,16 @@ namespace SandbarWorkbench.ModelRuns
                         if (readLocal.Read())
                         {
                             iCounter++;
-                            Rows.Add(string.Format("({0},{1},{2},{3},{4})",
+                            Rows.Add(string.Format("({0},{1},{2},{3},{4},{5},{6},{7},{8})",
                                 theRun.ID,
                                 readLocal.GetInt64(readLocal.GetOrdinal("SectionID")),
                                 readLocal.GetDouble(readLocal.GetOrdinal("Elevation")),
-                                readLocal.GetDouble(readLocal.GetOrdinal("Area")),
-                                readLocal.GetDouble(readLocal.GetOrdinal("Volume")))
+                                GetValue(ref readLocal, "Area"),
+                                GetValue(ref readLocal, "Volume"),
+                                GetValue(ref readLocal, "SurveyArea"),
+                                GetValue(ref readLocal, "SurveyVol"),
+                                GetValue(ref readLocal, "MinArea"),
+                                GetValue(ref readLocal, "MinVol"))
                                 );
                         }
                         else
@@ -180,7 +184,7 @@ namespace SandbarWorkbench.ModelRuns
 
                 // NOW DO IT ALL AGAIN
 
-               
+
 
                 // Prepare the local command to insert child BINNED records
                 comLocal = new System.Data.SQLite.SQLiteCommand("SELECT * FROM ModelResultsBinned WHERE RunID = @RunID", conLocal);
@@ -189,7 +193,7 @@ namespace SandbarWorkbench.ModelRuns
                 bool bDoneBinned = false;
                 while (!bDoneBinned)
                 {
-                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsBinned(RunID, SectionID, BinID, Area, Volume) VALUES ");
+                    StringBuilder sCommand = new StringBuilder("INSERT INTO ModelResultsBinned(RunID, SectionID, BinID, Area, Volume, SurveyArea, SurveyVol, MinArea, MinVol) VALUES ");
                     int iCounter = 0;
                     List<string> Rows = new List<string>();
                     while (!bDoneBinned && iCounter < 1000)
@@ -197,12 +201,16 @@ namespace SandbarWorkbench.ModelRuns
                         if (readLocal.Read())
                         {
                             iCounter++;
-                            Rows.Add(string.Format("({0},{1},{2},{3},{4})",
+                            Rows.Add(string.Format("({0},{1},{2},{3},{4},{5},{6},{7},{8})",
                                 theRun.ID,
                                 readLocal.GetInt64(readLocal.GetOrdinal("SectionID")),
                                 readLocal.GetDouble(readLocal.GetOrdinal("BinID")),
-                                readLocal.GetDouble(readLocal.GetOrdinal("Area")),
-                                readLocal.GetDouble(readLocal.GetOrdinal("Volume")))
+                                GetValue(ref readLocal, "Area"),
+                                GetValue(ref readLocal, "Volume"),
+                                GetValue(ref readLocal, "SurveyArea"),
+                                GetValue(ref readLocal, "SurveyVol"),
+                                GetValue(ref readLocal, "MinArea"),
+                                GetValue(ref readLocal, "MinVol"))
                                 );
                         }
                         else
@@ -234,6 +242,14 @@ namespace SandbarWorkbench.ModelRuns
                 ts.Milliseconds / 10);
             Console.WriteLine("RunTime " + elapsedTime);
             return theRun;
+        }
+
+        private static object GetValue(ref System.Data.SQLite.SQLiteDataReader dbRead, string sColumn)
+        {
+            if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumn)))
+                return "NULL";
+            else
+                return dbRead.GetDouble(dbRead.GetOrdinal(sColumn));
         }
     }
 }
