@@ -62,7 +62,7 @@ namespace SandbarWorkbench.Sandbars
             using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
             {
                 dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("Select * FROM vwIncrementalResults WHERE (SiteID = @SiteID) AND (RunID = @ModelID)", dbCon);
+                SQLiteCommand dbCom = new SQLiteCommand("Select * FROM vwIncrementalResults WHERE (SiteID = @SiteID) AND (RunID = @ModelID) AND (Area IS NOT NULL) AND (Volume IS NOT NULL)", dbCon);
                 dbCom.Parameters.AddWithValue("@SiteID", SiteID);
                 dbCom.Parameters.AddWithValue("@ModelID", ModelID);
 
