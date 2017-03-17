@@ -304,14 +304,14 @@
             this.grpRiverMile.Location = new System.Drawing.Point(12, 14);
             this.grpRiverMile.Name = "grpRiverMile";
             this.grpRiverMile.Size = new System.Drawing.Size(227, 100);
-            this.grpRiverMile.TabIndex = 0;
+            this.grpRiverMile.TabIndex = 1;
             this.grpRiverMile.TabStop = false;
             this.grpRiverMile.Text = "                    ";
             // 
             // valDownstream
             // 
             this.valDownstream.DecimalPlaces = 1;
-            this.valDownstream.Location = new System.Drawing.Point(141, 50);
+            this.valDownstream.Location = new System.Drawing.Point(141, 20);
             this.valDownstream.Minimum = new decimal(new int[] {
             10,
             0,
@@ -319,7 +319,7 @@
             -2147483648});
             this.valDownstream.Name = "valDownstream";
             this.valDownstream.Size = new System.Drawing.Size(75, 20);
-            this.valDownstream.TabIndex = 4;
+            this.valDownstream.TabIndex = 1;
             this.valDownstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileDownstream);
             this.valDownstream.Click += new System.EventHandler(this.EnterNumericUpDown);
             this.valDownstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
@@ -327,16 +327,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 50);
+            this.label2.Location = new System.Drawing.Point(20, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Downstream";
+            this.label2.Size = new System.Drawing.Size(52, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Upstream";
             // 
             // valUpstream
             // 
             this.valUpstream.DecimalPlaces = 1;
-            this.valUpstream.Location = new System.Drawing.Point(141, 24);
+            this.valUpstream.Location = new System.Drawing.Point(141, 46);
             this.valUpstream.Minimum = new decimal(new int[] {
             10,
             0,
@@ -344,7 +344,7 @@
             -2147483648});
             this.valUpstream.Name = "valUpstream";
             this.valUpstream.Size = new System.Drawing.Size(75, 20);
-            this.valUpstream.TabIndex = 2;
+            this.valUpstream.TabIndex = 3;
             this.valUpstream.ValueChanged += new System.EventHandler(this.FilterItemsRiverMileUpstream);
             this.valUpstream.Click += new System.EventHandler(this.EnterNumericUpDown);
             this.valUpstream.Enter += new System.EventHandler(this.EnterNumericUpDown);
@@ -352,11 +352,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 24);
+            this.label1.Location = new System.Drawing.Point(20, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Upstream";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Downstream";
             // 
             // menuStrip1
             // 
