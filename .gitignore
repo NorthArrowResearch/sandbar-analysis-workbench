@@ -4,6 +4,8 @@ obj/
 .suo
 .csproj.user
 
+.vs/
+
 # NuGet Packages Directory
 packages/
 
