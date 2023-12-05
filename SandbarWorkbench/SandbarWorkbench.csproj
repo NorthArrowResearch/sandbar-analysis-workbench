@@ -76,7 +76,7 @@
     <ApplicationIcon>usgs_logo_icon_DA6_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>065685D497E74FCE0CAC7A5EC29EB9545D71D151</ManifestCertificateThumbprint>
