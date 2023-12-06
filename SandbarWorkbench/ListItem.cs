@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench
 {
@@ -57,12 +57,12 @@ namespace SandbarWorkbench
         {
             cbo.Items.Clear();
 
-            using (MySqlConnection dbCon = new MySqlConnection(sDBCon))
+            using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
             {
                 dbCon.Open();
 
-                MySqlCommand dbCom = new MySqlCommand(sSQL, dbCon);
-                MySqlDataReader dbRead = dbCom.ExecuteReader();
+                SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbCon);
+                SQLiteDataReader dbRead = dbCom.ExecuteReader();
                 while (dbRead.Read())
                 {
                     long nID = dbRead.GetInt64(0);

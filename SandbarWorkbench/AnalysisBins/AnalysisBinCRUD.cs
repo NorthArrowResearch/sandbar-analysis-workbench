@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 using System.Drawing;
 
 namespace SandbarWorkbench.AnalysisBins
@@ -40,47 +39,6 @@ namespace SandbarWorkbench.AnalysisBins
                 pLowerdischarge.Value = DBNull.Value;
 
             dbCom.ExecuteNonQuery();
-        }
-
-        protected override long SaveMaster(ref MySqlTransaction dbTrans, ref DBHelpers.DatabaseObject obj)
-        {
-            MySqlCommand dbCom = null;
-
-            if (obj.ID > 0)
-            {
-                dbCom = new MySqlCommand(UpdateSQL, dbTrans.Connection, dbTrans);
-                dbCom.Parameters.AddWithValue(PrimaryKey, obj.ID);
-            }
-            else
-            {
-                dbCom = new MySqlCommand(InsertSQL, dbTrans.Connection, dbTrans);
-                dbCom.Parameters.AddWithValue(PrimaryKey, DBNull.Value);
-            }
-
-            dbCom.Parameters.AddWithValue("Title", ((AnalysisBin)obj).Title);
-            dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
-            dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
-            dbCom.Parameters.AddWithValue("DisplayColor", ColorTranslator.ToHtml(Color.FromArgb(((AnalysisBin)obj).DisplayColor.ToArgb())));
-
-            MySqlParameter pLowerdischarge = dbCom.Parameters.Add("LowerDischarge", MySqlDbType.Double);
-            if (((AnalysisBin)obj).LowerDischarge.HasValue)
-                pLowerdischarge.Value = ((AnalysisBin)obj).LowerDischarge.Value;
-            else
-                pLowerdischarge.Value = DBNull.Value;
-
-            MySqlParameter pUpper = dbCom.Parameters.Add("UpperDischarge", MySqlDbType.Double);
-            if (((AnalysisBin)obj).UpperDischarge.HasValue)
-                pUpper.Value = ((AnalysisBin)obj).UpperDischarge.Value;
-            else
-                pUpper.Value = DBNull.Value;
-
-            dbCom.ExecuteNonQuery();
-
-            if (obj.ID == 0)    
-                obj.ID = dbCom.LastInsertedId;
-
-            System.Diagnostics.Debug.Assert(obj.ID > 0, "The next code to execute is relying on there being a master ID at this point");
-            return obj.ID;
         }
     }
 }

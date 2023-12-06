@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.RemoteCameras
 {
@@ -154,12 +154,12 @@ namespace SandbarWorkbench.RemoteCameras
                 return;
             }
 
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 Cursor.Current = Cursors.WaitCursor;
 
                 dbCon.Open();
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                SQLiteTransaction dbTrans = dbCon.BeginTransaction();
 
                 string[] sFields = { "RiverMile", "CameraRiverBankID", "TargetRiverBankID",
                     "SiteID", "SiteName", "SiteCode", "CurrentNPSPermit", "NAUName", "HavePhotos",
@@ -168,7 +168,7 @@ namespace SandbarWorkbench.RemoteCameras
 
                 try
                 {
-                    MySqlCommand dbCom = new MySqlCommand();
+                    SQLiteCommand dbCom = new SQLiteCommand();
                     dbCom.Connection = dbCon;
 
                     if (m_RemoteCamera is RemoteCamera)
@@ -181,27 +181,25 @@ namespace SandbarWorkbench.RemoteCameras
                         dbCom.CommandText = string.Format("INSERT INTO RemoteCameras ({0}, AddedBy, UpdatedBy) VALUES (@{1}, @EditedBy, @EditedBy)", string.Join(", ", sFields), string.Join(", @", sFields));
                     }
 
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valRiverMile, "RiverMile");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboCameraRiverBank, "CameraRiverBankID");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboTargetRiverBank, "TargetRiverBankID");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboSandbarSite, "SiteID");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSiteCode, "SiteCode");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSiteName, "SiteName");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtNAUName, "NAUName");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref chkCurrentNSPPermit, "CurrentNPSPermit");
+                    dbCom.Parameters.AddWithValue("RiverMile", valRiverMile.Value);
+                    dbCom.Parameters.AddWithValue("CameraRiverBankID", ((ListItem)cboCameraRiverBank.SelectedItem).Value);
+                    dbCom.Parameters.AddWithValue("TargetRiverBankID", ((ListItem)cboTargetRiverBank.SelectedItem).Value);
+                    dbCom.Parameters.AddWithValue("SiteID", ((ListItem) cboSandbarSite.SelectedItem).Value);        
+                    dbCom.Parameters.AddWithValue("SiteCode", txtSiteCode.Text);
+                    dbCom.Parameters.AddWithValue("SiteName", txtSiteName.Text);
+                    dbCom.Parameters.AddWithValue("NAUName", txtNAUName.Text);
+                    dbCom.Parameters.AddWithValue("CurrentNPSPermit", chkCurrentNSPPermit.Checked);
+                    dbCom.Parameters.AddWithValue("HavePhotos", chkHavePhotos.Checked);
+                    dbCom.Parameters.AddWithValue("TheSubject", txtSubject.Text);
+                    dbCom.Parameters.AddWithValue("TheView", txtView.Text);
+                    dbCom.Parameters.AddWithValue("CardTypeID", ((ListItem)cboCardType.SelectedItem).Value);
+                    dbCom.Parameters.AddWithValue("BestPhotoTime", txtBestPhotoTime.Text);
+                    dbCom.Parameters.AddWithValue("BeginFilmRecord", txtBeginFilm.Text);
+                    dbCom.Parameters.AddWithValue("EndFilmRecord", txtEndFilm.Text);
+                    dbCom.Parameters.AddWithValue("BeginDigitalRecord", txtBeginDigital.Text);
+                    dbCom.Parameters.AddWithValue("EndDigitalRecord", txtEndDigital.Text);
 
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref chkHavePhotos, "HavePhotos");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSubject, "TheSubject");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtView, "TheView");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboCardType, "CardTypeID");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtBestPhotoTime, "BestPhotoTime");
-
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtBeginFilm, "BeginFilmRecord");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtEndFilm, "EndFilmRecord");
-
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtBeginDigital, "BeginDigitalRecord");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtEndDigital, "EndDigitalRecord");
-
+       
                     // Both queries require the user name
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
 
@@ -210,7 +208,7 @@ namespace SandbarWorkbench.RemoteCameras
                     dbTrans.Commit();
 
                     if (m_RemoteCamera == null)
-                        RemoteCameraID = dbCom.LastInsertedId;
+                        RemoteCameraID =dbCon.LastInsertRowId;
 
                     Cursor.Current = Cursors.Default;
                     MessageBox.Show("Remote camera data saved to the remote, master database. Your local database will now be updated when you click OK.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

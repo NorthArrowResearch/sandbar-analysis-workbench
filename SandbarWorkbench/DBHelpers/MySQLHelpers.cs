@@ -3,43 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace SandbarWorkbench.DBHelpers
 {
     class MySQLHelpers
     {
-        public static string MySQLConString = "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;";
+        //public static string MySQLConString = "server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;";
 
-        public static LookupDataVersion GetMasterLookupDataVersion()
-        {
-            LookupDataVersion masterVersion = null;
-            using (MySqlConnection conMaster = new MySqlConnection("server=mysql.northarrowresearch.com;uid=nar;pwd=5Yuuxf3BhSI7F3Z5;database=SandbarTest;"))
-            {
-                conMaster.Open();
 
-                MySqlCommand comMaster = new MySqlCommand("SELECT * FROM LookupDataVersions ORDER BY MHashID DESC LIMIT 1", conMaster);
-                MySqlDataReader rdMaster = comMaster.ExecuteReader();
-                if (rdMaster.Read())
-                {
-                    masterVersion = new LookupDataVersion(rdMaster.GetInt64("MHashID"), rdMaster.GetDateTime("AddedOn"), rdMaster.GetString("AddedBy"), rdMaster.GetGuid("InstallationHash"));
-                }
-                else
-                    throw new Exception("The master database does not contain any lookup data version information.");
-            }
-            return masterVersion;
-        }
-
-        public static void FillTextBox(ref MySqlDataReader dbRead, string sColumnName, ref TextBox txt)
+        public static void FillTextBox(ref SQLiteDataReader dbRead, string sColumnName, ref TextBox txt)
         {
             if (dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
                 txt.Text = string.Empty;
             else
-                txt.Text = dbRead.GetString(sColumnName);
+                txt.Text = dbRead.GetString(dbRead.GetOrdinal(sColumnName));
         }
 
-        public static void FillNumericUpDown(ref MySqlDataReader dbRead, string sColumnName, ref NumericUpDown val, int nExponent = 0)
+        public static void FillNumericUpDown(ref SQLiteDataReader dbRead, string sColumnName, ref NumericUpDown val, int nExponent = 0)
         {
             if (!dbRead.IsDBNull(dbRead.GetOrdinal(sColumnName)))
             {
@@ -47,7 +29,7 @@ namespace SandbarWorkbench.DBHelpers
                 {
                     case "Int64":
                     case "int":
-                        decimal fRawIntValue = (decimal)dbRead.GetInt64(sColumnName);
+                        decimal fRawIntValue = (decimal)dbRead.GetInt64(dbRead.GetOrdinal(sColumnName));
                         if (nExponent != 0)
                             val.Value = fRawIntValue * (decimal)Math.Pow(10, nExponent);
                         else
@@ -55,7 +37,7 @@ namespace SandbarWorkbench.DBHelpers
                         break;
 
                     case "double":
-                        decimal fRawValue = (decimal)dbRead.GetDouble(sColumnName);
+                        decimal fRawValue = (decimal)dbRead.GetDouble(dbRead.GetOrdinal(sColumnName));
                         if (nExponent != 0)
                             val.Value = fRawValue * (decimal)Math.Pow(10, nExponent);
                         else
@@ -68,11 +50,11 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
-        public static void AddParameter(ref MySqlCommand dbCom, ref TextBox ctrl, string sParameterName)
+        public static void AddParameter(ref SQLiteCommand dbCom, ref TextBox ctrl, string sParameterName)
         {
             if (string.IsNullOrEmpty(ctrl.Text))
             {
-                MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.String);
+                SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.String);
                 p.Value = DBNull.Value;
             }
             else
@@ -81,7 +63,7 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
-        public static void AddParameter(ref MySqlCommand dbCom, ref NumericUpDown ctrl, string sParameterName, int nExponent = 0)
+        public static void AddParameter(ref SQLiteCommand dbCom, ref NumericUpDown ctrl, string sParameterName, int nExponent = 0)
         {
             if (nExponent == 0)
                 dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value);
@@ -89,11 +71,11 @@ namespace SandbarWorkbench.DBHelpers
                 dbCom.Parameters.AddWithValue(sParameterName, ctrl.Value * (decimal)Math.Pow(10, nExponent));
         }
 
-        public static void AddParameter(ref MySqlCommand dbCom, ref ComboBox ctrl, string sParameterName)
+        public static void AddParameter(ref SQLiteCommand dbCom, ref ComboBox ctrl, string sParameterName)
         {
             if (ctrl.SelectedIndex < 0)
             {
-                MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.Int64);
+                SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.Int64);
                 p.Value = DBNull.Value;
             }
             else
@@ -102,24 +84,24 @@ namespace SandbarWorkbench.DBHelpers
             }
         }
 
-        public static void AddParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, string sParameterName)
+        public static void AddParameter(ref SQLiteCommand dbCom, ref CheckBox ctrl, string sParameterName)
         {
-            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.Bit);
+            SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.Boolean);
             p.Value = ctrl.Checked;
         }
 
-        public static void AddNParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, ref DateTimePicker dt, string sParameterName)
+        public static void AddNParameter(ref SQLiteCommand dbCom, ref CheckBox ctrl, ref DateTimePicker dt, string sParameterName)
         {
-            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.DateTime);
+            SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.DateTime);
             if (ctrl.Checked)
                 p.Value = dt.Value;
             else
                 p.Value = DBNull.Value;
         }
 
-        public static void AddNParameter(ref MySqlCommand dbCom, ref CheckBox ctrl, ref NumericUpDown val, string sParameterName)
+        public static void AddNParameter(ref SQLiteCommand dbCom, ref CheckBox ctrl, ref NumericUpDown val, string sParameterName)
         {
-            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.DateTime);
+            SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.DateTime);
             if (ctrl.Checked)
                 p.Value = val.Value;
             else
@@ -133,19 +115,19 @@ namespace SandbarWorkbench.DBHelpers
         /// <param name="txt">textbox containing string to be inserted</param>
         /// <param name="sParameterName">Name of parameter to create</param>
         /// <returns></returns>
-        public static MySqlParameter AddStringParameterN(ref MySqlCommand dbCom, ref System.Windows.Forms.TextBox txt, string sParameterName)
+        public static SQLiteParameter AddStringParameterN(ref SQLiteCommand dbCom, ref System.Windows.Forms.TextBox txt, string sParameterName)
         {
             return AddStringParameterN(ref dbCom, txt.Text, sParameterName);
         }
 
-        public static MySqlParameter AddStringParameterN(ref MySqlCommand dbCom, string sStringValue, string sParameterName)
+        public static SQLiteParameter AddStringParameterN(ref SQLiteCommand dbCom, string sStringValue, string sParameterName)
         {
             System.Diagnostics.Debug.Assert(dbCom.CommandText.ToLower().Contains("insert") || dbCom.CommandText.ToLower().Contains("update"), "SQL command must be an INSERT or UPDATE command");
             System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(sParameterName), "The parameter name cannot be empty.");
             System.Diagnostics.Debug.Assert(!dbCom.Parameters.Contains(sParameterName), "The SQL command already contains a parameter with this name.");
 
             string sValue = sStringValue.Trim();
-            MySqlParameter p = dbCom.Parameters.Add(sParameterName, MySqlDbType.String);
+            SQLiteParameter p = dbCom.Parameters.Add(sParameterName, System.Data.DbType.String);
             if (string.IsNullOrEmpty(sValue))
                 p.Value = DBNull.Value;
             else

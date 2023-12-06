@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 using System.Deployment.Application;
 
 namespace SandbarWorkbench
@@ -263,34 +262,6 @@ namespace SandbarWorkbench
                 System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(DBCon.DatabasePath));
         }
 
-        private void syncToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                frmSynchronize frmSync = new frmSynchronize();
-                frmSync.Owner = this;
-                if (frmSync.ShowDialog() == DialogResult.OK)
-                {
-                    foreach (Form frm in this.MdiChildren)
-                    {
-                        if (frm is Sandbars.frmSandbars)
-                        {
-                            ((Sandbars.frmSandbars)frm).LoadData();
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandling.NARException.HandleException(ex);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
-            }
-        }
-
         private void DataGridViewMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem mnu = (ToolStripMenuItem)sender;
@@ -369,56 +340,6 @@ namespace SandbarWorkbench
                         //dbTrans.Rollback();
                         dbTrans.Commit();
                         MessageBox.Show(string.Format("SqLite completed successfully. {0} deleted.", nDeleted));
-                    }
-                    catch (Exception ex)
-                    {
-                        dbTrans.Rollback();
-                        MessageBox.Show(ex.Message);
-                    }
-                }
-            }
-
-            using (MySqlConnection conRead = new MySqlConnection(DBCon.ConnectionStringMaster))
-            {
-                conRead.Open();
-                MySqlCommand comRead = new MySqlCommand("SELECT * FROM SandbarSections ORDER BY SurveyID, SectionID", conRead);
-                MySqlDataReader dbRead = comRead.ExecuteReader();
-
-                using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
-                {
-                    dbCon.Open();
-                    MySqlTransaction dbTrans = dbCon.BeginTransaction();
-
-                    try
-                    {
-                        MySqlCommand comDelete = new MySqlCommand("DELETE FROM SandbarSections WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
-                        MySqlParameter pSectionID = comDelete.Parameters.Add("SectionID", DbType.Int64);
-
-                        long nSurveyID = -1;
-                        long nDeleted = 0;
-                        Dictionary<long, string> dSections = null;
-                        while (dbRead.Read())
-                        {
-                            if (dbRead.GetInt64(dbRead.GetOrdinal("SurveyID")) != nSurveyID)
-                            {
-                                dSections = new Dictionary<long, string>();
-                                nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
-                            }
-
-                            if (dSections.ContainsKey(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID"))))
-                            {
-                                pSectionID.Value = dbRead.GetInt64(dbRead.GetOrdinal("SectionID"));
-                                nDeleted += comDelete.ExecuteNonQuery();
-                            }
-                            else
-                            {
-                                dSections.Add(dbRead.GetInt64(dbRead.GetOrdinal("SectionTypeID")), string.Empty);
-                            }
-                        }
-
-                        //dbTrans.Rollback();
-                        dbTrans.Commit();
-                        MessageBox.Show(string.Format("MySQL completed successfully. {0} deleted.", nDeleted));
                     }
                     catch (Exception ex)
                     {

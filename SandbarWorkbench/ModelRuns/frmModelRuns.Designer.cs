@@ -36,9 +36,6 @@
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdoLocalRuns = new System.Windows.Forms.RadioButton();
-            this.rdoAllRuns = new System.Windows.Forms.RadioButton();
             this.grdData = new System.Windows.Forms.DataGridView();
             this.cmsGridView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.browseLocalModelRunResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +50,6 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
             this.cmsGridView.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +64,6 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             // 
             // splitContainer1.Panel2
             // 
@@ -122,41 +117,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "From";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rdoLocalRuns);
-            this.groupBox1.Controls.Add(this.rdoAllRuns);
-            this.groupBox1.Location = new System.Drawing.Point(12, 100);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(224, 75);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Location";
-            // 
-            // rdoLocalRuns
-            // 
-            this.rdoLocalRuns.AutoSize = true;
-            this.rdoLocalRuns.Location = new System.Drawing.Point(18, 43);
-            this.rdoLocalRuns.Name = "rdoLocalRuns";
-            this.rdoLocalRuns.Size = new System.Drawing.Size(181, 17);
-            this.rdoLocalRuns.TabIndex = 1;
-            this.rdoLocalRuns.TabStop = true;
-            this.rdoLocalRuns.Text = "Runs performed on this computer";
-            this.rdoLocalRuns.UseVisualStyleBackColor = true;
-            this.rdoLocalRuns.CheckedChanged += new System.EventHandler(this.FilterItems);
-            // 
-            // rdoAllRuns
-            // 
-            this.rdoAllRuns.AutoSize = true;
-            this.rdoAllRuns.Checked = true;
-            this.rdoAllRuns.Location = new System.Drawing.Point(18, 19);
-            this.rdoAllRuns.Name = "rdoAllRuns";
-            this.rdoAllRuns.Size = new System.Drawing.Size(180, 17);
-            this.rdoAllRuns.TabIndex = 0;
-            this.rdoAllRuns.TabStop = true;
-            this.rdoAllRuns.Text = "All runs synched to this computer";
-            this.rdoAllRuns.UseVisualStyleBackColor = true;
-            // 
             // grdData
             // 
             this.grdData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -178,13 +138,13 @@
             this.editModelRunToolStripMenuItem,
             this.deleteModelRunToolStripMenuItem});
             this.cmsGridView.Name = "cmsGridView";
-            this.cmsGridView.Size = new System.Drawing.Size(261, 120);
+            this.cmsGridView.Size = new System.Drawing.Size(262, 120);
             // 
             // browseLocalModelRunResultsToolStripMenuItem
             // 
             this.browseLocalModelRunResultsToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.explorer;
             this.browseLocalModelRunResultsToolStripMenuItem.Name = "browseLocalModelRunResultsToolStripMenuItem";
-            this.browseLocalModelRunResultsToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.browseLocalModelRunResultsToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.browseLocalModelRunResultsToolStripMenuItem.Text = "Browse Local Model Run Results...";
             this.browseLocalModelRunResultsToolStripMenuItem.Click += new System.EventHandler(this.browseLocalModelRunResultsToolStripMenuItem_Click);
             // 
@@ -192,7 +152,7 @@
             // 
             this.exportIncrementalResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
             this.exportIncrementalResultsToCSVToolStripMenuItem.Name = "exportIncrementalResultsToCSVToolStripMenuItem";
-            this.exportIncrementalResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.exportIncrementalResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.exportIncrementalResultsToCSVToolStripMenuItem.Text = "Export Incremental Results to CSV...";
             this.exportIncrementalResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
             // 
@@ -200,20 +160,20 @@
             // 
             this.exportBinnedResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
             this.exportBinnedResultsToCSVToolStripMenuItem.Name = "exportBinnedResultsToCSVToolStripMenuItem";
-            this.exportBinnedResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.exportBinnedResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.exportBinnedResultsToCSVToolStripMenuItem.Text = "Export Binned Results to CSV...";
             this.exportBinnedResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(257, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(258, 6);
             // 
             // editModelRunToolStripMenuItem
             // 
             this.editModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editModelRunToolStripMenuItem.Name = "editModelRunToolStripMenuItem";
-            this.editModelRunToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.editModelRunToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.editModelRunToolStripMenuItem.Text = "Edit Model Run...";
             this.editModelRunToolStripMenuItem.Click += new System.EventHandler(this.editModelRunToolStripMenuItem_Click);
             // 
@@ -221,7 +181,7 @@
             // 
             this.deleteModelRunToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
             this.deleteModelRunToolStripMenuItem.Name = "deleteModelRunToolStripMenuItem";
-            this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(260, 22);
+            this.deleteModelRunToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
             this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
             // 
@@ -242,8 +202,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).EndInit();
             this.cmsGridView.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -260,9 +218,6 @@
         private System.Windows.Forms.DateTimePicker dtFrom;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rdoLocalRuns;
-        private System.Windows.Forms.RadioButton rdoAllRuns;
         private System.Windows.Forms.ToolStripMenuItem editModelRunToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteModelRunToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem browseLocalModelRunResultsToolStripMenuItem;

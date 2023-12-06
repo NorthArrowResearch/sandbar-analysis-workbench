@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using naru.ui;
 
 namespace SandbarWorkbench.Sandbars
@@ -139,11 +139,11 @@ namespace SandbarWorkbench.Sandbars
             {
                 SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
 
-                Sandbars.frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringMaster, selSite.SiteID);
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    MasterDatabaseChanged(selSite.SiteID);
-                }
+                Sandbars.frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringLocal, selSite.SiteID);
+                //if (frm.ShowDialog() == DialogResult.OK)
+                //{
+                //    MasterDatabaseChanged(selSite.SiteID);
+                //}
             }
             catch (Exception ex)
             {
@@ -163,9 +163,9 @@ namespace SandbarWorkbench.Sandbars
         {
             try
             {
-                frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringMaster);
-                if (frm.ShowDialog() == DialogResult.OK)
-                    MasterDatabaseChanged(frm.ID);
+                frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringLocal);
+                //if (frm.ShowDialog() == DialogResult.OK)
+                //    MasterDatabaseChanged(frm.ID);
             }
             catch (Exception ex)
             {
@@ -180,19 +180,18 @@ namespace SandbarWorkbench.Sandbars
                 SandbarSite theSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
                 if (MessageBox.Show(string.Format("Are you sure that you want to delete the sandbar site called '{0}'? This process is permanent and cannot be undone.", theSite.SiteCode5), "Confirm Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                     {
                         dbCon.Open();
 
                         try
                         {
                             Cursor.Current = Cursors.WaitCursor;
-                            MySqlCommand dbCom = new MySqlCommand("DELETE FROM SandbarSites WHERE SiteID = @SiteID", dbCon);
+                            SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM SandbarSites WHERE SiteID = @SiteID", dbCon);
                             dbCom.Parameters.AddWithValue("SiteID", theSite.SiteID);
                             dbCom.ExecuteNonQuery();
-                            MasterDatabaseChanged();
                         }
-                        catch (MySqlException ex)
+                        catch (SQLiteException ex)
                         {
                             if (ex.Message.ToLower().Contains("foreign key"))
                             {
@@ -216,22 +215,6 @@ namespace SandbarWorkbench.Sandbars
                         }
                     }
                 }
-            }
-        }
-
-        private void MasterDatabaseChanged(long nSelectID = 0)
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                sync.SynchronizeLookupTables();
-                LoadData(nSelectID);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
             }
         }
 

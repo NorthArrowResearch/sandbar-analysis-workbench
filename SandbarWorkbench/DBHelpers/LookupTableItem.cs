@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DBHelpers
 {
@@ -31,37 +30,27 @@ namespace SandbarWorkbench.DBHelpers
         }
 
         protected abstract void SaveLocal(ref SQLiteTransaction dbTrans, ref DatabaseObject obj, string sSQL);
-        protected abstract long SaveMaster(ref MySqlTransaction dbTrans, ref DatabaseObject obj);
 
         public void Save(ref DatabaseObject obj)
         {
-            using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
-                conMaster.Open();
-                MySqlTransaction transMaster = conMaster.BeginTransaction();
+                dbCon.Open();
+                SQLiteTransaction transLocal = dbCon.BeginTransaction();
 
-                using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                try
                 {
-                    dbCon.Open();
-                    SQLiteTransaction transLocal = dbCon.BeginTransaction();
+                    // Must do the master save first. If this is an insert it
+                    // will generate the ID that is then used in the local insert.
+                    string sLocalSQL = obj.ID > 0 ? UpdateSQL : InsertSQL;
+                    SaveLocal(ref transLocal, ref obj, sLocalSQL);
 
-                    try
-                    {
-                        // Must do the master save first. If this is an insert it
-                        // will generate the ID that is then used in the local insert.
-                        string sLocalSQL = obj.ID > 0 ? UpdateSQL : InsertSQL;
-                        SaveMaster(ref transMaster, ref obj);
-                        SaveLocal(ref transLocal, ref obj, sLocalSQL);
-
-                        transMaster.Commit();
-                        transLocal.Commit();
-                    }
-                    catch
-                    {
-                        transMaster.Rollback();
-                        transLocal.Rollback();
-                        throw;
-                    }
+                    transLocal.Commit();
+                }
+                catch
+                {
+                    transLocal.Rollback();
+                    throw;
                 }
             }
         }
@@ -69,39 +58,28 @@ namespace SandbarWorkbench.DBHelpers
         public void Delete(long nID)
         {
             System.Diagnostics.Debug.Assert(nID > 0, "Should only attempt to delete an item that already has been inserted.");
-            using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
-                conMaster.Open();
-                MySqlTransaction transMaster = conMaster.BeginTransaction();
+                dbCon.Open();
+                SQLiteTransaction transLocal = dbCon.BeginTransaction();
 
-                using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                try
                 {
-                    dbCon.Open();
-                    SQLiteTransaction transLocal = dbCon.BeginTransaction();
+                    string sDeleteSQL = string.Format("DELETE FROM {0} WHERE {1} = @{1}", DBTable, PrimaryKey);
+                  
+                    SQLiteCommand comLocal = new SQLiteCommand(sDeleteSQL, transLocal.Connection, transLocal);
+                    comLocal.Parameters.AddWithValue(PrimaryKey, nID);
+                    comLocal.ExecuteNonQuery();
 
-                    try
-                    {
-                        string sDeleteSQL = string.Format("DELETE FROM {0} WHERE {1} = @{1}", DBTable, PrimaryKey);
-                        MySqlCommand comMaster = new MySqlCommand(sDeleteSQL, transMaster.Connection, transMaster);
-                        comMaster.Parameters.AddWithValue(PrimaryKey, nID);
-                        comMaster.ExecuteNonQuery();
-
-                        SQLiteCommand comLocal = new SQLiteCommand(sDeleteSQL, transLocal.Connection, transLocal);
-                        comLocal.Parameters.AddWithValue(PrimaryKey, nID);
-                        comLocal.ExecuteNonQuery();
-
-                        transMaster.Commit();
-                        transLocal.Commit();
-                    }
-                    catch
-                    {
-                        transMaster.Rollback();
-                        transLocal.Rollback();
-                        throw;
-                    }
+                    transLocal.Commit();
+                }
+                catch
+                {
+                    transLocal.Rollback();
+                    throw;
                 }
             }
         }
-
     }
 }

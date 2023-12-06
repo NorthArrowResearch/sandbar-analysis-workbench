@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using naru.ui;
 
 namespace SandbarWorkbench.RemoteCameras
@@ -162,28 +162,12 @@ namespace SandbarWorkbench.RemoteCameras
             try
             {
                 frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit();
-                if (frm.ShowDialog() == DialogResult.OK)
-                    MasterDatabaseChanged(frm.RemoteCameraID);
+                //if (frm.ShowDialog() == DialogResult.OK)
+                //    MasterDatabaseChanged(frm.RemoteCameraID);
             }
             catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
-            }
-        }
-
-        private void MasterDatabaseChanged(long nSelectID = 0)
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                sync.SynchronizeLookupTables();
-                LoadData(nSelectID);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -194,17 +178,16 @@ namespace SandbarWorkbench.RemoteCameras
                 RemoteCamera theCamera = (RemoteCamera)grdData.SelectedRows[0].DataBoundItem;
                 if (MessageBox.Show(string.Format("Are you sure that you want to delete the remote camera at site '{0}'? This process is permanent and cannot be undone.", theCamera.SiteCode5), "Confirm Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                     {
                         dbCon.Open();
 
                         try
                         {
                             Cursor.Current = Cursors.WaitCursor;
-                            MySqlCommand dbCom = new MySqlCommand("DELETE FROM RemoteCameras WHERE CameraID = @RemoteCameraID", dbCon);
+                            SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM RemoteCameras WHERE CameraID = @RemoteCameraID", dbCon);
                             dbCom.Parameters.AddWithValue("RemoteCameraID", theCamera.CameraID);
                             dbCom.ExecuteNonQuery();
-                            MasterDatabaseChanged();
                         }
                         catch (Exception ex)
                         {
@@ -259,7 +242,7 @@ namespace SandbarWorkbench.RemoteCameras
                 frmRemoteCameraPropertiesEdit frm = new frmRemoteCameraPropertiesEdit(selCamera, bEditable);
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    MasterDatabaseChanged(selCamera.CameraID);
+                    //MasterDatabaseChanged(selCamera.CameraID);
                 }
             }
             catch (Exception ex)

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -42,33 +42,33 @@ namespace SandbarWorkbench.Sandbars
             {
                 Cursor.Current = Cursors.WaitCursor;
 
-                using (MySqlConnection dbCon = new MySqlConnection(conMaster))
+                using (SQLiteConnection dbCon = new SQLiteConnection(conMaster))
                 {
                     dbCon.Open();
 
-                    MySqlCommand dbCom = new MySqlCommand("SELECT * FROM SandbarSites WHERE SiteID = @SiteID", dbCon);
+                    SQLiteCommand dbCom = new SQLiteCommand("SELECT * FROM SandbarSites WHERE SiteID = @SiteID", dbCon);
                     dbCom.Parameters.AddWithValue("SiteID", ID);
-                    MySqlDataReader dbRead = dbCom.ExecuteReader();
+                    SQLiteDataReader dbRead = dbCom.ExecuteReader();
                     dbRead.Read();
 
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "SiteCode5", ref txtSiteCode5);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "RiverMile", ref valRiverMile);
-                    nRiverSideID = dbRead.GetInt64("RiverSideID");
+                    nRiverSideID = dbRead.GetInt64(dbRead.GetOrdinal("RiverSideID"));
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "EddySize", ref valEddySize);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "Title", ref txtTitle);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "AlternateTitle", ref txtAlternateTitle);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "History", ref txtHistory);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "CampsiteSurveyRecord", ref txtCampsite);
-                    nSiteTypeID = dbRead.GetInt64("SiteTypeID");
+                    nSiteTypeID = dbRead.GetInt64(dbRead.GetOrdinal("SiteTypeID"));
 
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("ReachID")))
-                        nReachID = dbRead.GetInt64("ReachID");
+                        nReachID = dbRead.GetInt64(dbRead.GetOrdinal("ReachID"));
 
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("SegmentID")))
-                        nSegmentID = dbRead.GetInt64("SegmentID");
+                        nSegmentID = dbRead.GetInt64(dbRead.GetOrdinal("SegmentID"));
 
                     if (!dbRead.IsDBNull(dbRead.GetOrdinal("RemoteCameraID")))
-                        nCameraID = dbRead.GetInt64("RemoteCameraID");
+                        nCameraID = dbRead.GetInt64(dbRead.GetOrdinal("RemoteCameraID"));
 
                     // Tab 2
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "ExpansionRatio8k", ref valExpansion8k);
@@ -141,16 +141,16 @@ namespace SandbarWorkbench.Sandbars
                     "ReachID", "SegmentID", "CampsiteSurveyRecord" , "RemoteCameraID" , "StageDischargeA", "StageDischargeB", "StageDischargeC" , "Northing", "Easting", "Latitude" ,"Longitude",
                     "RiverSideID" , "SiteTypeID", "EddySize", "PrimaryGDAWS", "Remarks" };
 
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                SQLiteTransaction dbTrans = dbCon.BeginTransaction();
 
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
 
-                    MySqlCommand dbCom = new MySqlCommand();
+                    SQLiteCommand dbCom = new SQLiteCommand();
                     dbCom.Connection = dbCon;
 
                     if (ID > 0)
@@ -198,7 +198,7 @@ namespace SandbarWorkbench.Sandbars
                     dbTrans.Commit();
 
                     if (ID < 1)
-                        ID = dbCom.LastInsertedId;
+                        ID = dbCon.LastInsertRowId;
 
                     Cursor.Current = Cursors.Default;
                     MessageBox.Show("Sandbar site data saved to the remote, master database. Your local database will now be updated when you click OK.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -1,8 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -93,7 +93,7 @@ namespace SandbarWorkbench.Segments
                 DBHelpers.DatabaseObject obj = (DBHelpers.DatabaseObject)this.segment;
                 crud.Save(ref obj);
             }
-            catch (MySqlException ex)
+            catch (SQLiteException ex)
             {
                 string sNoun = string.Empty;
 
@@ -112,7 +112,7 @@ namespace SandbarWorkbench.Segments
 
                 if (!string.IsNullOrEmpty(sNoun))
                 {
-                    string sMessage = string.Format("A segment with this {0} already exists on the master database. Please choose a unique {0}. {1}", sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
+                    string sMessage = string.Format("A segment with this {0} already exists in the database. Please choose a unique {0}. {1}", sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
                     string sTitle = string.Format("Duplicate {0}", sNoun);
 
                     MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);

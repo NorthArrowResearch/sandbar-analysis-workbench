@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DataGridViews
 {
@@ -132,11 +131,7 @@ namespace SandbarWorkbench.DataGridViews
                 if (MessageBox.Show(string.Format("Are you sure that you want to delete the selected {0}? This action is permanent and cannot be undone.", TypeInfo.Noun.ToLower()), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
-                    using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
-                    {
-                        conMaster.Open();
-                        MySqlTransaction transMaster = conMaster.BeginTransaction();
-
+                   
                         using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                         {
                             dbCon.Open();
@@ -144,49 +139,26 @@ namespace SandbarWorkbench.DataGridViews
 
                             try
                             {
-                                MySqlCommand comMaster = new MySqlCommand(TypeInfo.DeleteSQL, transMaster.Connection, transMaster);
-                                comMaster.Parameters.AddWithValue("ID", ID);
-                                comMaster.ExecuteNonQuery();
-
                                 SQLiteCommand comLocal = new SQLiteCommand(TypeInfo.DeleteSQL, transLocal.Connection, transLocal);
                                 comLocal.Parameters.AddWithValue("ID", ID);
                                 comLocal.ExecuteNonQuery();
 
-                                transMaster.Commit();
                                 transLocal.Commit();
 
                                 LoadDataGridView();
                             }
                             catch
                             {
-                                transMaster.Rollback();
+                              
                                 transLocal.Rollback();
                                 throw;
                             }
                         }
                     }
-                }
             }
             catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
-            }
-        }
-
-        private void MasterDatabaseChanged(long nSelectID = 0)
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-
-                sync.SynchronizeLookupTables();
-                LoadDataGridView(nSelectID);
-            }
-            finally
-            {
-                Cursor.Current = Cursors.Default;
             }
         }
 

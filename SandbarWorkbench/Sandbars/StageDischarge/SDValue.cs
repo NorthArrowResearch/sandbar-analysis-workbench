@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 using naru.ui;
 
 namespace SandbarWorkbench.Sandbars.StageDischarge
@@ -141,35 +140,23 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
         /// <param name="nSampleID">The primary key, unique identifier of the sample</param>
         public static void Delete(long nSampleID)
         {
-            using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+
+            using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
-                conMaster.Open();
-                MySqlTransaction transMaster = conMaster.BeginTransaction();
+                conLocal.Open();
+                SQLiteTransaction transLocal = conLocal.BeginTransaction();
 
-                using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                try
                 {
-                    conLocal.Open();
-                    SQLiteTransaction transLocal = conLocal.BeginTransaction();
-
-                    try
-                    {
-                        MySqlCommand comMaster = new MySqlCommand("DELETE FROM StageDischarges WHERE SampleID = @SampleID", transMaster.Connection, transMaster);
-                        comMaster.Parameters.AddWithValue("SampleID", nSampleID);
-                        comMaster.ExecuteNonQuery();
-
-                        SQLiteCommand comLocal = new SQLiteCommand(comMaster.CommandText, transLocal.Connection, transLocal);
-                        comLocal.Parameters.AddWithValue("SampleID", nSampleID);
-                        comLocal.ExecuteNonQuery();
-
-                        transMaster.Commit();
-                        transLocal.Commit();
-                    }
-                    catch(Exception ex)
-                    {
-                        transLocal.Rollback();
-                        transMaster.Rollback();
-                        throw;
-                    }
+                    SQLiteCommand comLocal = new SQLiteCommand("DELETE FROM StageDischarges WHERE SampleID = @SampleID", transLocal.Connection, transLocal);
+                    comLocal.Parameters.AddWithValue("SampleID", nSampleID);
+                    comLocal.ExecuteNonQuery();
+                    transLocal.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transLocal.Rollback();
+                    throw;
                 }
             }
         }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DBHelpers
 {
@@ -52,9 +51,9 @@ namespace SandbarWorkbench.DBHelpers
             LocalFields = new Dictionary<string, FieldDef>();
         }
 
-        public void RetrievePropertiesFromMaster(string sSchemaName, MySqlConnection dbCon)
+        public void RetrievePropertiesFromMaster(string sSchemaName, SQLiteConnection dbCon)
         {
-            MySqlCommand dbCom = new MySqlCommand("SELECT UpdatedOn FROM TableChangeLog WHERE TableName = @TableName", dbCon);
+            SQLiteCommand dbCom = new SQLiteCommand("SELECT UpdatedOn FROM TableChangeLog WHERE TableName = @TableName", dbCon);
             dbCom.Parameters.AddWithValue("TableName", TableName);
 
             object objMasterchanged = dbCom.ExecuteScalar();
@@ -71,18 +70,18 @@ namespace SandbarWorkbench.DBHelpers
             }
 
             // Attempt to determine the look up table schema
-            dbCom = new MySqlCommand(string.Format("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_SCHEMA = '{0}') AND (TABLE_NAME = '{1}')", sSchemaName, TableName), dbCon);
-            MySqlDataReader dbRead = dbCom.ExecuteReader();
+            dbCom = new SQLiteCommand(string.Format("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_SCHEMA = '{0}') AND (TABLE_NAME = '{1}')", sSchemaName, TableName), dbCon);
+            SQLiteDataReader dbRead = dbCom.ExecuteReader();
             while (dbRead.Read())
             {
-                if (!dbRead.IsDBNull(dbRead.GetOrdinal("COLUMN_KEY")) && string.Compare(dbRead.GetString("COLUMN_Key"), "PRI", true) == 0)
+                if (!dbRead.IsDBNull(dbRead.GetOrdinal("COLUMN_KEY")) && string.Compare(dbRead.GetString(dbRead.GetOrdinal("COLUMN_Key")), "PRI", true) == 0)
                 {
-                    MasterPrimaryKey = dbRead.GetString("COLUMN_NAME");
+                    MasterPrimaryKey = dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME"));
                 }
                 else
                 {
                     System.Data.DbType theDataType;
-                    switch (dbRead.GetString("DATA_TYPE").ToLower())
+                    switch (dbRead.GetString(dbRead.GetOrdinal("DATA_TYPE")).ToLower())
                     {
                         case "int":
                             theDataType = System.Data.DbType.Int64;
@@ -112,11 +111,11 @@ namespace SandbarWorkbench.DBHelpers
                             break;
 
                         default:
-                            throw new Exception(string.Format("Unhandled master database field type '{0}' for column {1} in table {2}", dbRead.GetString("DATA_TYPE"), dbRead.GetString("COLUMN_NAME"), TableName));
+                            throw new Exception(string.Format("Unhandled master database field type '{0}' for column {1} in table {2}", dbRead.GetString(dbRead.GetOrdinal("DATA_TYPE")), dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME")), TableName));
 
                     }
 
-                    MasterFields[dbRead.GetString("COLUMN_NAME")] = new FieldDef(dbRead.GetString("COLUMN_NAME"), theDataType);
+                    MasterFields[dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME"))] = new FieldDef(dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME")), theDataType);
                 }
             }
             dbRead.Close();

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -175,9 +176,6 @@ namespace SandbarWorkbench.Sandbars
                 Cursor.Current = Cursors.WaitCursor;
                 try
                 {
-                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                    sync.SynchronizeLookupTables();
-
                     m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
                     grdSurveys.DataSource = m_Site.Surveys;
 
@@ -232,17 +230,17 @@ namespace SandbarWorkbench.Sandbars
                         return;
                 }
 
-                using (MySql.Data.MySqlClient.MySqlConnection dbCon = new MySql.Data.MySqlClient.MySqlConnection(DBCon.ConnectionStringMaster))
+                using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                 {
                     Cursor.Current = Cursors.WaitCursor;
 
                     dbCon.Open();
-                    MySql.Data.MySqlClient.MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                    SQLiteTransaction dbTrans = dbCon.BeginTransaction();
 
                     try
                     {
-                        MySql.Data.MySqlClient.MySqlCommand dbCom = new MySql.Data.MySqlClient.MySqlCommand("DELETE FROM SandbarSurveys WHERE SurveyID = @SurveyID", dbTrans.Connection, dbTrans);
-                        MySql.Data.MySqlClient.MySqlParameter pSurveyID = dbCom.Parameters.Add("SurveyID", MySql.Data.MySqlClient.MySqlDbType.Int64);
+                        SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM SandbarSurveys WHERE SurveyID = @SurveyID", dbTrans.Connection, dbTrans);
+                        SQLiteParameter pSurveyID = dbCom.Parameters.Add("SurveyID", DbType.Int64);
 
                         foreach (DataGridViewRow row in grdSurveys.SelectedRows)
                         {
@@ -252,9 +250,6 @@ namespace SandbarWorkbench.Sandbars
 
                         dbTrans.Commit();
 
-                        // Reload the data
-                        DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                        sync.SynchronizeLookupTables();
 
                         m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
                         grdSurveys.DataSource = m_Site.Surveys;
@@ -284,9 +279,6 @@ namespace SandbarWorkbench.Sandbars
                 Cursor.Current = Cursors.WaitCursor;
                 try
                 {
-                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                    sync.SynchronizeLookupTables();
-
                     m_Site = SandbarSite.LoadSandbarSite(DBCon.ConnectionStringLocal, m_Site.SiteID);
                     grdSurveys.DataSource = m_Site.Surveys;
 

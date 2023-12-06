@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 using naru.ui;
 
 namespace SandbarWorkbench.Sandbars
@@ -186,18 +185,18 @@ namespace SandbarWorkbench.Sandbars
                 return;
             }
 
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
                 dbCon.Open();
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                SQLiteTransaction dbTrans = dbCon.BeginTransaction();
 
                 try
                 {
                     if (Survey.SurveyID == 0)
                     {
                         // This is a new survey insert it.
-                        MySqlCommand dbCom = new MySqlCommand("INSERT INTO SandbarSurveys (SiteID, TripID, SurveyDate, AddedBy, UpdatedBy) VALUES (@SiteID, @TripID, @SurveyDate, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
+                        SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO SandbarSurveys (SiteID, TripID, SurveyDate, AddedBy, UpdatedBy) VALUES (@SiteID, @TripID, @SurveyDate, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
                         dbCom.Parameters.AddWithValue("SiteID", Survey.SiteID);
                         dbCom.Parameters.AddWithValue("TripID", ((ListItem)cboTrips.SelectedItem).Value);
                         dbCom.Parameters.AddWithValue("SurveyDate", dtSurveyDate.Value);
@@ -205,12 +204,12 @@ namespace SandbarWorkbench.Sandbars
                         dbCom.ExecuteNonQuery();
 
                         // Update the survey object with the primary key ID
-                        Survey.SurveyID = dbCom.LastInsertedId;
+                        Survey.SurveyID = dbCon.LastInsertRowId;
                     }
 
                     // Remove all the sections that were removed. Do this first, in case the user accidentally removed then re-added the same section
-                    MySqlCommand comDelete = new MySqlCommand("DELETE FROM SandbarSections WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
-                    MySqlParameter pSectionID = comDelete.Parameters.Add("SectionID", MySqlDbType.Int64);
+                    SQLiteCommand comDelete = new SQLiteCommand("DELETE FROM SandbarSections WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
+                    SQLiteParameter pSectionID = comDelete.Parameters.Add("SectionID", DbType.Int64);
                     foreach (long nSectionID in DeletedItems)
                     {
                         pSectionID.Value = nSectionID;
@@ -223,21 +222,21 @@ namespace SandbarWorkbench.Sandbars
                         if (aSection.SectionID == 0)
                         {
                             // New section. Insert it.
-                            MySqlCommand dbCom = new MySqlCommand("INSERT INTO SandbarSections (SurveyID, SectionTypeID, Uncertainty, InstrumentID, Addedby, UpdatedBy) VALUES (@SurveyID, @SectionTypeID, @Uncertainty, @InstrumentID, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
+                            SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO SandbarSections (SurveyID, SectionTypeID, Uncertainty, InstrumentID, Addedby, UpdatedBy) VALUES (@SurveyID, @SectionTypeID, @Uncertainty, @InstrumentID, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans);
                             dbCom.Parameters.AddWithValue("SurveyID", Survey.SurveyID);
                             dbCom.Parameters.AddWithValue("SectionTypeID", aSection.SectionTypeID);
                             dbCom.Parameters.AddWithValue("InstrumentID", aSection.InstrumentID);
                             dbCom.Parameters.AddWithValue("Uncertainty", aSection.Uncertainty);
                             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
                             dbCom.ExecuteNonQuery();
-                            aSection.SectionID = dbCom.LastInsertedId;
+                            aSection.SectionID = dbCon.LastInsertRowId;
                         }
                         else
                         {
                             if (aSection.State == SandbarSection.ItemStates.Edited)
                             {
                                 // Existing section that has changed.
-                                MySqlCommand dbCom = new MySqlCommand("UPDATE SandbarSections SET SectionTypeID = @SectionTypeID, Uncertainty = @Uncertainty, InstrumentID = @InstrumentID, UpdatedBy = @EditedBy WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
+                                SQLiteCommand dbCom = new SQLiteCommand("UPDATE SandbarSections SET SectionTypeID = @SectionTypeID, Uncertainty = @Uncertainty, InstrumentID = @InstrumentID, UpdatedBy = @EditedBy WHERE SectionID = @SectionID", dbTrans.Connection, dbTrans);
                                 dbCom.Parameters.AddWithValue("SectionID", aSection.SectionID);
                                 dbCom.Parameters.AddWithValue("SectionTypeID", aSection.SectionTypeID);
                                 dbCom.Parameters.AddWithValue("InstrumentID", aSection.InstrumentID);

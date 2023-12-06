@@ -207,9 +207,6 @@ namespace SandbarWorkbench.Sandbars
                 {
                     System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
 
-                    DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                    sync.SynchronizeLookupTables();
-
                     LoadStageDischargeValues();
                     cboSamples.DataSource = SDCurve.StageDischargeSamples;
 
@@ -243,9 +240,6 @@ namespace SandbarWorkbench.Sandbars
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
                         System.Windows.Forms.Cursor.Current = Cursors.WaitCursor;
-
-                        DBHelpers.SyncHelpers sync = new DBHelpers.SyncHelpers();
-                        sync.SynchronizeLookupTables();
 
                         LoadStageDischargeValues();
                         cboSamples.DataSource = SDCurve.StageDischargeSamples;

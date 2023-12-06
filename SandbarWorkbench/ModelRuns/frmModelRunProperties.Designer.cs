@@ -36,7 +36,6 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtRemarks = new System.Windows.Forms.TextBox();
-            this.chkSync = new System.Windows.Forms.CheckBox();
             this.cmdHelp = new System.Windows.Forms.Button();
             this.chkPublished = new System.Windows.Forms.CheckBox();
             this.tt = new System.Windows.Forms.ToolTip(this.components);
@@ -46,7 +45,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(391, 213);
+            this.cmdCancel.Location = new System.Drawing.Point(391, 189);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 7;
@@ -57,7 +56,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(310, 213);
+            this.cmdOK.Location = new System.Drawing.Point(310, 189);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 6;
@@ -100,21 +99,10 @@
             this.txtRemarks.Size = new System.Drawing.Size(391, 104);
             this.txtRemarks.TabIndex = 3;
             // 
-            // chkSync
-            // 
-            this.chkSync.AutoSize = true;
-            this.chkSync.Location = new System.Drawing.Point(75, 159);
-            this.chkSync.Name = "chkSync";
-            this.chkSync.Size = new System.Drawing.Size(242, 17);
-            this.chkSync.TabIndex = 4;
-            this.chkSync.Text = "Synchronize model results to central database";
-            this.chkSync.UseVisualStyleBackColor = true;
-            this.chkSync.CheckedChanged += new System.EventHandler(this.UpdateCheckBoxes);
-            // 
             // cmdHelp
             // 
             this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdHelp.Location = new System.Drawing.Point(16, 213);
+            this.cmdHelp.Location = new System.Drawing.Point(16, 189);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
             this.cmdHelp.TabIndex = 8;
@@ -125,7 +113,7 @@
             // chkPublished
             // 
             this.chkPublished.AutoSize = true;
-            this.chkPublished.Location = new System.Drawing.Point(75, 182);
+            this.chkPublished.Location = new System.Drawing.Point(75, 162);
             this.chkPublished.Name = "chkPublished";
             this.chkPublished.Size = new System.Drawing.Size(237, 17);
             this.chkPublished.TabIndex = 5;
@@ -139,10 +127,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(478, 248);
+            this.ClientSize = new System.Drawing.Size(478, 224);
             this.Controls.Add(this.chkPublished);
             this.Controls.Add(this.cmdHelp);
-            this.Controls.Add(this.chkSync);
             this.Controls.Add(this.txtRemarks);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTitle);
@@ -170,7 +157,6 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtRemarks;
-        private System.Windows.Forms.CheckBox chkSync;
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.CheckBox chkPublished;
         private System.Windows.Forms.ToolTip tt;

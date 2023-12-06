@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using MySql.Data.MySqlClient;
 using naru.ui;
 
 namespace SandbarWorkbench.ModelRuns
@@ -49,8 +48,6 @@ namespace SandbarWorkbench.ModelRuns
         {
             tt.SetToolTip(dtFrom, "The filtered list of model runs is filtered to only those runs that were performed on or after this date");
             tt.SetToolTip(dtTo, "The filtered list of model runs is filtered to only those runs that were performed on or before this date");
-            tt.SetToolTip(rdoAllRuns, "Choose this option to display all model runs that have results stored in the local database on this computer.");
-            tt.SetToolTip(rdoLocalRuns, "Choose this option to display only the model runs that were actually performed on this local computer");
 
             dtFrom.Value = DateTime.Now.AddDays(-30);
             dtTo.Value = DateTime.Now;
@@ -63,7 +60,6 @@ namespace SandbarWorkbench.ModelRuns
             this.Icon = (Icon)Icon.Clone();
 
             LoadData();
-
 
             FilterItems(null, null);
         }
@@ -90,8 +86,6 @@ namespace SandbarWorkbench.ModelRuns
             UpdateGridViewCMS();
         }
 
-
-
         private void FilterItems(object sender, EventArgs e)
         {
             SortableBindingList<ModelRunLocal> lFilteredItems = ModelRuns;
@@ -100,9 +94,6 @@ namespace SandbarWorkbench.ModelRuns
             DateTime FilterFrom = new DateTime(dtFrom.Value.Year, dtFrom.Value.Month, dtFrom.Value.Day, 0, 0, 0);
             DateTime FilterTo = (new DateTime(dtTo.Value.Year, dtTo.Value.Month, dtTo.Value.Day, 0, 0, 0)).AddDays(1);
             lFilteredItems = new SortableBindingList<ModelRunLocal>(lFilteredItems.Where(mr => mr.RunOn >= FilterFrom && mr.RunOn < FilterTo).ToList<ModelRunLocal>());
-
-            if (rdoLocalRuns.Checked)
-                lFilteredItems = new SortableBindingList<ModelRunLocal>(lFilteredItems.Where(mr => mr.IsLocalRun).ToList<ModelRunLocal>());
 
             grdData.DataSource = lFilteredItems;
             UpdateGridViewCMS();
@@ -162,8 +153,8 @@ namespace SandbarWorkbench.ModelRuns
                 sPlural = "s";
             }
             if (MessageBox.Show(string.Format("Are you sure that you want to delete the{0} selected model run{1}?" +
-                " This action is permanent and cannot be undone. Only the database records will be deleted. No model result files will be deleted during this process." +
-                " Any local model runs will also be deleted on the master database, while model runs from other computers will only be deleted locally.", sCount, sPlural),
+                " This action is permanent and cannot be undone. Only the database records will be deleted. No model result files will be deleted during this process."
+               , sCount, sPlural),
                 "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -175,47 +166,30 @@ namespace SandbarWorkbench.ModelRuns
                     SQLiteCommand comLocal = new SQLiteCommand("DELETE FROM ModelRuns WHERE LocalRunID = @LocalRunID", transLocal.Connection, transLocal);
                     SQLiteParameter pLocal = comLocal.Parameters.Add("LocalRunID", DbType.Int64);
 
-                    using (MySqlConnection conMaster = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    try
                     {
-                        conMaster.Open();
-                        MySqlTransaction transMaster = conMaster.BeginTransaction();
-                        MySqlCommand comMaster = new MySqlCommand("DELETE FROM ModelRuns WHERE MasterRunID = @MasterRunID", transMaster.Connection, transMaster);
-                        MySqlParameter pMaster = comMaster.Parameters.Add("MasterRunID", MySqlDbType.Int64);
-
-                        try
+                        foreach (DataGridViewRow dgvr in grdData.SelectedRows)
                         {
-                            foreach (DataGridViewRow dgvr in grdData.SelectedRows)
-                            {
-                                // Always delete the copy of the model run on lcoal
-                                ModelRunLocal mr = dgvr.DataBoundItem as ModelRunLocal;
-                                pLocal.Value = mr.ID;
-                                comLocal.ExecuteNonQuery();
-
-                                // Only local runs that have been synced should be deleted on master
-                                if (mr.IsLocalRun && mr.MasterID > 0)
-                                {
-                                    pMaster.Value = mr.MasterID;
-                                    comMaster.ExecuteNonQuery();
-                                }
-                            }
-
-                            transLocal.Commit();
-                            transMaster.Commit();
-
-                            LoadData();
-                        }
-                        catch (Exception ex)
-                        {
-                            transLocal.Rollback();
-                            transMaster.Rollback();
-                            ExceptionHandling.NARException.HandleException(ex);
-                        }
-                        finally
-                        {
-                            Cursor.Current = Cursors.Default;
+                            // Always delete the copy of the model run on lcoal
+                            ModelRunLocal mr = dgvr.DataBoundItem as ModelRunLocal;
+                            pLocal.Value = mr.ID;
+                            comLocal.ExecuteNonQuery();
                         }
 
+                        transLocal.Commit();
+
+                        LoadData();
                     }
+                    catch (Exception ex)
+                    {
+                        transLocal.Rollback();
+                        ExceptionHandling.NARException.HandleException(ex);
+                    }
+                    finally
+                    {
+                        Cursor.Current = Cursors.Default;
+                    }
+
                 }
             }
         }

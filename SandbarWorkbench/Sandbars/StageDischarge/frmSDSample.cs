@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.Sandbars.StageDischarge
 {
@@ -143,15 +143,15 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                 return;
             }
 
-            using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
                 dbCon.Open();
 
-                MySqlTransaction dbTrans = dbCon.BeginTransaction();
+                SQLiteTransaction dbTrans = dbCon.BeginTransaction();
 
                 try
                 {
-                    MySqlCommand dbCom = new MySqlCommand(string.Empty, dbTrans.Connection, dbTrans);
+                    SQLiteCommand dbCom = new SQLiteCommand(string.Empty, dbTrans.Connection, dbTrans);
                     if (sdValue is SDValue)
                     {
                         dbCom.CommandText = "UPDATE StageDischarges SET SiteID = @SiteID, SampleDate = @SampleDate, SampleTime=@SampleTime, SampleCode =@SampleCode" +
@@ -165,22 +165,33 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                          " VALUES (@SiteID, @SampleDate, @SampleTime, @SampleCode, @ElevationLocal, @ElevationSP, @SampleCount, @Flow, @FlowMS, @Comments, @EditedBy, @EditedBy)";
                     }
 
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboSite, "SiteID");
-                    DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkSampleDate, ref dtSampleDate, "SampleDate");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSampleTime, "SampleTime");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtSampleCode, "SampleCode");
-                    DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkLocalElevation, ref valLocalElevation, "ElevationLocal");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valSPElevation, "ElevationSP");
-                    DBHelpers.MySQLHelpers.AddNParameter(ref dbCom, ref chkSampleCount, ref valSampleCount, "SampleCount");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valFlow, "Flow");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valFlowMS, "FlowMS");
-                    DBHelpers.MySQLHelpers.AddStringParameterN(ref dbCom, txtComments.Text, "Comments");
+                    dbCom.Parameters.AddWithValue("SiteID", ((naru.db.NamedObject)cboSite.SelectedItem).ID);
+
+                    if (chkSampleDate.Checked)
+                        dbCom.Parameters.AddWithValue("SampleDate", dtSampleDate.Value);
+                    else
+                        dbCom.Parameters.AddWithValue("SampleDate", DBNull.Value);
+
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleTime.Text, "SampleTime");
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleCode.Text, "SampleTime");
+                    dbCom.Parameters.AddWithValue("ElevationLocal", chkLocalElevation.Checked);
+                    dbCom.Parameters.AddWithValue("ElevationSP", valSPElevation.Value);
+
+                    if (chkSampleCount.Checked)
+                        dbCom.Parameters.AddWithValue("SampleCount", valSampleCount.Value);
+                    else
+                        dbCom.Parameters.AddWithValue("SampleCount", DBNull.Value);
+
+                    dbCom.Parameters.AddWithValue("Flow", valFlow.Value);
+                    dbCom.Parameters.AddWithValue("FlowMS", valFlowMS.Value);
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtComments.Text, "Comments");
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
+
                     dbCom.ExecuteNonQuery();
 
                     if (sdValue == null)
                     {
-                        ID = dbCom.LastInsertedId;
+                        ID = dbCon.LastInsertRowId;
                     }
 
                     dbTrans.Commit();

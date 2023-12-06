@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace SandbarWorkbench.DataGridViews
 {
@@ -39,15 +39,15 @@ namespace SandbarWorkbench.DataGridViews
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    using (MySqlConnection dbCon = new MySqlConnection(DBCon.ConnectionStringMaster))
+                    using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
                     {
                         dbCon.Open();
-                        MySqlCommand dbCom = new MySqlCommand("SELECT Title FROM LookupListItems WHERE ItemID = @ItemID", dbCon);
+                        SQLiteCommand dbCom = new SQLiteCommand("SELECT Title FROM LookupListItems WHERE ItemID = @ItemID", dbCon);
                         dbCom.Parameters.AddWithValue("ItemID", ID);
-                        MySqlDataReader dbRead = dbCom.ExecuteReader();
+                        SQLiteDataReader dbRead = dbCom.ExecuteReader();
                         dbRead.Read();
 
-                        txtName.Text = dbRead.GetString("Title");
+                        txtName.Text = dbRead.GetString(dbRead.GetOrdinal("Title"));
                     }
                 }
                 catch (Exception ex)
@@ -86,7 +86,7 @@ namespace SandbarWorkbench.DataGridViews
                 DBHelpers.DatabaseObject obj = new DBHelpers.DatabaseObject(ID, txtName.Text, DateTime.Now,Environment.UserName, DateTime.Now,  Environment.UserName);
                 crud.Save(ref obj);
             }
-            catch (MySqlException ex)
+            catch (SQLiteException ex)
             {
                 string sNoun = string.Empty;
 
