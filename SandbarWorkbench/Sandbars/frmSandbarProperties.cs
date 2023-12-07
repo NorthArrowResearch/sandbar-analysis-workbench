@@ -217,7 +217,7 @@ namespace SandbarWorkbench.Sandbars
             if (grdSurveys.SelectedRows.Count > 0)
             {
                 string sMessage = string.Format("Are you sure that you want to delete the {0} selected surveys." +
-                    " All surveyed section data and associated model results will also be deleted both locally and on the master database." +
+                    " All surveyed section data and associated model results will be deleted." +
                     " This action is permanent cannot be undone.", grdSurveys.SelectedRows.Count);
 
                 switch (MessageBox.Show(sMessage, "Confirm Delete", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))

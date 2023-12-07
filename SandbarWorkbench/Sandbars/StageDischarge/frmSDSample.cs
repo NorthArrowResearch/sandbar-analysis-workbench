@@ -165,7 +165,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                          " VALUES (@SiteID, @SampleDate, @SampleTime, @SampleCode, @ElevationLocal, @ElevationSP, @SampleCount, @Flow, @FlowMS, @Comments, @EditedBy, @EditedBy)";
                     }
 
-                    dbCom.Parameters.AddWithValue("SiteID", ((naru.db.NamedObject)cboSite.SelectedItem).ID);
+                    dbCom.Parameters.AddWithValue("SiteID", ((ListItem)cboSite.SelectedItem).Value);
 
                     if (chkSampleDate.Checked)
                         dbCom.Parameters.AddWithValue("SampleDate", dtSampleDate.Value);
@@ -173,7 +173,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                         dbCom.Parameters.AddWithValue("SampleDate", DBNull.Value);
 
                     naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleTime.Text, "SampleTime");
-                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleCode.Text, "SampleTime");
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleCode.Text, "SampleCode");
                     dbCom.Parameters.AddWithValue("ElevationLocal", chkLocalElevation.Checked);
                     dbCom.Parameters.AddWithValue("ElevationSP", valSPElevation.Value);
 
@@ -195,7 +195,6 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     }
 
                     dbTrans.Commit();
-                    MessageBox.Show("Stage discharge sample saved to the remote, master database. Your local database will now be updated when you click OK.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {

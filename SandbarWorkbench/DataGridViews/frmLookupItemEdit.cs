@@ -98,7 +98,7 @@ namespace SandbarWorkbench.DataGridViews
 
                 if (!string.IsNullOrEmpty(sNoun))
                 {
-                    string sMessage = string.Format("A {0} with this {0} already exists on the master database. Please choose a unique {0}. {1}", Noun, sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
+                    string sMessage = string.Format("A {0} with this {0} already exists in the database. Please choose a unique {0}. {1}", Noun, sNoun.ToLower(), SandbarWorkbench.Properties.Resources.SyncRequiredWarning);
                     string sTitle = string.Format("Duplicate {0}", sNoun);
 
                     MessageBox.Show(sMessage, sTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);

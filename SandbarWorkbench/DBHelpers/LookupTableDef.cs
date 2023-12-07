@@ -51,88 +51,6 @@ namespace SandbarWorkbench.DBHelpers
             LocalFields = new Dictionary<string, FieldDef>();
         }
 
-        public void RetrievePropertiesFromMaster(string sSchemaName, SQLiteConnection dbCon)
-        {
-            SQLiteCommand dbCom = new SQLiteCommand("SELECT UpdatedOn FROM TableChangeLog WHERE TableName = @TableName", dbCon);
-            dbCom.Parameters.AddWithValue("TableName", TableName);
-
-            object objMasterchanged = dbCom.ExecuteScalar();
-            if (objMasterchanged != null && objMasterchanged is DateTime)
-            {
-                MasterLastChanged = (DateTime)objMasterchanged;
-            }
-            else
-            {
-                Exception ex = new Exception("Failed to load lookup table from MASTER TableChangeLog.");
-                ex.Data["TableName"] = TableName;
-                ex.Data["Connection"] = dbCon.ConnectionString;
-                throw ex;
-            }
-
-            // Attempt to determine the look up table schema
-            dbCom = new SQLiteCommand(string.Format("SELECT COLUMN_NAME, DATA_TYPE, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_SCHEMA = '{0}') AND (TABLE_NAME = '{1}')", sSchemaName, TableName), dbCon);
-            SQLiteDataReader dbRead = dbCom.ExecuteReader();
-            while (dbRead.Read())
-            {
-                if (!dbRead.IsDBNull(dbRead.GetOrdinal("COLUMN_KEY")) && string.Compare(dbRead.GetString(dbRead.GetOrdinal("COLUMN_Key")), "PRI", true) == 0)
-                {
-                    MasterPrimaryKey = dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME"));
-                }
-                else
-                {
-                    System.Data.DbType theDataType;
-                    switch (dbRead.GetString(dbRead.GetOrdinal("DATA_TYPE")).ToLower())
-                    {
-                        case "int":
-                            theDataType = System.Data.DbType.Int64;
-                            break;
-
-                        case "double":
-                            theDataType = System.Data.DbType.Double;
-                            break;
-
-                        case "float":
-                            theDataType = System.Data.DbType.Single;
-                            break;
-
-                        case "varchar":
-                        case "tinytext":
-                        case "longtext":
-                            theDataType = System.Data.DbType.String;
-                            break;
-
-                        case "datetime":
-                        case "date":
-                            theDataType = System.Data.DbType.DateTime;
-                            break;
-
-                        case "tinyint":
-                            theDataType = System.Data.DbType.Boolean;
-                            break;
-
-                        default:
-                            throw new Exception(string.Format("Unhandled master database field type '{0}' for column {1} in table {2}", dbRead.GetString(dbRead.GetOrdinal("DATA_TYPE")), dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME")), TableName));
-
-                    }
-
-                    MasterFields[dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME"))] = new FieldDef(dbRead.GetString(dbRead.GetOrdinal("COLUMN_NAME")), theDataType);
-                }
-            }
-            dbRead.Close();
-
-            // Verify that the table has a primary key defined.
-            if (string.IsNullOrEmpty(MasterPrimaryKey))
-                throw new Exception(string.Format("The table {0} does not have a primary key defined on the Master database.", TableName));
-
-            // Verify that all the mandatory audit trail fields exist.
-            string[] MandatoryFields = { "UpdatedOn", "UpdatedBy", "AddedOn", "AddedBy" };
-            foreach (string aFieldName in MandatoryFields)
-            {
-                if (!MasterFields.ContainsKey("UpdatedOn"))
-                    throw new Exception(string.Format("The table {0} is missing the mandatory field {1}", TableName, aFieldName));
-            }
-        }
-
         public void RetrievePropertiesFromLocal(SQLiteConnection dbCon)
         {
             SQLiteCommand dbCom = new SQLiteCommand("SELECT CASE WHEN UpdatedOn IS NULL THEN '1970-01-01 00:00:00' ELSE UpdatedOn END FROM TableChangeLog WHERE TableName = @TableName", dbCon);
@@ -181,34 +99,6 @@ namespace SandbarWorkbench.DBHelpers
                 }
             }
             dbRead.Close();
-        }
-
-        public void VerifySchemasMatch()
-        {
-            if (string.Compare(MasterPrimaryKey, LocalPrimaryKey, true) != 0)
-                throw new Exception(string.Format("The primary keys for lookup table {0} don't match. Master = {1}, local = {2}", TableName, MasterPrimaryKey, LocalPrimaryKey));
-
-            // Loop over both databases and check that the fields in each, exist in the other.
-            Dictionary<string, Dictionary<string, FieldDef>> dDatabaseDefs = new Dictionary<string, Dictionary<string, FieldDef>>();
-            dDatabaseDefs["master"] = MasterFields;
-            dDatabaseDefs["local"] = LocalFields;
-
-            foreach (string sDatabase in dDatabaseDefs.Keys)
-            {
-                Dictionary<string, FieldDef> theDatabaseDef = dDatabaseDefs[sDatabase];
-                foreach (FieldDef aField in theDatabaseDef.Values)
-                {
-                    if (!LocalFields.ContainsKey(aField.FieldName))
-                        throw new Exception(string.Format("The {0} database lookup table {1} contains a field called {2} but it is missing from the local database.", sDatabase, TableName, aField.FieldName));
-                }
-            }
-
-            // Verify that the data types match
-            foreach (FieldDef masterField in MasterFields.Values)
-            {
-                if (masterField.DataType != LocalFields[masterField.FieldName].DataType)
-                    throw new Exception(string.Format("The {0} field in the {1} lookup table has a different data type on master than local. Master = {2}, local = {3}", masterField.FieldName, TableName, masterField.DataType.ToString(), LocalFields[masterField.FieldName].DataType.ToString()));
-            }
         }
 
         public SQLiteCommand BuildUpdateCommand(ref SQLiteTransaction dbTrans)
