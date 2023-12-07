@@ -184,7 +184,12 @@ namespace SandbarWorkbench.RemoteCameras
                     dbCom.Parameters.AddWithValue("RiverMile", valRiverMile.Value);
                     dbCom.Parameters.AddWithValue("CameraRiverBankID", ((ListItem)cboCameraRiverBank.SelectedItem).Value);
                     dbCom.Parameters.AddWithValue("TargetRiverBankID", ((ListItem)cboTargetRiverBank.SelectedItem).Value);
-                    dbCom.Parameters.AddWithValue("SiteID", ((ListItem) cboSandbarSite.SelectedItem).Value);        
+
+                    if (cboSandbarSite.SelectedItem == null)
+                        dbCom.Parameters.AddWithValue("SiteID", DBNull.Value );
+                    else
+                        dbCom.Parameters.AddWithValue("SiteID", ((ListItem)cboSandbarSite.SelectedItem).Value);
+
                     dbCom.Parameters.AddWithValue("SiteCode", txtSiteCode.Text);
                     dbCom.Parameters.AddWithValue("SiteName", txtSiteName.Text);
                     dbCom.Parameters.AddWithValue("NAUName", txtNAUName.Text);
@@ -199,7 +204,7 @@ namespace SandbarWorkbench.RemoteCameras
                     dbCom.Parameters.AddWithValue("BeginDigitalRecord", txtBeginDigital.Text);
                     dbCom.Parameters.AddWithValue("EndDigitalRecord", txtEndDigital.Text);
 
-       
+
                     // Both queries require the user name
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
 
@@ -208,10 +213,9 @@ namespace SandbarWorkbench.RemoteCameras
                     dbTrans.Commit();
 
                     if (m_RemoteCamera == null)
-                        RemoteCameraID =dbCon.LastInsertRowId;
+                        RemoteCameraID = dbCon.LastInsertRowId;
 
                     Cursor.Current = Cursors.Default;
-                    MessageBox.Show("Remote camera data saved to the remote, master database. Your local database will now be updated when you click OK.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -325,7 +329,7 @@ namespace SandbarWorkbench.RemoteCameras
 
         private void cmdPictures_Click(object sender, EventArgs e)
         {
-            ShowHidePictureViewer(splitContainer1.Panel2Collapsed);            
+            ShowHidePictureViewer(splitContainer1.Panel2Collapsed);
         }
 
         private void ShowHidePictureViewer(bool bShow)

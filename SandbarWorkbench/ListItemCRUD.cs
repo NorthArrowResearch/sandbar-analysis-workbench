@@ -19,13 +19,24 @@ namespace SandbarWorkbench
 
         protected override void SaveLocal(ref SQLiteTransaction dbTrans, ref DBHelpers.DatabaseObject obj, string sSQL)
         {
-            System.Diagnostics.Debug.Assert(obj.ID > 0, "The object should already have been saved to master which would generate the ID");
             SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbTrans.Connection, dbTrans);
-            dbCom.Parameters.AddWithValue(PrimaryKey, obj.ID);
+            if (obj.ID > 0)
+            {
+                dbCom.Parameters.AddWithValue(PrimaryKey, obj.ID);
+            }
+            else
+            {
+                dbCom.Parameters.AddWithValue(PrimaryKey, DBNull.Value);
+            }
             dbCom.Parameters.AddWithValue("Title", obj.Title);
             dbCom.Parameters.AddWithValue("ListID", ListID);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.ExecuteNonQuery();
+
+            if (obj.ID == 0)
+            {
+                obj.ID = dbTrans.Connection.LastInsertRowId;
+            }
         }
     }
 }

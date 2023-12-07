@@ -26,7 +26,7 @@ namespace SandbarWorkbench.DBHelpers
             DBTable = sDBTable;
             PrimaryKey = sPrimaryKey;
             InsertSQL = string.Format("INSERT INTO {0} ({1}, {2}, AddedBy, UpdatedBy) VALUES (@{1}, @{3}, @EditedBy, @EditedBy)", sDBTable, sPrimaryKey, string.Join(", ", sFields), string.Join(", @", sFields));
-            UpdateSQL = string.Format("UPDATE {0} SET {1}, UpdatedBy = @EditedBy WHERE {2} = @{2}", sDBTable, string.Join(", ", sFields.Select(x => x + " = @" + x)), PrimaryKey);
+            UpdateSQL = string.Format("UPDATE {0} SET {1}, UpdatedBy = @EditedBy, UpdatedOn = CURRENT_TIMESTAMP WHERE {2} = @{2}", sDBTable, string.Join(", ", sFields.Select(x => x + " = @" + x)), PrimaryKey);
         }
 
         protected abstract void SaveLocal(ref SQLiteTransaction dbTrans, ref DatabaseObject obj, string sSQL);
@@ -67,7 +67,7 @@ namespace SandbarWorkbench.DBHelpers
                 try
                 {
                     string sDeleteSQL = string.Format("DELETE FROM {0} WHERE {1} = @{1}", DBTable, PrimaryKey);
-                  
+
                     SQLiteCommand comLocal = new SQLiteCommand(sDeleteSQL, transLocal.Connection, transLocal);
                     comLocal.Parameters.AddWithValue(PrimaryKey, nID);
                     comLocal.ExecuteNonQuery();

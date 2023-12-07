@@ -98,7 +98,7 @@ namespace SandbarWorkbench.ModelRuns
 
             using (SQLiteConnection conLocal = new SQLiteConnection(DBCon.ConnectionStringLocal))
             {
-
+                conLocal.Open();
                 SQLiteTransaction transLocal = conLocal.BeginTransaction();
 
                 try

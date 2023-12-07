@@ -41,15 +41,6 @@
             this.cboStartupView = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkLoadLastDatabase = new System.Windows.Forms.CheckBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.txtMasterDatabase = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtMasterPassword = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtMasterUserName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtMasterServer = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -93,7 +84,6 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).BeginInit();
             this.tabPage4.SuspendLayout();
@@ -125,7 +115,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
@@ -231,89 +220,6 @@
             this.chkLoadLastDatabase.TabIndex = 0;
             this.chkLoadLastDatabase.Text = "Load last database";
             this.chkLoadLastDatabase.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.txtMasterDatabase);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.txtMasterPassword);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.txtMasterUserName);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.txtMasterServer);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(546, 329);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Master Database";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // txtMasterDatabase
-            // 
-            this.txtMasterDatabase.Location = new System.Drawing.Point(98, 50);
-            this.txtMasterDatabase.Name = "txtMasterDatabase";
-            this.txtMasterDatabase.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterDatabase.TabIndex = 3;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 54);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Database";
-            // 
-            // txtMasterPassword
-            // 
-            this.txtMasterPassword.Location = new System.Drawing.Point(98, 114);
-            this.txtMasterPassword.Name = "txtMasterPassword";
-            this.txtMasterPassword.PasswordChar = '*';
-            this.txtMasterPassword.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterPassword.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 118);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Password";
-            // 
-            // txtMasterUserName
-            // 
-            this.txtMasterUserName.Location = new System.Drawing.Point(98, 82);
-            this.txtMasterUserName.Name = "txtMasterUserName";
-            this.txtMasterUserName.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterUserName.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "User name";
-            // 
-            // txtMasterServer
-            // 
-            this.txtMasterServer.Location = new System.Drawing.Point(98, 18);
-            this.txtMasterServer.Name = "txtMasterServer";
-            this.txtMasterServer.Size = new System.Drawing.Size(433, 20);
-            this.txtMasterServer.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Server";
             // 
             // tabPage3
             // 
@@ -767,8 +673,6 @@
             this.tabPage1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdFolderPaths)).EndInit();
             this.tabPage4.ResumeLayout(false);
@@ -794,18 +698,9 @@
         private System.Windows.Forms.Button cmdOK;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ComboBox cboStartupView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkLoadLastDatabase;
-        private System.Windows.Forms.TextBox txtMasterDatabase;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtMasterPassword;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtMasterUserName;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtMasterServer;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView grdFolderPaths;
         private System.Windows.Forms.GroupBox groupBox1;

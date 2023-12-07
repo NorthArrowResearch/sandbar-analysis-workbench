@@ -43,12 +43,6 @@ namespace SandbarWorkbench
 #if DEBUG
             txtInstallationGuid.ReadOnly = false;
 #endif
-
-            txtMasterServer.Text = SandbarWorkbench.Properties.Settings.Default.MasterServer;
-            txtMasterDatabase.Text = SandbarWorkbench.Properties.Settings.Default.MasterDatabase;
-            txtMasterUserName.Text = SandbarWorkbench.Properties.Settings.Default.MasterUser;
-            txtMasterPassword.Text = SandbarWorkbench.Properties.Settings.Default.MasterPassword;
-
             grdFolderPaths.AllowUserToAddRows = false;
             grdFolderPaths.AllowUserToDeleteRows = false;
             grdFolderPaths.AllowUserToResizeRows = false;
@@ -112,11 +106,6 @@ namespace SandbarWorkbench
             tt.SetToolTip(rdo5Digits, "Select this option if the sandbar site raw topo point CSV files use 5 digit site code folder and file names. e.g. \"0003Lcorgrids\".");
             tt.SetToolTip(txtInstallationGuid, "The unique identifier for the workbench on the current computer. Include this unique identifier when reporting issues with the software developers.");
 
-            tt.SetToolTip(txtMasterServer, "URL of the server that hosts the centralized, master database. See online help for more details.");
-            tt.SetToolTip(txtMasterDatabase, "Database schema name on the centralized, master database. See online help for more details.");
-            tt.SetToolTip(txtMasterUserName, "User account that the workbench uses to login to the centralized, master database. See online help for more details.");
-            tt.SetToolTip(txtMasterPassword, "Password that the workbench uses to login to the centralized, master database. See online help for more details.");
-
             tt.SetToolTip(valDefaultInputCellSize, "Default point spacing, in meters, of the raw sandbar survey text point files. Typically 1m.");
             tt.SetToolTip(valDefaultOutputCellSize, "Default output cell size, in meters, of the raster GeoTIFFs that will be generated as part of the sandbar analysis.");
             tt.SetToolTip(cboInterpolation, "Default interpolation method that is used within the sandbar analysis to generate rasters from the raw text point files, if the input and output spatial resolutions are different.");
@@ -142,7 +131,7 @@ namespace SandbarWorkbench
             // Loop over the items and select the one that matches the existing format.
             for (int i = 0; i < cbo.Items.Count; i++)
             {
-                if (((ListItem) cbo.Items[i]).Text.Contains(sExistingFormat))
+                if (((ListItem)cbo.Items[i]).Text.Contains(sExistingFormat))
                 {
                     cbo.SelectedIndex = i;
                     break;
@@ -160,7 +149,7 @@ namespace SandbarWorkbench
 #if DEBUG
             if (string.Compare(txtInstallationGuid.Text, SandbarWorkbench.Properties.Settings.Default.InstallationHash.ToString(), true) != 0)
             {
-               switch (MessageBox.Show("Are you sure that you want to change the installation GUID?", "DEVELOPER MODE WARNING", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                switch (MessageBox.Show("Are you sure that you want to change the installation GUID?", "DEVELOPER MODE WARNING", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                 {
                     case DialogResult.Cancel:
                         this.DialogResult = DialogResult.Cancel;
@@ -193,12 +182,6 @@ namespace SandbarWorkbench
 
             // Store whether sandbar site folders are identified by either 4 or 5 digit codes
             SandbarWorkbench.Properties.Settings.Default.SandbarIdentification = rdo5Digits.Checked ? "SiteCode5" : "SiteCode";
-
-            // Master database connection properties
-            SandbarWorkbench.Properties.Settings.Default.MasterServer = txtMasterServer.Text;
-            SandbarWorkbench.Properties.Settings.Default.MasterDatabase = txtMasterDatabase.Text;
-            SandbarWorkbench.Properties.Settings.Default.MasterUser = txtMasterUserName.Text;
-            SandbarWorkbench.Properties.Settings.Default.MasterPassword = txtMasterPassword.Text;
 
             // Sandbar Analysis Tab
             SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize = valDefaultInputCellSize.Value;
