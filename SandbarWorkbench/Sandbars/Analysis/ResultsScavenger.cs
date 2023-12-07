@@ -95,6 +95,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     BinnedResults = ProcessCSVFile(ref dbTrans, fiBinned, ModelRunID, "ModelResultsBinned", sBinnedColumns);
 
                     dbTrans.Commit();
+                    DBCon.BackupRequiredOnClose = true;
                 }
                 catch (Exception ex)
                 {
@@ -170,6 +171,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                         }
 
                         nRowsInserted += dbCom.ExecuteNonQuery();
+                        DBCon.BackupRequiredOnClose = true;
                     }
                 }
             }

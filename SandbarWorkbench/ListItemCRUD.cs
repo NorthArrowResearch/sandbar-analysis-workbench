@@ -32,6 +32,7 @@ namespace SandbarWorkbench
             dbCom.Parameters.AddWithValue("ListID", ListID);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
 
             if (obj.ID == 0)
             {

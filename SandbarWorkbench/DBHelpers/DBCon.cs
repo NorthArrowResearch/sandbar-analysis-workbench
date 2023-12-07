@@ -18,6 +18,7 @@ namespace SandbarWorkbench
         private static System.IO.FileInfo m_fiDatabasePath;
         private const string m_sRootConnectionStringLocal = "Data Source={0};Version=3;Pooling=True;Max Pool Size=100";
         private const string m_sRootConnectionStringMaster = "server={0};uid={1};pwd={2};database={3};Port={4}";
+        public static bool BackupRequiredOnClose;
 
         public static DBCon Instance
         {
@@ -74,6 +75,7 @@ namespace SandbarWorkbench
         private DBCon()
         {
             // deliberately private and empty constructor.
+            BackupRequiredOnClose = true;
         }
     }
 }

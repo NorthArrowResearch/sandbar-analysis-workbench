@@ -36,6 +36,7 @@ namespace SandbarWorkbench.Trips
                 pRemarks.Value = ((Trip)obj).Remarks;
 
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
 
             if (obj.ID == 0)
             {

@@ -47,6 +47,7 @@ namespace SandbarWorkbench.AnalysisBins
                 pLowerdischarge.Value = DBNull.Value;
 
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
 
             if (obj.ID == 0)
             {

@@ -152,6 +152,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     comLocal.Parameters.AddWithValue("SampleID", nSampleID);
                     comLocal.ExecuteNonQuery();
                     transLocal.Commit();
+                    DBCon.BackupRequiredOnClose = true;
                 }
                 catch (Exception ex)
                 {

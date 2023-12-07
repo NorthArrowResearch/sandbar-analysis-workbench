@@ -1,14 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Deployment.Application;
+using Ionic.Zip;
 
 namespace SandbarWorkbench
 {
@@ -37,6 +35,9 @@ namespace SandbarWorkbench
                 if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
                     OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
             }
+
+            // Track whether to backup the database on backup
+            DBCon.BackupRequiredOnClose = Properties.Settings.Default.BackupRequiredOnClose;
 
             if (!string.IsNullOrEmpty(DBCon.ConnectionStringLocal) && System.IO.File.Exists(DBCon.DatabasePath))
             {
@@ -449,6 +450,47 @@ namespace SandbarWorkbench
             }
 
             Cursor.Current = Cursors.Default;
+        }
+
+        /// <summary>
+        /// Attempt to backup the current database.
+        /// </summary>
+        private void BackupDatabase()
+        {
+            if (!DBCon.BackupRequiredOnClose) return;
+
+            if (!string.IsNullOrEmpty(DBCon.ConnectionStringLocal) && DBCon.BackupRequiredOnClose)
+            {
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.BackupDatabaseFolder) && System.IO.Directory.Exists(Properties.Settings.Default.BackupDatabaseFolder))
+                {
+                    string zipFileName = string.Format("{0}_{1:yyyyMMdd_HHmmss}.zip", System.IO.Path.GetFileNameWithoutExtension(DBCon.DatabasePath), DateTime.Now);
+                    string zipFilePath = System.IO.Path.Combine(Properties.Settings.Default.BackupDatabaseFolder, zipFileName);
+                    try
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+
+                        Console.WriteLine("Backing up to {0}", zipFilePath);
+
+                        using (ZipFile zip = new ZipFile())
+                        {
+                            zip.AddFile(DBCon.DatabasePath, "");
+                            zip.Save(zipFilePath);
+                        }
+
+                        Cursor.Current = Cursors.Default;
+                    }
+                    catch (Exception ex)
+                    {
+                        Cursor.Current = Cursors.Default;
+                        MessageBox.Show(ex.Message, "Error Backing Up Database", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+            }
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            BackupDatabase();
         }
     }
 }

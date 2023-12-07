@@ -31,6 +31,7 @@ namespace SandbarWorkbench.Reaches
             dbCom.Parameters.AddWithValue("ReachCode", ((Reach)obj).ReachCode);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
 
             if (obj.ID == 0)
             {

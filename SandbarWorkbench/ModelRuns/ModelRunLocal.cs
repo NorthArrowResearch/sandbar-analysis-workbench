@@ -106,6 +106,7 @@ namespace SandbarWorkbench.ModelRuns
             SQLiteCommand dbCom = new SQLiteCommand("DELETE FROM ModelRuns WHERE LocalRunID = @LocalRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("LocalRunID", id);
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
         }
 
         /// <summary>
@@ -131,6 +132,7 @@ namespace SandbarWorkbench.ModelRuns
             dbCom.Parameters.AddWithValue("UpdatedBy", Environment.UserName);
 
             dbCom.ExecuteNonQuery();
+            DBCon.BackupRequiredOnClose = true;
 
             Title = sTitle;
             Remarks = sRemarks;

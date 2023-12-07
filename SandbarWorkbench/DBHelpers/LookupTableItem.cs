@@ -46,6 +46,7 @@ namespace SandbarWorkbench.DBHelpers
                     SaveLocal(ref transLocal, ref obj, sLocalSQL);
 
                     transLocal.Commit();
+                    DBCon.BackupRequiredOnClose = true;
                 }
                 catch
                 {

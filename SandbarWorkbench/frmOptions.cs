@@ -69,6 +69,9 @@ namespace SandbarWorkbench
             nRow = grdFolderPaths.Rows.Add("Sandbar Analysis Results", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults);
             grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarAnalysisResults";
 
+            nRow = grdFolderPaths.Rows.Add("Database Backup Folder", SandbarWorkbench.Properties.Settings.Default.BackupDatabaseFolder);
+            grdFolderPaths.Rows[nRow].Tag = "BackupDatabaseFolder";
+
             // Sandbar Analysis Tab
             valDefaultInputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_InputCellSize;
             valDefaultOutputCellSize.Value = SandbarWorkbench.Properties.Settings.Default.Default_OutputCellSize;
