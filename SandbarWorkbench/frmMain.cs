@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Deployment.Application;
 using Ionic.Zip;
+using SandbarWorkbench.DBHelpers;
 
 namespace SandbarWorkbench
 {
@@ -34,6 +34,15 @@ namespace SandbarWorkbench
             {
                 if (!string.IsNullOrEmpty(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath) && System.IO.File.Exists(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath))
                     OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
+            }
+
+            // Apply any database migrations
+            string upgradeMessages;
+            if (!DBVersionManager.UpgradeDatabase(DBCon.ConnectionStringLocal, out upgradeMessages))
+            {
+                MessageBox.Show(string.Format("Failed to upgrade to the latest version of the database. Closing application. Contact the developer and provide the message:\n\n{0}", upgradeMessages),
+                    "Database Migration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.Application.Exit();
             }
 
             // Track whether to backup the database on backup
@@ -434,7 +443,7 @@ namespace SandbarWorkbench
                         {
                             AD.Update();
                             MessageBox.Show("The application has been upgraded, and will now restart.");
-                            Application.Restart();
+                            System.Windows.Forms.Application.Restart();
                         }
                         catch (DeploymentDownloadException dde)
                         {

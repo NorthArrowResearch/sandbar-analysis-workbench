@@ -75,7 +75,7 @@ namespace SandbarWorkbench
         private DBCon()
         {
             // deliberately private and empty constructor.
-            BackupRequiredOnClose = true;
+            BackupRequiredOnClose = false;
         }
     }
 }

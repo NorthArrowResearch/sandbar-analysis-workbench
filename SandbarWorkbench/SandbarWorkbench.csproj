@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SandbarWorkbench</RootNamespace>
     <AssemblyName>SandbarWorkbench</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
@@ -32,6 +32,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -92,6 +93,12 @@
     <Reference Include="AWSSDK, Version=2.3.55.2, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
       <HintPath>packages\AWSSDK.2.3.55.2\lib\net45\AWSSDK.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="dbup-core, Version=5.0.37.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>packages\dbup-core.5.0.37\lib\net462\dbup-core.dll</HintPath>
+    </Reference>
+    <Reference Include="dbup-sqlite, Version=5.0.37.0, Culture=neutral, PublicKeyToken=4b419c53bdfd4cbf, processorArchitecture=MSIL">
+      <HintPath>packages\dbup-sqlite.5.0.37\lib\net462\dbup-sqlite.dll</HintPath>
     </Reference>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
@@ -538,6 +545,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\001_CampsiteAnalysisBins.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\002_MaxVolArea.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\003_StageDischarge.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\004_DropOldVersionTables.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- This is our custom collection step to grab the interop files -->

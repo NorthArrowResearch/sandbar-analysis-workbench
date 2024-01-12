@@ -12,7 +12,7 @@ namespace SandbarWorkbench.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -361,7 +361,8 @@ namespace SandbarWorkbench.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data\\corgrids\\ComputationExtents.shp")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data\\corgrids\\Sandbar_comp_bnds\\ComputationExtent" +
+            "s.shp")]
         public string CompExtents_ShapeFile {
             get {
                 return ((string)(this["CompExtents_ShapeFile"]));
@@ -478,6 +479,18 @@ set QGIS_PREFIX_PATH=%OSGEO4W_ROOT%\apps\qgis")]
             }
             set {
                 this["BackupDatabaseFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\GCMRC\\PHYSICAL\\Sandbars\\Topo_Data")]
+        public string CampsitesFolder {
+            get {
+                return ((string)(this["CampsitesFolder"]));
+            }
+            set {
+                this["CampsitesFolder"] = value;
             }
         }
     }

@@ -55,6 +55,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             // Files and folders
             Helpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData, ref txtInputs);
+            Helpers.IOHelpers.FillTextBoxFolder(Properties.Settings.Default.CampsitesFolder, ref txtCampsites);
             Helpers.IOHelpers.FillTextBoxFolder(SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults, ref txtResults);
             Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile, ref txtCompExtents);
             Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy, ref txtMainPy);
@@ -90,6 +91,11 @@ namespace SandbarWorkbench.Sandbars.Analysis
         private void cmdBrowseCompExtents_Click(object sender, EventArgs e)
         {
             Helpers.IOHelpers.BrowseFillTextBoxFile("Computational Extents ShapeFile", "ShapeFiles (*.shp)|*.shp", ref txtCompExtents, false);
+        }
+
+        private void cmdBrowseCampsiteExtents_Click(object sender, EventArgs e)
+        {
+            Helpers.IOHelpers.BrowseFillTextBoxFolder("Campsite Extents ShapeFile", ref txtCampsites, false);
         }
 
         private void cmdBrowseResults_Click(object sender, EventArgs e)
@@ -185,11 +191,12 @@ namespace SandbarWorkbench.Sandbars.Analysis
 
             System.IO.FileInfo fiBinned = null;
             System.IO.FileInfo fiIncremental = null;
+            System.IO.FileInfo fiCampsites = null;
             System.IO.FileInfo fiLog = null;
 
             try
             {
-                System.IO.FileInfo fiInputs = GenerateInputXML(out fiBinned, out fiIncremental, out fiLog);
+                System.IO.FileInfo fiInputs = GenerateInputXML(out fiBinned, out fiIncremental, out fiCampsites, out fiLog);
 
                 var outputFrm = new frmRunOutput();
                 outputFrm.Show(this); // if you need non-modal window
@@ -252,7 +259,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     if (fiIncremental.Exists || fiBinned.Exists)
                     {
                         ResultsScavenger scav = new ResultsScavenger(DBCon.ConnectionStringLocal);
-                        scav.Run(txtTitle.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned);
+                        scav.Run(txtTitle.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned, fiCampsites);
 
                         sMessage = string.Format("Model Run ID {0} inserted into the local database with {1} incremental and {2} binned analysis results.", scav.ModelRunID, scav.IncrementalResults, scav.BinnedResults);
                     }
@@ -288,7 +295,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             }
         }
 
-        private System.IO.FileInfo GenerateInputXML(out System.IO.FileInfo fiBinned, out System.IO.FileInfo fiIncremental, out System.IO.FileInfo fiLog)
+        private System.IO.FileInfo GenerateInputXML(out System.IO.FileInfo fiBinned, out System.IO.FileInfo fiIncremental, out System.IO.FileInfo fiCampsites, out System.IO.FileInfo fiLog)
         {
             Dictionary<long, string> dSectionTypes = LoadSectionTypes();
 
@@ -348,15 +355,32 @@ namespace SandbarWorkbench.Sandbars.Analysis
             nodLog.InnerText = System.IO.Path.GetFileName(sLogFile);
             nodOutputs.AppendChild(nodLog);
 
-            fiBinned = new System.IO.FileInfo(System.IO.Path.Combine(sAnalysisFolder, "results_binned.csv"));
             XmlNode nodBinned = xmlDoc.CreateElement("BinnedResults");
-            nodBinned.InnerText = System.IO.Path.GetFileName(fiBinned.FullName);
+            fiBinned = null;
+            if (chkBinned.Checked)
+            {
+                fiBinned = new System.IO.FileInfo(System.IO.Path.Combine(sAnalysisFolder, "results_binned.csv"));
+                nodBinned.InnerText = System.IO.Path.GetFileName(fiBinned.FullName);
+            }
             nodOutputs.AppendChild(nodBinned);
 
-            fiIncremental = new System.IO.FileInfo(System.IO.Path.Combine(sAnalysisFolder, "results_incremental.csv"));
             XmlNode nodIncremental = xmlDoc.CreateElement("IncrementalResults");
-            nodIncremental.InnerText = System.IO.Path.GetFileName(fiIncremental.FullName);
+            fiIncremental = null;
+            if (chkIncremental.Checked)
+            {
+                fiIncremental = new System.IO.FileInfo(System.IO.Path.Combine(sAnalysisFolder, "results_incremental.csv"));
+                nodIncremental.InnerText = System.IO.Path.GetFileName(fiIncremental.FullName);
+            }
             nodOutputs.AppendChild(nodIncremental);
+
+            XmlNode nodCampsites = xmlDoc.CreateElement("CampsiteResults");
+            fiCampsites = null;
+            if (chkCampsiteAnalysis.Checked)
+            {
+                fiCampsites = new System.IO.FileInfo(System.IO.Path.Combine(sAnalysisFolder, "results_campsites.csv"));
+                nodCampsites.InnerText = System.IO.Path.GetFileName(fiCampsites.FullName);
+            }
+            nodOutputs.AppendChild(nodCampsites);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Inputs
@@ -371,6 +395,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
             XmlNode nodCompExtents = xmlDoc.CreateElement("CompExtentShpPath");
             nodCompExtents.InnerText = txtCompExtents.Text;
             nodInputs.AppendChild(nodCompExtents);
+
+            XmlNode nodCampsiteExtents = xmlDoc.CreateElement("CampsiteShpPath");
+            nodCampsiteExtents.InnerText = txtCampsites.Text;
+            nodInputs.AppendChild(nodCampsiteExtents);
 
             XmlNode nodSRS = xmlDoc.CreateElement("srsEPSG");
             nodSRS.InnerText = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
@@ -401,7 +429,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             nodInputs.AppendChild(nodResample);
 
             XmlNode nodReuse = xmlDoc.CreateElement("ReUseRasters");
-            nodReuse.InnerText = false.ToString();
+            nodReuse.InnerText = chkReuseRasters.Checked.ToString();
             nodInputs.AppendChild(nodReuse);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -430,39 +458,44 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 }
                 dbRead.Close();
 
-                XmlNode nodAnalysisBins = xmlDoc.CreateElement("AnalysisBins");
-                nodInputs.AppendChild(nodAnalysisBins);
 
-                dbCom = new SQLiteCommand("SELECT BinID, Title, LowerDischarge, UpperDischarge FROM AnalysisBins WHERE IsActive <> 0 ORDER BY BinID", dbCon);
-                dbRead = dbCom.ExecuteReader();
-                while (dbRead.Read())
+                foreach (string binType in new List<string> { "AnalysisBins", "CampsiteBins" })
                 {
-                    XmlNode nodBin = xmlDoc.CreateElement("Bin");
-                    XmlAttribute attID = xmlDoc.CreateAttribute("id");
-                    attID.Value = dbRead.GetInt64(dbRead.GetOrdinal("BinID")).ToString();
-                    nodBin.Attributes.Append(attID);
+                    XmlNode nodBins = xmlDoc.CreateElement(binType);
+                    nodInputs.AppendChild(nodBins);
 
-                    XmlAttribute attTitle = xmlDoc.CreateAttribute("title");
-                    attTitle.Value = dbRead.GetString(dbRead.GetOrdinal("Title"));
-                    nodBin.Attributes.Append(attTitle);
+                    dbCom = new SQLiteCommand("SELECT BinID, Title, LowerDischarge, UpperDischarge FROM AnalysisBins WHERE (IsActive <> 0) AND (BinType = @BinType) ORDER BY BinID", dbCon);
+                    dbCom.Parameters.AddWithValue("BinType", binType);
+                    dbRead = dbCom.ExecuteReader();
+                    while (dbRead.Read())
+                    {
+                        XmlNode nodBin = xmlDoc.CreateElement("Bin");
+                        XmlAttribute attID = xmlDoc.CreateAttribute("id");
+                        attID.Value = dbRead.GetInt64(dbRead.GetOrdinal("BinID")).ToString();
+                        nodBin.Attributes.Append(attID);
 
-                    XmlAttribute attLD = xmlDoc.CreateAttribute("lower");
-                    if (dbRead.IsDBNull(dbRead.GetOrdinal("LowerDischarge")))
-                        attLD.Value = string.Empty;
-                    else
-                        attLD.Value = dbRead.GetDouble(dbRead.GetOrdinal("LowerDischarge")).ToString();
-                    nodBin.Attributes.Append(attLD);
+                        XmlAttribute attTitle = xmlDoc.CreateAttribute("title");
+                        attTitle.Value = dbRead.GetString(dbRead.GetOrdinal("Title"));
+                        nodBin.Attributes.Append(attTitle);
 
-                    XmlAttribute attUD = xmlDoc.CreateAttribute("upper");
-                    if (dbRead.IsDBNull(dbRead.GetOrdinal("UpperDischarge")))
-                        attUD.Value = string.Empty;
-                    else
-                        attUD.Value = dbRead.GetDouble(dbRead.GetOrdinal("UpperDischarge")).ToString();
-                    nodBin.Attributes.Append(attUD);
+                        XmlAttribute attLD = xmlDoc.CreateAttribute("lower");
+                        if (dbRead.IsDBNull(dbRead.GetOrdinal("LowerDischarge")))
+                            attLD.Value = string.Empty;
+                        else
+                            attLD.Value = dbRead.GetDouble(dbRead.GetOrdinal("LowerDischarge")).ToString();
+                        nodBin.Attributes.Append(attLD);
 
-                    nodAnalysisBins.AppendChild(nodBin);
+                        XmlAttribute attUD = xmlDoc.CreateAttribute("upper");
+                        if (dbRead.IsDBNull(dbRead.GetOrdinal("UpperDischarge")))
+                            attUD.Value = string.Empty;
+                        else
+                            attUD.Value = dbRead.GetDouble(dbRead.GetOrdinal("UpperDischarge")).ToString();
+                        nodBin.Attributes.Append(attUD);
+
+                        nodBins.AppendChild(nodBin);
+                    }
+                    dbRead.Close();
                 }
-                dbRead.Close();
             }
 
             XmlNode nodSites = xmlDoc.CreateElement("Sites");
@@ -478,18 +511,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 XmlAttribute attSiteCode4 = xmlDoc.CreateAttribute("code4");
                 attSiteCode4.Value = aSite.SiteCode;
                 nodSite.Attributes.Append(attSiteCode4);
-
-                XmlAttribute attStageDischargeA = xmlDoc.CreateAttribute("stagedisa");
-                attStageDischargeA.Value = aSite.SDCurve.CoeffA.ToString();
-                nodSite.Attributes.Append(attStageDischargeA);
-
-                XmlAttribute attStageDischargeB = xmlDoc.CreateAttribute("stagedisb");
-                attStageDischargeB.Value = aSite.SDCurve.CoeffB.ToString();
-                nodSite.Attributes.Append(attStageDischargeB);
-
-                XmlAttribute attStageDischargeC = xmlDoc.CreateAttribute("stagedisc");
-                attStageDischargeC.Value = aSite.SDCurve.CoeffC.ToString();
-                nodSite.Attributes.Append(attStageDischargeC);
 
                 XmlAttribute attSiteID = xmlDoc.CreateAttribute("id");
                 attSiteID.Value = aSite.SiteID.ToString();
@@ -511,6 +532,18 @@ namespace SandbarWorkbench.Sandbars.Analysis
                         XmlAttribute attSurveyID = xmlDoc.CreateAttribute("id");
                         attSurveyID.Value = aSurvey.SurveyID.ToString();
                         nodSurvey.Attributes.Append(attSurveyID);
+
+                        XmlAttribute attStageDischargeA = xmlDoc.CreateAttribute("stagedisa");
+                        attStageDischargeA.Value = aSurvey.SDCurve is null ? "" : aSurvey.SDCurve.CoeffA.ToString();
+                        nodSurvey.Attributes.Append(attStageDischargeA);
+
+                        XmlAttribute attStageDischargeB = xmlDoc.CreateAttribute("stagedisb");
+                        attStageDischargeB.Value = aSurvey.SDCurve is null ? "" : aSurvey.SDCurve.CoeffB.ToString();
+                        nodSurvey.Attributes.Append(attStageDischargeB);
+
+                        XmlAttribute attStageDischargeC = xmlDoc.CreateAttribute("stagedisc");
+                        attStageDischargeC.Value = aSurvey.SDCurve is null ? "" : aSurvey.SDCurve.CoeffC.ToString();
+                        nodSurvey.Attributes.Append(attStageDischargeC);
 
                         XmlAttribute attAnalysis = xmlDoc.CreateAttribute("analysis");
                         attAnalysis.Value = (aSurvey.SurveyDate >= ucAnalysisFrom.SelectedDate.Value && aSurvey.SurveyDate <= ucAnalysisTo.SelectedDate.Value).ToString();

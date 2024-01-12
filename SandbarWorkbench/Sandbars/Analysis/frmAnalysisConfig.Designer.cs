@@ -34,14 +34,10 @@
             this.lstSites = new System.Windows.Forms.ListBox();
             this.grpAnalysisDateRange = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.ucAnalysisTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label2 = new System.Windows.Forms.Label();
-            this.ucAnalysisFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.grpMinSurfaceDateRange = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.ucMinimumTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.label5 = new System.Windows.Forms.Label();
-            this.ucMinimumFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cboInterpolationMethod = new System.Windows.Forms.ComboBox();
             this.lblInterpolationMethod = new System.Windows.Forms.Label();
@@ -50,6 +46,9 @@
             this.valInputCellSize = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmdCampsites = new System.Windows.Forms.Button();
+            this.txtCampsites = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.cmdBrowseMainPy = new System.Windows.Forms.Button();
             this.txtMainPy = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,6 +70,14 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.chkIncremental = new System.Windows.Forms.CheckBox();
+            this.chkBinned = new System.Windows.Forms.CheckBox();
+            this.chkCampsiteAnalysis = new System.Windows.Forms.CheckBox();
+            this.ucMinimumTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucMinimumFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucAnalysisTo = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.ucAnalysisFrom = new SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker();
+            this.chkReuseRasters = new System.Windows.Forms.CheckBox();
             this.grpAnalysisDateRange.SuspendLayout();
             this.grpMinSurfaceDateRange.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -83,7 +90,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 113);
+            this.label1.Location = new System.Drawing.Point(13, 139);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 13);
             this.label1.TabIndex = 1;
@@ -92,7 +99,7 @@
             // lstSites
             // 
             this.lstSites.FormattingEnabled = true;
-            this.lstSites.Location = new System.Drawing.Point(16, 130);
+            this.lstSites.Location = new System.Drawing.Point(16, 156);
             this.lstSites.Name = "lstSites";
             this.lstSites.Size = new System.Drawing.Size(177, 173);
             this.lstSites.TabIndex = 2;
@@ -105,7 +112,7 @@
             this.grpAnalysisDateRange.Controls.Add(this.ucAnalysisTo);
             this.grpAnalysisDateRange.Controls.Add(this.label2);
             this.grpAnalysisDateRange.Controls.Add(this.ucAnalysisFrom);
-            this.grpAnalysisDateRange.Location = new System.Drawing.Point(199, 130);
+            this.grpAnalysisDateRange.Location = new System.Drawing.Point(199, 156);
             this.grpAnalysisDateRange.Name = "grpAnalysisDateRange";
             this.grpAnalysisDateRange.Size = new System.Drawing.Size(401, 83);
             this.grpAnalysisDateRange.TabIndex = 3;
@@ -121,15 +128,6 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "To:";
             // 
-            // ucAnalysisTo
-            // 
-            this.ucAnalysisTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucAnalysisTo.Location = new System.Drawing.Point(76, 49);
-            this.ucAnalysisTo.Name = "ucAnalysisTo";
-            this.ucAnalysisTo.Size = new System.Drawing.Size(315, 21);
-            this.ucAnalysisTo.SurveyDates = null;
-            this.ucAnalysisTo.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -139,15 +137,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "From:";
             // 
-            // ucAnalysisFrom
-            // 
-            this.ucAnalysisFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucAnalysisFrom.Location = new System.Drawing.Point(76, 22);
-            this.ucAnalysisFrom.Name = "ucAnalysisFrom";
-            this.ucAnalysisFrom.Size = new System.Drawing.Size(315, 21);
-            this.ucAnalysisFrom.SurveyDates = null;
-            this.ucAnalysisFrom.TabIndex = 2;
-            // 
             // grpMinSurfaceDateRange
             // 
             this.grpMinSurfaceDateRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -156,7 +145,7 @@
             this.grpMinSurfaceDateRange.Controls.Add(this.ucMinimumTo);
             this.grpMinSurfaceDateRange.Controls.Add(this.label5);
             this.grpMinSurfaceDateRange.Controls.Add(this.ucMinimumFrom);
-            this.grpMinSurfaceDateRange.Location = new System.Drawing.Point(200, 219);
+            this.grpMinSurfaceDateRange.Location = new System.Drawing.Point(200, 245);
             this.grpMinSurfaceDateRange.Name = "grpMinSurfaceDateRange";
             this.grpMinSurfaceDateRange.Size = new System.Drawing.Size(400, 83);
             this.grpMinSurfaceDateRange.TabIndex = 4;
@@ -172,15 +161,6 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "To:";
             // 
-            // ucMinimumTo
-            // 
-            this.ucMinimumTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucMinimumTo.Location = new System.Drawing.Point(76, 49);
-            this.ucMinimumTo.Name = "ucMinimumTo";
-            this.ucMinimumTo.Size = new System.Drawing.Size(315, 21);
-            this.ucMinimumTo.SurveyDates = null;
-            this.ucMinimumTo.TabIndex = 4;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -190,26 +170,18 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "From:";
             // 
-            // ucMinimumFrom
-            // 
-            this.ucMinimumFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
-            this.ucMinimumFrom.Location = new System.Drawing.Point(76, 22);
-            this.ucMinimumFrom.Name = "ucMinimumFrom";
-            this.ucMinimumFrom.Size = new System.Drawing.Size(315, 21);
-            this.ucMinimumFrom.SurveyDates = null;
-            this.ucMinimumFrom.TabIndex = 2;
-            // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.chkReuseRasters);
             this.groupBox3.Controls.Add(this.cboInterpolationMethod);
             this.groupBox3.Controls.Add(this.lblInterpolationMethod);
             this.groupBox3.Controls.Add(this.valOutputCellSize);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.valInputCellSize);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(16, 309);
+            this.groupBox3.Location = new System.Drawing.Point(16, 335);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(584, 90);
             this.groupBox3.TabIndex = 5;
@@ -255,7 +227,7 @@
             // valInputCellSize
             // 
             this.valInputCellSize.DecimalPlaces = 2;
-            this.valInputCellSize.Location = new System.Drawing.Point(146, 27);
+            this.valInputCellSize.Location = new System.Drawing.Point(146, 28);
             this.valInputCellSize.Name = "valInputCellSize";
             this.valInputCellSize.Size = new System.Drawing.Size(79, 20);
             this.valInputCellSize.TabIndex = 1;
@@ -264,7 +236,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 27);
+            this.label6.Location = new System.Drawing.Point(22, 32);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 13);
             this.label6.TabIndex = 0;
@@ -274,6 +246,9 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.cmdCampsites);
+            this.groupBox4.Controls.Add(this.txtCampsites);
+            this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.cmdBrowseMainPy);
             this.groupBox4.Controls.Add(this.txtMainPy);
             this.groupBox4.Controls.Add(this.label13);
@@ -286,21 +261,51 @@
             this.groupBox4.Controls.Add(this.cmdBrowseInputs);
             this.groupBox4.Controls.Add(this.txtInputs);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Location = new System.Drawing.Point(16, 405);
+            this.groupBox4.Location = new System.Drawing.Point(16, 431);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(584, 151);
+            this.groupBox4.Size = new System.Drawing.Size(584, 178);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Files and Folders";
+            // 
+            // cmdCampsites
+            // 
+            this.cmdCampsites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCampsites.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdCampsites.Location = new System.Drawing.Point(553, 82);
+            this.cmdCampsites.Name = "cmdCampsites";
+            this.cmdCampsites.Size = new System.Drawing.Size(23, 23);
+            this.cmdCampsites.TabIndex = 8;
+            this.cmdCampsites.UseVisualStyleBackColor = true;
+            this.cmdCampsites.Click += new System.EventHandler(this.cmdBrowseCampsiteExtents_Click);
+            // 
+            // txtCampsites
+            // 
+            this.txtCampsites.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCampsites.Location = new System.Drawing.Point(142, 83);
+            this.txtCampsites.Name = "txtCampsites";
+            this.txtCampsites.ReadOnly = true;
+            this.txtCampsites.Size = new System.Drawing.Size(405, 20);
+            this.txtCampsites.TabIndex = 7;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(36, 87);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(100, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Input campsite data";
             // 
             // cmdBrowseMainPy
             // 
             this.cmdBrowseMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseMainPy.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseMainPy.Location = new System.Drawing.Point(553, 113);
+            this.cmdBrowseMainPy.Location = new System.Drawing.Point(553, 142);
             this.cmdBrowseMainPy.Name = "cmdBrowseMainPy";
             this.cmdBrowseMainPy.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseMainPy.TabIndex = 21;
+            this.cmdBrowseMainPy.TabIndex = 14;
             this.cmdBrowseMainPy.UseVisualStyleBackColor = true;
             this.cmdBrowseMainPy.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -308,29 +313,29 @@
             // 
             this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMainPy.Location = new System.Drawing.Point(142, 114);
+            this.txtMainPy.Location = new System.Drawing.Point(142, 143);
             this.txtMainPy.Name = "txtMainPy";
             this.txtMainPy.ReadOnly = true;
             this.txtMainPy.Size = new System.Drawing.Size(405, 20);
-            this.txtMainPy.TabIndex = 20;
+            this.txtMainPy.TabIndex = 13;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 118);
+            this.label13.Location = new System.Drawing.Point(9, 147);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(127, 13);
-            this.label13.TabIndex = 19;
+            this.label13.TabIndex = 12;
             this.label13.Text = "Sandbar analysis Main.py";
             // 
             // cmdBrowseResults
             // 
             this.cmdBrowseResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseResults.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseResults.Location = new System.Drawing.Point(553, 82);
+            this.cmdBrowseResults.Location = new System.Drawing.Point(553, 112);
             this.cmdBrowseResults.Name = "cmdBrowseResults";
             this.cmdBrowseResults.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseResults.TabIndex = 18;
+            this.cmdBrowseResults.TabIndex = 11;
             this.cmdBrowseResults.UseVisualStyleBackColor = true;
             this.cmdBrowseResults.Click += new System.EventHandler(this.cmdBrowseResults_Click);
             // 
@@ -338,19 +343,19 @@
             // 
             this.txtResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResults.Location = new System.Drawing.Point(142, 83);
+            this.txtResults.Location = new System.Drawing.Point(142, 113);
             this.txtResults.Name = "txtResults";
             this.txtResults.ReadOnly = true;
             this.txtResults.Size = new System.Drawing.Size(405, 20);
-            this.txtResults.TabIndex = 17;
+            this.txtResults.TabIndex = 10;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(38, 87);
+            this.label10.Location = new System.Drawing.Point(38, 117);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(98, 13);
-            this.label10.TabIndex = 16;
+            this.label10.TabIndex = 9;
             this.label10.Text = "Model results folder";
             // 
             // cmdBrowseCompExtents
@@ -360,7 +365,7 @@
             this.cmdBrowseCompExtents.Location = new System.Drawing.Point(553, 52);
             this.cmdBrowseCompExtents.Name = "cmdBrowseCompExtents";
             this.cmdBrowseCompExtents.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseCompExtents.TabIndex = 15;
+            this.cmdBrowseCompExtents.TabIndex = 5;
             this.cmdBrowseCompExtents.UseVisualStyleBackColor = true;
             this.cmdBrowseCompExtents.Click += new System.EventHandler(this.cmdBrowseCompExtents_Click);
             // 
@@ -372,7 +377,7 @@
             this.txtCompExtents.Name = "txtCompExtents";
             this.txtCompExtents.ReadOnly = true;
             this.txtCompExtents.Size = new System.Drawing.Size(405, 20);
-            this.txtCompExtents.TabIndex = 14;
+            this.txtCompExtents.TabIndex = 4;
             // 
             // label9
             // 
@@ -380,7 +385,7 @@
             this.label9.Location = new System.Drawing.Point(33, 57);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(103, 13);
-            this.label9.TabIndex = 13;
+            this.label9.TabIndex = 3;
             this.label9.Text = "Computation extents";
             // 
             // cmdBrowseInputs
@@ -390,7 +395,7 @@
             this.cmdBrowseInputs.Location = new System.Drawing.Point(553, 22);
             this.cmdBrowseInputs.Name = "cmdBrowseInputs";
             this.cmdBrowseInputs.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseInputs.TabIndex = 12;
+            this.cmdBrowseInputs.TabIndex = 2;
             this.cmdBrowseInputs.UseVisualStyleBackColor = true;
             this.cmdBrowseInputs.Click += new System.EventHandler(this.cmdBrowseInputs_Click);
             // 
@@ -417,7 +422,7 @@
             // 
             this.cmdCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cmdCancel.Location = new System.Drawing.Point(525, 562);
+            this.cmdCancel.Location = new System.Drawing.Point(525, 618);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 8;
@@ -428,7 +433,7 @@
             // 
             this.cmdOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOK.Location = new System.Drawing.Point(444, 562);
+            this.cmdOK.Location = new System.Drawing.Point(444, 618);
             this.cmdOK.Name = "cmdOK";
             this.cmdOK.Size = new System.Drawing.Size(75, 23);
             this.cmdOK.TabIndex = 7;
@@ -439,7 +444,7 @@
             // cmdHelp
             // 
             this.cmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdHelp.Location = new System.Drawing.Point(16, 562);
+            this.cmdHelp.Location = new System.Drawing.Point(16, 618);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
             this.cmdHelp.TabIndex = 9;
@@ -503,13 +508,98 @@
             this.label11.TabIndex = 0;
             this.label11.Text = "Title";
             // 
+            // chkIncremental
+            // 
+            this.chkIncremental.AutoSize = true;
+            this.chkIncremental.Checked = true;
+            this.chkIncremental.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIncremental.Location = new System.Drawing.Point(16, 114);
+            this.chkIncremental.Name = "chkIncremental";
+            this.chkIncremental.Size = new System.Drawing.Size(122, 17);
+            this.chkIncremental.TabIndex = 10;
+            this.chkIncremental.Text = "Incremental Analysis";
+            this.chkIncremental.UseVisualStyleBackColor = true;
+            // 
+            // chkBinned
+            // 
+            this.chkBinned.AutoSize = true;
+            this.chkBinned.Checked = true;
+            this.chkBinned.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBinned.Location = new System.Drawing.Point(156, 114);
+            this.chkBinned.Name = "chkBinned";
+            this.chkBinned.Size = new System.Drawing.Size(100, 17);
+            this.chkBinned.TabIndex = 11;
+            this.chkBinned.Text = "Binned Analysis";
+            this.chkBinned.UseVisualStyleBackColor = true;
+            // 
+            // chkCampsiteAnalysis
+            // 
+            this.chkCampsiteAnalysis.AutoSize = true;
+            this.chkCampsiteAnalysis.Checked = true;
+            this.chkCampsiteAnalysis.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCampsiteAnalysis.Location = new System.Drawing.Point(274, 114);
+            this.chkCampsiteAnalysis.Name = "chkCampsiteAnalysis";
+            this.chkCampsiteAnalysis.Size = new System.Drawing.Size(110, 17);
+            this.chkCampsiteAnalysis.TabIndex = 12;
+            this.chkCampsiteAnalysis.Text = "Campsite Analysis";
+            this.chkCampsiteAnalysis.UseVisualStyleBackColor = true;
+            // 
+            // ucMinimumTo
+            // 
+            this.ucMinimumTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucMinimumTo.Location = new System.Drawing.Point(76, 49);
+            this.ucMinimumTo.Name = "ucMinimumTo";
+            this.ucMinimumTo.Size = new System.Drawing.Size(315, 21);
+            this.ucMinimumTo.SurveyDates = null;
+            this.ucMinimumTo.TabIndex = 4;
+            // 
+            // ucMinimumFrom
+            // 
+            this.ucMinimumFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucMinimumFrom.Location = new System.Drawing.Point(76, 22);
+            this.ucMinimumFrom.Name = "ucMinimumFrom";
+            this.ucMinimumFrom.Size = new System.Drawing.Size(315, 21);
+            this.ucMinimumFrom.SurveyDates = null;
+            this.ucMinimumFrom.TabIndex = 2;
+            // 
+            // ucAnalysisTo
+            // 
+            this.ucAnalysisTo.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucAnalysisTo.Location = new System.Drawing.Point(76, 49);
+            this.ucAnalysisTo.Name = "ucAnalysisTo";
+            this.ucAnalysisTo.Size = new System.Drawing.Size(315, 21);
+            this.ucAnalysisTo.SurveyDates = null;
+            this.ucAnalysisTo.TabIndex = 4;
+            // 
+            // ucAnalysisFrom
+            // 
+            this.ucAnalysisFrom.DefaultSelection = SandbarWorkbench.Sandbars.Analysis.ucSurveyDatePicker.DefaultSelectionType.Latest;
+            this.ucAnalysisFrom.Location = new System.Drawing.Point(76, 22);
+            this.ucAnalysisFrom.Name = "ucAnalysisFrom";
+            this.ucAnalysisFrom.Size = new System.Drawing.Size(315, 21);
+            this.ucAnalysisFrom.SurveyDates = null;
+            this.ucAnalysisFrom.TabIndex = 2;
+            // 
+            // chkReuseRasters
+            // 
+            this.chkReuseRasters.AutoSize = true;
+            this.chkReuseRasters.Location = new System.Drawing.Point(245, 30);
+            this.chkReuseRasters.Name = "chkReuseRasters";
+            this.chkReuseRasters.Size = new System.Drawing.Size(312, 17);
+            this.chkReuseRasters.TabIndex = 6;
+            this.chkReuseRasters.Text = "Reuse existing DEM rasters (excludes min and max surfaces)";
+            this.chkReuseRasters.UseVisualStyleBackColor = true;
+            // 
             // frmAnalysisConfig
             // 
             this.AcceptButton = this.cmdOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(610, 597);
+            this.ClientSize = new System.Drawing.Size(610, 653);
+            this.Controls.Add(this.chkCampsiteAnalysis);
+            this.Controls.Add(this.chkBinned);
+            this.Controls.Add(this.chkIncremental);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.cmdHelp);
             this.Controls.Add(this.cmdOK);
@@ -586,5 +676,12 @@
         private System.Windows.Forms.TextBox txtMainPy;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ToolTip tt;
+        private System.Windows.Forms.Button cmdCampsites;
+        private System.Windows.Forms.TextBox txtCampsites;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox chkIncremental;
+        private System.Windows.Forms.CheckBox chkBinned;
+        private System.Windows.Forms.CheckBox chkCampsiteAnalysis;
+        private System.Windows.Forms.CheckBox chkReuseRasters;
     }
 }

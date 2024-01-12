@@ -78,6 +78,7 @@ namespace SandbarWorkbench
             ListItem.LoadComboWithListItems(ref cboInterpolation, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 8 ORDER BY Title", SandbarWorkbench.Properties.Settings.Default.Default_Interpolation);
             txtSpatialReference.Text = SandbarWorkbench.Properties.Settings.Default.SpatialReference;
             txtCompExtents.Text = SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile;
+            txtCampsitePath.Text = SandbarWorkbench.Properties.Settings.Default.CampsitesFolder;
             Helpers.IOHelpers.FillTextBoxFile(SandbarWorkbench.Properties.Settings.Default.GDALWarp, ref txtGDALWarp);
             valIncrement.Value = SandbarWorkbench.Properties.Settings.Default.ElevationIncrement;
             valBenchmark.Value = SandbarWorkbench.Properties.Settings.Default.BenchmarkStage;
@@ -115,6 +116,7 @@ namespace SandbarWorkbench
             tt.SetToolTip(valIncrement, "Vertical elevation increment, in meters, for the sandbar analysis incremental analysis. Default is 0.1m.");
             tt.SetToolTip(valBenchmark, "Benchmark discharge, in cubic feet per second, that is used to initiate the incremental sandbar analaysis. Default is 8000 CFS.");
             tt.SetToolTip(txtCompExtents, "Default full, absolute file path to the ShapeFile that contains the computational boundary polygons for the sandbar analysis.");
+            tt.SetToolTip(txtCampsitePath, "Default full, absolute path to the folder that contains the campsite boundary polygons for the sandbar analysis.");
             tt.SetToolTip(txtGDALWarp, "Default full, absolute file path to the GDAL warp executable used within the sandbar analsysis. See online help for more details.");
             tt.SetToolTip(txtMainPy, "Default full, absolute file path to the sandbar analysis main.py file. See online help for more details.");
             tt.SetToolTip(txtSpatialReference, "Spatial reference \"well known string\" that defines the coordinate system of the sandbar survey raw text point files.");
@@ -194,6 +196,8 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.ElevationIncrement = valIncrement.Value;
             SandbarWorkbench.Properties.Settings.Default.BenchmarkStage = valBenchmark.Value;
             SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy = txtMainPy.Text;
+            SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile = txtCompExtents.Text;
+            SandbarWorkbench.Properties.Settings.Default.CampsitesFolder = txtCampsitePath.Text;
 
             // Date Display Formats
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
@@ -292,6 +296,11 @@ namespace SandbarWorkbench
         private void frmOptions_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
+        }
+
+        private void cmdCampsite_Click(object sender, EventArgs e)
+        {
+            Helpers.IOHelpers.BrowseFillTextBoxFolder("Campsite Folder", ref txtCampsitePath, false);
         }
     }
 }

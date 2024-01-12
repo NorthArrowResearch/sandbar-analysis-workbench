@@ -1,0 +1,2 @@
+﻿ALTER TABLE ModelResultsBinned ADD COLUMN MaxVol REAL;
+ALTER TABLE ModelResultsBinned ADD COLUMN MaxArea REAL;

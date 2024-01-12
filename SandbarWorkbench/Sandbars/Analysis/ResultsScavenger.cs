@@ -15,6 +15,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
         public long ModelRunID { get; internal set; }
         public long IncrementalResults { get; internal set; }
         public long BinnedResults { get; internal set; }
+        public long CampsiteResults { get; internal set; }
 
         public ResultsScavenger(string sDBCon)
         {
@@ -27,25 +28,26 @@ namespace SandbarWorkbench.Sandbars.Analysis
             ModelRunID = 0;
             IncrementalResults = 0;
             BinnedResults = 0;
+            CampsiteResults = 0;
         }
 
-        public void Run(string sTitle, string sRemarks, System.IO.FileInfo fiInputs, System.IO.FileInfo fiIncremental, System.IO.FileInfo fiBinned)
+        public void Run(string sTitle, string sRemarks, System.IO.FileInfo fiInputs, System.IO.FileInfo fiIncremental, System.IO.FileInfo fiBinned, System.IO.FileInfo fiCampsites)
         {
             ResetScavengeInfo();
 
-            if (!fiIncremental.Exists)
-            {
-                Exception ex = new Exception("The incremental analysis file does not exist.");
-                ex.Data["File"] = fiIncremental.FullName;
-                throw ex;
-            }
+            //if (!fiIncremental.Exists)
+            //{
+            //    Exception ex = new Exception("The incremental analysis file does not exist.");
+            //    ex.Data["File"] = fiIncremental.FullName;
+            //    throw ex;
+            //}
 
-            if (!fiBinned.Exists)
-            {
-                Exception ex = new Exception("The binned analysis file does not exist.");
-                ex.Data["File"] = fiBinned.FullName;
-                throw ex;
-            }
+            //if (!fiBinned.Exists)
+            //{
+            //    Exception ex = new Exception("The binned analysis file does not exist.");
+            //    ex.Data["File"] = fiBinned.FullName;
+            //    throw ex;
+            //}
 
             string sInputs = string.Empty;
             if (fiInputs is System.IO.FileInfo && fiInputs.Exists)
@@ -85,14 +87,28 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     ModelRunID = (long)dbCom.ExecuteScalar();
 
                     // Incremental results
-                    // siteid,sitecode,surveyid,surveydate,sectiontypeid,section,sectionid,elevation,area,vol
-                    string[] sIncrementalColumns = { "SectionID", "Elevation", "Area", "Volume" };
-                    IncrementalResults = ProcessCSVFile(ref dbTrans, fiIncremental, ModelRunID, "ModelResultsIncremental", sIncrementalColumns);
+                    if (System.IO.File.Exists(fiIncremental.FullName))
+                    {
+                        // siteid,sitecode,surveyid,surveydate,sectiontypeid,section,sectionid,elevation,area,vol
+                        string[] sIncrementalColumns = { "SectionID", "Elevation", "Area", "Volume" };
+                        IncrementalResults = ProcessCSVFile(ref dbTrans, fiIncremental, ModelRunID, "ModelResultsIncremental", sIncrementalColumns);
+                    }
 
                     // Binned results
-                    // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
-                    string[] sBinnedColumns = { "SectionID", "BinID", "Area", "Volume" };
-                    BinnedResults = ProcessCSVFile(ref dbTrans, fiBinned, ModelRunID, "ModelResultsBinned", sBinnedColumns);
+                    if (System.IO.File.Exists(fiBinned.FullName))
+                    {
+                        // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
+                        string[] sBinnedColumns = { "SectionID", "BinID", "Area", "Volume" };
+                        BinnedResults = ProcessCSVFile(ref dbTrans, fiBinned, ModelRunID, "ModelResultsBinned", sBinnedColumns);
+                    }
+
+                    // Campsite results
+                    if (System.IO.File.Exists(fiCampsites.FullName))
+                    {
+                        // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
+                        string[] sCampsiteColumns = { "SurveyID", "BinID", "CampsiteShapeFile", "Area" };
+                        CampsiteResults = ProcessCSVFile(ref dbTrans, fiCampsites, ModelRunID, "ModelResultsCampsites", sCampsiteColumns);
+                    }
 
                     dbTrans.Commit();
                     DBCon.BackupRequiredOnClose = true;

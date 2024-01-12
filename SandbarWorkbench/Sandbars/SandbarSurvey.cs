@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Data.SQLite;
 using naru.ui;
+using Amazon.DynamoDBv2;
+using SandbarWorkbench.Sandbars.StageDischarge;
+using System.Data.Common;
 
 namespace SandbarWorkbench.Sandbars
 {
@@ -21,6 +24,8 @@ namespace SandbarWorkbench.Sandbars
 
         public bool HasChannel { get; internal set; }
         public string HasChannelStr { get { return HasChannel ? "True" : "False"; } }
+
+        public StageDischarge.SDCurve SDCurve { get; internal set; }
 
         public int EddyCount { get; internal set; }
         public bool HasEddy { get { return EddyCount > 0; } }
@@ -68,7 +73,7 @@ namespace SandbarWorkbench.Sandbars
 
                     lRecords.Add(new SandbarSurvey(
                         (long)dbRead["SurveyID"]
-                        , (long) dbRead["SiteID"]
+                        , (long)dbRead["SiteID"]
                         , (long)dbRead["TripID"]
                         , (DateTime)dbRead["TripDate"]
                         , (DateTime)dbRead["SurveyDate"]
@@ -115,6 +120,34 @@ namespace SandbarWorkbench.Sandbars
                             aSurvey.EddyCount += 1;
                     }
                     dbRead.Close();
+                }
+
+                // Now load the appropriate stage discharge curve for each survey
+                foreach( SandbarSurvey survey in  lRecords)
+                {
+                    // Retrieve the newest stage discharge curve for this site to be used with this survey.
+                    SDCurve curve = null;
+                    using (SQLiteCommand cmd = new SQLiteCommand("SELECT ParameterA, ParameterB, ParameterC" +
+                        " FROM StageDischargeParams" +
+                        " WHERE (SiteID = @SiteID) AND (EffectiveDate < @SurveyDate)" +
+                        " ORDER BY EffectiveDate DESC" +
+                        " LIMIT 1", dbCon))
+                    {
+                        cmd.Parameters.AddWithValue("SiteID", nSiteID);
+                        cmd.Parameters.AddWithValue("SurveyDate", survey.SurveyDate);
+                        SQLiteDataReader curveRead = cmd.ExecuteReader();
+                        if (curveRead.Read())
+                        {
+                            survey.SDCurve = new SDCurve(
+                                nSiteID,
+                                nSiteID.ToString(),
+                                curveRead.GetFloat(curveRead.GetOrdinal("ParameterA")),
+                                 curveRead.GetFloat(curveRead.GetOrdinal("ParameterB")),
+                                  curveRead.GetFloat(curveRead.GetOrdinal("ParameterC")));
+                        }
+                        curveRead.Close();
+                    }
+
                 }
             }
 

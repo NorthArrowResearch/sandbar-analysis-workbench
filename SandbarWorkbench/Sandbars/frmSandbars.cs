@@ -103,7 +103,7 @@ namespace SandbarWorkbench.Sandbars
 
             if (!string.IsNullOrEmpty(txtTitle.Text))
             {
-                lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => ss.Title.ToLower().Contains(txtTitle.Text.ToLower())).ToList<SandbarSite>());
+                lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => ss.Title.ToLower().Contains(txtTitle.Text.ToLower()) || ss.SiteCode5.ToLower().Contains(txtTitle.Text.ToLower())).ToList<SandbarSite>());
             }
 
             grdData.DataSource = lFilteredItems;

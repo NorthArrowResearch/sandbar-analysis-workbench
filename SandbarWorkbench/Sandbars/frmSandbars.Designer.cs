@@ -285,7 +285,7 @@
             this.grpSiteName.Size = new System.Drawing.Size(227, 53);
             this.grpSiteName.TabIndex = 1;
             this.grpSiteName.TabStop = false;
-            this.grpSiteName.Text = "Site Name";
+            this.grpSiteName.Text = "Site Name or Code";
             // 
             // txtTitle
             // 
@@ -377,7 +377,7 @@
             this.toolsToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
             this.toolsToolStripMenuItem.MergeIndex = 2;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             this.toolsToolStripMenuItem.Visible = false;
             // 
@@ -386,7 +386,7 @@
             this.sandbarAnalysisToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.sandbarAnalysisToolStripMenuItem.MergeIndex = 0;
             this.sandbarAnalysisToolStripMenuItem.Name = "sandbarAnalysisToolStripMenuItem";
-            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.sandbarAnalysisToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.sandbarAnalysisToolStripMenuItem.Text = "Sandbar Analysis...";
             this.sandbarAnalysisToolStripMenuItem.Click += new System.EventHandler(this.sandbarAnalysisToolStripMenuItem_Click);
             // 
@@ -396,7 +396,7 @@
             this.exportSandbarListToCSVToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.exportSandbarListToCSVToolStripMenuItem.MergeIndex = 1;
             this.exportSandbarListToCSVToolStripMenuItem.Name = "exportSandbarListToCSVToolStripMenuItem";
-            this.exportSandbarListToCSVToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+            this.exportSandbarListToCSVToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.exportSandbarListToCSVToolStripMenuItem.Text = "Export Sandbar List to CSV...";
             this.exportSandbarListToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 

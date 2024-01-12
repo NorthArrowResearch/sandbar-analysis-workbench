@@ -44,6 +44,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grdFolderPaths = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cmdCampsite = new System.Windows.Forms.Button();
+            this.txtCampsitePath = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.txtMainPy = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
@@ -243,6 +246,9 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.cmdCampsite);
+            this.tabPage4.Controls.Add(this.txtCampsitePath);
+            this.tabPage4.Controls.Add(this.label2);
             this.tabPage4.Controls.Add(this.button1);
             this.tabPage4.Controls.Add(this.txtMainPy);
             this.tabPage4.Controls.Add(this.label17);
@@ -271,14 +277,44 @@
             this.tabPage4.Text = "Sandbar Analysis";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // cmdCampsite
+            // 
+            this.cmdCampsite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdCampsite.Image = global::SandbarWorkbench.Properties.Resources.explorer;
+            this.cmdCampsite.Location = new System.Drawing.Point(517, 138);
+            this.cmdCampsite.Name = "cmdCampsite";
+            this.cmdCampsite.Size = new System.Drawing.Size(23, 23);
+            this.cmdCampsite.TabIndex = 15;
+            this.cmdCampsite.UseVisualStyleBackColor = true;
+            this.cmdCampsite.Click += new System.EventHandler(this.cmdCampsite_Click);
+            // 
+            // txtCampsitePath
+            // 
+            this.txtCampsitePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCampsitePath.Location = new System.Drawing.Point(176, 139);
+            this.txtCampsitePath.Name = "txtCampsitePath";
+            this.txtCampsitePath.ReadOnly = true;
+            this.txtCampsitePath.Size = new System.Drawing.Size(335, 20);
+            this.txtCampsitePath.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(58, 143);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Campsite survey folder";
+            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.button1.Location = new System.Drawing.Point(517, 171);
+            this.button1.Location = new System.Drawing.Point(517, 198);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 18;
+            this.button1.TabIndex = 21;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -286,19 +322,19 @@
             // 
             this.txtMainPy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMainPy.Location = new System.Drawing.Point(176, 172);
+            this.txtMainPy.Location = new System.Drawing.Point(176, 199);
             this.txtMainPy.Name = "txtMainPy";
             this.txtMainPy.ReadOnly = true;
             this.txtMainPy.Size = new System.Drawing.Size(335, 20);
-            this.txtMainPy.TabIndex = 17;
+            this.txtMainPy.TabIndex = 20;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(39, 176);
+            this.label17.Location = new System.Drawing.Point(43, 203);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(128, 13);
-            this.label17.TabIndex = 16;
+            this.label17.TabIndex = 19;
             this.label17.Text = "Sandbar Analysis Main.py";
             // 
             // valBenchmark
@@ -308,7 +344,7 @@
             0,
             0,
             0});
-            this.valBenchmark.Location = new System.Drawing.Point(420, 49);
+            this.valBenchmark.Location = new System.Drawing.Point(420, 48);
             this.valBenchmark.Maximum = new decimal(new int[] {
             40000,
             0,
@@ -316,7 +352,7 @@
             0});
             this.valBenchmark.Name = "valBenchmark";
             this.valBenchmark.Size = new System.Drawing.Size(120, 20);
-            this.valBenchmark.TabIndex = 9;
+            this.valBenchmark.TabIndex = 7;
             this.valBenchmark.Value = new decimal(new int[] {
             8000,
             0,
@@ -326,10 +362,10 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(304, 53);
+            this.label16.Location = new System.Drawing.Point(304, 52);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(113, 13);
-            this.label16.TabIndex = 8;
+            this.label16.TabIndex = 6;
             this.label16.Text = "Benchmark stage (cfs)";
             // 
             // valIncrement
@@ -343,7 +379,7 @@
             0});
             this.valIncrement.Name = "valIncrement";
             this.valIncrement.Size = new System.Drawing.Size(120, 20);
-            this.valIncrement.TabIndex = 7;
+            this.valIncrement.TabIndex = 3;
             this.valIncrement.Value = new decimal(new int[] {
             1,
             0,
@@ -356,17 +392,17 @@
             this.label15.Location = new System.Drawing.Point(300, 22);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(117, 13);
-            this.label15.TabIndex = 6;
+            this.label15.TabIndex = 2;
             this.label15.Text = "Elevation increment (m)";
             // 
             // cmdBrowseGDALWarp
             // 
             this.cmdBrowseGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseGDALWarp.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseGDALWarp.Location = new System.Drawing.Point(517, 142);
+            this.cmdBrowseGDALWarp.Location = new System.Drawing.Point(517, 168);
             this.cmdBrowseGDALWarp.Name = "cmdBrowseGDALWarp";
             this.cmdBrowseGDALWarp.Size = new System.Drawing.Size(23, 23);
-            this.cmdBrowseGDALWarp.TabIndex = 15;
+            this.cmdBrowseGDALWarp.TabIndex = 18;
             this.cmdBrowseGDALWarp.UseVisualStyleBackColor = true;
             this.cmdBrowseGDALWarp.Click += new System.EventHandler(this.cmdBrowseGDALWarp_Click);
             // 
@@ -374,26 +410,26 @@
             // 
             this.txtGDALWarp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGDALWarp.Location = new System.Drawing.Point(176, 143);
+            this.txtGDALWarp.Location = new System.Drawing.Point(176, 169);
             this.txtGDALWarp.Name = "txtGDALWarp";
             this.txtGDALWarp.ReadOnly = true;
             this.txtGDALWarp.Size = new System.Drawing.Size(335, 20);
-            this.txtGDALWarp.TabIndex = 14;
+            this.txtGDALWarp.TabIndex = 17;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(55, 147);
+            this.label14.Location = new System.Drawing.Point(54, 173);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(117, 13);
-            this.label14.TabIndex = 13;
+            this.label14.TabIndex = 16;
             this.label14.Text = "GDAL warp executable";
             // 
             // cmdBrowseCompExtents
             // 
             this.cmdBrowseCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdBrowseCompExtents.Image = global::SandbarWorkbench.Properties.Resources.explorer;
-            this.cmdBrowseCompExtents.Location = new System.Drawing.Point(517, 111);
+            this.cmdBrowseCompExtents.Location = new System.Drawing.Point(517, 108);
             this.cmdBrowseCompExtents.Name = "cmdBrowseCompExtents";
             this.cmdBrowseCompExtents.Size = new System.Drawing.Size(23, 23);
             this.cmdBrowseCompExtents.TabIndex = 12;
@@ -404,7 +440,7 @@
             // 
             this.txtCompExtents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCompExtents.Location = new System.Drawing.Point(176, 112);
+            this.txtCompExtents.Location = new System.Drawing.Point(176, 109);
             this.txtCompExtents.Name = "txtCompExtents";
             this.txtCompExtents.ReadOnly = true;
             this.txtCompExtents.Size = new System.Drawing.Size(335, 20);
@@ -413,7 +449,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 116);
+            this.label13.Location = new System.Drawing.Point(15, 113);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(156, 13);
             this.label13.TabIndex = 10;
@@ -425,10 +461,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtSpatialReference);
-            this.groupBox2.Location = new System.Drawing.Point(6, 202);
+            this.groupBox2.Location = new System.Drawing.Point(6, 226);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(534, 121);
-            this.groupBox2.TabIndex = 19;
+            this.groupBox2.Size = new System.Drawing.Size(534, 97);
+            this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Spatial Reference";
             // 
@@ -440,34 +476,34 @@
             this.txtSpatialReference.Location = new System.Drawing.Point(6, 19);
             this.txtSpatialReference.Multiline = true;
             this.txtSpatialReference.Name = "txtSpatialReference";
-            this.txtSpatialReference.Size = new System.Drawing.Size(522, 96);
+            this.txtSpatialReference.Size = new System.Drawing.Size(522, 72);
             this.txtSpatialReference.TabIndex = 0;
             // 
             // cboInterpolation
             // 
             this.cboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboInterpolation.FormattingEnabled = true;
-            this.cboInterpolation.Location = new System.Drawing.Point(176, 80);
+            this.cboInterpolation.Location = new System.Drawing.Point(176, 78);
             this.cboInterpolation.Name = "cboInterpolation";
             this.cboInterpolation.Size = new System.Drawing.Size(121, 21);
-            this.cboInterpolation.TabIndex = 5;
+            this.cboInterpolation.TabIndex = 9;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(33, 84);
+            this.label8.Location = new System.Drawing.Point(32, 82);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(139, 13);
-            this.label8.TabIndex = 4;
+            this.label8.TabIndex = 8;
             this.label8.Text = "Default interpolation method";
             // 
             // valDefaultOutputCellSize
             // 
             this.valDefaultOutputCellSize.DecimalPlaces = 2;
-            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(176, 49);
+            this.valDefaultOutputCellSize.Location = new System.Drawing.Point(176, 48);
             this.valDefaultOutputCellSize.Name = "valDefaultOutputCellSize";
             this.valDefaultOutputCellSize.Size = new System.Drawing.Size(120, 20);
-            this.valDefaultOutputCellSize.TabIndex = 3;
+            this.valDefaultOutputCellSize.TabIndex = 5;
             // 
             // valDefaultInputCellSize
             // 
@@ -480,16 +516,16 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 53);
+            this.label7.Location = new System.Drawing.Point(11, 52);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 13);
-            this.label7.TabIndex = 2;
+            this.label7.TabIndex = 4;
             this.label7.Text = "Default raster output cell size (m)";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 22);
+            this.label6.Location = new System.Drawing.Point(11, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(160, 13);
             this.label6.TabIndex = 0;
@@ -649,7 +685,7 @@
             this.cmdHelp.Location = new System.Drawing.Point(16, 373);
             this.cmdHelp.Name = "cmdHelp";
             this.cmdHelp.Size = new System.Drawing.Size(75, 23);
-            this.cmdHelp.TabIndex = 2;
+            this.cmdHelp.TabIndex = 1;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
             this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
@@ -746,5 +782,8 @@
         private System.Windows.Forms.TextBox txtMainPy;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolTip tt;
+        private System.Windows.Forms.Button cmdCampsite;
+        private System.Windows.Forms.TextBox txtCampsitePath;
+        private System.Windows.Forms.Label label2;
     }
 }
