@@ -42,6 +42,7 @@
             this.addReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteReachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTableToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -124,7 +125,8 @@
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addReachToolStripMenuItem,
             this.editReachToolStripMenuItem,
-            this.deleteReachToolStripMenuItem});
+            this.deleteReachToolStripMenuItem,
+            this.importToolStripMenuItem});
             this.editToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.editToolStripMenuItem.MergeIndex = 1;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
@@ -135,7 +137,7 @@
             // 
             this.addReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Add;
             this.addReachToolStripMenuItem.Name = "addReachToolStripMenuItem";
-            this.addReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.addReachToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addReachToolStripMenuItem.Text = "Add...";
             this.addReachToolStripMenuItem.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -143,7 +145,7 @@
             // 
             this.editReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.edit;
             this.editReachToolStripMenuItem.Name = "editReachToolStripMenuItem";
-            this.editReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.editReachToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editReachToolStripMenuItem.Text = "Edit...";
             this.editReachToolStripMenuItem.Click += new System.EventHandler(this.AddEdit_Click);
             // 
@@ -151,9 +153,17 @@
             // 
             this.deleteReachToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.Delete;
             this.deleteReachToolStripMenuItem.Name = "deleteReachToolStripMenuItem";
-            this.deleteReachToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.deleteReachToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteReachToolStripMenuItem.Text = "Delete...";
             this.deleteReachToolStripMenuItem.Click += new System.EventHandler(this.Delete_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.import;
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Text = "Import...";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -161,7 +171,7 @@
             this.exportTableToCSVToolStripMenuItem});
             this.toolsToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // exportTableToCSVToolStripMenuItem
@@ -210,5 +220,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportTableToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportTableToCSVToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }

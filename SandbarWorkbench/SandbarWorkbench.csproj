@@ -109,6 +109,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -346,6 +347,12 @@
     <Compile Include="Segments\Segment.cs" />
     <Compile Include="Segments\SegmentCRUD.cs" />
     <Compile Include="naru\ui\SortableBindingList.cs" />
+    <Compile Include="Trips\frmImportTrip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Trips\frmImportTrip.Designer.cs">
+      <DependentUpon>frmImportTrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Trips\frmTripPropertiesEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -442,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Segments\frmSegmentPropertiesEdit.resx">
       <DependentUpon>frmSegmentPropertiesEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trips\frmImportTrip.resx">
+      <DependentUpon>frmImportTrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Trips\frmTripPropertiesEdit.resx">
       <DependentUpon>frmTripPropertiesEdit.cs</DependentUpon>
@@ -557,6 +567,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\004_DropOldVersionTables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\import.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- This is our custom collection step to grab the interop files -->

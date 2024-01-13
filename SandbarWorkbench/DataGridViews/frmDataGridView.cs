@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using SandbarWorkbench.Trips;
 
 namespace SandbarWorkbench.DataGridViews
 {
@@ -39,6 +40,9 @@ namespace SandbarWorkbench.DataGridViews
 
             Helpers.DataGridViewHelpers.ConfigureDataGridView(ref grdData, DockStyle.Fill, false, true);
             LoadDataGridView();
+
+            // Import is only available for trips
+            importToolStripMenuItem.Visible = TypeInfo.SelectSQL.ToLower().Contains("trips");
         }
 
         private void LoadDataGridView(long nSelectID = 0)
@@ -131,30 +135,30 @@ namespace SandbarWorkbench.DataGridViews
                 if (MessageBox.Show(string.Format("Are you sure that you want to delete the selected {0}? This action is permanent and cannot be undone.", TypeInfo.Noun.ToLower()), "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
                     == DialogResult.Yes)
                 {
-                   
-                        using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+
+                    using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
+                    {
+                        dbCon.Open();
+                        SQLiteTransaction transLocal = dbCon.BeginTransaction();
+
+                        try
                         {
-                            dbCon.Open();
-                            SQLiteTransaction transLocal = dbCon.BeginTransaction();
+                            SQLiteCommand comLocal = new SQLiteCommand(TypeInfo.DeleteSQL, transLocal.Connection, transLocal);
+                            comLocal.Parameters.AddWithValue("ID", ID);
+                            comLocal.ExecuteNonQuery();
 
-                            try
-                            {
-                                SQLiteCommand comLocal = new SQLiteCommand(TypeInfo.DeleteSQL, transLocal.Connection, transLocal);
-                                comLocal.Parameters.AddWithValue("ID", ID);
-                                comLocal.ExecuteNonQuery();
+                            transLocal.Commit();
 
-                                transLocal.Commit();
+                            LoadDataGridView();
+                        }
+                        catch
+                        {
 
-                                LoadDataGridView();
-                            }
-                            catch
-                            {
-                              
-                                transLocal.Rollback();
-                                throw;
-                            }
+                            transLocal.Rollback();
+                            throw;
                         }
                     }
+                }
             }
             catch (Exception ex)
             {
@@ -180,7 +184,16 @@ namespace SandbarWorkbench.DataGridViews
             {
                 DataRowView drv = (DataRowView)grdData.Rows[e.RowIndex].DataBoundItem;
                 DataRow dr = drv.Row;
-                AddEditItem( (long)dr["ID"]);
+                AddEditItem((long)dr["ID"]);
+            }
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmImportTrip frm = new frmImportTrip();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                LoadDataGridView();
             }
         }
     }

@@ -117,15 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Help_frmDatabaseInfo" xml:space="preserve">
-    <value>online_help/file_menu/database_info</value>
+  <data name="SyncRequiredWarning" xml:space="preserve">
+    <value>You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.</value>
+  </data>
+  <data name="Help_frmRemoteCameraPropertiesEdit" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
+  </data>
+  <data name="Help_frmSynchronize" xml:space="preserve">
+    <value>online_help/tools_menu/synchronize</value>
+  </data>
+  <data name="Help_frmSandbarProperties" xml:space="preserve">
+    <value>online_help/sandbars/sandbar_properties</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SQLLiteDateTimeFormat" xml:space="preserve">
     <value>yyyy-MM-dd HH:mm:ss</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Help_frmAnalysisConfig" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_run_config</value>
+  </data>
+  <data name="Help_frmRemoteCameras" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
   </data>
   <data name="tile_horizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tile_horizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,8 +157,14 @@
   <data name="Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Help_frmSandbarProperties" xml:space="preserve">
-    <value>online_help/sandbars/sandbar_properties</value>
+  <data name="Help_frmReachPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/reaches</value>
+  </data>
+  <data name="Help_frmOptions" xml:space="preserve">
+    <value>online_help/tools_menu/Options/</value>
+  </data>
+  <data name="frmRemoteCameraPropertiesEdit" xml:space="preserve">
+    <value>online_help/remote-cameras/remote_camera_properties</value>
   </data>
   <data name="USGS_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\USGS_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,11 +178,17 @@
   <data name="edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Help_frmAnalysisBinProperties" xml:space="preserve">
+    <value>online_help/views/analysis_bins/</value>
+  </data>
   <data name="calendar_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Help_frmSegmentPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/segments</value>
   </data>
   <data name="pictures2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pictures2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -166,8 +196,8 @@
   <data name="ApplicationNameLong" xml:space="preserve">
     <value>GCMRC Workbench</value>
   </data>
-  <data name="update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Help_frmModelRunProperties" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_runs</value>
   </data>
   <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,8 +214,8 @@
   <data name="crp_elevation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crp_elevation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="camera_lens" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\camera_lens.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Help_frmDatabaseInfo" xml:space="preserve">
+    <value>online_help/file_menu/database_info</value>
   </data>
   <data name="DataGridViewDateFormat" xml:space="preserve">
     <value>dd MMM yyyy</value>
@@ -199,8 +229,14 @@
   <data name="SQLLiteDateFormat" xml:space="preserve">
     <value>yyyy-MM-dd</value>
   </data>
+  <data name="Help_frmTripPropertiesEdit" xml:space="preserve">
+    <value>online_help/views/trips</value>
+  </data>
   <data name="USGS_logo_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\USGS_logo_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Help_frmModelRuns" xml:space="preserve">
+    <value>online_help/sandbar_analysis/model_runs</value>
   </data>
   <data name="database" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\database.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,58 +244,25 @@
   <data name="NA_Logo_120_60_Google_OAuth" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NA_Logo_120_60_Google_OAuth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pictures21" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pictures21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SyncRequiredWarning" xml:space="preserve">
-    <value>You may need to synchronize your local database with the master if you do not see the item in your copy of the Workbench.</value>
-  </data>
-  <data name="Help_frmAnalysisBinProperties" xml:space="preserve">
-    <value>online_help/views/analysis_bins/</value>
-  </data>
-  <data name="Help_frmModelRunProperties" xml:space="preserve">
-    <value>online_help/sandbar_analysis/model_runs</value>
-  </data>
-  <data name="frmRemoteCameraPropertiesEdit" xml:space="preserve">
-    <value>online_help/remote-cameras/remote_camera_properties</value>
-  </data>
-  <data name="Help_frmAnalysisConfig" xml:space="preserve">
-    <value>online_help/sandbar_analysis/model_run_config</value>
-  </data>
-  <data name="Help_frmModelRuns" xml:space="preserve">
-    <value>online_help/sandbar_analysis/model_runs</value>
-  </data>
-  <data name="Help_frmOptions" xml:space="preserve">
-    <value>online_help/tools_menu/Options/</value>
+  <data name="Help_frmSurveyProperties" xml:space="preserve">
+    <value>online_help/sandbars/sandbar_surveys</value>
   </data>
   <data name="Help_frmPictureViewer" xml:space="preserve">
     <value>online_help/pictures/picture_viewer</value>
   </data>
-  <data name="Help_frmReachPropertiesEdit" xml:space="preserve">
-    <value>online_help/views/reaches</value>
-  </data>
-  <data name="Help_frmRemoteCameras" xml:space="preserve">
-    <value>online_help/remote-cameras/remote_camera_properties</value>
-  </data>
   <data name="Help_frmSDSample" xml:space="preserve">
     <value>online_help/sandbars/sd_sample</value>
   </data>
-  <data name="Help_frmSegmentPropertiesEdit" xml:space="preserve">
-    <value>online_help/views/segments</value>
+  <data name="pictures21" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pictures21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Help_frmSynchronize" xml:space="preserve">
-    <value>online_help/tools_menu/synchronize</value>
+  <data name="camera_lens" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\camera_lens.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Help_frmTripPropertiesEdit" xml:space="preserve">
-    <value>online_help/views/trips</value>
-  </data>
-  <data name="Help_frmRemoteCameraPropertiesEdit" xml:space="preserve">
-    <value>online_help/remote-cameras/remote_camera_properties</value>
-  </data>
-  <data name="Help_frmSurveyProperties" xml:space="preserve">
-    <value>online_help/sandbars/sandbar_surveys</value>
+  <data name="import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
