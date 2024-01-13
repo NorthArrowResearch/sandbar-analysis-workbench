@@ -138,10 +138,6 @@ namespace SandbarWorkbench.Sandbars
             grdData.Rows.Add("Reach", m_Site.Reach is ListItem ? m_Site.Reach.ToString() : "");
             grdData.Rows.Add("Segment", m_Site.Segment is ListItem ? m_Site.Segment.ToString() : "");
             grdData.Rows.Add("Campsite Survey Record", m_Site.CampSiteSurveyRecord);
-            grdData.Rows.Add("Remote Camera Record", m_Site.RemoteCameraID.HasValue ? m_Site.RemoteCameraID.ToString() : "");
-            grdData.Rows.Add("Stage Discharge A", m_Site.SDCurve.CoeffA.HasValue ? m_Site.SDCurve.CoeffA.ToString() : "");
-            grdData.Rows.Add("Stage Discharge B", m_Site.SDCurve.CoeffB.HasValue ? m_Site.SDCurve.CoeffB.ToString() : "");
-            grdData.Rows.Add("Stage Discharge C", m_Site.SDCurve.CoeffC.HasValue ? m_Site.SDCurve.CoeffC.ToString() : "");
             grdData.Rows.Add("Northing", m_Site.Northing.HasValue ? m_Site.Northing.ToString() : "");
             grdData.Rows.Add("Easting", m_Site.Easting.HasValue ? m_Site.Easting.ToString() : "");
             grdData.Rows.Add("Latitude", m_Site.Latitude.HasValue ? m_Site.Latitude.Value.ToString("0.000°") : "");
