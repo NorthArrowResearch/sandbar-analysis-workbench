@@ -387,6 +387,7 @@
             this.cmdPhotos.Size = new System.Drawing.Size(23, 23);
             this.cmdPhotos.TabIndex = 4;
             this.cmdPhotos.UseVisualStyleBackColor = true;
+            this.cmdPhotos.Visible = false;
             this.cmdPhotos.Click += new System.EventHandler(this.cmdPhotos_Click);
             // 
             // cmdHelp

@@ -63,8 +63,8 @@ namespace SandbarWorkbench
             int nRow = grdFolderPaths.Rows.Add("Sandbar Topo Data", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarTopoData);
             grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarTopoData";
 
-            nRow = grdFolderPaths.Rows.Add("Remote Camera Photo Image Folder", SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
-            grdFolderPaths.Rows[nRow].Tag = "Folder_RemoteCameras";
+            //nRow = grdFolderPaths.Rows.Add("Remote Camera Photo Image Folder", SandbarWorkbench.Properties.Settings.Default.Folder_RemoteCameras);
+            //grdFolderPaths.Rows[nRow].Tag = "Folder_RemoteCameras";
 
             nRow = grdFolderPaths.Rows.Add("Sandbar Analysis Results", SandbarWorkbench.Properties.Settings.Default.Folder_SandbarAnalysisResults);
             grdFolderPaths.Rows[nRow].Tag = "Folder_SandbarAnalysisResults";

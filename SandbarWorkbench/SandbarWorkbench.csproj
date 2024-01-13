@@ -571,6 +571,9 @@
   <ItemGroup>
     <None Include="Resources\import.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\005_HideCameraCardTypesList.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- This is our custom collection step to grab the interop files -->
   <PropertyGroup>

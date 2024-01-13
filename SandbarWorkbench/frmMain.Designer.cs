@@ -159,6 +159,7 @@
             this.remoteCamerasToolStripMenuItem.Name = "remoteCamerasToolStripMenuItem";
             this.remoteCamerasToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCamerasToolStripMenuItem.Text = "Remote Cameras";
+            this.remoteCamerasToolStripMenuItem.Visible = false;
             this.remoteCamerasToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // remoteCameraPictureViewerToolStripMenuItem
@@ -167,6 +168,7 @@
             this.remoteCameraPictureViewerToolStripMenuItem.Name = "remoteCameraPictureViewerToolStripMenuItem";
             this.remoteCameraPictureViewerToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.remoteCameraPictureViewerToolStripMenuItem.Text = "Remote Camera Picture Viewer";
+            this.remoteCameraPictureViewerToolStripMenuItem.Visible = false;
             this.remoteCameraPictureViewerToolStripMenuItem.Click += new System.EventHandler(this.LoadView);
             // 
             // sandbarAnalysisResultsToolStripMenuItem
