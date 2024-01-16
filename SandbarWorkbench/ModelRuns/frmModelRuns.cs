@@ -177,6 +177,19 @@ namespace SandbarWorkbench.ModelRuns
                         }
 
                         transLocal.Commit();
+                        
+                        // Safely attempt to compact the database
+                        try
+                        {
+                            using(SQLiteCommand dbCom = new SQLiteCommand("Vacuum;", conLocal))
+                            {
+                                dbCom.ExecuteNonQuery();
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            // Do nothing.
+                        }
 
                         LoadData();
                     }
