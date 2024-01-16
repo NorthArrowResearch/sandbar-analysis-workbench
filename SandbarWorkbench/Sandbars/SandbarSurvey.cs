@@ -127,7 +127,7 @@ namespace SandbarWorkbench.Sandbars
                 {
                     // Retrieve the newest stage discharge curve for this site to be used with this survey.
                     SDCurve curve = null;
-                    using (SQLiteCommand cmd = new SQLiteCommand("SELECT ParameterA, ParameterB, ParameterC" +
+                    using (SQLiteCommand cmd = new SQLiteCommand("SELECT StageDischargeID, ParameterA, ParameterB, ParameterC, EffectiveDate" +
                         " FROM StageDischargeParams" +
                         " WHERE (SiteID = @SiteID) AND (EffectiveDate < @SurveyDate)" +
                         " ORDER BY EffectiveDate DESC" +
@@ -140,10 +140,12 @@ namespace SandbarWorkbench.Sandbars
                         {
                             survey.SDCurve = new SDCurve(
                                 nSiteID,
+                                curveRead.GetInt64(curveRead.GetOrdinal("StageDischargeID")),
                                 nSiteID.ToString(),
                                 curveRead.GetFloat(curveRead.GetOrdinal("ParameterA")),
                                  curveRead.GetFloat(curveRead.GetOrdinal("ParameterB")),
-                                  curveRead.GetFloat(curveRead.GetOrdinal("ParameterC")));
+                                  curveRead.GetFloat(curveRead.GetOrdinal("ParameterC")),
+                                  curveRead.GetDateTime(curveRead.GetOrdinal("EffectiveDate")));
                         }
                         curveRead.Close();
                     }

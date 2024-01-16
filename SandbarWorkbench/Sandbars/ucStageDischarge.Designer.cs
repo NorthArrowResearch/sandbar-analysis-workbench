@@ -35,12 +35,7 @@
             this.chtData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.grpSamples = new System.Windows.Forms.GroupBox();
-            this.cmdExportSamples = new System.Windows.Forms.Button();
-            this.cmdDelete = new System.Windows.Forms.Button();
-            this.cmdEdit = new System.Windows.Forms.Button();
-            this.cmdAdd = new System.Windows.Forms.Button();
-            this.cboSamples = new System.Windows.Forms.ComboBox();
+            this.cboCurves = new System.Windows.Forms.ComboBox();
             this.cmdExport = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtStage = new System.Windows.Forms.TextBox();
@@ -51,7 +46,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.grpSamples.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDischarge)).BeginInit();
             this.SuspendLayout();
@@ -90,7 +84,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.grpSamples);
             this.panel1.Controls.Add(this.cmdExport);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -99,77 +92,15 @@
             this.panel1.Size = new System.Drawing.Size(633, 49);
             this.panel1.TabIndex = 1;
             // 
-            // grpSamples
+            // cboCurves
             // 
-            this.grpSamples.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpSamples.Controls.Add(this.cmdExportSamples);
-            this.grpSamples.Controls.Add(this.cmdDelete);
-            this.grpSamples.Controls.Add(this.cmdEdit);
-            this.grpSamples.Controls.Add(this.cmdAdd);
-            this.grpSamples.Controls.Add(this.cboSamples);
-            this.grpSamples.Location = new System.Drawing.Point(341, 0);
-            this.grpSamples.Name = "grpSamples";
-            this.grpSamples.Size = new System.Drawing.Size(254, 49);
-            this.grpSamples.TabIndex = 1;
-            this.grpSamples.TabStop = false;
-            this.grpSamples.Text = "Samples";
-            // 
-            // cmdExportSamples
-            // 
-            this.cmdExportSamples.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdExportSamples.Image = global::SandbarWorkbench.Properties.Resources.export;
-            this.cmdExportSamples.Location = new System.Drawing.Point(145, 16);
-            this.cmdExportSamples.Name = "cmdExportSamples";
-            this.cmdExportSamples.Size = new System.Drawing.Size(23, 23);
-            this.cmdExportSamples.TabIndex = 2;
-            this.cmdExportSamples.UseVisualStyleBackColor = true;
-            this.cmdExportSamples.Click += new System.EventHandler(this.cmdExportSamples_Click);
-            // 
-            // cmdDelete
-            // 
-            this.cmdDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdDelete.Image = global::SandbarWorkbench.Properties.Resources.Delete;
-            this.cmdDelete.Location = new System.Drawing.Point(226, 16);
-            this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(23, 23);
-            this.cmdDelete.TabIndex = 0;
-            this.cmdDelete.UseVisualStyleBackColor = true;
-            this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
-            // 
-            // cmdEdit
-            // 
-            this.cmdEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdEdit.Image = global::SandbarWorkbench.Properties.Resources.edit;
-            this.cmdEdit.Location = new System.Drawing.Point(199, 16);
-            this.cmdEdit.Name = "cmdEdit";
-            this.cmdEdit.Size = new System.Drawing.Size(23, 23);
-            this.cmdEdit.TabIndex = 4;
-            this.cmdEdit.UseVisualStyleBackColor = true;
-            this.cmdEdit.Click += new System.EventHandler(this.cmdEdit_Click);
-            // 
-            // cmdAdd
-            // 
-            this.cmdAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdAdd.Image = global::SandbarWorkbench.Properties.Resources.Add;
-            this.cmdAdd.Location = new System.Drawing.Point(172, 16);
-            this.cmdAdd.Name = "cmdAdd";
-            this.cmdAdd.Size = new System.Drawing.Size(23, 23);
-            this.cmdAdd.TabIndex = 3;
-            this.cmdAdd.UseVisualStyleBackColor = true;
-            this.cmdAdd.Click += new System.EventHandler(this.cmdAdd_Click);
-            // 
-            // cboSamples
-            // 
-            this.cboSamples.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboSamples.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboSamples.FormattingEnabled = true;
-            this.cboSamples.Location = new System.Drawing.Point(6, 17);
-            this.cboSamples.Name = "cboSamples";
-            this.cboSamples.Size = new System.Drawing.Size(131, 21);
-            this.cboSamples.TabIndex = 0;
-            this.cboSamples.SelectedIndexChanged += new System.EventHandler(this.cboSamples_SelectedIndexChanged);
+            this.cboCurves.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCurves.FormattingEnabled = true;
+            this.cboCurves.Location = new System.Drawing.Point(328, 17);
+            this.cboCurves.Name = "cboCurves";
+            this.cboCurves.Size = new System.Drawing.Size(146, 21);
+            this.cboCurves.TabIndex = 4;
+            this.cboCurves.SelectedIndexChanged += new System.EventHandler(this.cboCurves_SelectedIndexChanged);
             // 
             // cmdExport
             // 
@@ -180,10 +111,12 @@
             this.cmdExport.Size = new System.Drawing.Size(23, 23);
             this.cmdExport.TabIndex = 2;
             this.cmdExport.UseVisualStyleBackColor = true;
+            this.cmdExport.Visible = false;
             this.cmdExport.Click += new System.EventHandler(this.cmdExport_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboCurves);
             this.groupBox1.Controls.Add(this.txtStage);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.valDischarge);
@@ -191,7 +124,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(336, 49);
+            this.groupBox1.Size = new System.Drawing.Size(480, 49);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Calculator";
@@ -251,7 +184,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chtData)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.grpSamples.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valDischarge)).EndInit();
@@ -270,12 +202,7 @@
         private System.Windows.Forms.NumericUpDown valDischarge;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdExport;
-        private System.Windows.Forms.GroupBox grpSamples;
-        private System.Windows.Forms.Button cmdExportSamples;
-        private System.Windows.Forms.Button cmdDelete;
-        private System.Windows.Forms.Button cmdEdit;
-        private System.Windows.Forms.Button cmdAdd;
-        private System.Windows.Forms.ComboBox cboSamples;
         private System.Windows.Forms.ToolTip tt;
+        private System.Windows.Forms.ComboBox cboCurves;
     }
 }

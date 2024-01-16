@@ -178,6 +178,12 @@ namespace SandbarWorkbench.Sandbars.Analysis
             if (!Helpers.IOHelpers.ValidateFileTextbox("sandbar analysis Main.py python file", ref txtMainPy, cmdBrowseMainPy))
                 return false;
 
+            if (!chkBinned.Checked && ! chkIncremental.Checked && !chkCampsiteAnalysis.Checked)
+            {
+                MessageBox.Show("You must choose to perform one of the three analysis types, incremental, binned or campsite.", Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
             return true;
         }
 

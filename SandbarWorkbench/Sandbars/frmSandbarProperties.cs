@@ -27,7 +27,7 @@ namespace SandbarWorkbench.Sandbars
             m_Site = aSite;
             if (m_Site is SandbarSite)
             {
-                ucStageDischarge1.SDCurve = m_Site.SDCurve;
+                ucStageDischarge1.SiteID = m_Site.SiteID;
                 ucAreaVolumeAnalyses1.SandbarSite = m_Site;
                 ucCampsiteAnalysis1.SandbarSite = m_Site;
                 ConfigureSurveysGrid();
