@@ -148,8 +148,7 @@
             this.browseAnalysisFolderToolStripMenuItem,
             this.exportIncrementalResultsToolStripMenuItem});
             this.cmsResults.Name = "cmsResults";
-            this.cmsResults.Size = new System.Drawing.Size(238, 70);
-            this.cmsResults.Click += new System.EventHandler(this.ExportResults);
+            this.cmsResults.Size = new System.Drawing.Size(238, 48);
             // 
             // browseAnalysisFolderToolStripMenuItem
             // 
@@ -164,6 +163,7 @@
             this.exportIncrementalResultsToolStripMenuItem.Name = "exportIncrementalResultsToolStripMenuItem";
             this.exportIncrementalResultsToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.exportIncrementalResultsToolStripMenuItem.Text = "Export Campsite Area Results...";
+            this.exportIncrementalResultsToolStripMenuItem.Click += new System.EventHandler(this.ExportResults);
             // 
             // ucCampsiteAnalysis
             // 

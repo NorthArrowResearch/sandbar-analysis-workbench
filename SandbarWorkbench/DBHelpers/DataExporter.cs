@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 
 namespace SandbarWorkbench.DBHelpers
 {
@@ -14,7 +15,8 @@ namespace SandbarWorkbench.DBHelpers
         public enum ModelResultTypes
         {
             ResultsIncremental,
-            ResultsBinned
+            ResultsBinned,
+            ResultsCampsites
         }
 
         private string SQLQuery(ModelResultTypes eType)
@@ -72,7 +74,29 @@ namespace SandbarWorkbench.DBHelpers
                         " INNER JOIN LookupListItems I ON SS.InstrumentID = I.ItemID" +
                     " WHERE MR.RunID = @RunID";
                     break;
-
+                case ModelResultTypes.ResultsCampsites:
+                   sSQL = @"
+                        SELECT MR.RunID AS RunID,
+                               S.SiteID AS SiteID,
+                               S.SiteCode5 AS SiteCode,
+                               S.SiteCode AS SiteCode,
+                               SS.SurveyID AS SurveyID,
+                               strftime('%Y-%m-%d', SS.SurveyDate) AS SurveyDate,
+                               SS.TripID TripID,
+                               MR.BinID As BinID,
+                               B.Title AS BinName,
+                               B.LowerDischarge AS LowerDischarge,
+                               B.UpperDischarge AS UpperDischarge,
+                               MR.Area AS Area
+                          FROM ModelResultsCampsites MR
+                               INNER JOIN
+                               SandbarSurveys SS ON MR.SurveyID = SS.SurveyID
+                               INNER JOIN
+                               SandbarSites S ON SS.SiteID = S.SiteID
+                               INNER JOIN
+                               AnalysisBins B ON MR.BinID = B.BinID
+                        WHERE MR.RunId = @RunID";
+                    break;
                 default:
                     throw new Exception("Unhandled model type");
 

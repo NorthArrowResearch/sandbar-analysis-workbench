@@ -219,12 +219,11 @@ namespace SandbarWorkbench.Sandbars
         private void ExportResults(object sender, EventArgs e)
         {
             SandbarWorkbench.DBHelpers.DataExporter exp = new SandbarWorkbench.DBHelpers.DataExporter(DBCon.ConnectionStringLocal);
-            SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsIncremental : SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsBinned;
-
+   
             try
             {
                 long nModelID = ((ModelRun)grdAnalyses.SelectedRows[0].DataBoundItem).RunID;
-                exp.Run(nModelID, eType, true);
+                exp.Run(nModelID, DBHelpers.DataExporter.ModelResultTypes.ResultsCampsites, true);
             }
             catch (Exception ex)
             {
