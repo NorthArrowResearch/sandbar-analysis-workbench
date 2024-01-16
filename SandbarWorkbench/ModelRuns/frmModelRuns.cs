@@ -34,8 +34,6 @@ namespace SandbarWorkbench.ModelRuns
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Date Run", "RunOnLT", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Run By", "RunBy", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Title", "Title", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Local Run", "IsLocalRun", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Synchronized", "Sync", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Remarks", "Remarks", true);
 
             dtFrom.CustomFormat = "d MMM yyyy";
@@ -177,16 +175,16 @@ namespace SandbarWorkbench.ModelRuns
                         }
 
                         transLocal.Commit();
-                        
+
                         // Safely attempt to compact the database
                         try
                         {
-                            using(SQLiteCommand dbCom = new SQLiteCommand("Vacuum;", conLocal))
+                            using (SQLiteCommand dbCom = new SQLiteCommand("Vacuum;", conLocal))
                             {
                                 dbCom.ExecuteNonQuery();
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             // Do nothing.
                         }
@@ -225,7 +223,18 @@ namespace SandbarWorkbench.ModelRuns
         private void ExportResultsCSV(object sender, EventArgs e)
         {
             SandbarWorkbench.DBHelpers.DataExporter exp = new SandbarWorkbench.DBHelpers.DataExporter(DBCon.ConnectionStringLocal);
-            SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes eType = ((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental") ? SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsIncremental : SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsBinned;
+
+
+            SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes eType = DBHelpers.DataExporter.ModelResultTypes.ResultsBinned;
+
+            if (((ToolStripMenuItem)sender).Text.ToLower().Contains("incremental"))
+            {
+                eType = SandbarWorkbench.DBHelpers.DataExporter.ModelResultTypes.ResultsIncremental;
+            }
+            else if (((ToolStripMenuItem)sender).Text.ToLower().Contains("campsite"))
+            {
+                eType = DBHelpers.DataExporter.ModelResultTypes.ResultsCampsites;
+            }
 
             try
             {

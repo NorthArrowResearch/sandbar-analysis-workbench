@@ -45,6 +45,7 @@
             this.editModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteModelRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.exportCampsiteResultsToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -134,11 +135,12 @@
             this.browseLocalModelRunResultsToolStripMenuItem,
             this.exportIncrementalResultsToCSVToolStripMenuItem,
             this.exportBinnedResultsToCSVToolStripMenuItem,
+            this.exportCampsiteResultsToCSVToolStripMenuItem,
             this.toolStripSeparator1,
             this.editModelRunToolStripMenuItem,
             this.deleteModelRunToolStripMenuItem});
             this.cmsGridView.Name = "cmsGridView";
-            this.cmsGridView.Size = new System.Drawing.Size(262, 120);
+            this.cmsGridView.Size = new System.Drawing.Size(262, 164);
             // 
             // browseLocalModelRunResultsToolStripMenuItem
             // 
@@ -185,6 +187,14 @@
             this.deleteModelRunToolStripMenuItem.Text = "Delete Model Run...";
             this.deleteModelRunToolStripMenuItem.Click += new System.EventHandler(this.deleteModelRunToolStripMenuItem_Click);
             // 
+            // exportCampsiteResultsToCSVToolStripMenuItem
+            // 
+            this.exportCampsiteResultsToCSVToolStripMenuItem.Image = global::SandbarWorkbench.Properties.Resources.export;
+            this.exportCampsiteResultsToCSVToolStripMenuItem.Name = "exportCampsiteResultsToCSVToolStripMenuItem";
+            this.exportCampsiteResultsToCSVToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
+            this.exportCampsiteResultsToCSVToolStripMenuItem.Text = "Export Campsite Results to CSV...";
+            this.exportCampsiteResultsToCSVToolStripMenuItem.Click += new System.EventHandler(this.ExportResultsCSV);
+            // 
             // frmModelRuns
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,5 +235,6 @@
         private System.Windows.Forms.ToolStripMenuItem exportIncrementalResultsToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportBinnedResultsToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolTip tt;
+        private System.Windows.Forms.ToolStripMenuItem exportCampsiteResultsToCSVToolStripMenuItem;
     }
 }
