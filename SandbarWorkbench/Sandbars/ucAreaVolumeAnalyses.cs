@@ -65,7 +65,7 @@ namespace SandbarWorkbench.Sandbars
             grdAnalyses.ContextMenuStrip = cmsResults;
 
             // One time load of the analysis bin definitions
-            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
+            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal, AnalysisBins.AnalysisBin.BinnedAnalysisTypes.BinnedAnalysis);
             //CheckedListItem.LoadComboWithListItems(ref chkBins, DBCon.ConnectionStringLocal, "SELECT BinID, Title FROM AnalysisBins ORDER BY LowerElevation", true);
             chkBins.Items.AddRange(Bins.Values.ToArray<AnalysisBins.AnalysisBin>());
 

@@ -39,7 +39,7 @@ namespace SandbarWorkbench.Sandbars
             tt.SetToolTip(cmdExport, "Export a comma separated value (CSV) text file representing points along the stage discharge curve at a user-defined interval.");
             tt.SetToolTip(cmdExportSamples, "Export the stage discharge samples for this sandbar site to a comma separated value (CSV) text file.");
 
-            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal);
+            Bins = AnalysisBins.AnalysisBin.Load(DBCon.ConnectionStringLocal, AnalysisBins.AnalysisBin.BinnedAnalysisTypes.BinnedAnalysis);
             LoadStageDischargeCurve();
 
             cboSamples.DataSource = SDCurve.StageDischargeSamples;

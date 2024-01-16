@@ -107,8 +107,10 @@ namespace SandbarWorkbench.DataGridViews
                     frm = new Segments.frmSegmentPropertiesEdit(ID);
                 else if (TypeInfo.SelectSQL.ToLower().Contains("trips"))
                     frm = new Trips.frmTripPropertiesEdit(ID);
+                else if (TypeInfo.SelectSQL.ToLower().Contains("campsite"))
+                    frm = new AnalysisBins.frmAnalysisBinProperties(AnalysisBins.AnalysisBin.BinnedAnalysisTypes.CampsiteAnalysis, ID);
                 else if (TypeInfo.SelectSQL.ToLower().Contains("bins"))
-                    frm = new AnalysisBins.frmAnalysisBinProperties(ID);
+                    frm = new AnalysisBins.frmAnalysisBinProperties(AnalysisBins.AnalysisBin.BinnedAnalysisTypes.BinnedAnalysis, ID);
                 else
                 {
                     DataGridViews.DataGridViewTypeLookupList dgvlTag = (DataGridViews.DataGridViewTypeLookupList)TypeInfo;

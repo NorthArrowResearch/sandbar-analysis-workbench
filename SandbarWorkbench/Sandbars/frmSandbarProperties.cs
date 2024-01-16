@@ -29,6 +29,7 @@ namespace SandbarWorkbench.Sandbars
             {
                 ucStageDischarge1.SDCurve = m_Site.SDCurve;
                 ucAreaVolumeAnalyses1.SandbarSite = m_Site;
+                ucCampsiteAnalysis1.SandbarSite = m_Site;
                 ConfigureSurveysGrid();
             }
         }

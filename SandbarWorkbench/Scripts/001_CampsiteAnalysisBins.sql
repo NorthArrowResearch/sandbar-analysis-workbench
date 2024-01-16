@@ -6,7 +6,7 @@ INSERT INTO AnalysisBins (Title, LowerDischarge, UpperDischarge, IsActive, Displ
 
 CREATE TABLE ModelResultsCampsites
 (
-	RunID INT NOT NULL REFERENCES ModelRuns(RunID) ON DELETE CASCADE,
+	RunID INT NOT NULL REFERENCES ModelRuns(LocalRunID) ON DELETE CASCADE,
 	SurveyID INT NOT NULL REFERENCES SandbarSurveys(SurveyID) ON DELETE CASCADE,
 	BinID INT NOT NULL REFERENCES AnalysisBins(BinID) ON DELETE CASCADE,
 	CampsiteShapeFile TEXT,
@@ -15,6 +15,7 @@ CREATE TABLE ModelResultsCampsites
 
 CREATE VIEW vwCampsiteResults AS
 SELECT 
+    MR.RunID,
 	S.SiteID,
 	S.SiteCode,
 	SS.SurveyID,

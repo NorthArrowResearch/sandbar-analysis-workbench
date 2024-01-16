@@ -332,6 +332,12 @@
     <Compile Include="Sandbars\ucAreaVolumeAnalyses.Designer.cs">
       <DependentUpon>ucAreaVolumeAnalyses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sandbars\ucCampsiteAnalysis.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Sandbars\ucCampsiteAnalysis.Designer.cs">
+      <DependentUpon>ucCampsiteAnalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sandbars\ucStageDischarge.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -443,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucAreaVolumeAnalyses.resx">
       <DependentUpon>ucAreaVolumeAnalyses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sandbars\ucCampsiteAnalysis.resx">
+      <DependentUpon>ucCampsiteAnalysis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sandbars\ucStageDischarge.resx">
       <DependentUpon>ucStageDischarge.cs</DependentUpon>

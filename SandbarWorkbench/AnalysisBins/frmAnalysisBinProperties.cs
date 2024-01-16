@@ -13,13 +13,15 @@ namespace SandbarWorkbench.AnalysisBins
     public partial class frmAnalysisBinProperties : Form
     {
         public AnalysisBin bin { get; internal set; }
+        public readonly AnalysisBins.AnalysisBin.BinnedAnalysisTypes BinType;
 
-        public frmAnalysisBinProperties(long nBinID = 0)
+        public frmAnalysisBinProperties(AnalysisBin.BinnedAnalysisTypes eType, long nBinID = 0)
         {
             InitializeComponent();
+            BinType = eType;
 
             if (nBinID > 0)
-                bin = AnalysisBin.Load(nBinID);
+                bin = AnalysisBin.Load(nBinID, BinType);
         }
 
         private void frmAnalysisBinProperties_Load(object sender, EventArgs e)
@@ -117,7 +119,7 @@ namespace SandbarWorkbench.AnalysisBins
 
                 if (bin == null)
                 {
-                    bin = new AnalysisBin(txtTitle.Text, fLower, fUpper, chkActive.Checked, pictureBox1.BackColor, Environment.UserName);
+                    bin = new AnalysisBin(txtTitle.Text, fLower, fUpper, chkActive.Checked, BinType, pictureBox1.BackColor, Environment.UserName);
                 }
                 else
                 {

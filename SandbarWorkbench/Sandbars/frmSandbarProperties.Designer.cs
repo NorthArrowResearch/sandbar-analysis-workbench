@@ -64,6 +64,8 @@
             this.cmdGDAWS = new System.Windows.Forms.Button();
             this.cmdPhotos = new System.Windows.Forms.Button();
             this.cmdHelp = new System.Windows.Forms.Button();
+            this.tabCampsiteResults = new System.Windows.Forms.TabPage();
+            this.ucCampsiteAnalysis1 = new SandbarWorkbench.Sandbars.ucCampsiteAnalysis();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdData)).BeginInit();
@@ -76,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBestPhoto)).BeginInit();
             this.tabMap.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabCampsiteResults.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdCancel
@@ -125,6 +128,7 @@
             this.tabControl1.Controls.Add(this.tabSurveys);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPhoto);
+            this.tabControl1.Controls.Add(this.tabCampsiteResults);
             this.tabControl1.Controls.Add(this.tabMap);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 69);
@@ -401,6 +405,25 @@
             this.cmdHelp.UseVisualStyleBackColor = true;
             this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
+            // tabCampsiteResults
+            // 
+            this.tabCampsiteResults.Controls.Add(this.ucCampsiteAnalysis1);
+            this.tabCampsiteResults.Location = new System.Drawing.Point(4, 22);
+            this.tabCampsiteResults.Name = "tabCampsiteResults";
+            this.tabCampsiteResults.Size = new System.Drawing.Size(562, 536);
+            this.tabCampsiteResults.TabIndex = 7;
+            this.tabCampsiteResults.Text = "Campsite Analysis";
+            this.tabCampsiteResults.UseVisualStyleBackColor = true;
+            // 
+            // ucCampsiteAnalysis1
+            // 
+            this.ucCampsiteAnalysis1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucCampsiteAnalysis1.Location = new System.Drawing.Point(0, 0);
+            this.ucCampsiteAnalysis1.Name = "ucCampsiteAnalysis1";
+            this.ucCampsiteAnalysis1.SandbarSite = null;
+            this.ucCampsiteAnalysis1.Size = new System.Drawing.Size(562, 536);
+            this.ucCampsiteAnalysis1.TabIndex = 0;
+            // 
             // frmSandbarProperties
             // 
             this.AcceptButton = this.cmdCancel;
@@ -439,6 +462,7 @@
             this.tabMap.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabCampsiteResults.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,5 +504,7 @@
         private System.Windows.Forms.Button cmdPhotos;
         private System.Windows.Forms.Button cmdHelp;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabCampsiteResults;
+        private ucCampsiteAnalysis ucCampsiteAnalysis1;
     }
 }

@@ -11,7 +11,7 @@ namespace SandbarWorkbench.AnalysisBins
     class AnalysisBinCRUD : DBHelpers.CRUDManager
     {
         public AnalysisBinCRUD()
-            : base("AnalysisBins", "BinID", new string[] { "Title", "LowerDischarge", "UpperDischarge", "IsActive", "DisplayColor" })
+            : base("AnalysisBins", "BinID", new string[] { "Title", "LowerDischarge", "UpperDischarge", "IsActive", "DisplayColor", "BinType" })
         {
 
         }
@@ -29,10 +29,13 @@ namespace SandbarWorkbench.AnalysisBins
                 dbCom.Parameters.AddWithValue(PrimaryKey, DBNull.Value);
             }
 
+
+
             dbCom.Parameters.AddWithValue("Title", obj.Title);
             dbCom.Parameters.AddWithValue("IsActive", ((AnalysisBin)obj).IsActive);
             dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
             dbCom.Parameters.AddWithValue("DisplayColor", ColorTranslator.ToHtml(Color.FromArgb(((AnalysisBin)obj).DisplayColor.ToArgb())));
+            dbCom.Parameters.AddWithValue("BinType", ((AnalysisBin)obj).BinType == AnalysisBin.BinnedAnalysisTypes.BinnedAnalysis ? "AnalysisBins" : "CampsiteBins");
 
             SQLiteParameter pLowerdischarge = dbCom.Parameters.Add("LowerDischarge", System.Data.DbType.Double);
             if (((AnalysisBin)obj).LowerDischarge.HasValue)

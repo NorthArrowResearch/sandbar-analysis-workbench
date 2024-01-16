@@ -47,17 +47,34 @@ namespace SandbarWorkbench.Sandbars
         }
     }
 
+    public class CampsiteResults
+    {
+        public readonly long SurveyID;
+        public readonly DateTime SurveyDate;
+        // bin ID to area
+        public readonly Dictionary<long, double> BinnedResults;
+
+        public CampsiteResults(long surveyID, DateTime surveyDate)
+        {
+            SurveyID = surveyID;
+            SurveyDate = surveyDate;
+            BinnedResults = new Dictionary<long, double>();
+        }
+    }
+
     public class ModelResults
     {
         public long ModelID { get; internal set; }
         public string Title { get; internal set; }
         public Dictionary<long, SectionTypeResults> SectionTypes { get; internal set; }
+        public Dictionary<long, CampsiteResults> CampsiteResults { get; internal set; }
 
         public ModelResults(string sDBCon, long SiteID, long nModelID, string sTitle)
         {
             ModelID = nModelID;
             Title = sTitle;
             SectionTypes = new Dictionary<long, SectionTypeResults>();
+            CampsiteResults = new Dictionary<long, CampsiteResults>();
 
             using (SQLiteConnection dbCon = new SQLiteConnection(sDBCon))
             {
@@ -101,6 +118,23 @@ namespace SandbarWorkbench.Sandbars
                     long nBinID = dbRead.GetInt64(dbRead.GetOrdinal("BinID"));
                     //System.Diagnostics.Debug.Assert(!dResults[nSurveyID][nSectionTypeID].Elevations.ContainsKey(fElevation), "There should only be one value per elevation");
                     SectionTypes[nSectionTypeID].Surveys[nSurveyID].BinnedResults[nBinID] = new Values(dbRead.GetDouble(dbRead.GetOrdinal("Area")), dbRead.GetDouble(dbRead.GetOrdinal("Volume")));
+                }
+                dbRead.Close();
+
+                dbCom = new SQLiteCommand("SELECT * FROM vwCampsiteResults WHERE (SiteID = @SiteID) AND (RunID = @ModelID)", dbCon);
+                dbCom.Parameters.AddWithValue("@SiteID", SiteID);
+                dbCom.Parameters.AddWithValue("@ModelID", ModelID);
+
+                dbRead = dbCom.ExecuteReader();
+                while (dbRead.Read())
+                {
+                    long nSurveyID = dbRead.GetInt64(dbRead.GetOrdinal("SurveyID"));
+                    long binID = dbRead.GetInt64(dbRead.GetOrdinal("BinID"));
+
+                    if (!CampsiteResults.ContainsKey(nSurveyID))
+                        CampsiteResults[nSurveyID] = new CampsiteResults(nSurveyID, dbRead.GetDateTime(dbRead.GetOrdinal("SurveyDate")));
+
+                    CampsiteResults[nSurveyID].BinnedResults[binID] = dbRead.GetDouble(dbRead.GetOrdinal("Area"));
                 }
                 dbRead.Close();
             }
