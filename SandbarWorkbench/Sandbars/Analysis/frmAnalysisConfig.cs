@@ -178,7 +178,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             if (!Helpers.IOHelpers.ValidateFileTextbox("sandbar analysis Main.py python file", ref txtMainPy, cmdBrowseMainPy))
                 return false;
 
-            if (!chkBinned.Checked && ! chkIncremental.Checked && !chkCampsiteAnalysis.Checked)
+            if (!chkBinned.Checked && !chkIncremental.Checked && !chkCampsiteAnalysis.Checked)
             {
                 MessageBox.Show("You must choose to perform one of the three analysis types, incremental, binned or campsite.", Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
@@ -213,6 +213,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     lCommands.Insert(0, "echo off");
                     lCommands.Add("echo off");
                     lCommands.Add(string.Format("python {0} {1}", txtMainPy.Text, fiInputs.FullName));
+                    // Hack: The first exist drops out of Python environment
+                    // Second exit drops out of the batch terminal environment
+                    lCommands.Add("exit");
                     lCommands.Add("exit");
 
                     ProcessStartInfo psi = new ProcessStartInfo("cmd.exe");
@@ -221,7 +224,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     psi.RedirectStandardInput = true;
                     psi.RedirectStandardOutput = true;
                     psi.RedirectStandardError = true;
-
                     psi.WindowStyle = ProcessWindowStyle.Hidden;
 
                     System.Diagnostics.Process proc = new Process();
@@ -244,7 +246,6 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     proc.BeginOutputReadLine();
                     proc.BeginErrorReadLine();
 
-
                     int cmdIndex = 0;
                     while (!proc.HasExited)
                     {
@@ -262,7 +263,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     }
 
                     string sMessage = string.Empty;
-                    if (fiIncremental.Exists || fiBinned.Exists)
+                    bool bIncrementalResults = fiIncremental != null && fiIncremental.Exists;
+                    bool bBinnedResults = fiBinned != null && fiBinned.Exists;
+                    bool bCampsiteResults = fiCampsites != null && fiCampsites.Exists;
+                    if (bIncrementalResults || bBinnedResults || bCampsiteResults)
                     {
                         ResultsScavenger scav = new ResultsScavenger(DBCon.ConnectionStringLocal);
                         scav.Run(txtTitle.Text, txtRemarks.Text, fiInputs, fiIncremental, fiBinned, fiCampsites);
