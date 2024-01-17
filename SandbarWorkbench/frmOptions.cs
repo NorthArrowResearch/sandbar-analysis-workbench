@@ -198,6 +198,7 @@ namespace SandbarWorkbench
             SandbarWorkbench.Properties.Settings.Default.SandbarAnalysisMainPy = txtMainPy.Text;
             SandbarWorkbench.Properties.Settings.Default.CompExtents_ShapeFile = txtCompExtents.Text;
             SandbarWorkbench.Properties.Settings.Default.CampsitesFolder = txtCampsitePath.Text;
+            Properties.Settings.Default.GDALWarp = txtGDALWarp.Text;
 
             // Date Display Formats
             SandbarWorkbench.Properties.Settings.Default.DateFormat_SurveyDates = GetDateFormatFromCombo(ref cboSurveyDates);
