@@ -1,5 +1,6 @@
 ---
 title: Remote Cameras Setups
+layout: default
 ---
 
 The GCMRC Workbench maintains a list of remote camera setups within the Grand Canyon. Each setup represents an individual camera location and there might be more than one camera pointing at a single sandbar site. 
@@ -36,5 +37,5 @@ Right click on a remote camera setup in the main grid and then choose `Delete Se
 
 ## Video Demonstration
 
-{{< youtube 0EqazKKqb08>}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=0EqazKKqb08" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 

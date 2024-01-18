@@ -1,5 +1,6 @@
 ---
 title: Sandbar Properties
+layout: default
 ---
 
 Viewing the properties of a sandbar is achieved by opening the list of sandbar sites from the `Views` menu and then then double clicking the site in question. Note that this opens a *read only* view of the sandbar properties. To *edit* the properties of a sandbar, right click on the site and select `Edit`. There is a video demonstration of the sandbar site properties view at the bottom of this page.
@@ -38,4 +39,4 @@ The remarks tab shows the long form text description for the site. Again, this i
 
 ## Video Demonstration
 
-{{< youtube BqjUJFIzrTs >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=BqjUJFIzrTs" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

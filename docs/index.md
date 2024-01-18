@@ -1,5 +1,6 @@
 ---
 title: Home
+layout: home
 ---
 
 The [Grand Canyon Monitoring and Research Center](http://www.gcmrc.gov) (GCMRC) has collected and curated a sizeable dataset pertaining to the Grand Canyon. Much of these data are topographic in nature, representing both land and bathymetric surveys, as well as other associated information such as photography. Many of the digital data series originate from the early 1990s and are curated at the GCMRC's offices in Flagstaff, AZ and used for various analyses to answer key management questions surrounding the Grand Canyon.
@@ -14,5 +15,5 @@ Currently, the main analysis that is automated within the GCMRC workbench is the
 
 You can obtain the [GCMRC Workbench here](/download), or read the technical reference section about the [sandbar analysis](/technical_reference/sandbar_analysis_intro). If you are already familar with the GCMRC Workbench then you can download it by clicking the button below:
 
-<a class="btn btn-primary fa fa-cloud-download" href="http://releases.northarrowresearch.com/SandbarWorkbench/setup.exe">&nbsp;&nbsp;Sandbar Workbench<br/><small><em>64-bit</em></small></a></li>
-</ul>
+
+[Sandbar Workbench (64-bit)](http://releases.northarrowresearch.com/SandbarWorkbench/setup.exe){: .btn .btn-blue }

@@ -1,5 +1,6 @@
 ---
 title: Managing Reference Information
+layout: default
 ---
 
 The GCMRC Workbench maintains several lists of reference information that are editable by the user. These lists are accessible from the `Views` item on the main menu.

@@ -1,5 +1,6 @@
 ---
 title: Database Object Model
+layout: default
 ---
 
 The GCMRC Workbench relies on two databases. The first is a [SQLite](https://www.sqlite.org) database that is installed on each user's computer that has the Workbench installed. This is the database that the Workbench software interacts with directly and is the only database that users need to run the software. It contains all the lookup information required to run the sandbar analysis, as well as the results of any sandbar analysis model runs that an individual users has performed.

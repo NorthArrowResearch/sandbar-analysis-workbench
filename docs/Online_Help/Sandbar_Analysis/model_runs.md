@@ -1,6 +1,8 @@
 ---
 title: Model Runs
+layout: default
 ---
+
 The results of each sandbar analysis run are stored in the GCMRC Workbench database. The database only stores the tabular results (areas and volumes for both the incremental and binned analysis) and does not store all the miscellaneous output rasters and files.
 
 The list of historical sandbar analyses can be viewed in the workbench by selecting `Sandbar Analysis Results` from the main `Views` menu. This brings up the list of all analysis results currently stored in the local workbench database. It includes runs that were actually performed on the local computer as well as runs that were performed on other computers and downloaded (see synchronization details below). The list of analysis runs can be filtered by date or by whether each run was performed on the local computer or not.
@@ -55,4 +57,4 @@ SiteID	SiteCode	SectionID	Instrument	Uncertainty	SectionTypeID	SectionType	Surve
 
 ## Video Demonstration
 
-{{< youtube 80c4FSIMeGU >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=80c4FSIMeGU" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

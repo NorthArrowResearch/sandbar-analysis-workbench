@@ -1,5 +1,6 @@
 ---
 title: Sandbar Analysis Results
+layout: default
 ---
 Perform the following steps to view the results of the sandbar analysis. There is a video demonstration of this feature at the bottom of this page.
 
@@ -37,4 +38,4 @@ The tabular results for each analysis can be exported to comma separated value (
 
 ## Video Demonstration
 
-{{< youtube dqiErVO1r4Y >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=dqiErVO1r4Y" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

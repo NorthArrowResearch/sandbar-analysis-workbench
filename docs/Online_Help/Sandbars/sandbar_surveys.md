@@ -1,5 +1,6 @@
 ---
 title: Sandbar Surveys
+layout: default
 ---
 
 Each time that data are collected at a sandbar site is considered a survey. The collection of both topographic and bathymetric data is considered one survey, even though the data are collected by different means (the former by total station and the latter by boat). Note that even if a sandbar site is surveyed over more than one day, the entire survey is still tagged with a single date, nominally the first day on which surveyed started.
@@ -30,4 +31,4 @@ Right click to edit the selected survey or to add or delete a new one. The form 
 
 ## Video Demonstration
 
-{{< youtube iVCHKBjzblQ >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=Rkr39f0ic8oLQdH2" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

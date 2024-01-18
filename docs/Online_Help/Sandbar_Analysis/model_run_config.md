@@ -1,5 +1,6 @@
 ---
 title: Configuring Sandbar Analysis Script
+layout: default
 ---
 
 The sandbar analysis is structured as a separate Python script and not directly built into the workbench. This makes it possible - albeit with a little effort and know-how - to run the sandbar analysis as a standalone script. The following instructions describes how to obtain the sandbar analysis Python script and configure it to run from within the workbench. Instructions for running the sandbar analysis as a standalone script are at the bottom of this page.

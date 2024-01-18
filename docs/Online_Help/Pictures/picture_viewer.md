@@ -1,5 +1,6 @@
 ---
 title: Picture Viewer
+layout: default
 ---
 
 The Workbench picture viewer is a proof of concept, experimental feature that shows photos related to sandbar sites stored on a network. There is a video demonstration of this feature at the bottom of this page.
@@ -18,4 +19,4 @@ Use the dropdown box at the top of the photo viewer to select an individual remo
 
 ## Video Demonstration
 
-{{< youtube vq83vCsLG3U >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=vq83vCsLG3U" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

@@ -1,5 +1,6 @@
 ---
 title: Options
+layout: default
 ---
 Several software settings can be controled via the **Options** feature that is found under the main `Tools` menu in the GCMRC Workbench. The settings are grouped into a series of tabs that are described below. A video demonstrating each of these tabs appears at the bottom of this page.
 
@@ -55,4 +56,4 @@ The sandbar analysis code uses several important Python configuration settings. 
 
 ## Video Demonstration
 
-{{< youtube -a0kMyvbj44 >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=a0kMyvbj44" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

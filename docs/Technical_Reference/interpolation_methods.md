@@ -1,5 +1,6 @@
 ---
 title: Raster Interpolation Methods
+layout: default
 ---
 
 ***NB: There is currently [a bug (Github Issue #2)](https://github.com/NorthArrowResearch/sandbar-analysis/issues/2) to do with raster interpolations methods. The following will only apply after this bug has been fixed.***

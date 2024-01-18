@@ -1,5 +1,6 @@
 ---
 title: Running the Sandbar Analysis
+layout: default
 ---
 
 Before you attempt to run the sandbar analysis you should read and follow the instructions laid out on the [sandbar analysis configuring](/online_help/sandbar_analysis/model_run_config) page. There is also a video at the bottom of this page that demonstrates the steps described on this page.
@@ -41,5 +42,4 @@ The sandbar analysis has been configured to allow the user the filter which surv
 
 ## Video Demonstration
 
-{{< youtube 1v-kJ2Ryb9M >}}
-
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=80c4FSIMeGU" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

@@ -96,4 +96,4 @@ discharge,stage
 
 ## Video Demonstration
 
-{{< youtube 3wfGRSIN8MY >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=3wfGRSIN8MY" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

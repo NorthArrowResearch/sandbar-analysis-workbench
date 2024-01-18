@@ -1,5 +1,6 @@
 ---
 title: Python Environment Configuration
+layout: default
 ---
 
 The sandbar analysis code is written in [Python](https://www.python.org/) script that uses several third party libraries, most notably the [GDAL](http://www.gdal.org/) open source GIS software. When the workbench launches the sandbar analysis script it's extremely important that the Python environment is correctly configured so that each of these libraries can be referenced correctly.

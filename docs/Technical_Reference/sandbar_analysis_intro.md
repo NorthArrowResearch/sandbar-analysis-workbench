@@ -1,5 +1,6 @@
 ---
 title: Sandbar Analysis Methodology
+layout: default
 ---
 
 The sandbar analysis processes sandbar survey data and calculates the area and volume of sand exposed at various discharges. The current version of this analysis takes elevations at point locations and interpolates rasters from these points. The rasters are then sliced at elevations that correspond to river discharges and reports the area and volume of sand exposed. This new version was developed by North Arrow Research and replaces an earlier methodology developed by GCMRC that produced the same results by analyzing TIN surfaces.
@@ -62,4 +63,4 @@ The analysis measures the area and volume of sand in each bin, excluding the min
 
 The following video demonstration walks through the input and output files produced by the sandbar analysis. It describes the folder and file structure used and how to interpret the results.
 
-{{< youtube 3bCgCKY34A4 >}}
+<iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=3bCgCKY34A4" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

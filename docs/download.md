@@ -1,5 +1,6 @@
 ---
 title: Download
+layout: default
 ---
 
 The GCMRC Workbench is a standalone, desktop software application. To install it you download and run the setup.exe application linked below. This will install the Cross Section Viewer in your user profile folder (not the Windows Program Files folder). Read the [release notes](/release_notes) for information on the latest features and updates.

@@ -1,5 +1,6 @@
 ---
 title: Computational Extents
+layout: default
 ---
 
 A ShapeFile that delineates each sandbar site is used within the sandbar analysis to clip surveys down to the appropriate sections of channel. This ShapeFile is a mandatory prequisite for running the sandbar analysis (but not for viewing prior runs) and it must meet the following requirements:

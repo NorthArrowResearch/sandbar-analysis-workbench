@@ -1,5 +1,6 @@
 ---
 title: Extending the Workbench Database
+layout: default
 ---
 
 The following instructions describe how to make changes to the USGS Workbench database structure. This is needed if you want to add new tables or views to support new Workbench features.

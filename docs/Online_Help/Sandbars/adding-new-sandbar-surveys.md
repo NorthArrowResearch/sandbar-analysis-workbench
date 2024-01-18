@@ -1,6 +1,6 @@
 ---
 title: Adding New Sandbar Surveys
-
+layout: default
 ---
 
 There are several steps that must be performed when adding new sandbar surveys to the Workbench. These steps are required and need to be performed correctly for the sandbar analysis to work with the new surveys.
