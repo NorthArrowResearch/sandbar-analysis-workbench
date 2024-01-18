@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using System.Data.SQLite;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SandbarWorkbench.Trips
 {
@@ -80,7 +81,7 @@ namespace SandbarWorkbench.Trips
             }
 
             // Load the instruments
-            using (SQLiteCommand dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @ListID", dbTrans.Connection, dbTrans))
+            using (SQLiteCommand dbCom = new SQLiteCommand("SELECT ItemID, Title FROM LookupListItems WHERE ListID = @InstrumentListID", dbTrans.Connection, dbTrans))
             {
                 dbCom.Parameters.AddWithValue("InstrumentListID", Properties.Settings.Default.ListID_InstrumentTypes);
                 SQLiteDataReader dbRead = dbCom.ExecuteReader();
@@ -106,6 +107,9 @@ namespace SandbarWorkbench.Trips
             // Insert the one and only trip record
             long tripID = InsertTrip(dbTrans, dtTripDate.Value, txtRemarks.Text, Environment.UserName);
 
+            // SiteID keyed to dictionary of survey dates keyed to survey IDs
+            Dictionary<long, Dictionary<DateTime, long>> surveyDates = new Dictionary<long, Dictionary<DateTime, long>>();
+
             using (TextFieldParser parser = new TextFieldParser(file_path))
             {
                 parser.TextFieldType = FieldType.Delimited;
@@ -113,7 +117,6 @@ namespace SandbarWorkbench.Trips
 
                 int lineNumber = 0;
                 string[] headers = null;
-
 
                 // Iterate through each row in the CSV file
                 while (!parser.EndOfData)
@@ -137,7 +140,7 @@ namespace SandbarWorkbench.Trips
                     int sectionTypeIndex = GetFieldIndex(headers, "SectionType");
 
                     // Check for empty values and print line number
-                    if (fields.Length >= 2)
+                    if (fields.Length == 5)
                     {
                         if (siteCodeIndex >= 0 && surveyDateIndex >= 0 &&
                             (string.IsNullOrEmpty(fields[siteCodeIndex]) || string.IsNullOrEmpty(fields[surveyDateIndex])))
@@ -146,14 +149,15 @@ namespace SandbarWorkbench.Trips
                         }
 
                         string siteCode5 = fields[siteCodeIndex];
-                        if (!sites.ContainsKey(siteCode5))
+                        if (string.IsNullOrEmpty(siteCode5) || !sites.ContainsKey(siteCode5))
                             throw new ArgumentException(string.Format("The site '{0}' on line number {1} does not exist.", siteCode5, lineNumber));
-                        long surveyID = InsertSurvey(dbTrans, sites[siteCode5], tripID, Environment.UserName);
 
                         string instrument = fields[instrumentIndex];
                         string uncertaintyString = fields[uncertaintyIndex];
                         string sectionType = fields[sectionTypeIndex];
+                        string surveyDate = fields[surveyDateIndex];
                         float uncertainty;
+                        DateTime surveyDateVal;
 
                         if (!instruments.ContainsKey(instrument))
                             throw new ArgumentException(string.Format("The instrument '{0}' on line number {1} does not exist.", instrument, lineNumber));
@@ -161,31 +165,43 @@ namespace SandbarWorkbench.Trips
                         if (!sectionTypes.ContainsKey(sectionType))
                             throw new ArgumentException(string.Format("The section type '{0}' on line number {1} does not exist.", sectionType, lineNumber));
 
+                        if (!DateTime.TryParseExact(surveyDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out surveyDateVal))
+                            throw new ArgumentException(string.Format("The survey date '{0}' is not of the correct YYYY-MM-DD format on line {1}.", surveyDate, lineNumber));
+
                         if (!float.TryParse(uncertaintyString, out uncertainty))
                             throw new ArgumentException(string.Format("The uncertainty '{0}' on line number {1} cannot be converted to a floating point number.", uncertainty, lineNumber));
 
+                        long surveyID = InsertSurvey(dbTrans, sites[siteCode5], tripID, surveyDateVal, surveyDates);
                         InsertSection(dbTrans, surveyID, instruments[instrument], sectionTypes[sectionType], uncertainty, Environment.UserName);
-
                     }
                 }
             }
         }
 
-        private long InsertSurvey(SQLiteTransaction dbTrans, long siteid, long tripid, string userName)
+        private long InsertSurvey(SQLiteTransaction dbTrans, long siteid, long tripid, DateTime surveyDate, Dictionary<long, Dictionary<DateTime, long>> surveyDates)
         {
+            if (surveyDates.ContainsKey(siteid))
+                if (surveyDates[siteid].ContainsKey(surveyDate))
+                    return surveyDates[siteid][surveyDate];
+
             using (SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO SandbarSurveys (SiteID, TripID, AddedBy, UpdatedBy) VALUES (@SiteID, @TripID, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans))
             {
                 dbCom.Parameters.AddWithValue("SiteID", siteid);
                 dbCom.Parameters.AddWithValue("TripID", tripid);
-                dbCom.Parameters.AddWithValue("EditedBy", userName);
+                dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
                 dbCom.ExecuteNonQuery();
+
+                if (!surveyDates.ContainsKey(siteid))
+                    surveyDates[siteid] = new Dictionary<DateTime, long>();
+
+                surveyDates[siteid][surveyDate] = dbCom.Connection.LastInsertRowId;
                 return dbCom.Connection.LastInsertRowId;
             }
         }
 
         private long InsertTrip(SQLiteTransaction dbTrans, DateTime tripDate, string remarks, string userName)
         {
-            using (SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO Trips (TripDate, Remarks, AddedBy, UpdatedBy) VALUES (@TripID, @Remarks, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans))
+            using (SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO Trips (TripDate, Remarks, AddedBy, UpdatedBy) VALUES (@TripDate, @Remarks, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans))
             {
                 dbCom.Parameters.AddWithValue("TripDate", tripDate);
                 if (string.IsNullOrEmpty(remarks))
@@ -217,7 +233,7 @@ namespace SandbarWorkbench.Trips
         {
             int idx = Array.IndexOf(headers, fieldName);
             if (idx < 0)
-                throw new ArgumentException(String.Format("Cannot find the column called {0}", fieldName));
+                throw new ArgumentException(String.Format("Cannot find the column called '{0}'.", fieldName));
             return idx;
         }
     }
