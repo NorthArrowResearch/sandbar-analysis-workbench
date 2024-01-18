@@ -87,7 +87,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     ModelRunID = (long)dbCom.ExecuteScalar();
 
                     // Incremental results
-                    if (System.IO.File.Exists(fiIncremental.FullName))
+                    if (fiIncremental != null && System.IO.File.Exists(fiIncremental.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectiontypeid,section,sectionid,elevation,area,vol
                         string[] sIncrementalColumns = { "SectionID", "Elevation", "Area", "Volume" };
@@ -95,7 +95,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     }
 
                     // Binned results
-                    if (System.IO.File.Exists(fiBinned.FullName))
+                    if ( fiBinned != null && System.IO.File.Exists(fiBinned.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
                         string[] sBinnedColumns = { "SectionID", "BinID", "Area", "Volume" };
@@ -103,10 +103,10 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     }
 
                     // Campsite results
-                    if (System.IO.File.Exists(fiCampsites.FullName))
+                    if (fiCampsites != null && System.IO.File.Exists(fiCampsites.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
-                        string[] sCampsiteColumns = { "SurveyID", "BinID", "CampsiteShapeFile", "Area" };
+                        string[] sCampsiteColumns = { "SurveyID", "BinID", "Area" };
                         CampsiteResults = ProcessCSVFile(ref dbTrans, fiCampsites, ModelRunID, "ModelResultsCampsites", sCampsiteColumns);
                     }
 
@@ -116,8 +116,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
                 catch (Exception ex)
                 {
                     dbTrans.Rollback();
-                    ex.Data["Incremental File"] = fiIncremental.FullName;
-                    ex.Data["Binned File"] = fiBinned.FullName;
+                    ex.Data["Incremental File"] = fiIncremental != null ? fiIncremental.FullName : "";
+                    ex.Data["Binned File"] = fiBinned != null ? fiBinned.FullName : "";
+                    ex.Data["Campsites File"] = fiCampsites != null ? fiCampsites.FullName : "";
                     throw;
                 }
             }
@@ -142,7 +143,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbTrans.Connection, dbTrans);
 
             // Create a parameter for each column. Column names ending in ID are long integers, everything else is double
-            sColumns.ToList<string>().ForEach(x => dbCom.Parameters.Add(x.ToLower(), x.ToLower().EndsWith("id") ? System.Data.DbType.Int64 : System.Data.DbType.Double));
+            sColumns.ToList<string>().ForEach(x => dbCom.Parameters.Add(x, x.ToLower().EndsWith("id") ? System.Data.DbType.Int64 : System.Data.DbType.Double));
 
             using (System.IO.StreamReader sr = new System.IO.StreamReader(fiCSV.FullName))
             {
