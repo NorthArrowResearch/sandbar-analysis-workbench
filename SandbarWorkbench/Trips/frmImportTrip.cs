@@ -184,10 +184,11 @@ namespace SandbarWorkbench.Trips
                 if (surveyDates[siteid].ContainsKey(surveyDate))
                     return surveyDates[siteid][surveyDate];
 
-            using (SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO SandbarSurveys (SiteID, TripID, AddedBy, UpdatedBy) VALUES (@SiteID, @TripID, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans))
+            using (SQLiteCommand dbCom = new SQLiteCommand("INSERT INTO SandbarSurveys (SiteID, TripID, SurveyDate, AddedBy, UpdatedBy) VALUES (@SiteID, @TripID, @SurveyDate, @EditedBy, @EditedBy)", dbTrans.Connection, dbTrans))
             {
                 dbCom.Parameters.AddWithValue("SiteID", siteid);
                 dbCom.Parameters.AddWithValue("TripID", tripid);
+                dbCom.Parameters.AddWithValue("SurveyDate", surveyDate);
                 dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
                 dbCom.ExecuteNonQuery();
 
