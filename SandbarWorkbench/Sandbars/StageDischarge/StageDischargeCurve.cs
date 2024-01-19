@@ -99,9 +99,9 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                             siteID,
                             reader.GetInt64(reader.GetOrdinal("StageDischargeID")),
                         siteID.ToString(),
-                   naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref reader, "ParameterA"),
-                       naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref reader, "ParameterB"),
-                        naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(ref reader, "ParameterC"),
+                   naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(reader, "ParameterA"),
+                       naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(reader, "ParameterB"),
+                        naru.db.sqlite.SQLiteHelpers.GetSafeValueNDbl(reader, "ParameterC"),
                         reader.GetDateTime(reader.GetOrdinal("EffectiveDate"))
                         ));
                     }

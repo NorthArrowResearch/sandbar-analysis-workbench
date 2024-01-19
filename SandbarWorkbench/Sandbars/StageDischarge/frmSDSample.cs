@@ -172,8 +172,8 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
                     else
                         dbCom.Parameters.AddWithValue("SampleDate", DBNull.Value);
 
-                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleTime.Text, "SampleTime");
-                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtSampleCode.Text, "SampleCode");
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(dbCom, txtSampleTime.Text, "SampleTime");
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(dbCom, txtSampleCode.Text, "SampleCode");
                     dbCom.Parameters.AddWithValue("ElevationLocal", chkLocalElevation.Checked);
                     dbCom.Parameters.AddWithValue("ElevationSP", valSPElevation.Value);
 
@@ -184,7 +184,7 @@ namespace SandbarWorkbench.Sandbars.StageDischarge
 
                     dbCom.Parameters.AddWithValue("Flow", valFlow.Value);
                     dbCom.Parameters.AddWithValue("FlowMS", valFlowMS.Value);
-                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, txtComments.Text, "Comments");
+                    naru.db.sqlite.SQLiteHelpers.AddStringParameterN(dbCom, txtComments.Text, "Comments");
                     dbCom.Parameters.AddWithValue("EditedBy", Environment.UserName);
 
                     dbCom.ExecuteNonQuery();

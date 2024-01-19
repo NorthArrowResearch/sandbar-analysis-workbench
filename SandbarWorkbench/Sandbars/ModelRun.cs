@@ -52,7 +52,7 @@ namespace SandbarWorkbench.Sandbars
                         , (string)dbRead["Title"]
                         , (long)dbRead["RunTypeID"]
                         , (string)dbRead["RunType"]
-                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AnalysisFolder")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(dbRead, "AnalysisFolder")
                         , (DateTime)dbRead["AddedOn"]
                         , (string)dbRead["AddedBy"]
                         ));

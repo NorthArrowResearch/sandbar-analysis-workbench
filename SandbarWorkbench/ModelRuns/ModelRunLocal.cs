@@ -75,11 +75,11 @@ namespace SandbarWorkbench.ModelRuns
                         ID
                         , dbRead.GetString(dbRead.GetOrdinal("Title"))
                         , dbRead.GetBoolean(dbRead.GetOrdinal("Sync"))
-                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "Remarks")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(dbRead, "Remarks")
                         , dbRead.GetInt64(dbRead.GetOrdinal("RunTypeID"))
                         , dbRead.GetBoolean(dbRead.GetOrdinal("Published"))
                         , dbRead.GetString(dbRead.GetOrdinal("InstallationGuid"))
-                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(ref dbRead, "AnalysisFolder")
+                        , naru.db.sqlite.SQLiteHelpers.GetSafeValueStr(dbRead, "AnalysisFolder")
                         , dbRead.GetDateTime(dbRead.GetOrdinal("AddedOn"))
                         , dbRead.GetString(dbRead.GetOrdinal("AddedBy"))
                         , dbRead.GetDateTime(dbRead.GetOrdinal("UpdatedOn"))
@@ -127,7 +127,7 @@ namespace SandbarWorkbench.ModelRuns
             SQLiteCommand dbCom = new SQLiteCommand("UPDATE ModelRuns SET Title = @Title, Remarks = @Remarks, UpdatedOn = @UpdatedOn, UpdatedBy = @UpdatedBy WHERE LocalRunID = @LocalRunID", dbTrans.Connection, dbTrans);
             dbCom.Parameters.AddWithValue("LocalRunID", ID);
             dbCom.Parameters.AddWithValue("Title", sTitle);
-            naru.db.sqlite.SQLiteHelpers.AddStringParameterN(ref dbCom, sRemarks, "Remarks");
+            naru.db.sqlite.SQLiteHelpers.AddStringParameterN(dbCom, sRemarks, "Remarks");
             dbCom.Parameters.AddWithValue("UpdatedOn", DateTime.Now);
             dbCom.Parameters.AddWithValue("UpdatedBy", Environment.UserName);
 
