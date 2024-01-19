@@ -6,6 +6,18 @@ layout: default
 
 # Release Notes
 
+### 2.0.0 - 22 Jan 2024
+
+* New [Campsite Analysis](/Technical_Reference/sandbar_analysis_intro.html#7-campsite-analysis).
+* Ability to [run any of the three analyses](/Online_Help/Sandbar_Analysis/sandbar_analysis_run.html) (incremental, binned or campsite) separately.
+* Ability to reuse rasters to speed up processing.
+* Maximum sandbar surface created and used to calculate max volume and area (by subtracting the minimum surface).
+* Multiple [stage discharges](/Online_Help/Sandbars/sd_sample.html) per sandbar site.
+* Ability to [import trip data from CSV](/Online_Help/Views/Managing-Reference-Information.html#import-trip).
+* Discontinued the centralized MySQL database. The workbench now uses a single, standalone SQLite database.
+* Sandbar Python script updated to Python3 and uses PEP8 coding standards.
+* Sandbar Workbench upgraded to .NetFramework 4.6.2.
+
 ### 1.0.13 - 9 Nov 2017
 
 * Fixing mis-alignment chart bars when displaying binned sandbar analysis results.

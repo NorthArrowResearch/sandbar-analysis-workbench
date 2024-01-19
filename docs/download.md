@@ -15,8 +15,8 @@ The GCMRC Workbench is a standalone, desktop software application. To install it
 The following software are required and must be installed before attempting to download and install the Sandbar Workbench software.
 
 * 64 bit Windows XP or newer.
-* Microsoft .Net Framework 4.5.2 (auto-installs if you don't have it).
-* 10Mb free disk space for the software, plus enough space to store sandbar analysis results.
+* Microsoft .Net Framework 4.6.2 (auto-installs if you don't have it).
+* 10Mb free disk space for the software, plus enough space to store sandbar analysis processing data and results.
 
 ## Installation Process
 
