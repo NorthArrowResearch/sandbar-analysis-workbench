@@ -90,7 +90,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     if (fiIncremental != null && System.IO.File.Exists(fiIncremental.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectiontypeid,section,sectionid,elevation,area,vol
-                        string[] sIncrementalColumns = { "SectionID", "Elevation", "Area", "Volume" };
+                        string[] sIncrementalColumns = { "sectionid", "elevation", "area", "volume" };
                         IncrementalResults = ProcessCSVFile(ref dbTrans, fiIncremental, ModelRunID, "ModelResultsIncremental", sIncrementalColumns);
                     }
 
@@ -98,7 +98,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     if ( fiBinned != null && System.IO.File.Exists(fiBinned.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
-                        string[] sBinnedColumns = { "SectionID", "BinID", "Area", "Volume" };
+                        string[] sBinnedColumns = { "sectionid", "binid", "area", "volume" };
                         BinnedResults = ProcessCSVFile(ref dbTrans, fiBinned, ModelRunID, "ModelResultsBinned", sBinnedColumns);
                     }
 
@@ -106,7 +106,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     if (fiCampsites != null && System.IO.File.Exists(fiCampsites.FullName))
                     {
                         // siteid,sitecode,surveyid,surveydate,sectionid,section,binid,bin,area,vol
-                        string[] sCampsiteColumns = { "SurveyID", "BinID", "Area" };
+                        string[] sCampsiteColumns = { "surveyid", "binid", "area" };
                         CampsiteResults = ProcessCSVFile(ref dbTrans, fiCampsites, ModelRunID, "ModelResultsCampsites", sCampsiteColumns);
                     }
 
@@ -143,7 +143,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             SQLiteCommand dbCom = new SQLiteCommand(sSQL, dbTrans.Connection, dbTrans);
 
             // Create a parameter for each column. Column names ending in ID are long integers, everything else is double
-            sColumns.ToList<string>().ForEach(x => dbCom.Parameters.Add(x, x.ToLower().EndsWith("id") ? System.Data.DbType.Int64 : System.Data.DbType.Double));
+            sColumns.ToList<string>().ForEach(x => dbCom.Parameters.Add(x.ToLower(), x.ToLower().EndsWith("id") ? System.Data.DbType.Int64 : System.Data.DbType.Double));
 
             using (System.IO.StreamReader sr = new System.IO.StreamReader(fiCSV.FullName))
             {
@@ -162,8 +162,9 @@ namespace SandbarWorkbench.Sandbars.Analysis
                         dColumnIndices = new Dictionary<string, int>();
                         for (int i = 0; i < sCurrentParts.Count<string>(); i++)
                         {
-                            if (dbCom.Parameters.Contains(sCurrentParts[i]))
-                                dColumnIndices[sCurrentParts[i]] = i;
+                            string colNameLower = sCurrentParts[i].ToLower();
+                            if (dbCom.Parameters.Contains(colNameLower))
+                                dColumnIndices[colNameLower] = i;
                         }
 
                         if (dColumnIndices.Count != dbCom.Parameters.Count)
@@ -179,16 +180,19 @@ namespace SandbarWorkbench.Sandbars.Analysis
                     else
                     {
                         // Process a row of data
-                        foreach (SQLiteParameter param in dbCom.Parameters)
+                        if (sCurrentParts.Length >= dbCom.Parameters.Count)
                         {
-                            if (param.DbType == System.Data.DbType.Int64)
-                                param.Value = long.Parse(sCurrentParts[dColumnIndices[param.ParameterName]]);
-                            else
-                                param.Value = double.Parse(sCurrentParts[dColumnIndices[param.ParameterName]]);
-                        }
+                            foreach (SQLiteParameter param in dbCom.Parameters)
+                            {
+                                if (param.DbType == System.Data.DbType.Int64)
+                                    param.Value = long.Parse(sCurrentParts[dColumnIndices[param.ParameterName]]);
+                                else
+                                    param.Value = double.Parse(sCurrentParts[dColumnIndices[param.ParameterName]]);
+                            }
 
-                        nRowsInserted += dbCom.ExecuteNonQuery();
-                        DBCon.BackupRequiredOnClose = true;
+                            nRowsInserted += dbCom.ExecuteNonQuery();
+                            DBCon.BackupRequiredOnClose = true;
+                        }
                     }
                 }
             }
