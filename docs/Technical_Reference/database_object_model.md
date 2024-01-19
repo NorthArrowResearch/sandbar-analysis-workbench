@@ -30,9 +30,6 @@ Each record in this table represents a single sandbar site. This is the master l
 | CampsiteSurveyRecord | TEXT (50)       |             |
 | PrimaryGDAWS         | INTEGER         |             |
 | Title                | TEXT (50), NN   |             |
-| StageDischargeA      | REAL            |             |
-| StageDischargeC      | REAL            |             |
-| StageDischargeB      | REAL            |             |
 | Latitude             | REAL            |             |
 | ReachID              | INTEGER         |             |
 | SecondaryGDAWS       | INTEGER         |             |
