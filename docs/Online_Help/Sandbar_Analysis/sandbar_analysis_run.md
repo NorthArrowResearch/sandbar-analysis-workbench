@@ -8,7 +8,7 @@ nav_order: 2
 
 # Running Sandbar Analyses
 
-Before you attempt to run the sandbar analysis you should read and follow the instructions laid out on the [sandbar analysis configuring](/online_help/sandbar_analysis/model_run_config) page. There is also a video at the bottom of this page that demonstrates the steps described on this page.
+Before you attempt to run the sandbar analysis you should read and follow the instructions laid out on the [sandbar analysis configuring](/Online_Help/Sandbar_Analysis/model_run_config) page. There is also a video at the bottom of this page that demonstrates the steps described on this page.
 
 ## Selecting Sandbar Sites
 

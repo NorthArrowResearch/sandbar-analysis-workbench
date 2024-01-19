@@ -32,7 +32,7 @@ The folders tab specifies several local folder paths used by the sandbar workben
 
 ## Sandbar Analysis
 
-This tab stores several defaults for the sandbar analysis Python script. These values can overwritten each time that the analysis is run and the values stored here are just the defaults. See the [sandbar analysis configuration](/online_help/sandbar_analysis/sandbar_analysis_run) page for more information on these settings.
+This tab stores several defaults for the sandbar analysis Python script. These values can overwritten each time that the analysis is run and the values stored here are just the defaults. See the [sandbar analysis configuration](/Online_Help/Sandbar_Analysis/sandbar_analysis_run) page for more information on these settings.
 
 ![sandbar](/images/options/options_sandbar.png)
 
@@ -48,7 +48,7 @@ The dates tab lets you specify the way dates are displayed in several locations 
 ![dates](/images/options/options_dates.png)
 
 ## Python
-The sandbar analysis code uses several important Python configuration settings. See the [Python Configuration](/online_help/sandbar_analysis/python_configuration) page for more information on these settings and how to configure them.
+The sandbar analysis code uses several important Python configuration settings. See the [Python Configuration](/Online_Help/Sandbar_Analysis/python_configuration) page for more information on these settings and how to configure them.
 
 ![python](/images/options/options_python.png)
 

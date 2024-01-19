@@ -5,7 +5,7 @@ parent: Technical Reference
 nav_order: 1
 ---
 
-The GCMRC Workbench relies a [SQLite](https://www.sqlite.org) database that is installed on each user's computer along with the Workbench software. The software interacts with this database directly and is the only database that users need to run the software. It contains all the lookup information required to run the sandbar analysis, as well as the results of any sandbar analysis model runs that an individual users has performed.
+The GCMRC Workbench relies on a [SQLite](https://www.sqlite.org) database that is installed on each user's computer along with the Workbench software. The software interacts with this database directly and is the only database that users need to run the software. It contains all the lookup information required to run the sandbar analysis, as well as the results of any sandbar analysis model runs that an individual users has performed.
 
 ## SQLite Database
 
@@ -60,7 +60,7 @@ Each record in this table represents a single sandbar site. This is the master l
 
 There is one record in this table for each time that the sandbar analysis is run within the Workbench. The columns track who initiated the run and when it was performed. The actual results associated with the run are stored in the `ModelResultsIncremental` and `ModelResultsBinned` tables.
 
-The ModelRuns table possesses several columns that track whether the model run and it's results are [synchronized to the centralized master MySQL database](http://gcmrc.northarrowresearch.com/online_help/sandbar_analysis/model_runs/#synchronization:9ef2682d4a59335f2aa5c3d2e9a7e6ed).
+The ModelRuns table possesses several columns that track whether the model run and it's results are synchronized to the centralized master MySQL database that has been deprecated in the latest version of the software.
 
 | Field            | Info            | Description |
 | ---------------- | --------------- | ----------- |
@@ -135,7 +135,7 @@ Each record in this table represents a single sandbar site. This is the master l
 
 ## Reaches
 
-GCMRC divides the Grand Canyon into several, high level reaches (e.g. Upper Glen Canyon, Lower Glen Canyon). There is one record in the `Reaches` table for each of these reaches, and although this information can be [managed via the Workbench](http://gcmrc.northarrowresearch.com/online_help/views/Managing-Reference-Information/), these data are not currently used by any analytical tools or other features.
+GCMRC divides the Grand Canyon into several, high level reaches (e.g. Upper Glen Canyon, Lower Glen Canyon). There is one record in the `Reaches` table for each of these reaches, and although this information can be [managed via the Workbench](/Online_Help/Views/Managing-Reference-Information), these data are not currently used by any analytical tools or other features.
 
 | Field       | Info            | Description |
 | ----------- | --------------- | ----------- |
@@ -246,7 +246,7 @@ Information about the Workbench database, including the current version and rele
 
 ## Segments
 
-Similar to `Reaches`, segments represent a specific section of the Grand Canyon. This information can be [managed via the Workbench](http://gcmrc.northarrowresearch.com/online_help/views/Managing-Reference-Information/), these data are not currently used by any analytical tools or other features.
+Similar to `Reaches`, segments represent a specific section of the Grand Canyon. This information can be [managed via the Workbench](/Online_Help/Views/Managing-Reference-Information), these data are not currently used by any analytical tools or other features.
 
 | Field               | Info            | Description |
 | ------------------- | --------------- | ----------- |
@@ -269,7 +269,7 @@ Similar to `Reaches`, segments represent a specific section of the Grand Canyon.
 
 ## StageDischarges
 
-There is one record in this table for each historical stage discharge sample value. Collectively these values constitute the relationship used to derive the stage discharge relationship for each sandbar site. See the [Stage Discharge](http://gcmrc.northarrowresearch.com/online_help/sandbars/sd_sample) features of the Workbench for how these values are displayed and managed.
+There is one record in this table for each historical stage discharge sample value. Collectively these values constitute the relationship used to derive the stage discharge relationship for each sandbar site. See the [Stage Discharge](/Online_Help/Sandbars/sd_sample) features of the Workbench for how these values are displayed and managed.
 
 | Field          | Info            | Description |
 | -------------- | --------------- | ----------- |
@@ -284,17 +284,3 @@ There is one record in this table for each historical stage discharge sample val
 | SampleCode     | VARCHAR (50)    |             |
 | SampleCount    | INTEGER         |             |
 | SiteID         | INTEGER, NN     |             |
-
-
-## MySQL
-
-The structure of the central, master MySQL database essentially mirrors that of the local SQLite database. The major difference is that the `TableChangeLog` table has the following fields:
-
-* TableName
-* UpdatedOn
-* Sequence
-* Synchronize
-
-It's this TableChangeLog table that controls whether the data in a table is copied down to local databases when users synchronize with the master database. The Workbench software looks for records in the local SQLite copy that have an `UpdatedOn` field that is older than that in the master, and have a `Synchronize` value <> 0. These records are then looped over and each table is synchronized in the order of the `Sequence` field.
-
-## General Design Principles

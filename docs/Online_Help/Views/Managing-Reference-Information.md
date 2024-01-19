@@ -88,6 +88,6 @@ Should an error occur, all changes to the database will be aborted and no new in
 
 ## Survey Instruments
 
-The list of survey instruments is used when defining a [sandbar survey](/online_help/sandbars/sandbar_surveys). Similar to other lookup lists, you cannot delete an instrument that is being referenced by a sandbar survey. You first have to edit the sandbar survey and disassociate it from the instrument before you can then delete that instrument lookup item.
+The list of survey instruments is used when defining a [sandbar survey](/Online_Help/Sandbars/sandbar_surveys). Similar to other lookup lists, you cannot delete an instrument that is being referenced by a sandbar survey. You first have to edit the sandbar survey and disassociate it from the instrument before you can then delete that instrument lookup item.
 
 ![instruments](/images/views/instruments.png)
