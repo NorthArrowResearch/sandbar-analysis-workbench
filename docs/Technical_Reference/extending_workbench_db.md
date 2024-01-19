@@ -1,11 +1,15 @@
 ---
-title: Extending the Workbench Database
+title: Extending the Database
 layout: default
+parent: Technical Reference
+nav_order: 2
 ---
+
+# Extending the Database
 
 The following instructions describe how to make changes to the USGS Workbench database structure. This is needed if you want to add new tables or views to support new Workbench features.
 
-First, remember that the Workbench uses a local [SQLite](https://sqlite.org) database stored on each users computer as well as a central, master [MySQL](https://www.mysql.com) database. The latter is shared by all users and makes it possible to synchronize data between users. The following instructions only relate to making changes to the local SQLite database structure. You should contact the [North Arrow Research](http://northarrowresearch.com) if you want to discuss changing the master database structure.
+First, remember that the Workbench uses a local [SQLite](https://sqlite.org) database stored on each user's computer.
 
 ## Before You Begin
 

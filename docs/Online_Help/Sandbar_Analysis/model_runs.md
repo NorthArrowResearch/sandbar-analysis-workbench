@@ -1,7 +1,12 @@
 ---
 title: Model Runs
 layout: default
+parent: Sandbar Analysis
+grand_parent: Online Help
+nav_order: 1
 ---
+
+# Model Runs
 
 The results of each sandbar analysis run are stored in the GCMRC Workbench database. The database only stores the tabular results (areas and volumes for both the incremental and binned analysis) and does not store all the miscellaneous output rasters and files.
 
@@ -16,16 +21,6 @@ You can edit the selected sandbar analysis either by double clicking the row in 
 The title for each analysis run is required and must be unique across all runs on the local and master databases (see synchronization details below). Remarks are optional (but recommended to communicate the motivation or history behind each sandbar analysis run).
 
 ![model results property](/images/sandbar_analysis/model_results_properties.png)
-
-## Synchronization
-
-Sandbar analysis runs can be shared with other users. This process involves synchronizing the run from the local computer where it was performed, to a remote *master* database. Once stored on the master, other users can retrieve runs stored on the master database by performing a synchronization which pulls all runs from the master to their local computers.
-
-![Synchronization](/images/sandbar_analysis/synchronization.png)
-
-Note that synchronization only operates on the tabular results of the incremental and binned sandbar analysis. It does not attempt to send or share the raster outputs of the sandbar process.
-
-A full explanation of the synchronization process is available in the video demonstration at the bottom of this page.
 
 ## Deleting Sandbar Analysis Results
 

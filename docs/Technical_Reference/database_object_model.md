@@ -1,27 +1,15 @@
 ---
 title: Database Object Model
 layout: default
+parent: Technical Reference
+nav_order: 1
 ---
 
-The GCMRC Workbench relies on two databases. The first is a [SQLite](https://www.sqlite.org) database that is installed on each user's computer that has the Workbench installed. This is the database that the Workbench software interacts with directly and is the only database that users need to run the software. It contains all the lookup information required to run the sandbar analysis, as well as the results of any sandbar analysis model runs that an individual users has performed.
-
-A centralized copy of lookup data (e.g. sandbar sites and photo setup attributes) is stored on a single, centralized [MySQL](https://www.mysql.com) database. Individual users can synchronize their local SQLite databases to ensure that they have the latest information, using features within the Workbench software. Users also have the option of sharing their sandbar analysis model results with other users by synchronizing them with this central MySQL database. 
-
-The structure of both databases is described below. You should also refer to the [General Design Principles](#general-design-principles) section at the bottom of this page.
+The GCMRC Workbench relies a [SQLite](https://www.sqlite.org) database that is installed on each user's computer along with the Workbench software. The software interacts with this database directly and is the only database that users need to run the software. It contains all the lookup information required to run the sandbar analysis, as well as the results of any sandbar analysis model runs that an individual users has performed.
 
 ## SQLite Database
 
 ![sqlite](https://docs.google.com/drawings/d/1j4YH-dOJF8j0VbCeKtsEVVfdSehb7HRlwq90S8O6czc/pub?w=1532&h=1210)
-
-## VersionDBTables
-
-Describes each table in the Workbench database.
-
-| Field       | Info                | Description |
-| ----------- | ------------------- | ----------- |
-| TableName   | VARCHAR (50), NN    |             |
-| **TableID** | INTEGER, NN, **PK** |             |
-| Description | VARCHAR (1000)      |             |
 
 ## LookupListItems
 
@@ -100,6 +88,8 @@ This table defines the various types of reference information used by the Workbe
 | Title          | TEXT (50), NN   |             |
 
 ## RemoteCameras
+
+This table has been deprecated, but persists in the database for backward compatibility.
 
 There is one record in this table for each remote camera setup within the Grand Canyon. Setups are identified by several code fields:
 
@@ -189,26 +179,17 @@ This table stores the results of the sandbar **binned** analysis. This is the pr
 | Volume    | REAL        |             |
 | RunID     | INTEGER, NN |             |
 
-## VersionChangeLog
+## ModelResultsCampsites
 
-Captures information about structural changes to the Workbench database. This information is provided the developer as they alter the database structure during software development.
+This table stores the results of the sandbar **campsite** analysis. 
 
 | Field        | Info           | Description |
 | ------------ | -------------- | ----------- |
-| DateOfChange | DATETIME, NN   |             |
-| Version      | INTEGER, NN    |             |
-| Description  | TEXT (255), NN |             |
-
-## VersionDBColumns
-
-Describes each column in each database table. The tables are identified by `TableID` that is keyed to the `VersionDBTables` table.
-
-| Field        | Info                | Description |
-| ------------ | ------------------- | ----------- |
-| ColumnName   | VARCHAR (50), NN    |             |
-| TableID      | INTEGER, NN         |             |
-| **ColumnID** | INTEGER, NN, **PK** |             |
-| Description  | VARCHAR (1000)      |             |
+| RunID  | INTEGER, NN, **PK**   |             |
+| SurveyID      | INTEGER, NN, FK    |             |
+| BinID  | INTEGER, NN, FK |             |
+| CampsiteShapeFile | TEXT | | 
+| Area | REAL | |
 
 ## ModelResultsIncremental
 
@@ -263,16 +244,6 @@ Information about the Workbench database, including the current version and rele
 | ValueInfo | TEXT (255), NN        |             |
 | **Key**   | TEXT (50), NN, **PK** |             |
 
-## TableChangeLog
-
-This table stores the date and time that each table in the Workbench database was last updated. Whenever the user changes values in one or more of the tables listed, the corresponding `UpdatedOn` value in `TableChangeLog` is updated with the current time stamp. This process is automatic, using [SQLite triggers](https://sqlite.org/lang_createtrigger.html) and does not require the user to do anything manually. Because the triggers are stored in the the database itself, they operate regardless of whether the information in the database is updated via the Workbench or directly using SQL.
-
-These `UpdatedOn` dates and times are used by the Workbench to deduce which information in a user's local SQLite database are newer than that stored in the remote, master MySQL database. See the documentation on [synchronizing databases](http://gcmrc.northarrowresearch.com/online_help/tools_menu/synchronize) for how this works.
-
-| Field         | Info                 | Description |
-| ------------- | -------------------- | ----------- |
-| **TableName** | VARCHAR (50), **PK** |             |
-
 ## Segments
 
 Similar to `Reaches`, segments represent a specific section of the Grand Canyon. This information can be [managed via the Workbench](http://gcmrc.northarrowresearch.com/online_help/views/Managing-Reference-Information/), these data are not currently used by any analytical tools or other features.
@@ -284,6 +255,17 @@ Similar to `Reaches`, segments represent a specific section of the Grand Canyon.
 | Title               | TEXT (50), NN   |             |
 | UpstreamRiverMile   | REAL, NN        |             |
 | DownstreamRiverMile | REAL, NN        |             |
+
+## StageDischargeParams
+
+| Field          | Info            | Description |
+| -------------- | --------------- | ----------- |
+| StageDischargeID    | INTEGER, NN, **PK**        |             |
+| SiteID     | INTEGER, NN, FK        |             |
+| ParameterA           | REAL, NN        |             |
+| ParameterB         | REAL, NN        |             |
+| ParameterC     | REAL, NN    |             |
+
 
 ## StageDischarges
 

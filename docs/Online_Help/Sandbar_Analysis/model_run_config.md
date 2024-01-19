@@ -1,7 +1,12 @@
 ---
 title: Configuring Sandbar Analysis Script
 layout: default
+parent: Sandbar Analysis
+grand_parent: Online Help
+nav_order: 5
 ---
+
+# Configuring Sandbar Analysis Script
 
 The sandbar analysis is structured as a separate Python script and not directly built into the workbench. This makes it possible - albeit with a little effort and know-how - to run the sandbar analysis as a standalone script. The following instructions describes how to obtain the sandbar analysis Python script and configure it to run from within the workbench. Instructions for running the sandbar analysis as a standalone script are at the bottom of this page.
 
@@ -23,14 +28,14 @@ Then continue. It will ask you about a whole bunch of dependencies to select the
 The sandbar analysis script is stored on GitHub as its own open source repository at:
 
 ```
-https://github.com/NorthArrowResearch/sandbar-analysis
+https://github.com/NorthArrowResearch/sandbar-analysis-python
 ```
 
 You should clone or download the entire repository to your computer. Cloning it is preferable if you have [git](https://git-scm.com) and are familiar with how to do so. That way any *ad hoc* changes or bug fixes that you make are easily incorporated. Download it if you don't use git or simply want to quickly get up and running. You can put the sandbar analysis code anywhere on your system. It is recommended that the folder does not have any spaces in the path.
 
 ## Workbench Python Environment
 
-See the workbench [python environment configuration](/online_help/sandbar_analysis/python_configuration/) page and ensure that the path to your OSGeo folder is specified correctly.
+See the workbench [python environment configuration](/Online_Help/Sandbar_Analysis/python_configuration.html) page and ensure that the path to your OSGeo folder is specified correctly.
 
 ## Raw Topo Data Grid Files
 
@@ -58,7 +63,7 @@ An example of the first few lines from one such file (`corgrids\001Rcorgrids\1_0
 ...
 ```
 
-Ensure that the path to these files is specified in the workbench [Options](online_help/tools_menu/Options/) under the `Sandbar Analysis` tab. The mandatory folder structure for the point files under this folder is:
+Ensure that the path to these files is specified in the workbench [Options](/Online_Help/Tools_Menu/Options.html) under the `Sandbar Analysis` tab. The mandatory folder structure for the point files under this folder is:
 
 ```
 <folder_specified_in_options>\<site_code>corgrids\<site_code_brief>YYMMDD_grid.txt
@@ -72,7 +77,7 @@ Where
 
 ## Computational Extents ShapeFile
 
-You must have a [computational extents ShapeFile](/online_help/sandbar_analysis/computational_extents/) that meets the requirements described on the separate page. It can be stored on a network drive, but must be accessible from the local computer, and the path specified in the [Options](online_help/tools_menu/Options/) form under the `Sandbar Analysis` tab.
+You must have a [computational extents ShapeFile](/Online_Help/Sandbar_Analysis/computational_extents.html) that meets the requirements described on the separate page. It can be stored on a network drive, but must be accessible from the local computer, and the path specified in the [Options](/Online_Help/Tools_Menu/Options.html) form under the `Sandbar Analysis` tab.
 
 ## Running the Sandbar Analysis Within the Workbench
 

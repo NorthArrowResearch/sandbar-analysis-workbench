@@ -1,13 +1,16 @@
 ---
 title: Getting Started
 layout: default
+nav_order: 4
 ---
+
+# Getting Started
 
 ### Download
 
 1. [Download](/download) and install the Sandbar Workbench software.
 
-2. Download the latest local [Sandbar SQLite database](https://dl.dropboxusercontent.com/u/11461815/SandbarWorkbench/2016_12_01_sandbar_workbench_database.zip). (This will eventually get bundled with the software.)
+2. Obtain a copy of the latest Sandbar Workbench database from the application owner within GCMRC.
 
 ### Configuration
 

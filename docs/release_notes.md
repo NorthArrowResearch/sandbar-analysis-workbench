@@ -1,6 +1,10 @@
 ---
 title: Release Notes
+nav_order: 5
+layout: default
 ---
+
+# Release Notes
 
 ### 1.0.13 - 9 Nov 2017
 

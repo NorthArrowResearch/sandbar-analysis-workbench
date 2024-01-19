@@ -1,6 +1,9 @@
 ---
 title: Sandbar Properties
 layout: default
+parent: Sandbars
+grand_parent: Online Help
+nav_order: 2
 ---
 
 Viewing the properties of a sandbar is achieved by opening the list of sandbar sites from the `Views` menu and then then double clicking the site in question. Note that this opens a *read only* view of the sandbar properties. To *edit* the properties of a sandbar, right click on the site and select `Edit`. There is a video demonstration of the sandbar site properties view at the bottom of this page.
@@ -15,15 +18,15 @@ The basic  properties tab lists all the attributes that the workbench maintains 
 
 ## Stage Discharge
 
-Click [here](/online_help/sandbars/sd_sample/) to read more about the stage discharge tab.
+Click [here](./sd_sample) to read more about the stage discharge tab.
 
 ## Surveys
 
-Click [here](/online_help/sandbars/sandbar_surveys) to read more about how the workbench stores information about each of the surveys to sandbar sites.
+Click [here](./sandbar_surveys) to read more about how the workbench stores information about each of the surveys to sandbar sites.
 
 ## Area and Volume Analysis
 
-Click [here](/online_help/sandbar_analysis/sandbar_results/) to read more about viewing the area and volume results from the sandbar analysis.
+Click [here](../Sandbar_Analysis/sandbar_results) to read more about viewing the area and volume results from the sandbar analysis.
 
 ## Map
 

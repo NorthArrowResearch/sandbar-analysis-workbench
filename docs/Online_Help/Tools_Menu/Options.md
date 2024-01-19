@@ -1,7 +1,12 @@
 ---
 title: Options
 layout: default
+parent: Online Help
+nav_order: 4
 ---
+
+# Options
+
 Several software settings can be controled via the **Options** feature that is found under the main `Tools` menu in the GCMRC Workbench. The settings are grouped into a series of tabs that are described below. A video demonstrating each of these tabs appears at the bottom of this page.
 
 ## Startup
@@ -15,12 +20,6 @@ Several software settings can be controled via the **Options** feature that is f
 * **Installation GUID** - This is used by software developers only.
 
 ![startup](/images/options/options_startup.png)
-
-## Master Database
-
-  The CHaMP workbench runs off of a local SQLite database. Each workbench installation possesses its own local database and reads and writes information to this local copy. However, a master database is used to help users exchange information and this Options tab stores the credentials for connecting to the master database. The password can be obtained from either James Hensleigh or Rob Ross at GCMRC or the North Arrow Research development team (info@northarrowresearch.com).
-
-![database](/images/options/options_database.png)
 
 ## Folders
 The folders tab specifies several local folder paths used by the sandbar workbench. Click on a row in the table to change a path.

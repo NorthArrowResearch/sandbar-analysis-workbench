@@ -1,7 +1,12 @@
 ---
-title: Adding New Sandbar Surveys
+title: Adding New Surveys
 layout: default
+parent: Sandbars
+grand_parent: Online Help
+nav_order: 1
 ---
+
+# Adding New Surveys
 
 There are several steps that must be performed when adding new sandbar surveys to the Workbench. These steps are required and need to be performed correctly for the sandbar analysis to work with the new surveys.
 
@@ -9,14 +14,14 @@ Typically, the process of adding new surveys will occur only once or twice a yea
 
 ## 1. River Trips Record
 
-Ensure that the correct river [Trips](/online_help/views/Managing-Reference-Information) record is created that describes the river trip on which the surveys were performed.
+Ensure that the correct river [Trips](/Online_Help/Views/Managing-Reference-Information.html#trips) record is created that describes the river trip on which the surveys were performed.
 
 ## 2. Survey Instrument Record
-Ensure that the correct  [Survey Instruments](/online_help/views/Managing-Reference-Information) records are created for all the various equipment used to perform the surveys.
+Ensure that the correct  [Survey Instruments](/Online_Help/Views/Managing-Reference-Information.html#survey-instruments) records are created for all the various equipment used to perform the surveys.
 
 ## 3. Create Survey Records In Workbench
 
-Follow the **Editing Survey Information** steps on the [Sandbar Surveys](/online_help/sandbars/sandbar_surveys/) page to create the individual survey records for every sandbar site that was surveyed. 
+Follow the **Editing Survey Information** steps on the [Sandbar Surveys](./sandbar_surveys) page to create the individual survey records for every sandbar site that was surveyed. 
 
 ## 4. Store Point Grid Text Files
 
@@ -67,4 +72,4 @@ The grid text files must adhere to the same format that is used for the existing
 
 ## Testing
 
-Once you have created all the necessary Workbench database records and correctly stored the point grid text files on the network, you can test the result by [running the sandbar analysis](/online_help/sandbar_analysis/sandbar_analysis_run). The output messages will provide a warning when surveys are encountered in the Workbench database that have no corresponding point grid text file on disk.
+Once you have created all the necessary Workbench database records and correctly stored the point grid text files on the network, you can test the result by [running the sandbar analysis](../Sandbar_Analysis/sandbar_analysis_run). The output messages will provide a warning when surveys are encountered in the Workbench database that have no corresponding point grid text file on disk.

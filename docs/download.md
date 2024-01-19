@@ -1,12 +1,14 @@
 ---
 title: Download
 layout: default
+nav_order: 3
 ---
+
+# Download
 
 The GCMRC Workbench is a standalone, desktop software application. To install it you download and run the setup.exe application linked below. This will install the Cross Section Viewer in your user profile folder (not the Windows Program Files folder). Read the [release notes](/release_notes) for information on the latest features and updates.
 
-<a class="btn btn-primary fa fa-cloud-download" href="http://releases.northarrowresearch.com/SandbarWorkbench/setup.exe">&nbsp;&nbsp;Sandbar Workbench<br/><small><em>64-bit</em></small></a></li>
-</ul>
+[Sandbar Workbench (64-bit)](http://releases.northarrowresearch.com/SandbarWorkbench/setup.exe){: .btn .btn-blue }
 
 ## Prerequisites
 

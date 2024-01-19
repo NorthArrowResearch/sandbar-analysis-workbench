@@ -1,7 +1,11 @@
 ---
 title: Computational Extents
 layout: default
+parent: Sandbar Analysis
+grand_parent: Online Help
+nav_order: 7
 ---
+
 
 A ShapeFile that delineates each sandbar site is used within the sandbar analysis to clip surveys down to the appropriate sections of channel. This ShapeFile is a mandatory prequisite for running the sandbar analysis (but not for viewing prior runs) and it must meet the following requirements:
 
@@ -20,4 +24,4 @@ A ShapeFile that delineates each sandbar site is used within the sandbar analysi
 
 GCMRC has historically used four digit site codes (e.g. 003L) to identify sandbar sites. Moving forward, there is an intent to start using five digit codes (e.g. 0005L) that provide more resolution to the river mile part of the code.
 
-The sandbar analysis is capable of identifying sites using either the four or five digit site codes. The only requirement is that whichever format is used for the file paths to the raw point text files must also be used in the computational extents ShapeFile. See the [Options](/online_help/tools_menu/Options) form for how to change between four and five digit site codes.
+The sandbar analysis is capable of identifying sites using either the four or five digit site codes. The only requirement is that whichever format is used for the file paths to the raw point text files must also be used in the computational extents ShapeFile. See the [Options](/Online_Help/Tools_Menu/Options.html)) form for how to change between four and five digit site codes.

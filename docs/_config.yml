@@ -1,12 +1,12 @@
-title: Sandbar Workbench Docs
-description: Some documentation for blah blah blah
+title: GCMRC Sandbar Workbench
+description: Help documentation for the GCMRC Sandbar Workbench and Python Analysis
 theme: just-the-docs
 
 url: https://gcmrc.northarrowresearch.com
 
 aux_links:
   Template Repository: https://github.com/NorthArrowResearch/sandbar-analysis-workbench
-
+  NAR: https://northarrowresearch.com
 exclude:
   - README.md
 

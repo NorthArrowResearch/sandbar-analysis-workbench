@@ -1,7 +1,13 @@
 ---
-title: Sandbar Analysis Results
+title: Analysis Results
 layout: default
+parent: Sandbar Analysis
+grand_parent: Online Help
+nav_order: 4
 ---
+
+# Sandbar Analysis Results
+
 Perform the following steps to view the results of the sandbar analysis. There is a video demonstration of this feature at the bottom of this page.
 
 1. Open the GCMRC Workbench
@@ -29,6 +35,12 @@ The plot is only populated once all four steps have been completed. Note also th
 Use a similar process for viewing the binned analysis results. The only difference being that you need to select which bins you want to view, as opposed to the discharge thresholds.
 
 ![binned](/images/sandbar_analysis/analysis_results_binned.png)
+
+## Campsite Analysis
+
+A new tab dedicated to campsites analyses allows you to view the areas of campsites within elevation bins. Use a similar approach to viewing the binned analysis; first pick the bins you want to visualize then pick a model run.
+
+![campsites](/images/sandbar_analysis/analysis_results_campsites.png)
 
 ## Exporting analysis Results
 
