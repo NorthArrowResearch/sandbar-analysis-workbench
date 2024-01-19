@@ -29,7 +29,7 @@
   "portsAttributes": {
     "4000": {
       "label": "Application",
-      "onAutoForward": "openPreview"
+      "onAutoForward": "openBrowser"
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
