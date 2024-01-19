@@ -172,7 +172,7 @@ namespace SandbarWorkbench.Trips
                             throw new ArgumentException(string.Format("The uncertainty '{0}' on line number {1} cannot be converted to a floating point number.", uncertainty, lineNumber));
 
                         long surveyID = InsertSurvey(dbTrans, sites[siteCode5], tripID, surveyDateVal, surveyDates);
-                        InsertSection(dbTrans, surveyID, instruments[instrument], sectionTypes[sectionType], uncertainty, Environment.UserName);
+                        InsertSection(dbTrans, surveyID,  sectionTypes[sectionType], instruments[instrument],uncertainty, Environment.UserName);
                     }
                 }
             }
