@@ -34,6 +34,12 @@ The stage discharge tab contains several elements:
 
 You can calculate the stage for any particular discharge using the calculator at the top of this form. Ensure you have picked the correct stage discharge curve from the dropdown and then enter a discharge value. The stage will be calculated using the selected relationship.
 
+## Managing Stage Discharge Curves
+
+Stage discharge curves are managed directly by editing the Workbench SQLite database. Open the database using your preferred database software such as [SQLite Studio](https://sqlitestudio.pl/), [DB Browser](https://sqlitebrowser.org/) or [DataGrip](https://www.jetbrains.com/datagrip).
+
+Open the table called [StageDischargeParams](/Technical_Reference/database_object_model.html#stagedischargeparams). Filter to desired site and the add, edit or delete records as necessary. 
+
 ## Video Demonstration
 
 <iframe width="100%" height="500" src="https://www.youtube.com/embed/iVCHKBjzblQ?si=3wfGRSIN8MY" title="YouTube video player" frameborder="0" allowfullscreen></iframe>

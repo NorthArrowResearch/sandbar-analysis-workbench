@@ -185,11 +185,11 @@ This table stores the results of the sandbar **campsite** analysis.
 
 | Field        | Info           | Description |
 | ------------ | -------------- | ----------- |
-| RunID  | INTEGER, NN, **PK**   |             |
-| SurveyID      | INTEGER, NN, FK    |             |
-| BinID  | INTEGER, NN, FK |             |
-| CampsiteShapeFile | TEXT | | 
-| Area | REAL | |
+| RunID  | INTEGER, NN, **PK**   | Model Run.            |
+| SurveyID      | INTEGER, NN, FK    | Sandbar Survey.             |
+| BinID  | INTEGER, NN, FK | Campsite Analysis Bin. |
+| CampsiteShapeFile | TEXT | This field is not actually used. It was originally intended to store the name of the campsite ShapeFile used for this analysis.| 
+| Area | REAL | Area, in m², of the campsite for the specific elevation bin during the specified survey.|
 
 ## ModelResultsIncremental
 

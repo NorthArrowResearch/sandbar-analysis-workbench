@@ -7,7 +7,7 @@ nav_order: 3
 
 # Raster Interpolation
 
-***NB: There is currently [a bug (Github Issue #2)](https://github.com/NorthArrowResearch/sandbar-analysis/issues/2) to do with raster interpolations methods. The following will only apply after this bug has been fixed.***
+***NB: There is currently a bug to do with raster interpolations methods. The following will only apply after this bug has been fixed.***
 
 There are 4 resampling methods available to the user in the sandbar analysis:
 

@@ -61,7 +61,21 @@ The binned analysis is somewhat simpler than the incremental analysis. The same 
 * Between 8,000 and 25,000 CFS
 * Above 25,000 CFS.
 
+
 The analysis measures the area and volume of sand in each bin, excluding the minimum surface. The resultant areas and volumes are written to a CSV text file next to that of the incremental analysis. 
+
+## 7. Campsite Analysis
+
+The campsite analysis includes the following steps.
+
+1. The [campsite polylines](/Online_Help/Sandbar_Analysis/campsites.html) are first converted to polygons.
+
+
+1. The [campsite polylines](/Online_Help/Sandbar_Analysis/campsites.html) are converted to 3D points and merged with the regularly spaced corgrids survey points.
+2. This new "merged" point dataset is converted to raster using [gdal_grid](https://gdal.org/programs/gdal_grid.html) with the same cell resolution as is used in the incremental and binned analyses.
+3. This raster is then clipped to the campsite areas using [gdal warp](https://gdal.org/programs/gdalwarp.html) with the digitized campsite polylines converted to polygons acting as the clipping mask.
+4. The area of each campsite is calculated for each elevation bin in much the same way as the regular binned analysis, albeit using [different bins](/Online_Help/Views/Managing-Reference-Information.html#campsite-analysis-bins) that are exclusively intended for the campsite analysis.
+5. The results are written to CSV file and then inserted into the Workbench database in the table called [ModelResultsCampsites](/Technical_Reference/database_object_model.html#modelresultscampsites).
 
 ## Video Demonstration
 

@@ -17,13 +17,13 @@ Deleting items is permanent and cannot be undone!
 
 ## Analysis Bins
 
-Analysis bins represent the vertical bins that are used in the [binned sandbar analysis](/technical_reference/binned_analysis). They are editable and so the next time the sandbar analysis is performed it will include all the bins currently defined in the local database. Note that deleting an analysis bin will also delete the results for all historical sandbar analyses stored in the local database! Therefore, rather than deleting an analysis bin, it is recommended that you deactivate it by unchecking the checkbox on the properties form (see below).
+Analysis bins represent the vertical bins that are used in the [binned sandbar analysis](/Technical_Reference/sandbar_analysis_intro.html#6-binned-analysis)). They are editable and so the next time the sandbar analysis is performed it will include all the bins currently defined in the local database. Note that deleting an analysis bin will also delete the results for all historical sandbar analyses stored in the local database! Therefore, rather than deleting an analysis bin, it is recommended that you deactivate it by unchecking the checkbox on the properties form (see below).
 
 ![analysis bins](/images/views/analysis_bins.png)
 
 ## Campsite Analysis Bins
 
-These bins are similar to the Analysis Bins above, but are exclusively used for the campsite analysis. The same rules apply to campsite analysis bins.
+These bins are similar to the Analysis Bins above, but are exclusively used for the [campsite analysis](/Technical_Reference/sandbar_analysis_intro.html#7-campsite-analysis). The same rules apply to campsite analysis bins.
 
 ## Reaches
 
