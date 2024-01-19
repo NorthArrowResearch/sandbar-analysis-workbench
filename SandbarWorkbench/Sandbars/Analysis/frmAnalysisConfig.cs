@@ -406,7 +406,7 @@ namespace SandbarWorkbench.Sandbars.Analysis
             nodCompExtents.InnerText = txtCompExtents.Text;
             nodInputs.AppendChild(nodCompExtents);
 
-            XmlNode nodCampsiteExtents = xmlDoc.CreateElement("CampsiteShpPath");
+            XmlNode nodCampsiteExtents = xmlDoc.CreateElement("CampsiteFolder");
             nodCampsiteExtents.InnerText = txtCampsites.Text;
             nodInputs.AppendChild(nodCampsiteExtents);
 
