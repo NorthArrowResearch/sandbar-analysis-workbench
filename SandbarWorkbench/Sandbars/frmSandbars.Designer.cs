@@ -431,7 +431,7 @@
             this.editPropertiesToolStripMenuItem,
             this.deleteSelectedSandbarToolStripMenuItem});
             this.cmsSite.Name = "cmsSite";
-            this.cmsSite.Size = new System.Drawing.Size(210, 142);
+            this.cmsSite.Size = new System.Drawing.Size(210, 164);
             // 
             // viewPropertiesToolStripMenuItem
             // 
@@ -439,6 +439,7 @@
             this.viewPropertiesToolStripMenuItem.Name = "viewPropertiesToolStripMenuItem";
             this.viewPropertiesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.viewPropertiesToolStripMenuItem.Text = "View Properties";
+            this.viewPropertiesToolStripMenuItem.Click += new System.EventHandler(this.viewPropertiesToolStripMenuItem_Click);
             // 
             // browseTopoFolderToolStripMenuItem
             // 

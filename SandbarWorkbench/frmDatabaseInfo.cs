@@ -21,9 +21,7 @@ namespace SandbarWorkbench
         private void frmDatabaseInfo_Load(object sender, EventArgs e)
         {
             LoadBasicInformation();
-            LoadVersionHistory();
         }
-
 
         private void LoadBasicInformation()
         {
@@ -37,23 +35,6 @@ namespace SandbarWorkbench
                     int i = grdBasic.Rows.Add();
                     grdBasic[0, i].Value = AddSpacesToSentence(dbRead.GetString(0), true);
                     grdBasic[1, i].Value = dbRead.GetString(1);
-                }
-            }
-        }
-
-        private void LoadVersionHistory()
-        {
-            using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
-            {
-                dbCon.Open();
-                SQLiteCommand dbCom = new SQLiteCommand("SELECT DateOfChange, Version, Description FROM VersionChangeLog", dbCon);
-                SQLiteDataReader dbRead = dbCom.ExecuteReader();
-                while (dbRead.Read())
-                {
-                    int i = grdVersionHistory.Rows.Add();
-                    grdVersionHistory["colDate", i].Value = dbRead.GetDateTime(dbRead.GetOrdinal("DateOfChange")).ToString(SandbarWorkbench.Properties.Resources.SQLLiteDateFormat);
-                    grdVersionHistory["colVersion", i].Value = dbRead.GetInt32(dbRead.GetOrdinal("Version"));
-                    grdVersionHistory["colDescription", i].Value = dbRead.GetString(dbRead.GetOrdinal("Description"));
                 }
             }
         }

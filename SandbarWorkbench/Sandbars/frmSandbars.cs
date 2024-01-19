@@ -29,7 +29,7 @@ namespace SandbarWorkbench.Sandbars
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "River Mile", "RiverMile", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Bank", "RiverSide", true);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Name", "Title", true);
-            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Eddy Size", "EddySize", true,false, "#,##0", eAlignment: DataGridViewContentAlignment.MiddleRight);
+            Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Eddy Size", "EddySize", true, false, "#,##0", eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Surveys", "SurveyCount", true, false, "#,##0", eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 8k", "ExpansionRatio8k", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
             Helpers.DataGridViewHelpers.AddDataGridViewTextColumn(ref grdData, "Exp. Ratio 45k", "ExpansionRatio8k45k", true, eAlignment: DataGridViewContentAlignment.MiddleRight);
@@ -126,7 +126,7 @@ namespace SandbarWorkbench.Sandbars
                 {
                     frm.ShowDialog();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ExceptionHandling.NARException.HandleException(ex);
                 }
@@ -164,8 +164,11 @@ namespace SandbarWorkbench.Sandbars
             try
             {
                 frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringLocal);
-                //if (frm.ShowDialog() == DialogResult.OK)
-                //    MasterDatabaseChanged(frm.ID);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    DBCon.BackupRequiredOnClose = true;
+                    LoadData();
+                }
             }
             catch (Exception ex)
             {
@@ -338,7 +341,7 @@ namespace SandbarWorkbench.Sandbars
             {
                 Helpers.DataGridViewHelpers.ExportToCSV(ref grdData, "Export Sandbar Sites", "sandbar_sites", true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ExceptionHandling.NARException.HandleException(ex);
             }
@@ -348,5 +351,46 @@ namespace SandbarWorkbench.Sandbars
         {
             Helpers.OnlineHelp.FormHelp(this.Name);
         }
+
+        private void viewPropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows.Count < 1)
+                return;
+
+            SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+            frmSandbarProperties frm = new frmSandbarProperties(ref selSite);
+
+            try
+            {
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
+        private void editSandbar(object sender, EventArgs e)
+        {
+            if (grdData.SelectedRows.Count < 1)
+                return;
+
+            SandbarSite selSite = (SandbarSite)grdData.SelectedRows[0].DataBoundItem;
+            frmSandbarPropertiesEdit frm = new frmSandbarPropertiesEdit(DBCon.ConnectionStringLocal, selSite.SiteID);
+
+            try
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    DBCon.BackupRequiredOnClose = true;
+                    LoadData();
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandling.NARException.HandleException(ex);
+            }
+        }
+
     }
 }

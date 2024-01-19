@@ -70,13 +70,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.txtPrimaryGDAWS = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.valStageChangeC = new System.Windows.Forms.NumericUpDown();
-            this.label13 = new System.Windows.Forms.Label();
-            this.valStageChangeA = new System.Windows.Forms.NumericUpDown();
-            this.valStageChangeB = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.valLongitude = new System.Windows.Forms.NumericUpDown();
             this.valLatitude = new System.Windows.Forms.NumericUpDown();
@@ -99,10 +92,6 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeB)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valLongitude)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valLatitude)).BeginInit();
@@ -351,7 +340,7 @@
             // valStageChange845k
             // 
             this.valStageChange845k.DecimalPlaces = 4;
-            this.valStageChange845k.Location = new System.Drawing.Point(160, 228);
+            this.valStageChange845k.Location = new System.Drawing.Point(160, 102);
             this.valStageChange845k.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -364,7 +353,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(20, 232);
+            this.label10.Location = new System.Drawing.Point(20, 106);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(127, 13);
             this.label10.TabIndex = 2;
@@ -496,7 +485,6 @@
             this.tabPage2.Controls.Add(this.label19);
             this.tabPage2.Controls.Add(this.txtPrimaryGDAWS);
             this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.valStageChange845k);
             this.tabPage2.Controls.Add(this.label10);
@@ -510,7 +498,7 @@
             // 
             // txtSecondaryGDAWS
             // 
-            this.txtSecondaryGDAWS.Location = new System.Drawing.Point(160, 292);
+            this.txtSecondaryGDAWS.Location = new System.Drawing.Point(160, 166);
             this.txtSecondaryGDAWS.Name = "txtSecondaryGDAWS";
             this.txtSecondaryGDAWS.Size = new System.Drawing.Size(148, 20);
             this.txtSecondaryGDAWS.TabIndex = 7;
@@ -518,7 +506,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(45, 296);
+            this.label19.Location = new System.Drawing.Point(45, 170);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(102, 13);
             this.label19.TabIndex = 6;
@@ -526,7 +514,7 @@
             // 
             // txtPrimaryGDAWS
             // 
-            this.txtPrimaryGDAWS.Location = new System.Drawing.Point(160, 260);
+            this.txtPrimaryGDAWS.Location = new System.Drawing.Point(160, 134);
             this.txtPrimaryGDAWS.Name = "txtPrimaryGDAWS";
             this.txtPrimaryGDAWS.Size = new System.Drawing.Size(148, 20);
             this.txtPrimaryGDAWS.TabIndex = 5;
@@ -534,117 +522,11 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(62, 264);
+            this.label18.Location = new System.Drawing.Point(62, 138);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(85, 13);
             this.label18.TabIndex = 4;
             this.label18.Text = "Primary GDAWS";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.valStageChangeC);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.valStageChangeA);
-            this.groupBox2.Controls.Add(this.valStageChangeB);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Location = new System.Drawing.Point(12, 99);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 117);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Stage Discharge Coefficients";
-            // 
-            // valStageChangeC
-            // 
-            this.valStageChangeC.DecimalPlaces = 6;
-            this.valStageChangeC.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            262144});
-            this.valStageChangeC.Location = new System.Drawing.Point(73, 80);
-            this.valStageChangeC.Maximum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.valStageChangeC.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            -2147483648});
-            this.valStageChangeC.Name = "valStageChangeC";
-            this.valStageChangeC.Size = new System.Drawing.Size(95, 20);
-            this.valStageChangeC.TabIndex = 5;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(13, 84);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(55, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "C (x10^-9)";
-            // 
-            // valStageChangeA
-            // 
-            this.valStageChangeA.DecimalPlaces = 6;
-            this.valStageChangeA.Location = new System.Drawing.Point(73, 22);
-            this.valStageChangeA.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.valStageChangeA.Minimum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            -2147483648});
-            this.valStageChangeA.Name = "valStageChangeA";
-            this.valStageChangeA.Size = new System.Drawing.Size(95, 20);
-            this.valStageChangeA.TabIndex = 1;
-            // 
-            // valStageChangeB
-            // 
-            this.valStageChangeB.DecimalPlaces = 6;
-            this.valStageChangeB.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            262144});
-            this.valStageChangeB.Location = new System.Drawing.Point(73, 51);
-            this.valStageChangeB.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.valStageChangeB.Name = "valStageChangeB";
-            this.valStageChangeB.Size = new System.Drawing.Size(95, 20);
-            this.valStageChangeB.TabIndex = 3;
-            this.valStageChangeB.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(54, 26);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(14, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "A";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(13, 55);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(55, 13);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "B (x10^-3)";
             // 
             // tabPage3
             // 
@@ -822,11 +704,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valStageChangeB)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valLongitude)).EndInit();
@@ -881,13 +758,6 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtPrimaryGDAWS;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.NumericUpDown valStageChangeC;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown valStageChangeA;
-        private System.Windows.Forms.NumericUpDown valStageChangeB;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.NumericUpDown valLongitude;
         private System.Windows.Forms.NumericUpDown valLatitude;

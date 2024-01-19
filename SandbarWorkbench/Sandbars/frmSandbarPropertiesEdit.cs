@@ -74,10 +74,7 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "ExpansionRatio8k", ref valExpansion8k);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "ExpansionRatio45k", ref valExpansion45k);
                     DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageChange8k45k", ref valStageChange845k);
-                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeA", ref valStageChangeA);
-                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeB", ref valStageChangeB, StageDischarge_B_Adjustment);
-                    DBHelpers.MySQLHelpers.FillNumericUpDown(ref dbRead, "StageDischargeC", ref valStageChangeC, StageDischarge_C_Adjustment);
-                    DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "PrimaryGDAWS", ref txtPrimaryGDAWS);
+                   DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "PrimaryGDAWS", ref txtPrimaryGDAWS);
                     DBHelpers.MySQLHelpers.FillTextBox(ref dbRead, "SecondaryGDAWS", ref txtSecondaryGDAWS);
 
                     // Tab 3
@@ -116,9 +113,6 @@ namespace SandbarWorkbench.Sandbars
             tt.SetToolTip(cboRemoteCameras, "Remote camera setup that is targeted at this sandbar site.");
             tt.SetToolTip(valExpansion8k, "Stage discharge expansion ratio at 8,000 cubic feet per second discharge.");
             tt.SetToolTip(valExpansion45k, "Stage discharge expansion ratio at 45,000 cubic feet per second discharge.");
-            tt.SetToolTip(valStageChangeA, "Stage discharge curve coefficient A.");
-            tt.SetToolTip(valStageChangeB, "Stage discharge curve coefficient B.");
-            tt.SetToolTip(valStageChangeC, "Stage discharge curve coefficient C.");
             tt.SetToolTip(valStageChange845k, "Elevation change between 8,000 and 45,000 cubic feet per second discharge.");
             tt.SetToolTip(txtPrimaryGDAWS, "USGS stream gage identification number for the primary gage associated with this sandbar site.");
             tt.SetToolTip(txtSecondaryGDAWS, "USGS stream gage identification number for the secondary gage associated with this sandbar site.");
@@ -138,7 +132,7 @@ namespace SandbarWorkbench.Sandbars
             }
 
             string[] sFields = {"RiverMile","SiteCode5", "Title", "AlternateTitle" , "History", "ExpansionRatio8k" , "ExpansionRatio45k" , "StageChange8k45k", "SecondaryGDAWS",
-                    "ReachID", "SegmentID", "CampsiteSurveyRecord" , "RemoteCameraID" , "StageDischargeA", "StageDischargeB", "StageDischargeC" , "Northing", "Easting", "Latitude" ,"Longitude",
+                    "ReachID", "SegmentID", "CampsiteSurveyRecord" , "RemoteCameraID" , "Northing", "Easting", "Latitude" ,"Longitude",
                     "RiverSideID" , "SiteTypeID", "EddySize", "PrimaryGDAWS", "Remarks" };
 
             using (SQLiteConnection dbCon = new SQLiteConnection(DBCon.ConnectionStringLocal))
@@ -176,9 +170,6 @@ namespace SandbarWorkbench.Sandbars
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboSegment, "SegmentID");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref txtCampsite, "CampsiteSurveyRecord");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref cboRemoteCameras, "RemoteCameraID");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeA, "StageDischargeA");
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeB, "StageDischargeB", -1 * StageDischarge_B_Adjustment);
-                    DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valStageChangeC, "StageDischargeC", -1 * StageDischarge_C_Adjustment);
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valNorthing, "Northing");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valEasting, "Easting");
                     DBHelpers.MySQLHelpers.AddParameter(ref dbCom, ref valLatitude, "Latitude");

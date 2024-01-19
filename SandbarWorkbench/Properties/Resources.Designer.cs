@@ -179,7 +179,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        ///   Looks up a localized string similar to Online_Help/remote-cameras/remote_camera_properties.
         /// </summary>
         internal static string frmRemoteCameraPropertiesEdit {
             get {
@@ -198,7 +198,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/views/analysis_bins/.
+        ///   Looks up a localized string similar to Online_Help/Views/Managing-Reference-Information.html#analysis-bins.
         /// </summary>
         internal static string Help_frmAnalysisBinProperties {
             get {
@@ -207,7 +207,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_run_config.
+        ///   Looks up a localized string similar to Online_Help/Sandbar_Analysis/model_run_config.html.
         /// </summary>
         internal static string Help_frmAnalysisConfig {
             get {
@@ -216,7 +216,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/file_menu/database_info.
+        ///   Looks up a localized string similar to Online_Help/File_Menu/database_info.
         /// </summary>
         internal static string Help_frmDatabaseInfo {
             get {
@@ -225,7 +225,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_runs.
+        ///   Looks up a localized string similar to Online_Help/Sandbar_Analysis/model_runs.
         /// </summary>
         internal static string Help_frmModelRunProperties {
             get {
@@ -234,7 +234,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbar_analysis/model_runs.
+        ///   Looks up a localized string similar to Online_Help/Sandbar_Analysis/model_runs.
         /// </summary>
         internal static string Help_frmModelRuns {
             get {
@@ -243,7 +243,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/tools_menu/Options/.
+        ///   Looks up a localized string similar to Online_Help/Tools_Menu/Options.html.
         /// </summary>
         internal static string Help_frmOptions {
             get {
@@ -252,7 +252,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/pictures/picture_viewer.
+        ///   Looks up a localized string similar to Online_Help/pictures/picture_viewer.
         /// </summary>
         internal static string Help_frmPictureViewer {
             get {
@@ -261,7 +261,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/views/reaches.
+        ///   Looks up a localized string similar to Online_Help/Views/Managing-Reference-Information.html#reaches.
         /// </summary>
         internal static string Help_frmReachPropertiesEdit {
             get {
@@ -270,7 +270,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        ///   Looks up a localized string similar to Online_Help/remote-cameras/remote_camera_properties.
         /// </summary>
         internal static string Help_frmRemoteCameraPropertiesEdit {
             get {
@@ -279,7 +279,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/remote-cameras/remote_camera_properties.
+        ///   Looks up a localized string similar to Online_Help/remote-cameras/remote_camera_properties.
         /// </summary>
         internal static string Help_frmRemoteCameras {
             get {
@@ -288,7 +288,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbars/sandbar_properties.
+        ///   Looks up a localized string similar to Online_Help/Sandbars/sandbar_properties.html.
         /// </summary>
         internal static string Help_frmSandbarProperties {
             get {
@@ -297,7 +297,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbars/sandbar_properties.
+        ///   Looks up a localized string similar to Online_Help/Sandbars/sandbar_properties.html.
         /// </summary>
         internal static string Help_frmSandbarPropertiesEdit {
             get {
@@ -306,7 +306,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbars/main_sandbar_grid.
+        ///   Looks up a localized string similar to Online_Help/Sandbars/main-grid.html.
         /// </summary>
         internal static string Help_frmSandbars {
             get {
@@ -315,7 +315,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbars/sd_sample.
+        ///   Looks up a localized string similar to Online_Help/Sandbars/sd_sample.html.
         /// </summary>
         internal static string Help_frmSDSample {
             get {
@@ -324,7 +324,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/views/segments.
+        ///   Looks up a localized string similar to Online_Help/Views/Managing-Reference-Information.html#segments.
         /// </summary>
         internal static string Help_frmSegmentPropertiesEdit {
             get {
@@ -333,7 +333,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/sandbars/sandbar_surveys.
+        ///   Looks up a localized string similar to Online_Help/Sandbars/sandbar_surveys.html.
         /// </summary>
         internal static string Help_frmSurveyProperties {
             get {
@@ -342,7 +342,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/tools_menu/synchronize.
+        ///   Looks up a localized string similar to Online_Help/tools_menu/synchronize.
         /// </summary>
         internal static string Help_frmSynchronize {
             get {
@@ -351,7 +351,7 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to online_help/views/trips.
+        ///   Looks up a localized string similar to Online_Help/Views/Managing-Reference-Information.html#trips.
         /// </summary>
         internal static string Help_frmTripPropertiesEdit {
             get {
