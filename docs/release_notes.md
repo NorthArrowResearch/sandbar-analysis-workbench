@@ -6,7 +6,7 @@ layout: default
 
 # Release Notes
 
-### 2.0.0 - 22 Jan 2024
+### 2.0.0 - 6 Feb 2024
 
 * New [Campsite Analysis](/Technical_Reference/sandbar_analysis_intro.html#7-campsite-analysis).
 * Ability to [run any of the three analyses](/Online_Help/Sandbar_Analysis/sandbar_analysis_run.html) (incremental, binned or campsite) separately.
