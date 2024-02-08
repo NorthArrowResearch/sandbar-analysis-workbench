@@ -49,7 +49,18 @@ namespace SandbarWorkbench.Sandbars
             tt.SetToolTip(valDownstream, "The most downstream river mile (RM) of sandbar sites shown in the list. RM zero is the Glen Canyon Dam.");
             tt.SetToolTip(txtTitle, "Enter partial or complete sanbar site name to filter the list on the right. This name matches anywhere in the sandbar site name (start, middle or end). Remove all text from this box to clear the name filter.");
 
+            naru.db.sqlite.CheckedListItem.LoadCheckListbox(ref lstSiteTypes, DBCon.ConnectionStringLocal, "SELECT ItemID, Title FROM LookupListItems WHERE ListID = 2", false);
+            for (int i = 0; i < lstSiteTypes.Items.Count; i++)
+            {
+                if (lstSiteTypes.Items[i].ToString() == "Sandbar Monitoring")
+                {
+                    lstSiteTypes.SetItemChecked(i, true);
+                    break;
+                }
+            }
+
             LoadData();
+            FilterItems(sender, e);
         }
 
         public void LoadData(long nSelectID = 0)
@@ -104,6 +115,18 @@ namespace SandbarWorkbench.Sandbars
             if (!string.IsNullOrEmpty(txtTitle.Text))
             {
                 lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => ss.Title.ToLower().Contains(txtTitle.Text.ToLower()) || ss.SiteCode5.ToLower().Contains(txtTitle.Text.ToLower())).ToList<SandbarSite>());
+            }
+
+            List<long> activeTypes = new List<long>();
+            for(int i = 0; i < lstSiteTypes.CheckedItems.Count; i++)
+            {
+                naru.db.NamedObject item = (naru.db.NamedObject)lstSiteTypes.CheckedItems[i];
+                activeTypes.Add(item.ID);
+            }
+
+            if (activeTypes.Count > 0 && activeTypes.Count < lstSiteTypes.Items.Count)
+            {
+                lFilteredItems = new SortableBindingList<SandbarSite>(lFilteredItems.Where(ss => activeTypes.Contains(ss.SiteType.Value)).ToList<SandbarSite>());
             }
 
             grdData.DataSource = lFilteredItems;
@@ -392,5 +415,14 @@ namespace SandbarWorkbench.Sandbars
             }
         }
 
+        private void lstSiteTypes_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
+
+        private void lstSiteTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterItems(sender, e);
+        }
     }
 }
