@@ -6,6 +6,10 @@ layout: default
 
 # Release Notes
 
+### 2.0.1 - 7 Feb 2024
+
+* Fixing problem with database migration.
+
 ### 2.0.0 - 6 Feb 2024
 
 * New [Campsite Analysis](/Technical_Reference/sandbar_analysis_intro.html#7-campsite-analysis).
