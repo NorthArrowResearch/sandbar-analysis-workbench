@@ -36,15 +36,6 @@ namespace SandbarWorkbench
                     OpenDatabase(new System.IO.FileInfo(SandbarWorkbench.Properties.Settings.Default.LastDatabasePath));
             }
 
-            // Apply any database migrations
-            string upgradeMessages;
-            if (!DBVersionManager.UpgradeDatabase(DBCon.ConnectionStringLocal, out upgradeMessages))
-            {
-                MessageBox.Show(string.Format("Failed to upgrade to the latest version of the database. Closing application. Contact the developer and provide the message:\n\n{0}", upgradeMessages),
-                    "Database Migration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                System.Windows.Forms.Application.Exit();
-            }
-
             // Track whether to backup the database on backup
             DBCon.BackupRequiredOnClose = Properties.Settings.Default.BackupRequiredOnClose;
 
@@ -209,6 +200,16 @@ namespace SandbarWorkbench
                     DBCon.ConnectionStringLocal = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.LastDatabasePath = fiDatabase.FullName;
                     SandbarWorkbench.Properties.Settings.Default.Save();
+
+                    // Apply any database migrations
+                    string upgradeMessages;
+                    if (!DBVersionManager.UpgradeDatabase(DBCon.ConnectionStringLocal, out upgradeMessages))
+                    {
+                        MessageBox.Show(string.Format("Failed to upgrade to the latest version of the database. Closing application. Contact the developer and provide the message:\n\n{0}", upgradeMessages),
+                            "Database Migration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        System.Windows.Forms.Application.Exit();
+                    }
+
                     UpdateMenuItemStatus();
                     LoadLookupTableGridViewMenuItems();
                 }
