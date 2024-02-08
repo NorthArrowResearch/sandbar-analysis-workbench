@@ -225,6 +225,15 @@ namespace SandbarWorkbench.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Online_Help/Views/Managing-Reference-Information.html#import-trip.
+        /// </summary>
+        internal static string Help_frmImportTrip {
+            get {
+                return ResourceManager.GetString("Help_frmImportTrip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Online_Help/Sandbar_Analysis/model_runs.
         /// </summary>
         internal static string Help_frmModelRunProperties {
