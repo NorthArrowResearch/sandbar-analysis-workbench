@@ -86,10 +86,10 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // txtCSVFile
             // 
             this.txtCSVFile.Location = new System.Drawing.Point(90, 164);
-            this.txtCSVFile.Name = "textBox1";
+            this.txtCSVFile.Name = "txtCSVFile";
             this.txtCSVFile.ReadOnly = true;
             this.txtCSVFile.Size = new System.Drawing.Size(314, 20);
             this.txtCSVFile.TabIndex = 3;
@@ -112,6 +112,7 @@
             this.cmdHelp.TabIndex = 9;
             this.cmdHelp.Text = "Help";
             this.cmdHelp.UseVisualStyleBackColor = true;
+            this.cmdHelp.Click += new System.EventHandler(this.cmdHelp_Click);
             // 
             // cmdOK
             // 

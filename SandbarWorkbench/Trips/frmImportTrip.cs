@@ -237,5 +237,10 @@ namespace SandbarWorkbench.Trips
                 throw new ArgumentException(String.Format("Cannot find the column called '{0}'.", fieldName));
             return idx;
         }
+
+        private void cmdHelp_Click(object sender, EventArgs e)
+        {
+            Helpers.OnlineHelp.FormHelp(this.Name);
+        }
     }
 }
