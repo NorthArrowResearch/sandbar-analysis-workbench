@@ -47,7 +47,7 @@ namespace SandbarWorkbench.AnalysisBins
             if (((AnalysisBin)obj).UpperDischarge.HasValue)
                 pUpper.Value = ((AnalysisBin)obj).UpperDischarge;
             else
-                pLowerdischarge.Value = DBNull.Value;
+                pUpper.Value = DBNull.Value;
 
             dbCom.ExecuteNonQuery();
             DBCon.BackupRequiredOnClose = true;

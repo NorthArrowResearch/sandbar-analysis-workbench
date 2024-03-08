@@ -94,6 +94,13 @@ namespace SandbarWorkbench.AnalysisBins
                 }
             }
 
+            if (!chkLower.Checked && ! chkUpper.Checked)
+            {
+                MessageBox.Show("You must specify either a lower or upper bin discharge.", SandbarWorkbench.Properties.Resources.ApplicationNameLong, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                valLower.Select();
+                return false;
+            }
+
             return true;
         }
 
