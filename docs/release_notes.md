@@ -6,6 +6,10 @@ layout: default
 
 # Release Notes
 
+### 2.0.3 - 8 Mar 2024
+
+* Fixing Analysis Bin Properties Form so it saves lower and upper bounds correctly.
+
 ### 2.0.2 - 8 Feb 2024
 
 * Sandbar Site Type filter on main sandbar grid.
